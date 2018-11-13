@@ -1,0 +1,47 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_chat_puke_fennu",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.36666666666666664,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "paths": {
+      "Sprite_1": {
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "05aeb8c0-ae51-4db0-bd12-08efe264f082"
+                }
+              },
+              {
+                "frame": 0.11666666666666667,
+                "value": {
+                  "__uuid__": "b9c7dec8-a9cd-4836-bb31-534ca6319818"
+                }
+              },
+              {
+                "frame": 0.23333333333333334,
+                "value": {
+                  "__uuid__": "c186578a-bc77-4dd8-8462-ad363405fc27"
+                }
+              },
+              {
+                "frame": 0.35,
+                "value": {
+                  "__uuid__": "05aeb8c0-ae51-4db0-bd12-08efe264f082"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": []
+}

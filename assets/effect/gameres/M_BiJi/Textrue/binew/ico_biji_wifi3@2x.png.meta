@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "c35fc8f5-6d3c-44c9-bead-823d827388d0",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "ico_biji_wifi3@2x": {
+      "ver": "1.0.3",
+      "uuid": "4be1a653-1c76-4f81-bc7f-c8ae1abd904d",
+      "rawTextureUuid": "c35fc8f5-6d3c-44c9-bead-823d827388d0",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 25,
+      "height": 19,
+      "rawWidth": 25,
+      "rawHeight": 19,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

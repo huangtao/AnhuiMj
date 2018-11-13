@@ -1,0 +1,93 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_ziti_duijiukaishi_animation",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.7,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "Sprite_1/Sprite_104": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0.2,
+              "value": 1
+            },
+            {
+              "frame": 0.7,
+              "value": 1.15
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.2,
+              "value": 1
+            },
+            {
+              "frame": 0.7,
+              "value": 1.15
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.18333333333333332,
+              "value": 0
+            },
+            {
+              "frame": 0.2,
+              "value": 255
+            },
+            {
+              "frame": 0.7,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Sprite_1": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 3
+            },
+            {
+              "frame": 0.1,
+              "value": 1.4
+            },
+            {
+              "frame": 0.13333333333333333,
+              "value": 1.55
+            },
+            {
+              "frame": 0.2,
+              "value": 1.5
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 3
+            },
+            {
+              "frame": 0.1,
+              "value": 1.4
+            },
+            {
+              "frame": 0.13333333333333333,
+              "value": 1.55
+            },
+            {
+              "frame": 0.2,
+              "value": 1.5
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

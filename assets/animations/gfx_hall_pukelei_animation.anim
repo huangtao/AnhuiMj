@@ -1,0 +1,80 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_hall_pukelei_animation",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 6,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "paths": {
+      "puke1": {
+        "props": {
+          "rotation": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "linear"
+            },
+            {
+              "frame": 3,
+              "value": -10,
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 6,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "puke2": {
+        "props": {
+          "rotation": [
+            {
+              "frame": 0,
+              "value": -5,
+              "curve": "linear"
+            },
+            {
+              "frame": 1.5,
+              "value": 0,
+              "curve": "linear"
+            },
+            {
+              "frame": 4.5,
+              "value": -10,
+              "curve": "linear"
+            },
+            {
+              "frame": 6,
+              "value": -5.000000000000002
+            }
+          ]
+        }
+      },
+      "puke3": {
+        "props": {
+          "rotation": [
+            {
+              "frame": 0,
+              "value": -10,
+              "curve": "linear"
+            },
+            {
+              "frame": 3,
+              "value": 0,
+              "curve": "linear"
+            },
+            {
+              "frame": 6,
+              "value": -10
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

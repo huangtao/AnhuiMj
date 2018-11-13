@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "c476da2c-a417-4b47-a2b2-8975c093cd2d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "pb3_showcard_oppo_1280": {
+      "ver": "1.0.3",
+      "uuid": "0c7cbf91-b124-4e7f-a8c6-14cdb14adfa4",
+      "rawTextureUuid": "c476da2c-a417-4b47-a2b2-8975c093cd2d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 42,
+      "height": 58,
+      "rawWidth": 42,
+      "rawHeight": 58,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

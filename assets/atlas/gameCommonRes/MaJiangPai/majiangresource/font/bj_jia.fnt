@@ -1,0 +1,16 @@
+info face="Arial" size=32 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
+common lineHeight=32 base=26 scaleW=256 scaleH=256 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+page id=0 file="bj_jia_0.png"
+chars count=12
+char id=43   x=146   y=55    width=40    height=54    xoffset=0     yoffset=6     xadvance=41    page=0  chnl=15
+char id=45   x=146   y=98    width=9     height=2     xoffset=0     yoffset=18    xadvance=9     page=0  chnl=15
+char id=48   x=0     y=0     width=40    height=54    xoffset=0     yoffset=0     xadvance=42    page=0  chnl=15
+char id=49   x=119   y=55    width=24    height=54    xoffset=0     yoffset=1     xadvance=26    page=0  chnl=15
+char id=50   x=0     y=55    width=34    height=54    xoffset=0     yoffset=0     xadvance=38    page=0  chnl=15
+char id=51   x=166   y=0     width=37    height=54    xoffset=0     yoffset=0     xadvance=39    page=0  chnl=15
+char id=52   x=206   y=0     width=40    height=54    xoffset=0     yoffset=0     xadvance=42    page=0  chnl=15
+char id=53   x=39    y=55    width=36    height=54    xoffset=0     yoffset=0     xadvance=38    page=0  chnl=15
+char id=54   x=43    y=0     width=38    height=54    xoffset=0     yoffset=0     xadvance=40    page=0  chnl=15
+char id=55   x=78    y=55    width=38    height=54    xoffset=0     yoffset=0     xadvance=40    page=0  chnl=15
+char id=56   x=84    y=0     width=38    height=54    xoffset=0     yoffset=0     xadvance=40    page=0  chnl=15
+char id=57   x=125   y=0     width=38    height=54    xoffset=0     yoffset=0     xadvance=40    page=0  chnl=15

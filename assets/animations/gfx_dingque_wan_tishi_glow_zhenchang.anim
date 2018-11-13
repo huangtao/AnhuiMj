@@ -1,0 +1,101 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "zhenchang",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "Sprite_1": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "Node_15/Sprite_92": {
+        "props": {
+          "rotation": [],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Node_15": {
+        "props": {
+          "position": []
+        }
+      },
+      "Sprite_2_0": {
+        "props": {
+          "position": [],
+          "scaleX": [],
+          "scaleY": [],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Sprite_2_0_0": {
+        "props": {
+          "position": [],
+          "scaleX": [],
+          "scaleY": [],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Sprite_2": {
+        "props": {
+          "scaleX": [],
+          "scaleY": [],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            }
+          ],
+          "position": []
+        }
+      },
+      "Sprite_3": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            }
+          ],
+          "position": [],
+          "scaleX": [],
+          "scaleY": []
+        }
+      },
+      "Sprite_4": {
+        "props": {
+          "position": [],
+          "scaleX": [],
+          "scaleY": [],
+          "opacity": []
+        }
+      }
+    }
+  },
+  "events": []
+}

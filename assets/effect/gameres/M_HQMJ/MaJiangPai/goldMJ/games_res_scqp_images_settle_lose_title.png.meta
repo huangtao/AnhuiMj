@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "b5b96221-c8aa-4a20-8cd0-eb57f0426f79",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "games_res_scqp_images_settle_lose_title": {
+      "ver": "1.0.3",
+      "uuid": "bb266e6f-249e-49c6-8a0c-4e6b245b0b88",
+      "rawTextureUuid": "b5b96221-c8aa-4a20-8cd0-eb57f0426f79",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 246,
+      "height": 103,
+      "rawWidth": 246,
+      "rawHeight": 103,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "2c5309ec-17f2-4301-8d8a-eb7d8ee6ce39",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "fx_02_huixian_bg": {
+      "ver": "1.0.3",
+      "uuid": "51ff1193-4aee-4c50-89f5-a2cdb0a83a1a",
+      "rawTextureUuid": "2c5309ec-17f2-4301-8d8a-eb7d8ee6ce39",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 0,
+      "width": 189,
+      "height": 148,
+      "rawWidth": 190,
+      "rawHeight": 148,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

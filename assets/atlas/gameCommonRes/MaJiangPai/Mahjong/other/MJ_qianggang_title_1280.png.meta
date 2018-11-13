@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "4f132141-1da4-4c3e-b33c-8d5f701fae13",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "MJ_qianggang_title_1280": {
+      "ver": "1.0.3",
+      "uuid": "cdd1c3cc-e2fd-4d85-9d6c-e61707202260",
+      "rawTextureUuid": "4f132141-1da4-4c3e-b33c-8d5f701fae13",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 119,
+      "height": 40,
+      "rawWidth": 119,
+      "rawHeight": 40,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "dc1b3b95-803e-4476-ad2d-f883ecbd6d8e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "gfx_huode_LensFlare_huang01": {
+      "ver": "1.0.3",
+      "uuid": "cdb6eb70-35d5-493a-aaee-f70108dfe67a",
+      "rawTextureUuid": "dc1b3b95-803e-4476-ad2d-f883ecbd6d8e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 512,
+      "height": 576,
+      "rawWidth": 512,
+      "rawHeight": 576,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

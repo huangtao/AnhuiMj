@@ -1,0 +1,156 @@
+{
+    "gameName": "HHMJ",
+    "list": [
+        {
+            "attrIcon": "cjfj_41.png",
+            "desc": "局数",
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "gameCountIndex",
+                            "value": 8,
+                            "desc": "8局",
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "gameCountIndex",
+                            "value": 16,
+                            "desc": "16局",
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_36.png",
+            "desc": "番码",
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "gameCode",
+                            "value": 2,
+                            "desc": "2码",
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "gameCode",
+                            "value": 4,
+                            "desc": "4码",
+                            "defaultSelected": false
+                        },
+                        {
+                            "attr": "gameCode",
+                            "value": 6,
+                            "desc": "6码",
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_46.png",
+            "desc": "玩法",
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "attr": "gamePlay",
+                            "value": true,
+                            "desc": "可胡七对",
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "gamePlay",
+                            "value": true,
+                            "desc": "坐庄加分",
+                            "defaultSelected": false
+                        },
+                        {
+                            "attr": "gamePlay",
+                            "value": true,
+                            "desc": "黄庄不黄杠",
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "gamePlay",
+                            "value": true,
+                            "desc": "打中加分",
+                            "defaultSelected": false
+                        },
+                        {
+                            "attr": "gamePlay",
+                            "value": true,
+                            "desc": "跑中加分",
+                            "defaultSelected": false
+                        },
+                        {
+                            "attr": "gamePlay",
+                            "value": true,
+                            "desc": "抢杠包分",
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_33.png",
+            "desc": "出牌",
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_LEFTRIGHT",
+                    "list": [
+                        {
+                            "attr": "gameTime",
+                            "value": 15,
+                            "desc": "15s",
+                            "defaultSelected": false
+                        },
+                        {
+                            "attr": "gameTime",
+                            "value": 30,
+                            "desc": "30s",
+                            "defaultSelected": false
+                        },
+                        {
+                            "attr": "gameTime",
+                            "value": 0,
+                            "desc": "无限制出牌",
+                            "defaultSelected": "ture"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_38.png",
+            "desc": "支付方式",
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "tableCreatorPay",
+                            "value": 0,
+                            "desc": "AA支付",
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "tableCreatorPay",
+                            "value": 1,
+                            "desc": "房主支付",
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

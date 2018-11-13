@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "2c915a42-cf58-41f1-90bd-db9a84a6bad2",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "ico_home_zhanji_fz@2x": {
+      "ver": "1.0.3",
+      "uuid": "60499185-c029-4307-80dc-29913766b6a3",
+      "rawTextureUuid": "2c915a42-cf58-41f1-90bd-db9a84a6bad2",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 26,
+      "height": 51,
+      "rawWidth": 26,
+      "rawHeight": 51,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

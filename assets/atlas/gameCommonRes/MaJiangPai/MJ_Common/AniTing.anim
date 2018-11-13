@@ -1,0 +1,101 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "AniTing",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.8,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "New Sprite": {
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "f80da6d7-4716-4bde-a7c8-c98632a07bbb"
+                }
+              },
+              {
+                "frame": 0.2,
+                "value": {
+                  "__uuid__": "94f8f318-8c69-4993-a993-50735e81d3bd"
+                }
+              },
+              {
+                "frame": 0.4,
+                "value": {
+                  "__uuid__": "5a4370be-1970-4e15-b218-809de11c6589"
+                }
+              },
+              {
+                "frame": 0.6,
+                "value": {
+                  "__uuid__": "9289fc37-9d50-4c61-b194-98a23239dae8"
+                }
+              },
+              {
+                "frame": 0.7833333333333333,
+                "value": {
+                  "__uuid__": "9289fc37-9d50-4c61-b194-98a23239dae8"
+                }
+              }
+            ]
+          }
+        },
+        "props": {
+          "width": [
+            {
+              "frame": 0,
+              "value": 212
+            },
+            {
+              "frame": 0.2,
+              "value": 256
+            },
+            {
+              "frame": 0.4,
+              "value": 256
+            },
+            {
+              "frame": 0.6,
+              "value": 126
+            }
+          ],
+          "height": [
+            {
+              "frame": 0,
+              "value": 231
+            },
+            {
+              "frame": 0.2,
+              "value": 279
+            },
+            {
+              "frame": 0.4,
+              "value": 279
+            },
+            {
+              "frame": 0.6,
+              "value": 130
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 100
+            },
+            {
+              "frame": 0.1,
+              "value": 255
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "df0dc1e1-6d81-4f4d-a0cb-eff9188cadf0",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "btn_biji_shunzi_disable@2x": {
+      "ver": "1.0.3",
+      "uuid": "f576555d-827b-4b64-9d6e-c4965b4e8c24",
+      "rawTextureUuid": "df0dc1e1-6d81-4f4d-a0cb-eff9188cadf0",
+      "trimType": "auto",
+      "trimThreshold": -1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 174,
+      "height": 63,
+      "rawWidth": 174,
+      "rawHeight": 63,
+      "borderTop": 11,
+      "borderBottom": 11,
+      "borderLeft": 15,
+      "borderRight": 15,
+      "subMetas": {}
+    }
+  }
+}

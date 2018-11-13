@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "d32ab28a-0aae-4f5e-b765-5b851856c3e6",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "img_talkquxiao@2x": {
+      "ver": "1.0.3",
+      "uuid": "8fec9534-32e9-40f1-b39a-81bc65cb012a",
+      "rawTextureUuid": "d32ab28a-0aae-4f5e-b765-5b851856c3e6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 119,
+      "height": 140,
+      "rawWidth": 119,
+      "rawHeight": 140,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

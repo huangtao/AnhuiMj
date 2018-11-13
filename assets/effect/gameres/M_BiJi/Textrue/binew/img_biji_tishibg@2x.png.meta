@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "df735370-6c9f-4f8d-beaa-f62e8be6571f",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "img_biji_tishibg@2x": {
+      "ver": "1.0.3",
+      "uuid": "10b0537d-4bb0-4759-b622-c2bd452db066",
+      "rawTextureUuid": "df735370-6c9f-4f8d-beaa-f62e8be6571f",
+      "trimType": "auto",
+      "trimThreshold": -1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 519,
+      "height": 56,
+      "rawWidth": 519,
+      "rawHeight": 56,
+      "borderTop": 23,
+      "borderBottom": 23,
+      "borderLeft": 15,
+      "borderRight": 15,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "1afa7cd2-9570-48a5-896b-d7dc1e545198",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "gfx_julebu_glow_00005": {
+      "ver": "1.0.3",
+      "uuid": "7af41aff-d4c3-489c-bdca-f025d1197097",
+      "rawTextureUuid": "1afa7cd2-9570-48a5-896b-d7dc1e545198",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 8.5,
+      "offsetY": 4.5,
+      "trimX": 36,
+      "trimY": 3,
+      "width": 225,
+      "height": 110,
+      "rawWidth": 280,
+      "rawHeight": 125,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

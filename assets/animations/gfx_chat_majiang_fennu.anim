@@ -1,0 +1,53 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_chat_majiang_fennu",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.48333333333333334,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "paths": {
+      "fennu": {
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "1c4fb802-7210-4b08-bd0e-1fdeb168e058"
+                }
+              },
+              {
+                "frame": 0.11666666666666667,
+                "value": {
+                  "__uuid__": "9881b05b-1cd0-41c8-8c2d-b8455849521e"
+                }
+              },
+              {
+                "frame": 0.23333333333333334,
+                "value": {
+                  "__uuid__": "d84bdd9b-b9f6-4985-a841-daa3e0791f61"
+                }
+              },
+              {
+                "frame": 0.35,
+                "value": {
+                  "__uuid__": "bd2ef638-85be-4f71-85f9-9fb8fd8cfc2d"
+                }
+              },
+              {
+                "frame": 0.4666666666666667,
+                "value": {
+                  "__uuid__": "129da868-1910-4934-a1d1-d477d20d9469"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": []
+}

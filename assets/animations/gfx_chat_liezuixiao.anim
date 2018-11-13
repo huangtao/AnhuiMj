@@ -1,0 +1,41 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_chat_liezuixiao",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.2,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "liezuixiao": {
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "8622cb09-8b76-4ac8-b549-c4ac1820b752"
+                }
+              },
+              {
+                "frame": 0.1,
+                "value": {
+                  "__uuid__": "462d8e8f-2837-4a13-80d8-f20bd40471ce"
+                }
+              },
+              {
+                "frame": 0.2,
+                "value": {
+                  "__uuid__": "8622cb09-8b76-4ac8-b549-c4ac1820b752"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": []
+}

@@ -1,0 +1,47 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_chat_majiang_jingkong",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.36666666666666664,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "paths": {
+      "Sprite_1": {
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "a605ec90-9948-4598-8420-4f2552178658"
+                }
+              },
+              {
+                "frame": 0.11666666666666667,
+                "value": {
+                  "__uuid__": "22ace8d2-4a43-4d8e-a0e5-18b3cc097cd1"
+                }
+              },
+              {
+                "frame": 0.23333333333333334,
+                "value": {
+                  "__uuid__": "62d4db7c-0f41-477f-abdc-1e7fb88f6d40"
+                }
+              },
+              {
+                "frame": 0.35,
+                "value": {
+                  "__uuid__": "22ace8d2-4a43-4d8e-a0e5-18b3cc097cd1"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": []
+}

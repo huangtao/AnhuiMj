@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "1f16cdf7-3918-43da-b1a4-3a422aead9c0",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "img_home_shop_zuan6@2x": {
+      "ver": "1.0.3",
+      "uuid": "6087b8e3-6e94-4946-9fc2-dde1edd1c417",
+      "rawTextureUuid": "1f16cdf7-3918-43da-b1a4-3a422aead9c0",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 150,
+      "height": 121,
+      "rawWidth": 150,
+      "rawHeight": 121,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

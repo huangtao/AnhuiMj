@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "f525172c-d4d0-4565-ba24-579a8bffc740",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "MJ_tingtip_hu_1280": {
+      "ver": "1.0.3",
+      "uuid": "1936f430-b4cd-4f43-a3d3-721e47c1f249",
+      "rawTextureUuid": "f525172c-d4d0-4565-ba24-579a8bffc740",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 50,
+      "height": 55,
+      "rawWidth": 50,
+      "rawHeight": 55,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

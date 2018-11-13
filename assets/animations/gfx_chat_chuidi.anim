@@ -1,0 +1,59 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_chat_chuidi",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.5,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "chhuidi": {
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "27b7a175-d858-4fb7-9c53-2b745f0c4dbe"
+                }
+              },
+              {
+                "frame": 0.1,
+                "value": {
+                  "__uuid__": "081ac430-67b0-4f09-9739-206aa926d516"
+                }
+              },
+              {
+                "frame": 0.2,
+                "value": {
+                  "__uuid__": "202e6cc7-15a3-4ea6-acc7-b8a71e689b0a"
+                }
+              },
+              {
+                "frame": 0.3,
+                "value": {
+                  "__uuid__": "4d702e8f-72dc-4299-8da9-eb891d9b051c"
+                }
+              },
+              {
+                "frame": 0.4,
+                "value": {
+                  "__uuid__": "301fa8f1-416a-453b-87bc-95e97d859bb8"
+                }
+              },
+              {
+                "frame": 0.5,
+                "value": {
+                  "__uuid__": "25d1ad28-27e1-419d-8966-5ab4f6f6a805"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": []
+}

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "9373d31e-5517-4965-b387-c3e415fe1dde",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "gfx_huode_fangsheguang_00000": {
+      "ver": "1.0.3",
+      "uuid": "a09d5aa5-5c81-48ec-8211-6652dd41fc05",
+      "rawTextureUuid": "9373d31e-5517-4965-b387-c3e415fe1dde",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -0.5,
+      "offsetY": 0.5,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 255,
+      "height": 255,
+      "rawWidth": 256,
+      "rawHeight": 256,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "f1fada0e-17f2-45a9-ab93-b8c894180303",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "pb3_backcard_self_1280": {
+      "ver": "1.0.3",
+      "uuid": "df82b61d-33b8-4635-b5d4-e0a1699f6968",
+      "rawTextureUuid": "f1fada0e-17f2-45a9-ab93-b8c894180303",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0.5,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 85,
+      "height": 121,
+      "rawWidth": 87,
+      "rawHeight": 124,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

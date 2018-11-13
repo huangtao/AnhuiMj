@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "b52b3085-de64-4d36-b55e-dce74055cb16",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "font_home_shop_68y2x": {
+      "ver": "1.0.3",
+      "uuid": "0287feb7-97d0-4eeb-b3be-f7f1b97b991a",
+      "rawTextureUuid": "b52b3085-de64-4d36-b55e-dce74055cb16",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 66,
+      "height": 27,
+      "rawWidth": 66,
+      "rawHeight": 27,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

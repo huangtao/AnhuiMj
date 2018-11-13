@@ -1,0 +1,59 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_chat_puke_aini",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.6666666666666666,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "paths": {
+      "animation": {
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "2a6207f8-c88c-4088-81dd-bcf6cbedd4fb"
+                }
+              },
+              {
+                "frame": 0.11666666666666667,
+                "value": {
+                  "__uuid__": "7bee752d-181e-4c36-887e-7efd85d2b85f"
+                }
+              },
+              {
+                "frame": 0.23333333333333334,
+                "value": {
+                  "__uuid__": "cd9aac44-988a-4f56-ad0c-74fb5080be3c"
+                }
+              },
+              {
+                "frame": 0.35,
+                "value": {
+                  "__uuid__": "64db9a8c-3cbd-4e0f-9432-d1af35ff60eb"
+                }
+              },
+              {
+                "frame": 0.4666666666666667,
+                "value": {
+                  "__uuid__": "74ee466c-a5af-4cf8-a635-91e6d3cdfe55"
+                }
+              },
+              {
+                "frame": 0.65,
+                "value": {
+                  "__uuid__": "2a6207f8-c88c-4088-81dd-bcf6cbedd4fb"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": []
+}

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "360c1f88-6938-42b8-823d-fde82699296a",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "btn_biji_santiao@2x": {
+      "ver": "1.0.3",
+      "uuid": "4220ff17-1a97-4d57-adc7-b41e1c9b438a",
+      "rawTextureUuid": "360c1f88-6938-42b8-823d-fde82699296a",
+      "trimType": "auto",
+      "trimThreshold": -1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 174,
+      "height": 63,
+      "rawWidth": 174,
+      "rawHeight": 63,
+      "borderTop": 11,
+      "borderBottom": 11,
+      "borderLeft": 15,
+      "borderRight": 15,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,198 @@
+{
+    "gameName": "M_HQMJ",
+    "list": [
+        {
+            "attrIcon": "cjfj_41.png",
+            "desc": "局数",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "SetGameNum",
+                            "value": 0,
+                            "desc": "8局",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "SetGameNum",
+                            "value": 1,
+                            "desc": "16局",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_40.png",
+            "desc": "规则",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "whoLose",
+                            "value": 1,
+                            "desc": "谁打谁出分",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "whoLose",
+                            "value": 0,
+                            "desc": "赢倒三家有",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_46.png",
+            "desc": "玩法",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "attr": "zhanZhuang",
+                            "value": true,
+                            "desc": "占庄",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "daiDaPai",
+                            "value": true,
+                            "desc": "带大牌",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "gangFen",
+                            "value": true,
+                            "desc": "明杠暗杠",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "canChi",
+                            "value": true,
+                            "desc": "不准吃牌",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_77.png",
+            "desc": "定位",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "attr": "ifcansameip",
+                            "value": true,
+                            "desc": "同IP检测",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "CheckGps",
+                            "value": true,
+                            "desc": "GPS定位",
+                            "enabled": true,
+                            "defaultSelected": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_38.png",
+            "desc": "房费",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "tableCreatorPay",
+                            "value": 1,
+                            "desc": "AA支付",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "tableCreatorPay",
+                            "value": 2,
+                            "desc": "房主支付",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "attr": "tableCreatorPay",
+                            "value": 3,
+                            "desc": "圈主支付",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "defaultAttr":[
+        {   
+            "attrName": "IfCanSameIp",
+            "value": false,
+            "desc":"是否同ip"
+        },
+        {
+            "attrName": "isGangJiuYou",
+            "value": true,
+            "desc":"是否杠了就有"
+        },
+        {
+            "attrName": "isYiPaoDuoXiang",
+            "value": true,
+            "desc":"是否一炮多响"
+        },
+        {
+            "attrName": "isOutTimeOp",
+            "value": false,
+            "desc":"自主建房是否超时代打"
+        },
+        {
+            "attrName": "IsRecordScoreRoom",
+            "value": false,
+            "desc":"是否是记分场"
+        },
+        {
+            "attrName": "BuKaoJia",
+            "value": false,
+            "desc":"13不靠"
+        },
+        {
+            "attrName": "QiDuiJia",
+            "value": true,
+            "desc":"是否七对（是）"
+        },
+        {
+            "attrName": "LaPaoZuo",
+            "value": false,
+            "desc":"是否拉跑坐（否）"
+        }
+    ]
+}

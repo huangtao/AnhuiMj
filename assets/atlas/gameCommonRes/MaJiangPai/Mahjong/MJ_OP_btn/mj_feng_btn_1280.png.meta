@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "6ba2bd5c-ff23-4e8a-8ce0-301bb9a0a7e2",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "mj_feng_btn_1280": {
+      "ver": "1.0.3",
+      "uuid": "b893e680-0f93-4dea-9e71-f6c3bbacc9d4",
+      "rawTextureUuid": "6ba2bd5c-ff23-4e8a-8ce0-301bb9a0a7e2",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 2.5,
+      "offsetY": -1.5,
+      "trimX": 13,
+      "trimY": 5,
+      "width": 120,
+      "height": 119,
+      "rawWidth": 141,
+      "rawHeight": 126,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_chat_puke_meiqian",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.7166666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "paths": {
+      "Sprite_1": {
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "d8105032-5581-434b-b55c-13250beadab1"
+                }
+              },
+              {
+                "frame": 0.11666666666666667,
+                "value": {
+                  "__uuid__": "127e4388-e0f9-4427-aaf5-268296238145"
+                }
+              },
+              {
+                "frame": 0.23333333333333334,
+                "value": {
+                  "__uuid__": "a295ee23-b630-4be3-8242-5f42d334a012"
+                }
+              },
+              {
+                "frame": 0.35,
+                "value": {
+                  "__uuid__": "34d1f247-27d3-4e77-9fa2-00208a669944"
+                }
+              },
+              {
+                "frame": 0.4666666666666667,
+                "value": {
+                  "__uuid__": "7a113ba0-7c62-4776-9d98-02a86640edf9"
+                }
+              },
+              {
+                "frame": 0.5833333333333334,
+                "value": {
+                  "__uuid__": "35cedbf0-754f-440d-9769-f1983e8b6fac"
+                }
+              },
+              {
+                "frame": 0.7,
+                "value": {
+                  "__uuid__": "d8105032-5581-434b-b55c-13250beadab1"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": []
+}

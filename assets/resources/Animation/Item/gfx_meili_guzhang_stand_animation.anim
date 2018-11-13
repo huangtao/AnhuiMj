@@ -1,0 +1,37 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_meili_guzhang_stand_animation",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.25,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "0fcec1ce-873a-4ba5-9e4a-ae14ddcba18c"
+            }
+          },
+          {
+            "frame": 0.11666666666666667,
+            "value": {
+              "__uuid__": "097f1353-d2c6-4121-9fd6-059bf94170f2"
+            }
+          },
+          {
+            "frame": 0.23333333333333334,
+            "value": {
+              "__uuid__": "8026ea1b-9035-4842-b44a-5588905e6c02"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

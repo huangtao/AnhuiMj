@@ -1,0 +1,109 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "AniGang",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.85,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "New Sprite": {
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "70219965-b615-4cf2-9097-89b62de58166"
+                }
+              },
+              {
+                "frame": 0.2,
+                "value": {
+                  "__uuid__": "e14586ea-06dc-47ef-a9f7-6d4bb55763f1"
+                }
+              },
+              {
+                "frame": 0.4,
+                "value": {
+                  "__uuid__": "1f134740-1c12-4c4a-aaf5-59e88b4310aa"
+                }
+              },
+              {
+                "frame": 0.6333333333333333,
+                "value": {
+                  "__uuid__": "7955c9e2-00b8-4395-980d-01468b3a9aa9"
+                }
+              },
+              {
+                "frame": 0.8333333333333334,
+                "value": {
+                  "__uuid__": "7955c9e2-00b8-4395-980d-01468b3a9aa9"
+                }
+              }
+            ]
+          }
+        },
+        "props": {
+          "width": [
+            {
+              "frame": 0,
+              "value": 166
+            },
+            {
+              "frame": 0.2,
+              "value": 256
+            },
+            {
+              "frame": 0.4,
+              "value": 256
+            },
+            {
+              "frame": 0.6333333333333333,
+              "value": 128
+            }
+          ],
+          "height": [
+            {
+              "frame": 0,
+              "value": 152
+            },
+            {
+              "frame": 0.2,
+              "value": 234
+            },
+            {
+              "frame": 0.4,
+              "value": 234
+            },
+            {
+              "frame": 0.6333333333333333,
+              "value": 116
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 100
+            },
+            {
+              "frame": 0.1,
+              "value": 255
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 255
+            },
+            {
+              "frame": 0.85,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

@@ -1,0 +1,59 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_chat_majiang_aini",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.6,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "paths": {
+      "aini": {
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "a2e7d103-fee6-46b3-98e1-1b968ae1fef2"
+                }
+              },
+              {
+                "frame": 0.11666666666666667,
+                "value": {
+                  "__uuid__": "3fcc4979-380c-469d-9dcf-908a13c744fd"
+                }
+              },
+              {
+                "frame": 0.23333333333333334,
+                "value": {
+                  "__uuid__": "056ee63e-f0b6-42d4-baec-cd6a3e310b79"
+                }
+              },
+              {
+                "frame": 0.35,
+                "value": {
+                  "__uuid__": "63d781e2-0f52-4058-b88d-645371f525da"
+                }
+              },
+              {
+                "frame": 0.4666666666666667,
+                "value": {
+                  "__uuid__": "0eb2b268-648c-44b2-a299-680e80b5c7b1"
+                }
+              },
+              {
+                "frame": 0.5833333333333334,
+                "value": {
+                  "__uuid__": "726b531d-3da3-4f50-a75e-d9ccc5237edb"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": []
+}

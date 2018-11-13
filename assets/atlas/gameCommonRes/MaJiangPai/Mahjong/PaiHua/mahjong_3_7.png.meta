@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "ba050c7f-fff0-4d62-a00b-f47859ce04da",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "mahjong_3_7": {
+      "ver": "1.0.3",
+      "uuid": "61217245-eea2-472e-abb0-6eb5923fd11f",
+      "rawTextureUuid": "ba050c7f-fff0-4d62-a00b-f47859ce04da",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": -1,
+      "trimX": 3,
+      "trimY": 5,
+      "width": 63,
+      "height": 89,
+      "rawWidth": 68,
+      "rawHeight": 97,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

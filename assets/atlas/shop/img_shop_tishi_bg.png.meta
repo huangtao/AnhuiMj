@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "9621bbeb-070f-46e7-90dc-12e627f57c37",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "img_shop_tishi_bg": {
+      "ver": "1.0.3",
+      "uuid": "e5d6c0c4-9b46-446e-aeca-c976a1bc6e6c",
+      "rawTextureUuid": "9621bbeb-070f-46e7-90dc-12e627f57c37",
+      "trimType": "auto",
+      "trimThreshold": -1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 998,
+      "height": 71,
+      "rawWidth": 998,
+      "rawHeight": 71,
+      "borderTop": 19,
+      "borderBottom": 19,
+      "borderLeft": 144,
+      "borderRight": 144,
+      "subMetas": {}
+    }
+  }
+}

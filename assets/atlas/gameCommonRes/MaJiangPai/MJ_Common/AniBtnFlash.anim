@@ -1,0 +1,113 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "AniBtnFlash",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.5666666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "New Sprite": {
+        "props": {
+          "width": [
+            {
+              "frame": 0,
+              "value": 130
+            },
+            {
+              "frame": 0.13333333333333333,
+              "value": 128
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": 130
+            },
+            {
+              "frame": 0.4,
+              "value": 132
+            },
+            {
+              "frame": 0.5333333333333333,
+              "value": 134
+            }
+          ],
+          "height": [
+            {
+              "frame": 0,
+              "value": 130
+            },
+            {
+              "frame": 0.13333333333333333,
+              "value": 128
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": 130
+            },
+            {
+              "frame": 0.4,
+              "value": 132
+            },
+            {
+              "frame": 0.5333333333333333,
+              "value": 134
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            },
+            {
+              "frame": 0.5333333333333333,
+              "value": 255
+            },
+            {
+              "frame": 0.5666666666666667,
+              "value": 0
+            }
+          ]
+        },
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "ea1a74dd-79a0-4b8c-8316-ea968a0d32f5"
+                }
+              },
+              {
+                "frame": 0.13333333333333333,
+                "value": {
+                  "__uuid__": "81f5272e-588c-48c9-9ef5-7922369d3d16"
+                }
+              },
+              {
+                "frame": 0.26666666666666666,
+                "value": {
+                  "__uuid__": "6eb92727-22fc-4911-bcc9-4a85b06c69ff"
+                }
+              },
+              {
+                "frame": 0.4,
+                "value": {
+                  "__uuid__": "b02d8750-fae2-4361-bbd9-cc93fe972b95"
+                }
+              },
+              {
+                "frame": 0.5333333333333333,
+                "value": {
+                  "__uuid__": "e40bf75e-b8f8-459b-83c6-f9aa91b08c5e"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": []
+}

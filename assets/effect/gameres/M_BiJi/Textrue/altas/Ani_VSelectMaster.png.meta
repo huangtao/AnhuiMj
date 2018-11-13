@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "5878d8ca-d0a4-47ab-b1c6-10c69365182e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "Ani_VSelectMaster": {
+      "ver": "1.0.3",
+      "uuid": "ef3390c0-e54d-43ea-8c24-f8658de8e605",
+      "rawTextureUuid": "5878d8ca-d0a4-47ab-b1c6-10c69365182e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 296,
+      "height": 198,
+      "rawWidth": 296,
+      "rawHeight": 198,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "dfc675e6-4703-4c8e-9021-ade136ed4c7c",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "img_biji_tjpaikuang_seleted@2x": {
+      "ver": "1.0.3",
+      "uuid": "44a3d7d1-38b6-4d84-94d0-47eeccd32dd9",
+      "rawTextureUuid": "dfc675e6-4703-4c8e-9021-ade136ed4c7c",
+      "trimType": "auto",
+      "trimThreshold": -1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 264,
+      "height": 52,
+      "rawWidth": 264,
+      "rawHeight": 52,
+      "borderTop": 11,
+      "borderBottom": 11,
+      "borderLeft": 15,
+      "borderRight": 15,
+      "subMetas": {}
+    }
+  }
+}

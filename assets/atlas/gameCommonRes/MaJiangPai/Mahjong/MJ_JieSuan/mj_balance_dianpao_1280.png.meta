@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "6366c7cd-129e-46b8-86a1-3864659591d6",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "mj_balance_dianpao_1280": {
+      "ver": "1.0.3",
+      "uuid": "3e7e5edd-7847-4711-aeb2-f767962ce36e",
+      "rawTextureUuid": "6366c7cd-129e-46b8-86a1-3864659591d6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 147,
+      "height": 85,
+      "rawWidth": 147,
+      "rawHeight": 85,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

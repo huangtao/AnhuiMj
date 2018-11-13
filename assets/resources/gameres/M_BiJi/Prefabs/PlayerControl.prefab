@@ -1,0 +1,101 @@
+[
+  {
+    "__type__": "cc.Prefab",
+    "_name": "",
+    "_objFlags": 0,
+    "_rawFiles": null,
+    "data": {
+      "__id__": 1
+    }
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "PlayerControl",
+    "_objFlags": 0,
+    "_parent": null,
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 2
+      }
+    ],
+    "_prefab": {
+      "__id__": 3
+    },
+    "_id": "",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 1280,
+      "height": 720
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "45fa5HDraNPza/AqcxLyfrs",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "prefab_playerDown": {
+      "__uuid__": "8b67b3bf-2d3b-41c9-9d39-d0401c6f9d1b"
+    },
+    "prefab_playerRight": {
+      "__uuid__": "fe4141dd-2cd8-4692-85bf-d09953002e38"
+    },
+    "prefab_playerTop": {
+      "__uuid__": "e9dd43ae-40d6-4a51-a6cc-a080f17cb4ef"
+    },
+    "prefab_playerLeft": {
+      "__uuid__": "e9dd43ae-40d6-4a51-a6cc-a080f17cb4ef"
+    },
+    "prefab_aniGameStart": {
+      "__uuid__": "7fd950ee-064d-4965-a4c2-aa5282805a0e"
+    },
+    "prefab_aniResult": {
+      "__uuid__": "171f6350-c224-4045-81be-4bc60923a21c"
+    }
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "09e0e5c3-22c9-4764-afba-9c20c9369821"
+    },
+    "fileId": "ac4a8uoxABNVY9IhJ5Ct3lu",
+    "sync": false
+  }
+]

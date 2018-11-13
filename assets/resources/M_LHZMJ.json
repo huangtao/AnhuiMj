@@ -1,0 +1,268 @@
+{
+    "gameName": "M_LHZMJ",
+    "list": [
+        {
+            "attrIcon": "cjfj_76.png",
+            "desc": "人数",
+            "enabled": false,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "PeopleNum",
+                            "value": 0,
+                            "desc": "四人",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "PeopleNum",
+                            "value": 1,
+                            "desc": "三人",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_41.png",
+            "desc": "局数",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "SetGameNum",
+                            "value": 0,
+                            "desc": "8局",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "SetGameNum",
+                            "value": 1,
+                            "desc": "16局",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_36.png",
+            "desc": "番码",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "MaShu",
+                            "value": 0,
+                            "desc": "2码",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "MaShu",
+                            "value": 1,
+                            "desc": "4码",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "attr": "MaShu",
+                            "value": 2,
+                            "desc": "6码",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_40.png",
+            "desc": "规则",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "RulePeng",
+                            "value": 0,
+                            "desc": "可碰牌",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "RulePeng",
+                            "value": 1,
+                            "desc": "碰一次",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "attr": "RulePeng",
+                            "value": 2,
+                            "desc": "不可碰",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_46.png",
+            "desc": "玩法",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "attr": "IfCanHu7Dui",
+                            "value": true,
+                            "desc": "可胡七对",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "GangLeJiuYou",
+                            "value": true,
+                            "desc": "杠了就有",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "GuoHuBuHu",
+                            "value": true,
+                            "desc": "过胡不胡",
+                            "enabled": false,
+                            "defaultSelected": false
+                        }
+                    ]
+                },
+                {
+                    "nodeType": "CHECKBOX_LEFTRIGHT",
+                    "defaultSelected": true,
+                    "defaultValue": 2,
+                    "attr": "OutCardTime",
+                    "enabled": true,
+                    "list": [
+                        {
+                            "value": 0,
+                            "desc": "15s"
+                        },
+                        {
+                            "value": 1,
+                            "desc": "30s"
+                        },
+                        {
+                            "value": 2,
+                            "desc": "无限制出牌"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_77.png",
+            "desc": "定位",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "attr": "ifcansameip",
+                            "value": true,
+                            "desc": "同IP检测",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "CheckGps",
+                            "value": true,
+                            "desc": "GPS定位",
+                            "enabled": true,
+                            "defaultSelected": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_38.png",
+            "desc": "房费",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "tableCreatorPay",
+                            "value": 1,
+                            "desc": "AA支付",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "tableCreatorPay",
+                            "value": 2,
+                            "desc": "房主支付",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "attr": "tableCreatorPay",
+                            "value": 3,
+                            "desc": "圈主支付",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "defaultAttr": [
+        {
+            "attrName": "GangKaiJia",
+            "value": 1,
+            "desc": "杠开（杠开"
+        },
+        {
+            "attrName": "IsRecordScoreRoom",
+            "value": false,
+            "desc": "是否是记分场"
+        },
+        {
+            "attrName": "isOutTimeOp",
+            "value": false,
+            "desc": "自主建房是否超时代打"
+        },
+        {
+            "attrName": "isYiPaoDuoXiang",
+            "value": true,
+            "desc": "一炮多响"
+        },
+        {
+            "attrName": "isGangJiuYou",
+            "value": true,
+            "desc": "是否杠了就有"
+        },
+        {
+            "attrName": "IfCanSameIp",
+            "value": false,
+            "desc": "是否杠了就有"
+        }
+    ]
+}

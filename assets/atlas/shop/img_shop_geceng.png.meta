@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "17555cad-8866-473c-b523-7b9e0ce92ab5",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "img_shop_geceng": {
+      "ver": "1.0.3",
+      "uuid": "8ba1a696-932b-4672-b2f8-f036e1456054",
+      "rawTextureUuid": "17555cad-8866-473c-b523-7b9e0ce92ab5",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 986,
+      "height": 45,
+      "rawWidth": 986,
+      "rawHeight": 45,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

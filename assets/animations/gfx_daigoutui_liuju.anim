@@ -1,0 +1,385 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_daigoutui_liuju",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 2.6666666666666665,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "Sprite_3": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 153
+            }
+          ]
+        }
+      },
+      "Sprite_2_0": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                75.8638,
+                17.9165
+              ]
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": [
+                -137.4598,
+                -108.3014
+              ]
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0.1
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": 0.5
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0.1
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": 0.5
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "Sprite_9": {
+        "props": {
+          "position": [
+            {
+              "frame": 0.08333333333333333,
+              "value": [
+                54.6005,
+                49.4323
+              ]
+            },
+            {
+              "frame": 1.4166666666666667,
+              "value": [
+                -155.8251,
+                -30.7507
+              ]
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0.08333333333333333,
+              "value": 0.15
+            },
+            {
+              "frame": 1.4166666666666667,
+              "value": 0.5
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.08333333333333333,
+              "value": 0.15
+            },
+            {
+              "frame": 1.4166666666666667,
+              "value": 0.5
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.08333333333333333,
+              "value": 0
+            },
+            {
+              "frame": 1.4166666666666667,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "Sprite_1": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0.5,
+              "value": 0.3
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": 2
+            },
+            {
+              "frame": 2.6666666666666665,
+              "value": 2
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.5,
+              "value": 0.3
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": 2
+            },
+            {
+              "frame": 2.6666666666666665,
+              "value": 2
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "Sprite_7": {
+        "props": {
+          "position": [
+            {
+              "frame": 0.26666666666666666,
+              "value": [
+                233.0514,
+                93.2583
+              ]
+            },
+            {
+              "frame": 1.6,
+              "value": [
+                28.5431,
+                -36.8834
+              ]
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0.26666666666666666,
+              "value": 0.1
+            },
+            {
+              "frame": 1.6,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.26666666666666666,
+              "value": 0.1
+            },
+            {
+              "frame": 1.6,
+              "value": 1
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.26666666666666666,
+              "value": 0
+            },
+            {
+              "frame": 1.6,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "Sprite_5": {
+        "props": {
+          "position": [
+            {
+              "frame": 0.05,
+              "value": [
+                252.7465,
+                108.9314
+              ]
+            },
+            {
+              "frame": 1.3833333333333333,
+              "value": [
+                166.5608,
+                0.1224
+              ]
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0.05,
+              "value": 0.1
+            },
+            {
+              "frame": 1.3833333333333333,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.05,
+              "value": 0.1
+            },
+            {
+              "frame": 1.3833333333333333,
+              "value": 1
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.05,
+              "value": 0
+            },
+            {
+              "frame": 1.3833333333333333,
+              "value": 255
+            }
+          ],
+          "rotation": [
+            {
+              "frame": 0.05,
+              "value": -6.0014
+            }
+          ]
+        }
+      },
+      "Sprite_6": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                159.7936,
+                112.5747
+              ]
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": [
+                20.5704,
+                91.2773
+              ]
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0.1
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0.1
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": 1
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "Sprite_8": {
+        "props": {
+          "position": [
+            {
+              "frame": 0.16666666666666666,
+              "value": [
+                282.499,
+                116.2893
+              ]
+            },
+            {
+              "frame": 1.5,
+              "value": [
+                193.106,
+                108.7592
+              ]
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0.16666666666666666,
+              "value": 0.2
+            },
+            {
+              "frame": 1.5,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.16666666666666666,
+              "value": 0.2
+            },
+            {
+              "frame": 1.5,
+              "value": 1
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.16666666666666666,
+              "value": 0
+            },
+            {
+              "frame": 1.5,
+              "value": 255
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": [
+    {
+      "frame": 2.6666666666666665,
+      "func": "triggerAnimationEvent",
+      "params": [
+        "end"
+      ]
+    }
+  ]
+}

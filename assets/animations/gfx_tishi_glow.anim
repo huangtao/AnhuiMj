@@ -1,0 +1,229 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_tishi_glow",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 1.5,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "Sprite_2_0": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -0.0001,
+                8.0001
+              ]
+            },
+            {
+              "frame": 1.5,
+              "value": [
+                0,
+                5
+              ]
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0.94
+            },
+            {
+              "frame": 1.5,
+              "value": 1.61
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0.95
+            },
+            {
+              "frame": 1.5,
+              "value": 1.61
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            },
+            {
+              "frame": 1.5,
+              "value": 0
+            }
+          ],
+          "color": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 1.5,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        },
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "8508f5ae-0b44-4d89-8ef5-4653906ee5bc"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "Sprite_2_0_0": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -0.0001,
+                6.1667
+              ]
+            },
+            {
+              "frame": 0.5666666666666667,
+              "value": [
+                0,
+                5
+              ]
+            },
+            {
+              "frame": 0.5833333333333334,
+              "value": [
+                -0.0001,
+                8.0001
+              ]
+            },
+            {
+              "frame": 1.5,
+              "value": [
+                -0.0001,
+                6.1667
+              ]
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 1.3494
+            },
+            {
+              "frame": 0.5666666666666667,
+              "value": 1.61
+            },
+            {
+              "frame": 0.5833333333333334,
+              "value": 0.94
+            },
+            {
+              "frame": 1.5,
+              "value": 1.3494
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 1.3533
+            },
+            {
+              "frame": 0.5666666666666667,
+              "value": 1.61
+            },
+            {
+              "frame": 0.5833333333333334,
+              "value": 0.95
+            },
+            {
+              "frame": 1.5,
+              "value": 1.3533
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 99
+            },
+            {
+              "frame": 0.5666666666666667,
+              "value": 0
+            },
+            {
+              "frame": 0.5833333333333334,
+              "value": 255
+            },
+            {
+              "frame": 1.5,
+              "value": 99
+            }
+          ],
+          "color": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 0.5666666666666667,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 0.5833333333333334,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 1.5,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

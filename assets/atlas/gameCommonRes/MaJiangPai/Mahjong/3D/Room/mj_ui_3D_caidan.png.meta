@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "8b71ca76-0e8a-4426-8249-24c20a8bce9d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "mj_ui_3D_caidan": {
+      "ver": "1.0.3",
+      "uuid": "76a0e922-8eba-4713-b21c-f6670aabb11e",
+      "rawTextureUuid": "8b71ca76-0e8a-4426-8249-24c20a8bce9d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 81,
+      "height": 80,
+      "rawWidth": 83,
+      "rawHeight": 82,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

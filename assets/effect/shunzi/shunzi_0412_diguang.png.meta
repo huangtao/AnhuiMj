@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "2f162134-30c9-4ebc-9b20-d72f5d431d9f",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "shunzi_0412_diguang": {
+      "ver": "1.0.3",
+      "uuid": "d10f0814-ce47-4b0b-9348-6fd7d21d6ecf",
+      "rawTextureUuid": "2f162134-30c9-4ebc-9b20-d72f5d431d9f",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 315,
+      "height": 121,
+      "rawWidth": 315,
+      "rawHeight": 121,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

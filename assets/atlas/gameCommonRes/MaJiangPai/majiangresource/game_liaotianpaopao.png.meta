@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "2330fbbc-77e3-48da-8a3b-e1041179d7a6",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "game_liaotianpaopao": {
+      "ver": "1.0.3",
+      "uuid": "0604e257-55cc-4de3-8906-61cb12a48f24",
+      "rawTextureUuid": "2330fbbc-77e3-48da-8a3b-e1041179d7a6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 214,
+      "height": 68,
+      "rawWidth": 214,
+      "rawHeight": 68,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

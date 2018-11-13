@@ -1,0 +1,65 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_chat_puke_yun",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.7166666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "paths": {
+      "yun": {
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "4ad63d2e-09dd-4f79-b5b0-07b71416b605"
+                }
+              },
+              {
+                "frame": 0.11666666666666667,
+                "value": {
+                  "__uuid__": "9b712b5a-c479-4be3-b2d6-6785144b6fc8"
+                }
+              },
+              {
+                "frame": 0.23333333333333334,
+                "value": {
+                  "__uuid__": "91d2ca2b-dd3d-4674-91ce-52339a02c287"
+                }
+              },
+              {
+                "frame": 0.35,
+                "value": {
+                  "__uuid__": "1c54c7be-4096-47b1-93eb-073db2c1851f"
+                }
+              },
+              {
+                "frame": 0.4666666666666667,
+                "value": {
+                  "__uuid__": "90f406e1-c37a-4e04-befc-135f9e1ef077"
+                }
+              },
+              {
+                "frame": 0.5833333333333334,
+                "value": {
+                  "__uuid__": "02603398-cdb2-44dc-ba20-949648b40270"
+                }
+              },
+              {
+                "frame": 0.7,
+                "value": {
+                  "__uuid__": "4ad63d2e-09dd-4f79-b5b0-07b71416b605"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": []
+}

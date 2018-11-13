@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "4c63e9d0-9b18-43ed-8ec3-00f64795313b",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "gfx_huode_E_BloodRing040_GClamp_00000": {
+      "ver": "1.0.3",
+      "uuid": "66ab2cfc-1636-4ad1-8d51-f7418311a05e",
+      "rawTextureUuid": "4c63e9d0-9b18-43ed-8ec3-00f64795313b",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 12.5,
+      "offsetY": 3.5,
+      "trimX": 26,
+      "trimY": 12,
+      "width": 473,
+      "height": 469,
+      "rawWidth": 500,
+      "rawHeight": 500,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

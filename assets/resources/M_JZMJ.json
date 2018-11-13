@@ -1,0 +1,220 @@
+{
+    "gameName": "M_JZMJ",
+    "list": [
+        {
+            "attrIcon": "cjfj_41.png",
+            "desc": "局数",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "SetGameNum",
+                            "value": 0,
+                            "desc": "8局",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "SetGameNum",
+                            "value": 1,
+                            "desc": "16局",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_46.png",
+            "desc": "玩法",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "attr": "QiangGangHu",
+                            "value": true,
+                            "desc": "抢杠胡",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "DianPaoBaoFen",
+                            "value": true,
+                            "desc": "点炮包分",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_44.png",
+            "desc": "跑嘴",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "PaoZui",
+                            "value": 0,
+                            "desc": "不跑嘴",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "attr": "PaoZui",
+                            "value": 1,
+                            "desc": "自由跑嘴",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "PaoZui",
+                            "value": 2,
+                            "desc": "固定跑嘴",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_46.png",
+            "desc": "倍数",
+            "enabled": false,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "JDWF",
+                            "value": 1,
+                            "desc": "经典玩法",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "FengKuangJiaBei1234",
+                            "value": 0,
+                            "desc": "疯狂加倍1234",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "attr": "FengKuangJiaBei2468",
+                            "value": 0,
+                            "desc": "疯狂加倍2468",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_40.png",
+            "desc": "规则",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "BuKao",
+                            "value": 0,
+                            "desc": "死不靠",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "BuKao",
+                            "value": 1,
+                            "desc": "活不靠",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_77.png",
+            "desc": "定位",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "attr": "ifcansameip",
+                            "value": true,
+                            "desc": "同IP检测",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "CheckGps",
+                            "value": true,
+                            "desc": "GPS定位",
+                            "enabled": true,
+                            "defaultSelected": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_38.png",
+            "desc": "房费",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "tableCreatorPay",
+                            "value": 1,
+                            "desc": "AA支付",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "tableCreatorPay",
+                            "value": 2,
+                            "desc": "房主支付",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "attr": "tableCreatorPay",
+                            "value": 3,
+                            "desc": "圈主支付",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "defaultAttr":[
+        {
+            "attrName": "IsRecordScoreRoom",
+            "value": false,
+            "desc":"是否是记分场"
+        },
+        {
+            "attrName": "LaPaoZuo",
+            "value": false,
+            "desc":"是否拉跑坐（否）"
+        }
+    ]
+}

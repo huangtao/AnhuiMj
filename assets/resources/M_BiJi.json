@@ -1,0 +1,191 @@
+{
+    "gameName": "M_BiJi",
+    "list": [
+        {   
+            "attrIcon": "cjfj_41.png",
+            "desc": "局数",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "SetGameNum",
+                            "value": 0,
+                            "desc": "10局",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "SetGameNum",
+                            "value": 1,
+                            "desc": "20局",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_77.png",
+            "desc": "倍数",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "gameModel",
+                            "value": 1,
+                            "desc": "1倍",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "gameModel",
+                            "value": 2,
+                            "desc": "2倍",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },{
+            "attrIcon": "cjfj_40.png",
+            "desc": "规则",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": ["havesanShunzi:true"],
+                            "attr": "havexiScore",
+                            "value": true,
+                            "desc": "带喜分",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "parentAttr": "havexiScore:true",
+                            "childrenAttr": null,
+                            "attr": "havesanShunzi",
+                            "value": true,
+                            "desc": "带三顺",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+            
+        },{
+            "attrIcon": "cjfj_46.png",
+            "desc": "玩法",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "havedropCard",
+                            "value": true,
+                            "desc": "允许弃牌",
+                            "enabled": true,
+                            "defaultSelected": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_38.png",
+            "desc": "房费",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "tableCreatorPay",
+                            "value": 1,
+                            "desc": "AA支付",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "tableCreatorPay",
+                            "value": 2,
+                            "desc": "房主支付",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "tableCreatorPay",
+                            "value": 3,
+                            "desc": "圈主支付",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "defaultAttr":[
+        {   
+            "attrName": "cellScore",
+            "value": 1,
+            "desc":""
+        },
+        {
+            "attrName": "checkIP",
+            "value": false,
+            "desc":""
+        },
+        {
+            "attrName": "extendBet",
+            "value": 0,
+            "desc":""
+        },
+        {
+            "attrName": "isValid",
+            "value": true,
+            "desc":""
+        },
+        {
+            "attrName": "rubCard",
+            "value": false,
+            "desc":""
+        }
+    ]
+}

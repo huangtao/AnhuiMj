@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "df4dbc2a-4c67-4c8b-bf5d-971995e7fe3e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "mjleftcard_bg_1280": {
+      "ver": "1.0.3",
+      "uuid": "e08750af-356b-4e4d-a074-887bee7318f7",
+      "rawTextureUuid": "df4dbc2a-4c67-4c8b-bf5d-971995e7fe3e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 93,
+      "height": 48,
+      "rawWidth": 93,
+      "rawHeight": 48,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

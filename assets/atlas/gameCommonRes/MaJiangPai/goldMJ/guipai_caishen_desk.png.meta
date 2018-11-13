@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "2e1ff115-e66f-44e5-9348-b1bdab1df0ba",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "guipai_caishen_desk": {
+      "ver": "1.0.3",
+      "uuid": "ac78c6ca-5b8f-403a-af05-075c5e4a2cde",
+      "rawTextureUuid": "2e1ff115-e66f-44e5-9348-b1bdab1df0ba",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 81,
+      "height": 109,
+      "rawWidth": 81,
+      "rawHeight": 109,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

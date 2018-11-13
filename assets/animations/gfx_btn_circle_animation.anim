@@ -1,0 +1,88 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "gfx_btn_circle_animation",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 3.5,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "paths": {
+      "btn_add": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1.1,
+                "y": 1.2
+              }
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 150
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "mask/add": {
+        "props": {
+          "position": [
+            {
+              "frame": 1.8666666666666667,
+              "value": [
+                -186,
+                34
+              ]
+            },
+            {
+              "frame": 2.7,
+              "value": [
+                202,
+                -9
+              ]
+            },
+            {
+              "frame": 3.5,
+              "value": [
+                202,
+                -9
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 1.8666666666666667,
+              "value": 0
+            },
+            {
+              "frame": 2.283333333333333,
+              "value": 128
+            },
+            {
+              "frame": 2.7,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}
