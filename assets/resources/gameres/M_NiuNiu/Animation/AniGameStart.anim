@@ -1,0 +1,623 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "AniGameStart",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 1.5,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "group_bottom": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0.5
+            },
+            {
+              "frame": 0.25,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0.5
+            },
+            {
+              "frame": 0.25,
+              "value": 1
+            }
+          ]
+        }
+      },
+      "kai": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0.5
+            },
+            {
+              "frame": 0.25,
+              "value": 0.5
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0.5
+            },
+            {
+              "frame": 0.25,
+              "value": 0.5
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.25,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 1
+            },
+            {
+              "frame": 0.9166666666666666,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "shi": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0.5
+            },
+            {
+              "frame": 0.25,
+              "value": 0.5
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0.5
+            },
+            {
+              "frame": 0.25,
+              "value": 0.5
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.25,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 1
+            },
+            {
+              "frame": 0.9166666666666666,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "kaishi": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0.5,
+              "value": 1
+            },
+            {
+              "frame": 0.75,
+              "value": 1.5
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.5,
+              "value": 1
+            },
+            {
+              "frame": 0.75,
+              "value": 1.5
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 255
+            },
+            {
+              "frame": 0.75,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "game_start": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0.5
+            },
+            {
+              "frame": 0.25,
+              "value": 0.5
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0.5
+            },
+            {
+              "frame": 0.25,
+              "value": 0.5
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.25,
+              "value": 255
+            }
+          ],
+          "active": [
+            {
+              "frame": 0,
+              "value": false
+            },
+            {
+              "frame": 0.25,
+              "value": true
+            }
+          ]
+        }
+      },
+      "heart_l": {
+        "props": {
+          "active": [
+            {
+              "frame": 0,
+              "value": false
+            },
+            {
+              "frame": 0.25,
+              "value": true
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0.25,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 1
+            },
+            {
+              "frame": 1,
+              "value": 1
+            },
+            {
+              "frame": 1.0833333333333333,
+              "value": 1.2
+            },
+            {
+              "frame": 1.25,
+              "value": 0
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.25,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 1
+            },
+            {
+              "frame": 1,
+              "value": 1
+            },
+            {
+              "frame": 1.0833333333333333,
+              "value": 1.2
+            },
+            {
+              "frame": 1.25,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "heart_r": {
+        "props": {
+          "active": [
+            {
+              "frame": 0,
+              "value": false
+            },
+            {
+              "frame": 0.5,
+              "value": true
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 1.2
+            },
+            {
+              "frame": 1,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 1.2
+            },
+            {
+              "frame": 1,
+              "value": 1
+            }
+          ]
+        }
+      },
+      "group_bg/crl_light": {
+        "props": {
+          "active": [
+            {
+              "frame": 0,
+              "value": false
+            },
+            {
+              "frame": 0.25,
+              "value": true
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0.25,
+              "value": 1
+            },
+            {
+              "frame": 0.5,
+              "value": 1.5
+            },
+            {
+              "frame": 0.75,
+              "value": 2
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.25,
+              "value": 1
+            },
+            {
+              "frame": 0.5,
+              "value": 1.5
+            },
+            {
+              "frame": 0.75,
+              "value": 2
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.25,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 0.5
+            },
+            {
+              "frame": 0.75,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "group_bg/crl_light1": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0.25,
+              "value": 1
+            },
+            {
+              "frame": 0.5,
+              "value": 1.5
+            },
+            {
+              "frame": 0.75,
+              "value": 2
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.25,
+              "value": 1
+            },
+            {
+              "frame": 0.5,
+              "value": 1.5
+            },
+            {
+              "frame": 0.75,
+              "value": 2
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.25,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 0.5
+            },
+            {
+              "frame": 0.75,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "group_bg/crl_light2": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0.4166666666666667,
+              "value": 1
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": 1.5
+            },
+            {
+              "frame": 0.9166666666666666,
+              "value": 2
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.4166666666666667,
+              "value": 1
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": 1.5
+            },
+            {
+              "frame": 0.9166666666666666,
+              "value": 2
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.4166666666666667,
+              "value": 0
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": 0.5
+            },
+            {
+              "frame": 0.9166666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "crow": {
+        "props": {
+          "active": [
+            {
+              "frame": 0,
+              "value": false
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": true
+            }
+          ],
+          "x": [
+            {
+              "frame": 0.6666666666666666,
+              "value": 97
+            },
+            {
+              "frame": 0.9166666666666666,
+              "value": 27
+            }
+          ]
+        }
+      },
+      "star_l": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.75,
+              "value": 0
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 255
+            },
+            {
+              "frame": 1,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "star_r": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.75,
+              "value": 0
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": 255
+            },
+            {
+              "frame": 1,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "group_bg/bg": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0.5
+            },
+            {
+              "frame": 0.25,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0.5
+            },
+            {
+              "frame": 0.25,
+              "value": 1
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.25,
+              "value": 255
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            }
+          ]
+        }
+      }
+    },
+    "props": {
+      "opacity": [
+        {
+          "frame": 1.25,
+          "value": 255
+        },
+        {
+          "frame": 1.5,
+          "value": 0
+        }
+      ]
+    }
+  },
+  "events": []
+}

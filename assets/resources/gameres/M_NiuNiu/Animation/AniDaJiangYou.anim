@@ -1,0 +1,464 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "AniDaJiangYou",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 1.5,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "group_main/group_bg/bg": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 1
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "group_main/group_bg/crl_light": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 255
+            },
+            {
+              "frame": 1.25,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "group_main/group_bottom/shidai": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0.2
+            },
+            {
+              "frame": 0.25,
+              "value": 1.2
+            },
+            {
+              "frame": 0.5,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0.2
+            },
+            {
+              "frame": 0.25,
+              "value": 1.2
+            },
+            {
+              "frame": 0.5,
+              "value": 1
+            }
+          ]
+        }
+      },
+      "group_main/group_bottom/youdraw": {
+        "props": {
+          "active": [
+            {
+              "frame": 0,
+              "value": false
+            },
+            {
+              "frame": 0.25,
+              "value": true
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0.25,
+              "value": 0.2
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0.25,
+              "value": 0.2
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ]
+        }
+      },
+      "group_main/group_bottom/da": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.25,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.25,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ]
+        }
+      },
+      "group_main/group_bottom/jiang": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.25,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.25,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ]
+        }
+      },
+      "group_main/group_bottom/you": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.25,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.25,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 1.2
+            },
+            {
+              "frame": 0.75,
+              "value": 1
+            }
+          ]
+        }
+      },
+      "group_main/group_bottom/big_star_light": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 0.75,
+              "value": 255
+            },
+            {
+              "frame": 1,
+              "value": 204
+            },
+            {
+              "frame": 1.25,
+              "value": 0
+            }
+          ],
+          "y": [
+            {
+              "frame": 0.75,
+              "value": -30
+            },
+            {
+              "frame": 1,
+              "value": -40
+            }
+          ]
+        }
+      },
+      "group_main/group_bottom/star_light": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 0.75,
+              "value": 255
+            },
+            {
+              "frame": 1,
+              "value": 204
+            },
+            {
+              "frame": 1.25,
+              "value": 0
+            }
+          ],
+          "x": [
+            {
+              "frame": 0.75,
+              "value": 180.5
+            },
+            {
+              "frame": 1,
+              "value": 190.5
+            }
+          ]
+        }
+      },
+      "group_main/group_bottom/smarl_star": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 0.75,
+              "value": 255
+            },
+            {
+              "frame": 1,
+              "value": 255
+            },
+            {
+              "frame": 1.25,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "group_main/group_bottom/star_big": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            },
+            {
+              "frame": 0.75,
+              "value": 255
+            },
+            {
+              "frame": 1,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "group_main/group_bottom/star_mob": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.75,
+              "value": 0
+            },
+            {
+              "frame": 1,
+              "value": 255
+            },
+            {
+              "frame": 1.25,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "group_main/group_bottom/star_smarl": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.25,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 255
+            },
+            {
+              "frame": 0.75,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "group_main": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 1.25,
+              "value": 1
+            },
+            {
+              "frame": 1.5,
+              "value": 0
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 1.25,
+              "value": 1
+            },
+            {
+              "frame": 1.5,
+              "value": 0
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 1.25,
+              "value": 255
+            },
+            {
+              "frame": 1.5,
+              "value": 0
+            }
+          ]
+        }
+      }
+    },
+    "props": {}
+  },
+  "events": []
+}

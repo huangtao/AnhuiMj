@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "ee7d752b-2e24-4460-a51e-354bb6df67f0",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "youlosei": {
+      "ver": "1.0.3",
+      "uuid": "1282f589-5622-429c-9268-6fe6abbb2764",
+      "rawTextureUuid": "ee7d752b-2e24-4460-a51e-354bb6df67f0",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 267,
+      "height": 59,
+      "rawWidth": 267,
+      "rawHeight": 59,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

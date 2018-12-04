@@ -1,0 +1,97 @@
+
+gangban.png
+size: 996,722
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ganban01
+  rotate: true
+  xy: 764, 312
+  size: 131, 230
+  orig: 131, 230
+  offset: 0, 0
+  index: -1
+ganban02
+  rotate: true
+  xy: 726, 50
+  size: 133, 239
+  orig: 133, 239
+  offset: 0, 0
+  index: -1
+ganbanmohu01
+  rotate: true
+  xy: 420, 31
+  size: 131, 292
+  orig: 131, 292
+  offset: 0, 0
+  index: -1
+ganbanmohu02
+  rotate: true
+  xy: 2, 2
+  size: 139, 291
+  orig: 139, 291
+  offset: 0, 0
+  index: -1
+hou
+  rotate: false
+  xy: 2, 533
+  size: 528, 187
+  orig: 528, 187
+  offset: 0, 0
+  index: -1
+qian
+  rotate: false
+  xy: 435, 313
+  size: 327, 56
+  orig: 327, 56
+  offset: 0, 0
+  index: -1
+suipian_04
+  rotate: false
+  xy: 532, 531
+  size: 311, 189
+  orig: 461, 222
+  offset: 11, 0
+  index: -1
+suipian_06
+  rotate: false
+  xy: 2, 333
+  size: 431, 198
+  orig: 461, 222
+  offset: 0, 24
+  index: -1
+suipian_08
+  rotate: false
+  xy: 2, 143
+  size: 416, 188
+  orig: 461, 222
+  offset: 45, 1
+  index: -1
+suipian_10
+  rotate: false
+  xy: 435, 371
+  size: 301, 158
+  orig: 461, 222
+  offset: 59, 43
+  index: -1
+suipian_12
+  rotate: true
+  xy: 845, 445
+  size: 275, 140
+  orig: 461, 222
+  offset: 81, 70
+  index: -1
+suipian_14
+  rotate: false
+  xy: 420, 164
+  size: 304, 147
+  orig: 461, 222
+  offset: 76, 58
+  index: -1
+suipian_16
+  rotate: false
+  xy: 726, 185
+  size: 262, 125
+  orig: 461, 222
+  offset: 91, 70
+  index: -1

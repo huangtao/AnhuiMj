@@ -1,0 +1,224 @@
+{
+  "gameName": "M_NIUNIU",
+    "list": [
+        {   
+            "attrIcon": "cjfj_41.png",
+            "desc": "局数",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "SetGameNum",
+                            "value": 0,
+                            "desc": "10局",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "SetGameNum",
+                            "value": 1,
+                            "desc": "20局",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+         {
+            "attrIcon": "cjfj_51.png",
+            "desc": "开局庄家模式",
+            "enabled": true,
+            "parentAttr": {"key":"gameModel:1","contrary":true},
+            "attrName": "startMasterModel",
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "parentAttr": {"key":"gameModel:1","contrary":true},
+                            "childrenAttr": null,
+                            "attr": "startMasterModel",
+                            "value": 0,
+                            "desc": "房主当庄",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "parentAttr": {"key":"gameModel:1","contrary":true},
+                            "childrenAttr": null,
+                            "attr": "startMasterModel",
+                            "value": 1,
+                            "desc": "随机庄家",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_42.png",
+            "desc": "游戏模式",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": [{"key":"rubCard:true","contrary":false}, {"key":"startMasterModel","contrary":true}],
+                            "attr": "gameModel",
+                            "value": 1,
+                            "desc": "看牌抢庄",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": [{"key":"rubCard:true","contrary":true}, {"key":"startMasterModel","contrary":false}],
+                            "attr": "gameModel",
+                            "value": 3,
+                            "desc": "无牛下庄",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": [{"key":"rubCard:true","contrary":true}, {"key":"startMasterModel","contrary":false}],
+                            "attr": "gameModel",
+                            "value": 4,
+                            "desc": "牛九换庄",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": [{"key":"rubCard:true","contrary":true}, {"key":"startMasterModel","contrary":false}],
+                            "attr": "gameModel",
+                            "value": 5,
+                            "desc": "不换庄",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },{
+            "attrIcon": "cjfj_40.png",
+            "desc": "规则",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "extendBet",
+                            "value": true,
+                            "desc": "特殊牛",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "rubCard",
+                            "value": true,
+                            "desc": "搓牌",
+                            "enabled": true,
+                            "defaultSelected": true
+                        }
+
+                    ]
+                }
+            ]
+            
+        },
+
+        {
+            "attrIcon": "cjfj_77.png",
+            "desc": "定位",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "attr": "ifcansameip",
+                            "value": true,
+                            "desc": "同IP检测",
+                            "enabled": true,
+                            "defaultSelected": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_38.png",
+            "desc": "房费",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "tableCreatorPay",
+                            "value": 1,
+                            "desc": "AA支付",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "tableCreatorPay",
+                            "value": 2,
+                            "desc": "房主支付",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "tableCreatorPay",
+                            "value": 3,
+                            "desc": "圈主支付",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "defaultAttr":[
+        {   
+            "attrName": "cellScore",
+            "value": 1,
+            "desc":""
+        }
+    ]
+}
+

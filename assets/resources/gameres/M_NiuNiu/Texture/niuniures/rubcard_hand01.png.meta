@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "c09c2712-3d21-455f-a471-f1a643dbaa26",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "rubcard_hand01": {
+      "ver": "1.0.3",
+      "uuid": "d1774089-c508-4a9e-b53a-58a707059fc4",
+      "rawTextureUuid": "c09c2712-3d21-455f-a471-f1a643dbaa26",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -36.5,
+      "offsetY": 32,
+      "trimX": 121,
+      "trimY": 52,
+      "width": 255,
+      "height": 254,
+      "rawWidth": 570,
+      "rawHeight": 422,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

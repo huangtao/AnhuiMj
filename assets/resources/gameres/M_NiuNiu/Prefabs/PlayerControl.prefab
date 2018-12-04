@@ -1,0 +1,101 @@
+[
+  {
+    "__type__": "cc.Prefab",
+    "_name": "",
+    "_objFlags": 0,
+    "_rawFiles": null,
+    "data": {
+      "__id__": 1
+    }
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "PlayerControl",
+    "_objFlags": 0,
+    "_parent": null,
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 2
+      }
+    ],
+    "_prefab": {
+      "__id__": 3
+    },
+    "_id": "",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 1280,
+      "height": 720
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "12ba3hNY/5JSpkxWAu/HYLw",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "prefab_playerDown": {
+      "__uuid__": "d5f425fd-f84e-40c5-b636-b66eec3200c7"
+    },
+    "prefab_playerRight": {
+      "__uuid__": "5895902f-896a-4e76-a274-0c8c0146a79e"
+    },
+    "prefab_playerTop": {
+      "__uuid__": "6f0c0fb2-53a1-474c-a744-db6f36cededd"
+    },
+    "prefab_playerLeft": {
+      "__uuid__": "5c6ac7a3-8c8f-4eef-acc2-ecde34ae7d7d"
+    },
+    "prefab_aniGameStart": {
+      "__uuid__": "e2351986-e745-4d64-a4f6-f647c6f08ff7"
+    },
+    "prefab_aniResult": {
+      "__uuid__": "a13af69b-5412-4162-ad96-dd740983ee70"
+    }
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__id__": 0
+    },
+    "fileId": "8596a5jbFVMxZQnhJhdlWuz",
+    "sync": false
+  }
+]

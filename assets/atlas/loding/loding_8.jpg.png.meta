@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "34538b66-ac24-4e24-b6fe-87afcf930e81",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "loding_8.jpg": {
+      "ver": "1.0.3",
+      "uuid": "13062920-762a-42e8-ae69-a0e5a13e735a",
+      "rawTextureUuid": "34538b66-ac24-4e24-b6fe-87afcf930e81",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 286,
+      "height": 100,
+      "rawWidth": 286,
+      "rawHeight": 100,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
