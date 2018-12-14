@@ -7,8 +7,8 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class HQMJ_SingleFixedBase extends HQMJ_SingleCardBase {
 
-    @property(cc.Sprite)
-    bmp_arrow:cc.Sprite=null;
+    // @property(cc.Sprite)
+    // bmp_arrow:cc.Sprite=null;
     //四个牌背
     @property([cc.Sprite])
     bmp_cardbackAry: cc.Sprite[]=[];
@@ -20,7 +20,10 @@ export default class HQMJ_SingleFixedBase extends HQMJ_SingleCardBase {
     bmp_cardHideAry: cc.Sprite[]=[];
     //3个亮光
     @property([cc.Sprite])
-    bmp_lightArt: cc.Sprite[]=[];
+    light_arrow: cc.Sprite[]=[];
+
+    // @property(cc.Node)
+    // light_node:cc.Node=null;
 
     onLoad() {
         // init logic
@@ -65,21 +68,40 @@ export default class HQMJ_SingleFixedBase extends HQMJ_SingleCardBase {
         if(pos!=null)
             this._pos=pos;
         //this._pos=pos;
-        //this._bmp_arrow=new egret.Bitmap();
+        // this._bmp_arrow=new egret.Bitmap();
         for(var i: number = 0;i < 3;i++) {
             this.bmp_cardbackAry[i].node.active=true;
             this.bmp_cardHideAry[i].node.active=false;
             this.bmp_cardcolorAry[i].node.active=true;
+
         }
+
         if(enFixedCardType.FixedCardType_Peng != this._fixdType && enFixedCardType.FixedCardType_Chi != this._fixdType) {
             this.bmp_cardbackAry[3].node.active=true;
         }
-        if(pos != null && this._fixdType != enFixedCardType.FixedCardType_AGang){
+        if(pos != null && this._fixdType == enFixedCardType.FixedCardType_Chi){
+            if(type == 0){
+                this.light_arrow[2].node.active = true;        
+                this.light_arrow[1].node.active = false;
+                this.light_arrow[0].node.active = false;
+            }
+            if(type == 1){
+                this.light_arrow[1].node.active = true;    
+                this.light_arrow[2].node.active = false;
+                this.light_arrow[0].node.active = false;
+            }
+            if(type == 2){
+                this.light_arrow[0].node.active = true;    
+                this.light_arrow[1].node.active = false;
+                this.light_arrow[2].node.active = false;
+            }
+        }
+        if(pos != null && this._fixdType != enFixedCardType.FixedCardType_AGang && this._fixdType != enFixedCardType.FixedCardType_Chi){
             for(var i=0;i<3;i++){
                 if(this._pos != i)
-                    this.bmp_lightArt[i].node.active = false;        
+                    this.light_arrow[i].node.active = false;        
                 else
-                    this.bmp_lightArt[i].node.active = true;    
+                    this.light_arrow[i].node.active = true;    
             }
         }
         

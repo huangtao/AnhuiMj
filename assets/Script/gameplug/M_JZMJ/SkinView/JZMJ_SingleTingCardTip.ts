@@ -50,8 +50,7 @@ export default class JZMJ_SingleTingCardTip extends cc.Component {
         // cc.log(`听的牌为：${this._data.tingCard}`);
         //  let url = JZMJ.ins.iclass.getMahjongResName(this._data.tingCard);
         //  SetTextureRes(url,this.img_cardColor);
-        this.img_cardColor.spriteFrame=JZMJ.ins.iclass.getMahjongPaiHuaRes(this._data.tingCard);
-
+        this.img_cardColor.spriteFrame=JZMJ.ins.iclass.getMahjongPaiHuaResOut(this._data.tingCard);
         // load the sprite frame of (project/assets/resources/imgs/cocos.png) from resources folder
 		// cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
 		//     if (err) {

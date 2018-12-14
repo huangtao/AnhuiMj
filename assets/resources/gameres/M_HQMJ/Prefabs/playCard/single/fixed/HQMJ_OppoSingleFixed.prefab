@@ -34,7 +34,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 53
@@ -372,8 +372,8 @@
     "_scaleY": 0.8,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 74.2,
-      "y": -28.3
+      "x": 76.2,
+      "y": -30.3
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -751,8 +751,8 @@
     "_scaleY": 0.8,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": -28.3
+      "x": 2,
+      "y": -29.3
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1130,8 +1130,8 @@
     "_scaleY": 0.8,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -73.8,
-      "y": -28.3
+      "x": -71.8,
+      "y": -29.3
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1693,9 +1693,6 @@
       "__id__": 1
     },
     "_enabled": true,
-    "bmp_arrow": {
-      "__id__": 51
-    },
     "bmp_cardbackAry": [
       {
         "__id__": 12
@@ -1738,7 +1735,7 @@
         "__id__": 41
       }
     ],
-    "bmp_lightArt": [
+    "light_arrow": [
       {
         "__id__": 10
       },

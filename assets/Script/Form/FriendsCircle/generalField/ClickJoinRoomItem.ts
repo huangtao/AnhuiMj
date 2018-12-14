@@ -1,8 +1,4 @@
-import { WebRequest } from "../../../Net/Open8hb";
-import { IDictionary } from "../../../Interface/IDictionary";
-import Global from "../../../Global/Global";
 import { Action, ActionNet } from "../../../CustomType/Action";
-import { QL_Common } from "../../../CommonSrc/QL_Common";
 import { LoadHeader } from "../../../Tools/Function"
 
 const { ccclass, property } = cc._decorator;

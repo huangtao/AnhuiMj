@@ -45,13 +45,15 @@ export class MessageBox extends UIBase<any>{
     
 
     public SureClick() {
+        cc.log(`点击了确定按钮`);
         this.RunAction(this.sureFun, this.thisobj, this.sureArgs);
-        this.CloseClick();
+        super.CloseClick();
     }
 
     public CancleClick() {
+        cc.log(`点击了确定按钮`);
         this.RunAction(this.cancleFun, this.thisobj, this.cancleArgs);
-        this.CloseClick();
+        super.CloseClick();
     }
 
     public CloseClick() {

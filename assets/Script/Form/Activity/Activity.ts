@@ -27,6 +27,9 @@ export default class NewClass extends UIBase<any> {
     @property(cc.Node)
     notice: cc.Node = null;
 
+    @property(cc.Button)
+    jump: cc.Button = null;
+
     InitShow() {
         super.InitShow();
         this.notice.active = false;
@@ -42,13 +45,17 @@ export default class NewClass extends UIBase<any> {
         let scroll_ActivityItem: ItemListScrollView = this.activityItem_scrollview.getComponent("ItemListScrollView");
         let itemList = [
             {
+                name: "蚌埠麻将上线",
+                list: ["image/activity/activity/e"]
+            },
+            {
                 name: "礼品上线",
                 list: ["image/activity/activity/d"]
             },
-            {
-                name: "麻神争霸赛",
-                list: ["image/activity/activity/c"]
-            },
+            // {
+            //     name: "麻神争霸赛",
+            //     list: ["image/activity/activity/c"]
+            // },
             {
                 name: "真3D来了",
                 list: ["image/activity/activity/b"]
@@ -110,12 +117,19 @@ export default class NewClass extends UIBase<any> {
                 const e = new cc.Component.EventHandler();
 
                 switch (info.name) {
-                    case "麻神争霸赛":
-                        e.target = this.node;
-                        e.component = "Activity";
-                        e.handler = "OnClickRank";
-                        btn.clickEvents.push(e);
-                        break;
+                    // case "麻神争霸赛":
+                    //     e.target = this.node;
+                    //     e.component = "Activity";
+                    //     e.handler = "OnClickRank";
+                    //     btn.clickEvents.push(e);
+                    //     break;
+                    case "蚌埠麻将上线":
+                        this.jump.node.active = true;
+                        return;
+                        // e.target = this.node;
+                        // e.component = "Activity";
+                        // e.handler = "OnClickRank";
+                        // btn.clickEvents.push(e);
                     case "礼品上线":
                         e.target = this.node;
                         e.component = "Activity";
@@ -125,6 +139,8 @@ export default class NewClass extends UIBase<any> {
                     default:
                         break;
                 }
+
+                this.jump.node.active = false;
 
                 /**
                  * 如果点击的是麻神争霸赛
@@ -164,6 +180,11 @@ export default class NewClass extends UIBase<any> {
 
     OnClickGift() {
         this.UiManager.ShowUi(UIName.Gift);
+        this.CloseClick(); //关闭本窗体
+    }
+
+    OnClickBbmj(){
+        this.UiManager.ShowUi(UIName.Service);
         this.CloseClick(); //关闭本窗体
     }
 

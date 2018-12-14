@@ -1,10 +1,5 @@
 import UIBase from "../../Base/UIBase";
-import Global from "../../../Global/Global";
 import { NativeCtrl } from "../../../Native/NativeCtrl";
-import { UIName } from "../../../Global/UIName";
-
-
-
 
 const { ccclass, property } = cc._decorator;
 

@@ -37,7 +37,7 @@ export default class MGMJ_SingleActiveBase extends MGMJ_SingleCardBase {
     /**
      * 显示牌
      * */
-    public showCard(card:number,isLie:boolean,index:number,hunpai:number):void{
+    public showCard(card:number,isLie:boolean,index:number,hunpai?:number):void{
         this._cardValue = card;
         this._isLie=isLie;
         this._cardIndex=index;

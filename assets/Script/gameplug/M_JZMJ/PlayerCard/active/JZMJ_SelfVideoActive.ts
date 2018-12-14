@@ -15,8 +15,8 @@ export default class JZMJ_SelfVideoActive extends JZMJ_VideoActiveBase {
         this.init(0);
     }
 
-    private static ArrangeStartPos: Array<number> = [70,280,504,718,962];
-    private static ArrangeStartPos3D: Array<number> = [-572,-308-50,-44-150,178-200,442-300];
+    private static ArrangeStartPos: Array<number> = [0,265,495,725,955];
+    private static ArrangeStartPos3D: Array<number> = [-595,-330,-82,150,380];
 
     /**
      * 玩家胡牌
@@ -80,10 +80,8 @@ export default class JZMJ_SelfVideoActive extends JZMJ_VideoActiveBase {
 
             for(var i: number = 0;i < this._cardData.length;i++) {
                 //this._cardData[i].node.setLocalZOrder(i+1);
-                this._cardData[i].node.x = startPos + i * 83-600;
-                this._cardData[i].node.y = -284;
-                this._cardData[i].node.width = 87;
-                this._cardData[i].node.height = 124;
+                this._cardData[i].node.x = startPos + i * 88-590;
+                this._cardData[i].node.y = -300;
 
                 this._cardData[i].showCard(this._handCard[i],this.isLie,0,M_JZMJVideoClass.ins);
 
@@ -105,8 +103,8 @@ export default class JZMJ_SelfVideoActive extends JZMJ_VideoActiveBase {
             for(let i: number = 0;i < this._cardData.length;i++) {
                 //this._cardData[i].node.setLocalZOrder(i+1);
                 this.resetZ();
-                this._cardData[i].node.x = startPos + i * 75 + 100;
-                this._cardData[i].node.y = -284-20;
+                this._cardData[i].node.x = startPos + i * 90;
+                this._cardData[i].node.y = -300;
 
                 if(!this.isHoldAfter && this._cardData.length%3==2 && (i == (this._cardData.length - 1))){//自己碰过之后会右移第一张牌
                     this._cardData[i].node.x += 20;

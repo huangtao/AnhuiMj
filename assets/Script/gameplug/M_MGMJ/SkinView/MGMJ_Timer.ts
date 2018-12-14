@@ -59,8 +59,8 @@ export default class HBMJ_TimerView extends cc.Component {
         for(var i:number=0; i<MGMJMahjongDef.gPlayerNum; i++){
             this.img_arrow[i].active = false;
         }
-        M_MGMJView.ins.TimerView.node.x = 0;
-        M_MGMJView.ins.TimerView.node.y = 35;
+        // M_MGMJView.ins.TimerView.node.x = 0;
+        // M_MGMJView.ins.TimerView.node.y = 35;
         this.node.active = active != MGMJMahjongDef.gInvalidChar;
 
         let action= cc.repeatForever(cc.sequence(cc.fadeTo(0.5, 0), cc.fadeTo(0.5, 255)));
@@ -102,7 +102,12 @@ export default class HBMJ_TimerView extends cc.Component {
      * 显示计时器箭头
      * */
     public set showArrow(chair:number){
-
+        //显示罗盘
+        if(chair != MGMJMahjongDef.gInvalidChar&&!this.img_fangxiang.node.active){
+            this.img_fangxiang.spriteFrame=this.fangxiang[chair];
+            this.img_fangxiang.node.active = true;
+        }
+        //全部隐藏
         for(var i:number=0; i<MGMJMahjongDef.gPlayerNum; i++){
             this.img_arrow[i].active = false;
         }
@@ -114,11 +119,13 @@ export default class HBMJ_TimerView extends cc.Component {
         let action= cc.repeatForever(cc.sequence(cc.fadeTo(0.5, 0), cc.fadeTo(0.5, 255)));
 
         for(var i:number=0; i<MGMJMahjongDef.gPlayerNum; i++){
-
-            this.img_arrow[i].active = (i == MGMJ.ins.iclass.physical2logicChair(chair));
-
-
             if(i == MGMJ.ins.iclass.physical2logicChair(chair)){
+                this.img_arrow[i].active = true;
+                this.sprite_0[chair].node.active=true;
+                this.sprite_1[MGMJ.ins.iclass.logic2physicalChair(1)].node.active=true;
+                this.sprite_2[MGMJ.ins.iclass.logic2physicalChair(2)].node.active=true;
+                this.sprite_3[MGMJ.ins.iclass.logic2physicalChair(3)].node.active=true;
+
                 this.img_arrow[i].opacity=255;
                 this.img_arrow[i].runAction(action);
             }
@@ -126,9 +133,7 @@ export default class HBMJ_TimerView extends cc.Component {
                 this.img_arrow[i].stopAllActions();
             }
         }
-        //图片下标
-        this.img_fangxiang.spriteFrame=this.fangxiang[chair];
-        this.img_fangxiang.node.active = true;
+
     }
     
     /**

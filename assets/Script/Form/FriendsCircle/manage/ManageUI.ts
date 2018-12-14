@@ -65,13 +65,14 @@ export default class ManageUi extends UIBase<any> {
         // 非管理员不显示数据统计按钮
         
         if (!isAdministrator && this.btn_statistics) {
-            this.btn_statistics.node.active = false;
+            // this.btn_statistics.node.active = false;
         }else{
             if (this.btn_statistics) {
-                this.btn_statistics.node.active = true;
+                // this.btn_statistics.node.active = true;
             }
         }
         
+        this.btn_statistics.node.active = false;
     	// 默认选中资料修改
     	this.tabChangeLogic("btn_modifyInfo");
     }

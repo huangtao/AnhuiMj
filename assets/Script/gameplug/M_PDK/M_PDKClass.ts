@@ -55,6 +55,7 @@ export default class M_PDKClass extends GameBaseClass implements IPDKClass {
     GetClientChair(chair: number): number {
         return this.PhysicChair2LogicChair(chair);
     }
+
     IsVideo(): boolean {
         return false;
     }
@@ -106,6 +107,10 @@ export default class M_PDKClass extends GameBaseClass implements IPDKClass {
                 }
                 case CMD_Static.SUB_S_DissolveTable: {
                     this.skingameView.Rec_DissolveTable(cm);
+                    break;
+                }
+                case CMD_Static.SUB_S_Ready: {
+                    this.skingameView.Rec_ShowReady(cm);
                     break;
                 }
                 case CMD_Static.SUB_S_ForceLeftSuccess: {
@@ -178,6 +183,7 @@ export default class M_PDKClass extends GameBaseClass implements IPDKClass {
                     createTable.SZTW = data.SZTW;
                     createTable.showRemainNum = data.showRemainNum;
                     createTable.CheckGps = data.CheckGps;
+                    createTable.zhuaNiaoScore = data.zhuaNiaoScore;
 
                     console.log(createTable);                   
                     this.SendGameData(createTable);

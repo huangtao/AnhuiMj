@@ -98,7 +98,7 @@ export default class SkinPlayer extends cc.Component {
         this.node.addChild(this.skinAniLockMaster.node);
         this.skinAniWinGold = cc.instantiate(this.prefab_aniWinGold).getComponent<SkinAniWinGold>(SkinAniWinGold);
         this.node.addChild(this.skinAniWinGold.node);
-        this.img_bg.node.on(cc.Node.EventType.TOUCH_START, this.OnImgClick, this);
+        this.img_bg.node.on(cc.Node.EventType.TOUCH_END,this.OnImgClick, this);
         this.animation = this.img_chat.addComponent<cc.Animation>(cc.Animation);
         this.Init();
     }
@@ -227,7 +227,7 @@ export default class SkinPlayer extends cc.Component {
      */
     public SetUserInfo(faceID: string, name: string, gender: number) {      
         if( name.length > 5){
-            this.ss1 = name.substring(0,3) + "...";            
+            this.ss1 = name.substring(0,4) + "...";            
         }else{
             this.ss1 = name;
         }
@@ -524,6 +524,16 @@ export default class SkinPlayer extends cc.Component {
         pos.y += this.node.y;
         if(chair == 0){
             pos.y = -180;
+        }
+        if(chair == 4){
+            pos.y -= 10;
+            pos.x +=10;
+        }
+        if(chair == 2||chair == 3){
+            pos.y += 28;
+        }
+        if(chair == 3){
+            pos.x+=15;
         }
         return pos;
     }

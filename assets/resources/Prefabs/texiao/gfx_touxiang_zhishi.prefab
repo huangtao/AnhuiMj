@@ -142,7 +142,9 @@
     "_isTrimmedMode": false,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 1,
-    "_atlas": null
+    "_atlas": {
+      "__uuid__": "1b415d16-a124-45c4-9120-baee87dcfb33"
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -150,7 +152,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "66a92697-ae1b-4a7b-a121-e4669fd22e0a"
     },
     "fileId": "16rlWu95xPPZSjp0v+ab9k",
     "sync": false
@@ -177,7 +179,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "66a92697-ae1b-4a7b-a121-e4669fd22e0a"
     },
     "fileId": "6aEY4sYQtOjrrYA2lNvoyJ",
     "sync": false

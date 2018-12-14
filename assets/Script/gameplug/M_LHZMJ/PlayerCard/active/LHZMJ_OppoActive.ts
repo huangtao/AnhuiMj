@@ -41,14 +41,14 @@ export default class LHZMJ_OppoActive extends LHZMJ_OtherActive {
         protected refreshHandCard(): void {
         if(LHZMJ.ins.iclass.is2D()){
             if(this.isLie) {
-                //起始位置
+                //起始位置private static ArrangeStartPos_stand: Array<number> = [892,785,675,550,425];
                 var startPos: number = LHZMJ_OppoActive.ArrangeStartPos_lie[this.fixedCardNum];
 
                 //开始排版
                 for(var i: number = 0;i < this._cardData.length;i++) {
                     this._cardData[i].node.setLocalZOrder(i+1);
-                    this._cardData[i].node.x = startPos - i * 37-640-18;
-                    this._cardData[i].node.y = 284;
+                    this._cardData[i].node.x = startPos - i * 42-640-18;
+                    this._cardData[i].node.y = 309;
                     this._cardData[i].showCard(this._handCard[i],this.isLie,0);
 
                     if(this.isHoldAfter && (i == (this._cardData.length - 1))) {
@@ -63,7 +63,7 @@ export default class LHZMJ_OppoActive extends LHZMJ_OtherActive {
                 for(var i: number = 0;i < this._cardData.length;i++) {
                     this._cardData[i].node.setLocalZOrder(i+1);
                     this._cardData[i].node.x = startPos - i * 37-640-18;
-                    this._cardData[i].node.y = 284;
+                    this._cardData[i].node.y = 309;
                     this._cardData[i].showCard(this._handCard[i],this.isLie,0);
 
                     if(this.isHoldAfter && (i == (this._cardData.length - 1))) {

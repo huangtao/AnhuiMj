@@ -56,7 +56,6 @@ export default class ShopForm extends UIBase<any> {
                 let temp = <SystmPushMessage>value;
                 switch (temp.EventCode) {
                     case "hall.paysuccess":
- 
                     if(ShopForm.ShopFormItems){
                         this.lab_diamond.getComponent(cc.Label).string = Global.Instance.DataCache.UserProp.GetValue(QL_Common.CurrencyType.Diamond) + ""
                         Global.Instance.UiManager.ShowUi(UIName.ShopGiftPanel, ShopForm.ShopFormItems); //弹出奖励面板

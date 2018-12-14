@@ -943,7 +943,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 243,
+      "width": 244,
       "height": 24
     },
     "_rotationX": 0,
@@ -952,7 +952,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 528,
+      "x": 510,
       "y": 273.6
     },
     "_skewX": 0,
@@ -978,7 +978,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "2017-12-24 18:24        ",
+    "_N$string": "2017-12-24 18:24 结束",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$fontFamily": "Arial",

@@ -33,6 +33,7 @@ export default class GiftExchangeRecord extends UIBase<any> {
     }
 
     private success(obj) {
+        this.UiManager.CloseLoading();
         this.UiManager.ShowLoading("正在初始化兑换记录数据");
         if (!obj) {
             this.UiManager.CloseLoading();

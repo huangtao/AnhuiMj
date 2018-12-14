@@ -369,14 +369,7 @@ export default class HQMJ_CardView extends cc.Component {
         
         var logicChair: number = this.HQMJClass.physical2logicChair(chair);
         
-        // let pos=(outChair+HQMJMahjongDef.gPlayerNum-chair)%HQMJMahjongDef.gPlayerNum;
         let pos:number=0;
-        // if(chair > outChair && (chair - outChair) == 1)//上家打的
-        //     pos = 0;
-        // if(chair -outChair == 2 || outChair - chair == 2)//对家
-        //     pos = 1;
-        // if(chair < outChair && (chair - outChair) == 1)//下家
-        //     pos = 2;
         if(chair < outChair && Math.abs(chair - outChair) == 1 || chair > outChair &&  Math.abs(chair - outChair) == 3)
             pos = 2;//下家
         if(chair -outChair == 2 || outChair - chair == 2)

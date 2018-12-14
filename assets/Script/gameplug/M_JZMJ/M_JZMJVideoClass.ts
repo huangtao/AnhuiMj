@@ -399,7 +399,7 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
             }
             JZMJMahjongAlgorithm.delCard(checkAry,[outCard]);
             
-            var tingAry: Array<number> = JZMJMahjongAlgorithm.GetTingCardArray(checkAry);    
+            var tingAry: Array<number> = JZMJMahjongAlgorithm.GetTingCardArray(checkAry,this.TableConfig.ifBuKao);    
             console.log("听牌长度"+tingAry.length);
                    
             var tingTip: Array<TingCardTip> = new Array<TingCardTip>();
@@ -678,11 +678,6 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
                 //删除玩家牌池的最后一张牌
                 case M_JZMJ_GameMessage.JZMJMsgID_s2c.CMD_S_DelPoolCard: {
                     this.Handle_CMD_S_DelPoolCard(cm);
-                    break;
-                }
-                //玩家吃牌
-                case M_JZMJ_GameMessage.JZMJMsgID_s2c.CMD_S_PlayerChiCard: {
-                    this.Handle_CMD_S_PlayerChiCard(cm);
                     break;
                 }
                 //玩家碰牌
@@ -1135,7 +1130,7 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
                         tipMsg[1] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[2])].NickName
                         tipMsg[2] = "玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[2])].NickName
                     }
-                    M_JZMJVideoView.ins.cheatBox.showCheatBox(tipMsg);
+                    // M_JZMJVideoView.ins.cheatBox.showCheatBox(tipMsg);
                 }   
             }
     }
@@ -1334,14 +1329,14 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
         // return false;
     }
 
-    public OnChiSel(chiNum:number,chiType:number){                  
-          var chi : M_JZMJ_GameMessage.CMD_C_Chi = new M_JZMJ_GameMessage.CMD_C_Chi();
-          chi.chiCard = chiNum;
-          chi.chiType = chiType;
-        //   this.SendGameData(chi);   
-          this._sendMsg = true;
-          this.chiFun(this._eventMsg);
-    }
+    // public OnChiSel(chiNum:number,chiType:number){                  
+    //       var chi : M_JZMJ_GameMessage.CMD_C_Chi = new M_JZMJ_GameMessage.CMD_C_Chi();
+    //       chi.chiCard = chiNum;
+    //       chi.chiType = chiType;
+    //     //   this.SendGameData(chi);   
+    //       this._sendMsg = true;
+    //       this.chiFun(this._eventMsg);
+    // }
     public OnGangSel(gangCard:number){
         var gang : M_JZMJ_GameMessage.CMD_C_Gang = new M_JZMJ_GameMessage.CMD_C_Gang();
         gang.gangCard = gangCard;
@@ -1418,52 +1413,6 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
                 e.stopPropagation();
                 break;
             }
-             //吃牌
-            case JZMJEvent.msg_chiCard:{
-                
-                this._gamePhase = enGamePhase.GamePhase_Unknown;
-                // M_JZMJVideoView.ins.CardView.selfVideoActive.showTingCardToken(null);
-                M_JZMJVideoView.ins.TingTip.showTingTip(null,true);
-                
-                var chi : M_JZMJ_GameMessage.CMD_C_Chi = new M_JZMJ_GameMessage.CMD_C_Chi();
-                let leftChi = false;
-                let midChi = false;
-                let rightChi = false;
-                let chiStyle = 0;
-                if(this._handCard.indexOf(this._outCardPlayer.Card-2) > -1 && this._handCard.indexOf(this._outCardPlayer.Card-1) > -1){
-                    leftChi = true;
-                    chi.chiType = 0;
-                    chiStyle++;
-                }
-                if(this._handCard.indexOf(this._outCardPlayer.Card+1) > -1 && this._handCard.indexOf(this._outCardPlayer.Card-1) > -1){
-                    midChi = true;
-                    chi.chiType = 1;
-                    chiStyle++;
-                }
-                if(this._handCard.indexOf(this._outCardPlayer.Card+2) > -1 && this._handCard.indexOf(this._outCardPlayer.Card+1) > -1){
-                    rightChi = true;
-                    chi.chiType = 2;
-                    chiStyle++;
-                }
-                if((leftChi && !midChi && !rightChi) || (!leftChi && midChi && !rightChi) || (!leftChi && !midChi && rightChi)){
-                    chi.chiCard = this._outCardPlayer.Card;
-                    // this.SendGameData(chi);
-
-                    this.vote(<number>e.parm);
-                    e.stopPropagation();
-                    //e.stopPropagation();
-                    break;
-                    // chi.chiType = -1;
-                }else if(chiStyle > 1){
-                    //如果吃的选择大于一种 调预制体
-                    cc.log("玩家有"+chiStyle+"种吃法,chiType分别为:leftChi|midChi|right| = "+ leftChi+"|"+midChi+"|"+rightChi);
-                    // M_JZMJVideoView.ins.SelChiView.showChi(chiStyle,leftChi,midChi,rightChi,this._outCardPlayer.Card);
-                    this._eventMsg = e;
-                    this.chiFun(this._eventMsg);           
-                    
-                }
-
-            }
             case JZMJEvent.msg_baoting:{
                 // M_JZMJVideoView.ins.OperatorView.node.active=false;
                 // this.SendGameData(new M_JZMJ_GameMessage.CMD_C_BaoTing());
@@ -1537,39 +1486,27 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
         this.GameRule["GameData"] = tableConfig;
         // this.GameRule = tableConfig;
         this._tableConfig.init(
-            tableConfig.daiDaPai,
             tableConfig.LaPaoZuo>0,
-            tableConfig.qiduijia>0,         
-            tableConfig.gangkaijia>0,
-            tableConfig.bukaojia > 0,
-
-            tableConfig.isYiPaoDuoXiang > 0,
-            tableConfig.GoldCardBaseIdx,
-            tableConfig.IsRecordScoreRoom > 0,
+            tableConfig.CellScore,
+            tableConfig.IsRecordScoreRoom>0,
             tableConfig.TableCreatorID,
             tableConfig.TableCreatorChair,
 
             tableConfig.TableCode,
             tableConfig.SetGameNum,
             tableConfig.GameNum,
-            tableConfig.RealGameNum,
-            tableConfig.isOutTimeOp>0,
-
-            tableConfig.isSaveTable>0,
-            tableConfig.saveTableTime,
             tableConfig.tableCreatorPay,
             tableConfig.tableCost,
-            tableConfig.IfCanSameIP>0,
 
-            tableConfig.gangFen>0,
-            tableConfig.canChi>0,
-            tableConfig.gangFen>0,
-            tableConfig.zhanZhuang>0,
-            tableConfig.daiDaPai>0,
-            tableConfig.whoLose>0,
+            tableConfig.ifcansameip>0,
+            tableConfig.RealGameNum,
+            tableConfig.QiangGangHu,
+            tableConfig.DianPaoBaoFen,
+            tableConfig.BuKao,
 
             tableConfig.tableWhere,
-            tableConfig.checkGps>0
+            tableConfig.CheckGps,
+            tableConfig.PaoZui
 
         );
         M_JZMJVideoView.ins.ReadyStatusGameInfo.refresh();
@@ -1962,7 +1899,7 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
 
             // M_JZMJVideoView.ins.CardView.selfVideoActive.showTingCardToken(null);
             M_JZMJVideoView.ins.TingTip.showTingTip(null,true);
-              this._isTing = JZMJMahjongAlgorithm.CheckIfCanTingCardArray(this._handCard);
+              this._isTing = JZMJMahjongAlgorithm.CheckIfCanTingCardArray(this._handCard,this.TableConfig.ifBuKao);
             //   M_JZMJVideoView.ins.TingBtn(this._isTing);
             if(this._isTing){
                 // M_JZMJVideoView.ins.btn_tingtip.node.active = true;
@@ -2050,62 +1987,6 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
     private Handle_CMD_S_DelPoolCard(msg: GameIF.CustomMessage): void {
         var DelCard: M_JZMJ_GameMessage.CMD_S_DelPoolCard = <M_JZMJ_GameMessage.CMD_S_DelPoolCard>msg;    
         M_JZMJVideoView.ins.CardView.delCardinPool(DelCard.chair,DelCard.card,DelCard.cardnum);
-    }
-
-
-    /**
-     * 玩家吃牌
-     * */
-    private Handle_CMD_S_PlayerChiCard(msg: GameIF.CustomMessage): void {
-        var playerChi: M_JZMJ_GameMessage.CMD_S_PlayerChiCard = <M_JZMJ_GameMessage.CMD_S_PlayerChiCard>msg;
-        
-        let sex:number=this.TablePlayer[playerChi.chair].Gender==1?1:2;
-        let chair:number = playerChi.chair;
-        //音效
-        // if(chair%2 == 0)
-            // M_JZMJVoice.PlayCardType(`/sound/1/chi_1.mp3`);
-        // else
-            // M_JZMJVoice.PlayCardType(`/sound/1/chi_2.mp3`);
-        //动画
-        // M_JZMJVideoView.ins.playJZMJAni(playerChi.chair,enJZMJAniType.aniType_chi);
-        M_JZMJVideoView.ins.playJZMJAni(playerChi.chair,enJZMJAniType.aniType_chi);
-        // M_JZMJVideoView.ins.CardView.hideOutCardArrow();
-        //清理玩家打出的牌
-        this._outCardPlayer.clear();
-        
-        //处理吃牌
-        // if(M_JZMJVideoView.ins.TingTip.node.active){
-        //     this.showTingCard(0,3000);
-        // }
-        M_JZMJVideoView.ins.CardView.playerChi(playerChi.chair,playerChi.card,playerChi.outChair,playerChi.chi_type);
-        
-        if(playerChi.chi_type == 0){
-            this._recordCard.chiACard(playerChi.card-1);
-            this._recordCard.chiACard(playerChi.card-2);
-        }
-        if(playerChi.chi_type == 1){
-            this._recordCard.chiACard(playerChi.card-1);
-            this._recordCard.chiACard(playerChi.card+1);
-        }
-        if(playerChi.chi_type == 2){
-            this._recordCard.chiACard(playerChi.card+1);
-            this._recordCard.chiACard(playerChi.card+2);
-        }
-
-        //如果是自己
-        if(this.SelfChair == playerChi.chair){
-            if(playerChi.chi_type == 0){
-                JZMJMahjongAlgorithm.delCard(this._handCard,[playerChi.card - 1,playerChi.card - 2]);
-            }
-            if(playerChi.chi_type == 1){
-                JZMJMahjongAlgorithm.delCard(this._handCard,[playerChi.card - 1,playerChi.card + 1]);
-            }
-            if(playerChi.chi_type == 2){
-                JZMJMahjongAlgorithm.delCard(this._handCard,[playerChi.card + 1,playerChi.card + 2]);
-            }
-            JZMJMahjongAlgorithm.sortCardAry(this._handCard);
-        }
-        this._sendMsg = false;
     }
 
     /**
@@ -2319,7 +2200,7 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
         // M_JZMJVideoView.ins.CardView.selfVideoActive.refreshCardStatus();
         // M_JZMJVideoView.ins.CardView.selfVideoActive.standPai();
         //检查打出哪些牌可以听牌
-        var tingToken: Array<number> = JZMJMahjongAlgorithm.GetLastCardToTing(this._handCard);
+        var tingToken: Array<number> = JZMJMahjongAlgorithm.GetLastCardToTing(this._handCard,this.TableConfig.ifBuKao);
         //console.log("听牌"+tingToken.length)
         // M_JZMJVideoView.ins.CardView.selfVideoActive.showTingCardToken(tingToken);
     }
@@ -2497,42 +2378,35 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
         var createTable : M_JZMJ_GameMessage.CMD_C_CreateTable = new M_JZMJ_GameMessage.CMD_C_CreateTable();
         
         // createTable.CellScore = data.CellScore;
-        createTable.isYiPaoDuoXiang = data.isYiPaoDuoXiang?1:0;
-        createTable.QiDuiJia = data.isQiDui?1:0;
-        createTable.BuKaoJia = data.isBuKao?1:0;
-        createTable.GangKaiJia = data.isGangKai?1:0;
-        createTable.LaPaoZuo = data.isLaPaoZuo?1:0;
-       
-        createTable.GoldRoomBaseIdx = 1;//data.GoldRoomBaseIdx;//this._selBaseMoney.baseMoneyIdx;
-        createTable.IsRecordScoreRoom = 1;//this._cbx_jifenRoom.isSel ? 1 : 0;
-        createTable.TableCode = M_JZMJVideoClass.ins.TableID.toString();
+        createTable.LaPaoZuo = data.LaPaoZuo?1:0;
+        createTable.IsRecordScoreRoom = 1;
+        createTable.TableCode = M_JZMJClass.ins.TableID.toString();
         createTable.SetGameNum = data.SetGameNum;
-        createTable.TableCost = gameRuleData.TableCost;
-        createTable.isOutTimeOp= data.isOutTimeOp;
-        createTable.isTableCreatorPay=data.tableCreatorPay;
-        createTable.IfCanSameIp=data.IfCanSameIp;
-        createTable.canChi = data.canChi;
-        createTable.daiDaPai = data.daiDaPai;
-        createTable.gangFen = data.gangFen;
-        createTable.zhanZhuang = data.zhanZhuang;
-        createTable.whoLose = data.whoLose;
+        createTable.isTableCreatorPay = data.tableCreatorPay;
+        createTable.tableCost = gameRuleData.TableCost;
+        createTable.ifcansameip = data.ifcansameip;
+        createTable.QiangGangHu = data.QiangGangHu;
+        createTable.DianPaoBaoFen = data.DianPaoBaoFen;
+        createTable.BuKao = data.BuKao;
+        createTable.CheckGps = data.CheckGps;
+        createTable.PaoZui = data.PaoZui;
         
         if(data.tableCreatorPay==2){//如果是房主支付
             if(data.SetGameNum ==0){ //如果是8局
-                 createTable.TableCost = 32;//桌费32钻
+                 createTable.tableCost = 32;//桌费32钻
             }else  if(data.SetGameNum ==1){//如果是16局
-                createTable.TableCost = 64;//桌费64钻
+                createTable.tableCost = 64;//桌费64钻
             }else{
-                createTable.TableCost = 64;//局数未取到，默认桌费64钻
+                createTable.tableCost = 64;//局数未取到，默认桌费64钻
             }
            
         }else if(data.tableCreatorPay==1) {//如果是AA支付
             if(data.SetGameNum ==0){
-                createTable.TableCost = 8;
+                createTable.tableCost = 8;
             }else if(data.SetGameNum ==1){
-                createTable.TableCost = 16;
+                createTable.tableCost = 16;
             }else{
-                createTable.TableCost = 16;
+                createTable.tableCost = 16;
             }
         }
         //设置分享内容
@@ -2653,8 +2527,6 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
      * 解散桌子成功
      * */
     private Handle_CMD_S_DissTableSuccess(msg: GameIF.CustomMessage):void{
-        
-        //},this);
         var dissTable: M_JZMJ_GameMessage.CMD_S_DissTableSuccess = <M_JZMJ_GameMessage.CMD_S_DissTableSuccess>msg;
          M_JZMJVideoView.ins.DissTable.node.active=false;
         if(0 == dissTable.gameing){
@@ -2666,7 +2538,6 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
             },this);
         }
     }
-        
 
     /**
      * 注册一个计时器
@@ -2677,13 +2548,11 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
         
         M_JZMJVideoView.ins.TimerView.node.active=true;
         M_JZMJVideoView.ins.TimerView.showArr(chair,selfChair,true);// = chair;
-        M_JZMJVideoView.ins.TimerView.timerNum = timerLen;
-       
+        // M_JZMJVideoView.ins.TimerView.timerNum = timerLen;
         this._timer.start();
     }    
 
     ///接口    
-
 
     /**
      * 是否自建房间
@@ -2803,6 +2672,10 @@ export default class M_JZMJVideoClass extends GameVideoBase implements IJZMJClas
      * */
     public getMahjong3DPaiBeiRes(cardtype: string): cc.SpriteFrame {
         return this.paibei3d.getSpriteFrame(cardtype);
+    }
+    public getMahjongPaiHuaResOut(card: number): cc.SpriteFrame {
+        
+        return this.paihua.getSpriteFrame(`mahjong_${JZMJMahjongAlgorithm.GetMahjongColor(card)}_${JZMJMahjongAlgorithm.GetMahjongValue(card)}`);
     }
 
     /**

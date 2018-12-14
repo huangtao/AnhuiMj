@@ -25,6 +25,7 @@ import { DateTime } from '../Serializer/DateTime';
 import RankList from "../Form/Rank/RankList";
 import HornPanel from "../Form/Horn/HornPanel";
 import HornGamePanel from "../Form/Horn/HornGamePanel";
+import { SystmPushMessage } from "../CustomType/SystmPushMsg";
 
 const { ccclass, property } = cc._decorator;
 
@@ -83,13 +84,17 @@ export default class HallCtrl extends ReConnectBase {
     @property(cc.Node)
     email: cc.Node = null;
 
-
+    @property(cc.Node)
+    bind_panel: cc.Node = null;
 
     @property(cc.Prefab)
     rankPrefab: cc.Prefab = null;
 
     @property(cc.Prefab)
     HornNode: cc.Prefab = null;
+
+    @property(cc.Node)
+    TaskNode: cc.Node = null;
 
     /**
      * 当前添加的游戏信息
@@ -98,6 +103,8 @@ export default class HallCtrl extends ReConnectBase {
 
     onLoad() {
         super.onLoad();
+
+        cc.log("窗口初始化");
 
         /**
          * 预加载资源
@@ -123,6 +130,18 @@ export default class HallCtrl extends ReConnectBase {
             return;
         }
 
+        let phone = this.UserInfo.userData.PhoneNum;
+        let player_phone = LocalStorage.GetItem("player_phone");
+        if (phone && player_phone == "") {
+            LocalStorage.SetItem("player_phone", phone);
+        }
+
+        let realName = this.UserInfo.userData.RealName;
+        let idCardNum = this.UserInfo.userData.IdCardNum;
+        if (realName && idCardNum && phone) {
+            this.bind_panel.active = false;
+        }
+
         //播放大厅背景音乐
         PlayBgMusic(cc.url.raw("resources/Sound/bg_hall.mp3"));
 
@@ -132,6 +151,7 @@ export default class HallCtrl extends ReConnectBase {
         // LoadHeader(this.UserInfo.userData.Header, this.header); //头像
         this.OnLatestBalance(); //刷新余额
         this.NewEmailInfo();    //刷新邮件显示
+        this.ShowTaskIcon(); //刷新任务显示
         if (!Debug()) {
             // if (!this.UserInfo.userData.TodayIsSign)
             //     this.ShowUi(UIName.SignIn);//获取签到配置
@@ -143,6 +163,7 @@ export default class HallCtrl extends ReConnectBase {
         this.OnFriendGroup();
         this.circulationGetRank();
         this.ShowGiftPanel();
+        this.ShowTaskIcon();
     }
 
     /**
@@ -165,16 +186,21 @@ export default class HallCtrl extends ReConnectBase {
      * author:Cyq
      */
     public LoadActivity() {
-        let nowDays = Math.floor(DateTime.Now.TimeStamp / 1000.0 / 24.0 / 3600.0); //获取时间戳总天数
+        let user_data = this.DataCache.UserInfo.userData;
+        if (!user_data) {
+            cc.log("没有获取到玩家信息");
+            return;
+        }
 
-        let CacheTime = LocalStorage.GetItem("ActivityTime"); //用于弹出面板控制变量
-        if (!CacheTime) {
-            LocalStorage.SetItem("ActivityTime", nowDays.toString());
-            this.ShowUi(UIName.Activity);
+        let nowDays = Math.floor(DateTime.Now.TimeStamp / 1000.0 / 24.0 / 3600.0); //获取时间戳总天数
+        let LoginTime = LocalStorage.GetItem(user_data.UserID + "_LoginTime"); //用于弹出面板控制变量
+        if (!LoginTime || LoginTime == "") {
+            LocalStorage.SetItem(user_data.UserID + "_LoginTime", nowDays.toString());
+            this.ShowUi(UIName.Task, 1);
         } else {
-            if (nowDays > parseInt(CacheTime)) {
-                LocalStorage.SetItem("ActivityTime", nowDays.toString());
-                this.ShowUi(UIName.Activity);
+            if (nowDays > parseInt(LoginTime)) {
+                LocalStorage.SetItem(user_data.UserID + "_LoginTime", nowDays.toString());
+                this.ShowUi(UIName.Task, 1);
             }
         }
     }
@@ -250,7 +276,7 @@ export default class HallCtrl extends ReConnectBase {
             return;
         }*/
 
-        this.ShowUi(UIName.SelectFriendCircle);
+        this.ShowUi(UIName.FriendCircle);
     }
 
     /**
@@ -448,12 +474,11 @@ export default class HallCtrl extends ReConnectBase {
     private a: boolean = false;
     private moreClick() {
         if (!this.a) {
-
-            if (this.UserInfo.userData.IsAuthentication) {
-                this.realName.node.active = false;
-                // this.UiManager.ShowTip("你已经实名认证过了，不需要重复认证");
-                // return;
-            }
+            // if (this.UserInfo.userData.IsAuthentication) {
+            //     this.realName.node.active = false;
+            //     // this.UiManager.ShowTip("你已经实名认证过了，不需要重复认证");
+            //     // return;
+            // }
 
             this.moreMenu.node.active = true;
             this.a = true;
@@ -521,6 +546,13 @@ export default class HallCtrl extends ReConnectBase {
     }
 
     /**
+     * 点击绑定按钮
+     */
+    private bindClick() {
+        this.UiManager.ShowUi(UIName.BindPanel);
+    }
+
+    /**
      * 游戏内自定义消息到达
      * @param eventCode 
      * @param value 
@@ -553,18 +585,30 @@ export default class HallCtrl extends ReConnectBase {
                 this.NewEmailInfo();
                 return true;
             case EventCode.HornHallStart:
-                cc.log("长度为：" + HornPanel.HornHallList.length);
                 if (HornPanel.HornHallList.length > 0) {
                     this.UiManager.ShowHorn(HornPanel.HornHallList[HornPanel.HornHallList.length - 1]);
                 }
-                cc.log("大厅跑马灯到达");
+                return true;
+            case EventCode.TaskNumPush:
+                this.ShowTaskIcon();
                 return true;
             default:
                 return super.OnSceneEvent(eventCode, value);
         }
-        return false;
     }
 
+    private ShowTaskIcon() {
+        let taskCount = this.DataCache.UserInfo.taskCount;
+        if (taskCount == null) {
+            cc.log("没有获取到 taskCount");
+            return;
+        }
+
+        let icon = this.TaskNode.getChildByName("task_icon");
+        if (icon) {
+            icon.active = taskCount > 0;
+        }
+    }
 
     private OnLoginSuccess() {
         SendMessage.Instance.QueryUserProp([QL_Common.CurrencyType.Gold, QL_Common.CurrencyType.Diamond]);
@@ -641,7 +685,6 @@ export default class HallCtrl extends ReConnectBase {
         }
     }
     DoShareParamHandle() {
-
         try {
             if (ConfigData._isGetedOpenUri) return;
             ConfigData._isGetedOpenUri = true;

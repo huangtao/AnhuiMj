@@ -65,10 +65,11 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
     }
 
     private show3DCard():void{
+        let left = 8;
         switch(this._cardIndex){
             case 1:{
-                this.node.x=139;
-                this.node.y=-33;
+                this.node.x=139;//139
+                this.node.y=-33 + left;
                 this.node.setLocalZOrder(29);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=7;
@@ -88,7 +89,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 2:{
                 this.node.x=137;
-                this.node.y=-1;
+                this.node.y=-1+ left;
                 this.node.setLocalZOrder(28);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=7;
@@ -108,7 +109,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 3:{
                 this.node.x=134;
-                this.node.y=31;
+                this.node.y=31+ left;
                 this.node.setLocalZOrder(27);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=7;
@@ -128,7 +129,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 4:{
                 this.node.x=132;
-                this.node.y=61;
+                this.node.y=61+ left;
                 this.node.setLocalZOrder(26);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=7;
@@ -148,7 +149,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 5:{
                 this.node.x=130;
-                this.node.y=91;
+                this.node.y=91+ left;
                 this.node.setLocalZOrder(25);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=7;
@@ -168,7 +169,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 6:{
                 this.node.x=128;
-                this.node.y=119;
+                this.node.y=119+ left;
                 this.node.setLocalZOrder(24);
                 this.bmp_cardback.node.height=52;
                 this.bmp_cardback.node.scaleX=1;
@@ -190,7 +191,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 7:{
                 this.node.x=125;
-                this.node.y=148;
+                this.node.y=148+ left;
                 this.node.setLocalZOrder(23);
                 this.bmp_cardback.node.scaleX=1;
                 this.bmp_cardcolor.node.x=1;
@@ -211,7 +212,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 8:{
                 this.node.x=124;
-                this.node.y=177;
+                this.node.y=177+ left;
                 this.node.setLocalZOrder(22);
                 this.bmp_cardback.node.scaleX=1;
                 this.bmp_cardcolor.node.x=1;
@@ -232,7 +233,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 9:{
                 this.node.x=121;
-                this.node.y=206;
+                this.node.y=206+ left;
                 this.node.setLocalZOrder(21);
                 this.bmp_cardback.node.scaleX=1;
                 this.bmp_cardcolor.node.x=1;
@@ -255,7 +256,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             //第二行
             case 10:{
                 this.node.x=196;
-                this.node.y=-34;
+                this.node.y=-34+ left;
                 this.node.setLocalZOrder(19);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=8.5;
@@ -275,7 +276,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 11:{
                 this.node.x=192;
-                this.node.y=-1;
+                this.node.y=-1+ left;
                 this.node.setLocalZOrder(18);
                 this.bmp_cardcolor.node.x=2;
                 this.bmp_cardcolor.node.y=10.5;
@@ -296,7 +297,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 12:{
                 this.node.x=189;
-                this.node.y=31;
+                this.node.y=31+ left;
                 this.node.setLocalZOrder(17);
                 this.bmp_cardcolor.node.x=2;
                 this.bmp_cardcolor.node.y=10.5;
@@ -317,7 +318,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 13:{
                 this.node.x=187;
-                this.node.y=61;
+                this.node.y=61+ left;
                 this.node.setLocalZOrder(16);
                 this.bmp_cardcolor.node.x=2;
                 this.bmp_cardcolor.node.y=10.5;
@@ -338,7 +339,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 14:{
                 this.node.x=184;
-                this.node.y=92;
+                this.node.y=92+ left;
                 this.node.setLocalZOrder(15);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=8;
@@ -359,7 +360,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 15:{
                 this.node.x=181;
-                this.node.y=120;
+                this.node.y=120+ left;
                 this.node.setLocalZOrder(14);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=10.5;
@@ -380,7 +381,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 16:{
                 this.node.x=178;
-                this.node.y=149;
+                this.node.y=149+ left;
                 this.node.setLocalZOrder(13);
                 this.bmp_cardcolor.node.x=1.7;
                 this.bmp_cardcolor.node.y=10.5;
@@ -400,7 +401,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 17:{
                 this.node.x=175;
-                this.node.y=178;
+                this.node.y=178+ left;
                 this.node.setLocalZOrder(12);
                 this.bmp_cardcolor.node.x=1.7;
                 this.bmp_cardcolor.node.y=9.6;
@@ -420,7 +421,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 18:{
                 this.node.x=173;
-                this.node.y=206;
+                this.node.y=206+ left;
                 this.node.setLocalZOrder(11);
                 this.bmp_cardcolor.node.x=1.3;
                 this.bmp_cardcolor.node.y=9.4;
@@ -441,7 +442,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             //第三行
             case 19:{
                 this.node.x=253;
-                this.node.y=-35;
+                this.node.y=-35+ left;
                 this.node.setLocalZOrder(9);
                 this.bmp_cardcolor.node.x=0.6;
                 this.bmp_cardcolor.node.y=9.4;
@@ -461,7 +462,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 20:{
                 this.node.x=248;
-                this.node.y=-3;
+                this.node.y=-3+ left;
                 this.node.setLocalZOrder(8);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=8.5;
@@ -481,7 +482,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 21:{
                 this.node.x=244;
-                this.node.y=29;
+                this.node.y=29+ left;
                 this.node.setLocalZOrder(7);
                 this.bmp_cardcolor.node.x=2;
                 this.bmp_cardcolor.node.y=10.5;
@@ -501,7 +502,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 22:{
                 this.node.x=241;
-                this.node.y=59;
+                this.node.y=59+ left;
                 this.node.setLocalZOrder(6);
                 this.bmp_cardcolor.node.x=2;
                 this.bmp_cardcolor.node.y=10.5;
@@ -522,7 +523,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 23:{
                 this.node.x=129;
-                this.node.y=97;
+                this.node.y=97+ left;
 
                 // this.bmp_cardback.node.width=71;
                 // this.bmp_cardback.node.height=53;
@@ -545,7 +546,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 24:{
                 this.node.x=125;
-                this.node.y=130;
+                this.node.y=130+ left;
 
                 // this.bmp_cardback.node.width=70;
                 // this.bmp_cardback.node.height=53;
@@ -568,7 +569,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 25:{
                 this.node.x=121;
-                this.node.y=161;
+                this.node.y=161+ left;
 
                 // this.bmp_cardback.node.width=69;
                 // this.bmp_cardback.node.height=55;
@@ -592,7 +593,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
 
             case 26:{
                 this.node.x=120;
-                this.node.y=190;
+                this.node.y=190+ left;
 
                 // this.bmp_cardback.node.width=68;
                 // this.bmp_cardback.node.height=52;
@@ -615,7 +616,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 27:{
                 this.node.x=116;
-                this.node.y=218.2;
+                this.node.y=218.2+ left;
 
                 // this.bmp_cardback.node.width=66;
                 // this.bmp_cardback.node.height=50;
@@ -638,7 +639,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 28:{
                 this.node.x=402.3;
-                this.node.y=113.2;
+                this.node.y=113.2+ left;
 
                 // this.bmp_cardback.node.width=65;
                 // this.bmp_cardback.node.height=48;
@@ -661,7 +662,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 29:{
                 this.node.x=396.2;
-                this.node.y=141.3;
+                this.node.y=141.3+ left;
 
                 this.bmp_cardback.node.width=64;
                 this.bmp_cardback.node.height=48;
@@ -684,7 +685,7 @@ export default class MGMJ_DownSinglePool extends MGMJ_SinglePoolBase {
             }
             case 30:{
                 this.node.x=390.1;
-                this.node.y=170.5;
+                this.node.y=170.5+ left;
 
                 this.bmp_cardback.node.width=62;
                 this.bmp_cardback.node.height=47;

@@ -9,14 +9,14 @@ import { CreateRoomSettingBase } from "../../gameplug/base/CreateRoomSettingBase
 import { GameCachePool } from "../../Global/GameCachePool";
 import { ReportError, Debug } from "../../Tools/Function";
 import SettingItem from "./SettingItem";
-import { AttrParam }  from "./RuleItemType/RuleItemToggleBase";
-import RuleItemToggleBase  from "./RuleItemType/RuleItemToggleBase";
+import { AttrParam } from "./RuleItemType/RuleItemToggleBase";
+import RuleItemToggleBase from "./RuleItemType/RuleItemToggleBase";
 import { LocalStorage } from "../../CustomType/LocalStorage";
 import FriendCircleWebHandle from "../FriendsCircle/FriendCircleWebHandle";
 import FriendCircleDataCache from "../FriendsCircle/FriendCircleDataCache";
 import { FriendCircleRule } from "../../CustomType/FriendCircleInfo";
 import CreateRoomDataCache from "./CreateRoomDataCache";
-import { ObjectToString, StrToObject} from "../../Tools/Function";
+import { ObjectToString, StrToObject } from "../../Tools/Function";
 import { ToggleType } from "./CreateRoomEnum";
 import GameWanFaDesc from "../../config/GameWanfaDesc";
 const { ccclass, property } = cc._decorator;
@@ -36,7 +36,8 @@ export class CreateRoomStruct {
     CheckMoneyNum: number;
     CurrencyType: QL_Common.CurrencyType;
     RoomData: any;
-    GroupId: number; 
+    GroupId: number;
+    RuleId: number = 0;
 }
 
 @ccclass
@@ -117,19 +118,19 @@ export class SelectGameRule extends UIBase<any>{
      * 游戏玩法介绍
      */
     @property(cc.RichText)
-    text:cc.RichText = null;
+    text: cc.RichText = null;
 
     /**
      * 房费节点
      */
     @property(cc.Node)
-    node_payWay:cc.Node = null;
+    node_payWay: cc.Node = null;
 
     /**
      * 房费节点底图
      */
     @property(cc.Node)
-    sp_payway:cc.Node = null;
+    sp_payway: cc.Node = null;
 
     /**
      * 游戏房费配置
@@ -139,11 +140,11 @@ export class SelectGameRule extends UIBase<any>{
     /**
      * 规则面板节点数组
      */
-    private _ruleNodeDict: Dictionary<string,SettingItem>;
+    private _ruleNodeDict: Dictionary<string, SettingItem>;
 
-    public get RuleNodeDict() : Dictionary<string,SettingItem>{
+    public get RuleNodeDict(): Dictionary<string, SettingItem> {
         if (!this._ruleNodeDict) {
-            this._ruleNodeDict = new Dictionary<string,SettingItem>();
+            this._ruleNodeDict = new Dictionary<string, SettingItem>();
         }
 
         return this._ruleNodeDict;
@@ -168,12 +169,17 @@ export class SelectGameRule extends UIBase<any>{
 
     public onLoad() {
     }
-    
+
     InitShow() {
+        // 初始数据
         this.RuleNodeDict.Clear();
+        this._gameRuleData = new GameRuleData();
+        this._gameRuleData.TableCost = 0;
+        this._gameRuleData.GameData = {};
+
         this.nowGameInfo = this.ShowParam.gameInfo;
         this.isFriendCircle = this.ShowParam.isFriendCircle;
-        
+
         this.initPayConfig();
 
         // 显示游戏昵称
@@ -190,7 +196,7 @@ export class SelectGameRule extends UIBase<any>{
         }
 
         // 加载游戏配置表
-        let act = new Action(this,(res)=>{
+        let act = new Action(this, (res) => {
             if (!res) {
                 if (this.node_diamond) {
                     this.node_diamond.active = false;
@@ -198,7 +204,7 @@ export class SelectGameRule extends UIBase<any>{
                 // 先清空
                 this.layout_item.node.removeAllChildren();
                 this.UiManager.ShowTip("游戏暂未开放，请联系客服！");
-            }else{
+            } else {
                 if (this.node_diamond) {
                     this.node_diamond.active = true;
                 }
@@ -208,14 +214,16 @@ export class SelectGameRule extends UIBase<any>{
 
                 // 加载本地保存的玩法 亲友圈进来的不做记忆功能
                 if (!this.isFriendCircle) {
-                    this.loadLocalSettingConfig();
-                }else{
-
+                    if (!this.loadLocalSettingConfig()) {
+                        this.initSelectedStatusFromJson();
+                    }
+                } else {
+                    this.initSelectedStatusFromJson();
                 }
-                
+
                 // 判断是从亲友圈进来的则显示圈主支付
                 let item = this.RuleNodeDict.GetValue('房费');
-                item.node.setPosition(cc.p(0,0));
+                item.node.setPosition(cc.p(0, 0));
                 item.node.removeFromParent(false);
 
                 // 隐藏横线
@@ -226,7 +234,7 @@ export class SelectGameRule extends UIBase<any>{
                     lineUp.active = false;
                     lineDown.active = false;
                 }
-                
+
                 if (this.node_payWay) {
                     this.node_payWay.removeAllChildren();
                     this.node_payWay.addChild(item.node);
@@ -242,27 +250,37 @@ export class SelectGameRule extends UIBase<any>{
                 if (fzPayNode && circleOwnerPayNode) {
                     if (this.isFriendCircle) {
                         fzPayNode.removeFromParent();
-                    }else{
+                    } else {
                         circleOwnerPayNode.removeFromParent();
-                    }    
+                    }
                 }
             }
         });
 
-        CreateRoomDataCache.Instance.getRuleJson(this.nowGameInfo.ModuleName,act);
+        CreateRoomDataCache.Instance.getRuleJson(this.nowGameInfo.ModuleName, act);
 
         // 默认显示游戏规则面板
-        this.ruleDescChanageClick(null,"RULE");
+        this.ruleDescChanageClick(null, "RULE");
+    }
+
+    /**
+     * 读取Json文件默认配置选项来初始化选中状态
+     */
+    private initSelectedStatusFromJson() {
+        for (let idx = 0; idx < this.RuleNodeDict.Count; ++idx) {
+            let settingItem = this.RuleNodeDict.Values[idx];
+            settingItem.initDefaultSelectStatus();
+        }
     }
 
     /**
      * 加载本地保存设置
      */
-    private loadLocalSettingConfig() {
+    private loadLocalSettingConfig(): boolean {
         let ruleStr = LocalStorage.GetItem('CreateRoomRuleConfig');
 
         if (!ruleStr) {
-            return;
+            return false;
         }
 
         cc.info('--- loadRuleConfig ', ruleStr);
@@ -271,7 +289,7 @@ export class SelectGameRule extends UIBase<any>{
         let gameInfo = StrToObject(tmpArray[0]);
 
         if (gameInfo['GameID'] + '' != this.nowGameInfo.GameID + '') {
-            return;
+            return false;
         }
 
         ruleStr = tmpArray[1];
@@ -294,19 +312,27 @@ export class SelectGameRule extends UIBase<any>{
                     continue;
                 }
 
-                if (ToggleType.CHECKBOX_LEFTRIGHT == ruleItemBase.Type 
-                    || ToggleType.SINGLE_LEFTRIGHT == ruleItemBase.Type) {
-                    ruleItemBase.setSelectValue({selected: true,value: localRule[rule[0]]});
-                    break;
-                }
-                
-                if (-1 != Object.keys(localRule).indexOf(rule[0]) && rule[1] == localRule[rule[0]]) {
-                    ruleItemBase.setSelectValue({selected: true,value: rule[1]});
-                }else{
-                    ruleItemBase.setSelectValue({selected: false});
+                let ruleValue = localRule[rule[0]];
+
+                switch (ruleItemBase.Type) {
+                    case ToggleType.CHECKBOX_LEFTRIGHT:
+                    case ToggleType.SINGLE_LEFTRIGHT:
+                    case ToggleType.TOGGLE_CHECKBOX_DROPDOWN:
+                    case ToggleType.TOGGLE_SINGLE_DROPDOWN:
+                        ruleItemBase.setSelectValue({ selected: true, value: ruleValue });
+                        break;
+                    default:
+                        if (-1 != Object.keys(localRule).indexOf(rule[0]) && rule[1] == ruleValue) {
+                            ruleItemBase.setSelectValue({ selected: true, value: rule[1] });
+                        } else {
+                            ruleItemBase.setSelectValue({ selected: false });
+                        }
+                        break;
                 }
             }
         }
+
+        return true;
     }
 
     /**
@@ -316,7 +342,7 @@ export class SelectGameRule extends UIBase<any>{
         let ruleStr = ObjectToString(this._gameRuleData.GameData);
         cc.info('--- saveRuleConfig ', ruleStr);
         // 保存到本地
-        LocalStorage.SetItem('CreateRoomRuleConfig','GameID:' + this.nowGameInfo.GameID + '#' + ruleStr);
+        LocalStorage.SetItem('CreateRoomRuleConfig', 'GameID:' + this.nowGameInfo.GameID + '#' + ruleStr);
     }
 
     /**
@@ -326,6 +352,12 @@ export class SelectGameRule extends UIBase<any>{
         this.payConfig = {};
 
         let roomInfo = this.DataCache.RoomList.GetCreateRoom(this.nowGameInfo.GameID);
+
+        if (!roomInfo) {
+            this.UiManager.ShowMsgBox("游戏尚未开放，请关注官网！");
+            return;
+        }
+
         let config = roomInfo.CSpareAttrib.Attribute1
         // config = '8|8_16|16,32|8_64|16,32|8_64|16';
         let payTypeArray = config.split(',');
@@ -362,41 +394,41 @@ export class SelectGameRule extends UIBase<any>{
         this.payConfig.FZPay = FZPayInfo;
         this.payConfig.GroupPay = GroupPayInfo;
 
-        cc.info('--- pay config',this.payConfig);
+        cc.info('--- pay config', this.payConfig);
     }
 
     /**
      * 显示房费 
      */
-    public updateRoomPayShow(roundIdx: number,payWay: number){
+    public updateRoomPayShow(roundIdx: number, payWay: number) {
         // 显示房费币种图标
         // let roomInfo = this.DataCache.RoomList.GetCreateRoom(this.nowGameInfo.GameID);
         let costNum = 0;
         if (1 == payWay) {
             // AA 支付
             costNum = this.payConfig.AAPay[roundIdx + ''];
-        }else if(2 == payWay){
+        } else if (2 == payWay) {
             // 房主支付
             costNum = this.payConfig.FZPay[roundIdx + ''];
-        }else if(3 == payWay){
+        } else if (3 == payWay) {
             // 圈主支付
             costNum = this.payConfig.GroupPay[roundIdx + ''];
         }
 
         if (this.lab_diamond) {
-            this.lab_diamond.string = 'x' + costNum; 
+            this.lab_diamond.string = 'x' + costNum;
         }
-        
+
         this._gameRuleData.TableCost = costNum;
     }
 
     /**
      * 根据配置表创建规则选项
      */
-    private createRuleItemByConfig(data: any): void{
+    private createRuleItemByConfig(data: any): void {
         if (!data || 0 == data.list.length) {
             this.UiManager.ShowTip("游戏暂未开放，请联系客服！");
-            return;            
+            return;
         }
 
         // 先清空
@@ -412,10 +444,10 @@ export class SelectGameRule extends UIBase<any>{
 
                 let settingItem = cc.instantiate(this.settingItem);
                 let componet = settingItem.getComponent(SettingItem);
-                componet.action = new Action(this,this.clickEventHandle);
-                componet.createItemList(data.list[idx],this.layout_item.node);
+                componet.action = new Action(this, this.clickEventHandle);
+                componet.createItemList(data.list[idx], this.layout_item.node);
                 let nodeArray = componet.ItemNodeArray;
-                this.RuleNodeDict.AddOrUpdate(data.list[idx].desc,componet);
+                this.RuleNodeDict.AddOrUpdate(data.list[idx].desc, componet);
 
                 if (cc.isValid(this.layout_item)) {
                     this.layout_item.node.addChild(settingItem);
@@ -430,7 +462,7 @@ export class SelectGameRule extends UIBase<any>{
     /**
      * 选项按钮点击事件回调
      */
-    public clickEventHandle(param: any): void{
+    public clickEventHandle(param: any): void {
         if (!param || !param.attrParam) {
             cc.info("error: toggle clickCallback fail!");
             return;
@@ -446,57 +478,102 @@ export class SelectGameRule extends UIBase<any>{
         let parentAttr = param.attrParam.parentAttr;
         let childrenAttrs = param.attrParam.childrenAttr;
 
-        // 查找子属性节点并根据该节点是否被选中，如果未被选中则隐藏所有子节点
+        // 查找子属性节点并根据该节点是否被选中,根据配置的"childrenAttr": ["rubCard:true|enabled"]
+        // 的第二个参数"enabled"和"unEnable"控制显示还是隐藏
         if (childrenAttrs) {
-           for (let idx = 0; idx < this.RuleNodeDict.Count; ++idx) {
-               let settingItem = this.RuleNodeDict.Values[idx];
-               let nodeArray = settingItem.ItemNodeArray;
-               for (let childAttrIdx = 0; childAttrIdx < childrenAttrs.length; ++childAttrIdx) {
-                   for (let nodeIdx = 0; nodeIdx < nodeArray.Count; ++nodeIdx) {
-                       if (childrenAttrs[childAttrIdx] == nodeArray.Keys[nodeIdx]) {
-                           let node = nodeArray.GetValue(nodeArray.Keys[nodeIdx]);
-                           node.active = param.attrParam.isChecked;
-                       }
-                   }
-               }
-           }
-        }
-
-        /**
-         * 如果父类隐藏则该节点也隐藏
-         */
-        if (parentAttr) {
             for (let idx = 0; idx < this.RuleNodeDict.Count; ++idx) {
-               let settingItem = this.RuleNodeDict.Values[idx];
-               let nodeArray = settingItem.ItemNodeArray;
-               for (let nodeIdx = 0; nodeIdx < nodeArray.Count; ++nodeIdx) {
-                    if (parentAttr == nodeArray.Keys[nodeIdx]) {
-                        let node = nodeArray.GetValue(nodeArray.Keys[nodeIdx]);
-                        // 隐藏
-                        if (!node.active && param.attrParam.node) {
-                            param.attrParam.node.active = false;
-                            return;
+                let settingItem = this.RuleNodeDict.Values[idx];
+                let nodeArray = settingItem.ItemNodeArray;
+                let attrName = settingItem.AttrName;
+
+                for (let childAttrIdx = 0; childAttrIdx < childrenAttrs.length; ++childAttrIdx) {
+                    for (let nodeIdx = 0; nodeIdx < nodeArray.Count; ++nodeIdx) {
+                        let child = childrenAttrs[childAttrIdx];
+                        let childAttr = child.key;
+                        let contrary = child.contrary; //是否是相反的
+                        let isSelected = child.isSelected;
+                        // 先判断是否整条都隐藏
+                        if (attrName && attrName == childAttr) {
+                            if (contrary) {
+                                settingItem.node.active = !param.attrParam.isChecked;
+                            } else {
+                                settingItem.node.active = param.attrParam.isChecked;
+                            }
+
+                            break;
+                        }
+
+                        if (childAttr == nodeArray.Keys[nodeIdx]) {
+                            let node = nodeArray.GetValue(nodeArray.Keys[nodeIdx]);
+                            let componet: RuleItemToggleBase = node.getComponent("RuleItemToggleBase");
+
+                            if (contrary) {
+                                node.active = !param.attrParam.isChecked;
+                            } else {
+                                node.active = param.attrParam.isChecked;
+                            }
+
+                            // 不可见则取消选中
+                            if (!node.active) {
+                                componet.setSelectValue({ selected: false });
+                            } else {
+                                // 可见则根据配置设置是否选中状态
+                                componet.setSelectValue({ selected: isSelected });
+                            }
                         }
                     }
                 }
-           }
+            }
         }
+
+        /**
+         * 如果父类隐藏则整个横条也隐藏
+         */
+        /*if (parentAttr) {
+            let tmp = parentAttr.split("|");
+            parentAttr = tmp[0];
+            let contrary = tmp[1];
+
+            for (let idx = 0; idx < this.RuleNodeDict.Count; ++idx) {
+                let settingItem = this.RuleNodeDict.Values[idx];
+                let nodeArray = settingItem.ItemNodeArray;
+                for (let nodeIdx = 0; nodeIdx < nodeArray.Count; ++nodeIdx) {
+                    if (parentAttr == nodeArray.Keys[nodeIdx]) {
+                        let node = nodeArray.GetValue(nodeArray.Keys[nodeIdx]);
+                        let componet: RuleItemToggleBase = node.getComponent("RuleItemToggleBase");
+
+                        if (!contrary) {
+                            cc.warn("childrenAttr is error!");
+                            continue;
+                        }
+
+                        if ("noContrary" == contrary) {
+                            param.attrParam.node.active = componet.isChecked;
+                        } else {
+                            param.attrParam.node.active = !componet.isChecked;
+                        }
+
+                        return;
+                    }
+                }
+            }
+        }*/
 
         // 记录当前的选择
         this._gameRuleData.GameData[param.attrParam.attrName] = param.attrParam.value;
-        cc.info("-- gameRule: ",this._gameRuleData.GameData);
+        cc.info("-- gameRule: ", this._gameRuleData.GameData);
 
         // 更新扣钻显示
         if ('tableCreatorPay' == param.attrParam.attrName
             || 'SetGameNum' == param.attrParam.attrName) {
-            this.updateRoomPayShow(this._gameRuleData.GameData.SetGameNum,this._gameRuleData.GameData.tableCreatorPay);
+            this.updateRoomPayShow(this._gameRuleData.GameData.SetGameNum, this._gameRuleData.GameData.tableCreatorPay);
         }
     }
 
     /**
      * 加载默认属性值
      */
-    private loadDefaultAttr(info: any): void{
+    private loadDefaultAttr(info: any): void {
         if (!info || 0 == info.length) {
             return;
         }
@@ -519,28 +596,28 @@ export class SelectGameRule extends UIBase<any>{
 
         if (this.isFriendCircle) {
             let curFriendCircle = FriendCircleDataCache.Instance.CurEnterFriendCircle;
-            let curRule = FriendCircleDataCache.Instance.getCurFriendCircleRule();
-        
+            let curRule = FriendCircleDataCache.Instance.CurSelectedRule;
+
             if (!curFriendCircle) {
                 return;
             }
 
             // 先删除当前玩法再重新设置玩法
-            let deleteRule = (func: any)=>{
+            let deleteRule = (func: any) => {
                 let cb = func;
-                let act = new Action(this,(res)=>{
+                let act = new Action(this, (res) => {
                     if ('success' == res.status) {
                         if (cb) {
                             cb();
                         }
                     }
                 });
-                      
-                FriendCircleWebHandle.deleteRule(parseInt(curFriendCircle.ID),curRule.Id,act);
+
+                FriendCircleWebHandle.deleteRule(parseInt(curFriendCircle.ID), curRule.Id, act);
             }
 
             // 添加玩法
-            let addRule = ()=>{
+            let addRule = () => {
                 // 从亲友圈进来创建规则
                 let friendCircle = FriendCircleDataCache.Instance.CurEnterFriendCircle;
                 let info: FriendCircleRule = new FriendCircleRule();
@@ -552,61 +629,62 @@ export class SelectGameRule extends UIBase<any>{
                 let param = {};
                 param['SetGameNum'] = gameRule['SetGameNum'];
                 param['tableCreatorPay'] = gameRule['tableCreatorPay'];
+
                 let ruele;
-                CreateRoomDataCache.Instance.getRuleDesc(this.nowGameInfo.ModuleName,param,new Action(this,(obj)=>{
+                CreateRoomDataCache.Instance.getRuleDesc(this.nowGameInfo.ModuleName, param, new Action(this, (obj) => {
                     if (!obj) {
                         return;
                     }
-                    cc.info('--- ruleDesc ',obj);
+                    cc.info('--- ruleDesc ', obj);
                     info.ruleDesc = obj['房费'] + '(' + obj['局数'] + ')';
                     FriendCircleWebHandle.addRule(info);
-                }));         
+                }));
             }
 
-            if (!curRule) {
-                // 没有玩法直接添加
+            if (this.ShowParam.isAddRule) {
+                // 没有玩法
                 addRule();
-            }else{
+            } else {
                 deleteRule(addRule);
             }
-        }else{
-                const rule = new CreateRoomStruct();
-                rule.CheckMoneyNum = 1;
-                rule.CurrencyType = QL_Common.CurrencyType.Diamond;
-                rule.RoomData = this._gameRuleData;
-        
-                if (!rule) {
-                    this.UiManager.ShowTip("无有效的游戏规则");
+        } else {
+            const rule = new CreateRoomStruct();
+            rule.CheckMoneyNum = 1;
+            rule.CurrencyType = QL_Common.CurrencyType.Diamond;
+            rule.RoomData = this._gameRuleData;
+
+            if (!rule) {
+                this.UiManager.ShowTip("无有效的游戏规则");
+                return;
+            }
+
+            if (rule.CurrencyType == QL_Common.CurrencyType.Diamond) {
+                // //如果是群内创建判断群主钻石数量
+                // let diamonds_num = this.ShowParam.diamonds_num
+                // if (!cc.isValid(diamonds_num) || diamonds_num < rule.CheckMoneyNum) {
+                //     this.UiManager.ShowTip("群主钻石不足，请联系群主充值");
+                //     return;
+                // }
+            }
+            else {
+                if (this.UserInfo.CurrencyNum(rule.CurrencyType) < rule.CheckMoneyNum) {
+                    this.UiManager.ShowTip("余额不足");
                     return;
                 }
-        
-                if (rule.CurrencyType == QL_Common.CurrencyType.Diamond) {
-                    // //如果是群内创建判断群主钻石数量
-                    // let diamonds_num = this.ShowParam.diamonds_num
-                    // if (!cc.isValid(diamonds_num) || diamonds_num < rule.CheckMoneyNum) {
-                    //     this.UiManager.ShowTip("群主钻石不足，请联系群主充值");
-                    //     return;
-                    // }
-                }
-                else {
-                    if (this.UserInfo.CurrencyNum(rule.CurrencyType) < rule.CheckMoneyNum) {
-                        this.UiManager.ShowTip("余额不足");
-                        return;
-                    }
-                }
-        
-        
-                const room = this.DataCache.RoomList.GetCreateRoom(this.nowGameInfo.GameID);
-                cc.log(rule.RoomData);
-                if (room) {
-                    Global.Instance.GameHost.TryEnterRoom(room.ID, QL_Common.EnterRoomMethod.RoomID, rule.RoomData, this.ShowParam);
-                    // 保存玩家的选择
-                    this.saveLocalSettingConfig();
+            }
 
-                    // 添加常玩游戏
-                    CreateRoomDataCache.Instance.addOftenPlayGame(this.nowGameInfo.GameID);
-                } else {
-                    cc.warn("没有创建房间");
+
+            const room = this.DataCache.RoomList.GetCreateRoom(this.nowGameInfo.GameID);
+            cc.log(rule.RoomData);
+            if (room) {
+                Global.Instance.GameHost.TryEnterRoom(room.ID, QL_Common.EnterRoomMethod.RoomID, rule, this.ShowParam);
+                // 保存玩家的选择
+                this.saveLocalSettingConfig();
+
+                // 添加常玩游戏
+                CreateRoomDataCache.Instance.addOftenPlayGame(this.nowGameInfo.GameID);
+            } else {
+                cc.warn("没有创建房间");
             }
         }
     }
@@ -614,7 +692,7 @@ export class SelectGameRule extends UIBase<any>{
     /**
      * 规则玩法面板切换
      */
-    private ruleDescChanageClick(eventType,argument): void{
+    private ruleDescChanageClick(eventType, argument): void {
         if (argument == "RULE") {
             if (this.node_Desc) {
                 this.node_Desc.active = false;
@@ -625,16 +703,21 @@ export class SelectGameRule extends UIBase<any>{
                 this.node_payWay.active = true;
                 this.sp_payway.active = true;
             }
-        }else if(argument == "DESC"){
-
+        } else if (argument == "DESC") {
             this.node_Desc.active = true;
             this.node_DescLab.active = true;
-            this.text.string = GameWanFaDesc[this.nowGameInfo.ModuleName + '_desc'];
+
             this.node_Rule.active = false;
             this.node_gameLab.active = false;
             this.node_diamond.active = false;
             this.node_payWay.active = false;
             this.sp_payway.active = false;
+
+            if (GameWanFaDesc[this.nowGameInfo.ModuleName + '_desc']) {
+                this.text.string = GameWanFaDesc[this.nowGameInfo.ModuleName + '_desc'];
+            } else {
+                this.text.string = "暂无玩法介绍";
+            }
         }
     }
 }

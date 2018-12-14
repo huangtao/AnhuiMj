@@ -22,8 +22,10 @@ export class UploadInfo {
     public baseUrl:string;
 }
 
-export const Voice = "voices";
-export const Header = "header";
+
+
+export const UploadInfo_Type_Voice = "voices";
+export const UploadInfo_Type_Header = "header";
 
 
 

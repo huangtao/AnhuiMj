@@ -133,10 +133,10 @@ export default class HQMJ_Ani extends cc.Component {
             this.zimo_animation.play().speed = 2;
             this.zimo_animation.node.active = true;
         }
-        if(AniName == "AniStart"){
-            this.start_animation.play();
-            this.start_animation.node.active = true;
-        }
+        // if(AniName == "AniStart"){
+        //     this.start_animation.play();
+        //     this.start_animation.node.active = true;
+        // }
      
         this.node.active=true;
     //    this.scheduleOnce(this.AniEmojiFinish, 1);

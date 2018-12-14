@@ -28,6 +28,7 @@ const { ccclass, property } = cc._decorator;
         getBankerChair(): number;
         getMahjongResName(card: number): string;
         getMahjongPaiHuaRes(card: number): cc.SpriteFrame;
+        getMahjongPaiHuaResOut(card: number): cc.SpriteFrame;
         getMahjongPaiBeiRes(cardtype:string): cc.SpriteFrame;
         getMahjong3DPaiBeiRes(cardtype:string): cc.SpriteFrame;
 

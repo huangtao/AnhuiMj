@@ -106,17 +106,15 @@ export default class LHZMJ_GameStatusUserInfo extends cc.Component {
 
         public reflashPlayer():void{
             for(var i:number=0; i<this.userAry.length; i++){
-                // LHZMJ.ins.iclass.getTablePlayerAry()[LHZMJ.ins.iclass.logic2physicalChair(i)]
-                // // this._lbl_accountAry[i].text = LHZMJ.ins.iclass.getTablePlayerAry()[LHZMJ.ins.iclass.logic2physicalChair(i)].NickName;
-                // let ss="";
-                // if(LHZMJMahjongAlgorithm.strLen(player.NickName) > 16){
-                //     ss = player.NickName.substring(0,12) + "...";
-                // }else{
-                //     ss = player.NickName;
-                // }
-                // this.userAry[logicChair].SetUserInfo(player.FaceID,ss,player.Gender);
-                console.log("玩家昵称"+LHZMJ.ins.iclass.getTablePlayerAry()[LHZMJ.ins.iclass.logic2physicalChair(i)].NickName);
-                this.userAry[i].SetPlayer(LHZMJ.ins.iclass.getTablePlayerAry()[LHZMJ.ins.iclass.logic2physicalChair(i)]);
+
+               cc.log(LHZMJ.ins.iclass.getTablePlayerAry());
+               cc.log(LHZMJ.ins.iclass.getTablePlayerAry()[LHZMJ.ins.iclass.logic2physicalChair(i)]);
+               // console.log("玩家昵称"+LHZMJ.ins.iclass.getTablePlayerAry()[LHZMJ.ins.iclass.logic2physicalChair(i)].NickName);
+               if(LHZMJ.ins.iclass.getTablePlayerAry()[LHZMJ.ins.iclass.logic2physicalChair(i)] != null){
+                   this.userAry[i].SetPlayer(LHZMJ.ins.iclass.getTablePlayerAry()[LHZMJ.ins.iclass.logic2physicalChair(i)]);
+               }
+                
+                
             }
         }
         /**

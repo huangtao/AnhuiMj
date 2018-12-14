@@ -14,6 +14,9 @@ const { ccclass, property } = cc._decorator;
         isCreateRoom():boolean;
         isVideo():boolean;
         is2D():boolean;
+        getUserNumRule():number;
+        getRealUserNum():number;
+        canvaSwitchClickEvent(canvas: string):void;
         isAlreadyHu():boolean;
         ifCanExitGame(chairId: number): boolean;
         

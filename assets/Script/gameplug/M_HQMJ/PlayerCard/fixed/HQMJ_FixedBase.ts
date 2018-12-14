@@ -73,7 +73,15 @@ export default class HQMJ_FixedBase extends HQMJ_CardBase{
     public recoveryFixed(fixedCard : Array<M_HQMJ_GameMessage.ORCFixedCard>,mychair:number):void{
         if((null != fixedCard) && (fixedCard.length > 0)){
             for(var i:number=0; i<fixedCard.length; i++){
-                let pos=(fixedCard[i].outChair+HQMJMahjongDef.gPlayerNum-mychair)%HQMJMahjongDef.gPlayerNum;
+                let pos : number = 0;
+                let outChair : number = fixedCard[i].outChair;
+                if(mychair < outChair && Math.abs(mychair - outChair) == 1 || mychair > outChair &&  Math.abs(mychair - outChair) == 3)
+                    pos = 2;//下家
+                if(mychair -outChair == 2 || outChair - mychair == 2)
+                    pos = 1;//对家
+                if(mychair > outChair && Math.abs(mychair - outChair) == 1 || mychair < outChair &&  Math.abs(mychair - outChair) == 3)           
+                    pos = 0;//上家
+                //let pos=(fixedCard[i].outChair+HQMJMahjongDef.gPlayerNum-mychair)%HQMJMahjongDef.gPlayerNum;
                 let newnode = HQMJ.ins.iclass.getFreeFixed(this._logicChair).get();
                 if (!cc.isValid(newnode)) {
                     newnode = cc.instantiate(this.FixedType);

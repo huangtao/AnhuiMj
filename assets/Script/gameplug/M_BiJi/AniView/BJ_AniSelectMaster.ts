@@ -65,7 +65,7 @@ export default class AniSelectMaster extends cc.Component {
      //   SetTextureRes(CommonTexturePath + "default_sprite", img);
         this.shapeBg.width = StageWidth;
         this.shapeBg.height = StageHeight;
-        this.shapeBg.color = cc.hexToColor("#000000");
+        this.shapeBg.color = cc.color().fromHEX("#000000");
         this.shapeBg.opacity = 126;
         this.shapeBg.addComponent<cc.Button>(cc.Button);
         this.node.addChild(this.shapeBg, -1);

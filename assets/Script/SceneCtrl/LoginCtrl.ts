@@ -15,6 +15,8 @@ import { ReConnectBase } from "./ReConnectBase";
 import { PackageType } from "../CustomType/PackageType";
 import VersionManager from "../Global/VersionManager";
 import { LocalStorage } from "../CustomType/LocalStorage";
+import { SafeWebRequest } from "../Net/SafeWebRequest";
+import { SubscribeManager } from "../Manager/SubscribeManager";
 // import { PackageType } from "../CustomType/PackageType";
 const { ccclass, property } = cc._decorator;
 class LoginStruct {
@@ -70,9 +72,7 @@ export default class LoginCtrl extends ReConnectBase {
     start() {
         super.start();
 
-        //每秒一朵花瓣
-        //this.schedule(this.loadFlower, 1);
-        //this._flowerTick=setInterval(this.loadFlower.bind(this),1000);
+        
         if (!ConfigData.SystemInited) {
             InitKeyListener();
             ConfigData.SystemInited = true;
@@ -82,10 +82,8 @@ export default class LoginCtrl extends ReConnectBase {
         if (cc.director.isDisplayStats()) {
             cc.director.setDisplayStats(false);
         }
-
-        //记住密码 下次使用
-        this.str_account = cc.sys.localStorage.getItem("account");
-        this.str_password = cc.sys.localStorage.getItem("logontoken");
+ 
+        this.str_password = LocalStorage.LastUserLoginCache; 
 
         // if (!cc.sys.isNative) return; 
         switch (CurrentPackageType()) {
@@ -258,28 +256,49 @@ export default class LoginCtrl extends ReConnectBase {
         this._loginStruct.Account = this.str_account;
         this._loginStruct.PassWord = this.str_password;
 
-        if (!this._loginStruct.PassWord || this._loginStruct.PassWord.length === 0) {
+        if (!this.str_password || this.str_password.length === 0) {
             this.OneKeyLogin();
             return;
         }
-        this._loginStruct.method = QL_Common.LoginType.UserLogonToken;
-        this.startLogin();
+        
+        LocalStorage.LastUserLoginCache = '';
+        this.AccountLogin();
     }
 
     private AccountLogin() {
 
-        this._loginStruct.Account = this.str_account;
-        this._loginStruct.PassWord = this.str_password;
-        // if (!this._loginStruct.Account || this._loginStruct.Account.length === 0) {
-        //     this.UiManager.ShowTip("请输入账号");
-        //     return;
-        // }
-        if (!this._loginStruct.PassWord || this._loginStruct.PassWord.length === 0) {
+        if (!this.str_password || this.str_password.length === 0) {
             this.UiManager.ShowTip("请输入密码");
             return;
         }
-        this._loginStruct.method = QL_Common.LoginType.UserLogonToken;
-        this.startLogin();
+        
+        //构建账号登录网站接口信息缓存
+        let data = WebRequest.DefaultData(false);
+
+
+        let region = ConfigData.RegionName;
+        let device_type = 2;
+        if (cc.sys.platform == cc.sys.ANDROID) {
+            device_type = 1;
+        }
+
+        data.AddOrUpdate("cacheToken", this.str_password);
+        data.Add("parent", ConfigData.SiteConfig.SiteManagerID);
+        data.AddOrUpdate("region", region);
+        if (!cc.sys.isNative) {
+            device_type = -1;
+            data.AddOrUpdate("device_type", device_type);
+        }
+        else {
+            data.AddOrUpdate("js_version", LocalStorage.LocalHotVersion);
+            data.AddOrUpdate("device_type", device_type);
+        }
+ 
+        let action = new ActionNet(this, this.OnSuccess, this.OnError);
+        SafeWebRequest.GameHall.LoginCacheApp(action, data);
+
+
+        // this.startLogin();
     }
     private startLogin() {
         Global.Instance.UiManager.ShowLoading("正在连接服务器");
@@ -292,7 +311,8 @@ export default class LoginCtrl extends ReConnectBase {
         this.startLogin();
     }
 
-    private OnError() {
+    private OnError(obj) {
+        cc.log(obj);
         //this.UiManager.ShowTip("登录异常，请联系客服");
     }
 
@@ -382,12 +402,15 @@ export default class LoginCtrl extends ReConnectBase {
             case EventCode.OfflineRoom:
                 this.OfflineRoom();
                 return true;
+            case EventCode.MobileLoginSuccess:
+                this.OnSuccess(value);
         }
         return false;
     }
 
     private OnLoginSuccess() {
         Global.Instance.UiManager.LoadingInfo("正在获取玩家余额");
+        SubscribeManager.Instance.restoreSubscribeChannel();
         SendMessage.Instance.QueryUserProp([QL_Common.CurrencyType.Gold, QL_Common.CurrencyType.Diamond]);
     }
 
@@ -454,15 +477,7 @@ export default class LoginCtrl extends ReConnectBase {
             this.noOffline();
             return;
         }
-        //如果有断线重连信息，提示玩家，由玩家选择是否断线重连
-
-        // const reconnet = () => {
-        //     Global.Instance.GameHost.EnterRoom(offline.ID, QL_Common.EnterRoomMethod.RoomID);
-        // }
-        // const noreconnet = () => {
-        //     this.UiManager.ShowTip("用户取消了断线重连");
-        //     this.ChangeScene("Hall");
-        // }
+        
         //如果包括了这个游戏，则直接创建游戏
         if (this.DataCache.GameList.Contains(this.DataCache.OfflineRoom.GameID)) {
             Global.Instance.UiManager.ShowLoading(`正在为你恢复游戏`);
@@ -508,7 +523,11 @@ export default class LoginCtrl extends ReConnectBase {
     }
 
     OnShowUrl() {
-        this.ShowUi(UIName.WebForm,"https://cli.im/DAtewT?iframe=1");
+        this.ShowUi(UIName.WebForm, "https://cli.im/DAtewT?iframe=1");
+    }
+
+    private ClickPhoneLogin() {
+        this.ShowUi(UIName.PhoneLoginPanel);
     }
 }
 

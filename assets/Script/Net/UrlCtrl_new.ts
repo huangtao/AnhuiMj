@@ -17,7 +17,7 @@ export class UrlCtrl_new {
                 action.RunError([new Error("网络连接已超时")]);
                 isreturn = true;
             }
-        }, 5000);
+        }, 2500);
         let datastr = null;
         if (data) {
             datastr = data.ToUrl();
@@ -142,8 +142,8 @@ export class UrlCtrl_new {
 * @param data 
 * @param method 
 */
-    public static LoadSafeRequestJson(url: string, action: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
-        UrlCtrl_new.TryLoadSafeRequestJson(3, url, action, data, method);
+    public static LoadSafeRequestJson(url: string, action: ActionNet, data?: IDictionary<string, any>, method: string = "POST", trycount: number = 3) {
+        UrlCtrl_new.TryLoadSafeRequestJson(trycount, url, action, data, method);
     }
     public static TryLoadSafeRequestJson(trycount: number, url: string, action: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
         let desKey = DESEncryptHelper.getRandomStr(ConstValues.DES_SecretLength);

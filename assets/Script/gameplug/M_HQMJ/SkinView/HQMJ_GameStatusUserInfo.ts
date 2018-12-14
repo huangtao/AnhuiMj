@@ -31,6 +31,10 @@ export default class HQMJ_GameStatusUserInfo extends cc.Component {
         // init logic
         // console.log("gameUserInfo玩家信息初始化");
         //this.init();
+        for(let i=0;i<HQMJMahjongDef.gPlayerNum;i++)
+        {
+            this.userAry[i].node.on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
+        }
         
     }
 
@@ -41,10 +45,6 @@ export default class HQMJ_GameStatusUserInfo extends cc.Component {
             this.group_voice[i].active=false;
             let tempvoice:MJ_PlayVoiceStaus=this.group_voice[i].getComponent<MJ_PlayVoiceStaus>(MJ_PlayVoiceStaus);
             this.voiceAry.push(tempvoice);
-        }
-        for(let i=0;i<HQMJMahjongDef.gPlayerNum;i++)
-        {
-            this.userAry[i].node.on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
         }
         
         for(let i=0;i<this.userAry.length;i++)
@@ -119,6 +119,7 @@ export default class HQMJ_GameStatusUserInfo extends cc.Component {
                 M_HQMJVoice.PlayCardType(`/sound/Button32.mp3`);
                 // M_HQMJView.ins.UserData.showUserData(this.HQMJClass.getTableConfig().isValid,this.HQMJClass.getTablePlayerAry()[chair],xPos,yPos);
                 let point = new cc.Vec2(HQMJ_GameStatusUserInfo.UserDataGamingPos[logicChair].x, HQMJ_GameStatusUserInfo.UserDataGamingPos[logicChair].y);
+                // M_HQMJClass.ins.showPlayerInfoForm(HQMJ.ins.iclass.getTablePlayerAry()[chair],point, chair);
                 M_HQMJClass.ins.showPlayerInfoForm(HQMJ.ins.iclass.getTablePlayerAry()[chair],point, chair);
             }
         }

@@ -11,6 +11,8 @@ export default class PDK_skinCards extends cc.Component {
     private icon_firstOut: cc.Sprite = null;
     @property(cc.Sprite)
     private icon_zhuaNiao: cc.Sprite = null;
+    @property(cc.Layout)
+    public touch_selected: cc.Layout = null;
 
     private value:number = null;
     public cValue:number = null;
@@ -18,9 +20,8 @@ export default class PDK_skinCards extends cc.Component {
     public PosX:number = null; 
     public scale:number = 1;
     onLoad(){
-       //this.node.on(cc.Node.EventType.TOUCH_START, this.selectedCard, this);
+        this.touch_selected.node.active = false;
     }
-
     /**
      * 创建单张牌组件
      */
@@ -33,11 +34,18 @@ export default class PDK_skinCards extends cc.Component {
         }else{
             this.icon_zhuaNiao.node.active = false;
         }
-        if(PDK.ins.iview.GetGameInfo().firstOutValue == value){
+        if((PDK.ins.iview.GetGameRule().redPeach3MustOut && value == 0x23) || (PDK.ins.iview.GetGameRule().spades3MustOut && value == 0x33) ){
             this.icon_firstOut.node.active = true;
         }else{
             this.icon_firstOut.node.active = false;
         }
+    }
+
+    /**
+     * 触摸选中状态改变
+    */
+   public changeTouchState(state:boolean){
+        this.touch_selected.node.active = state;
     }
 
     /**

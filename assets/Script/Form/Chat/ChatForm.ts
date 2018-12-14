@@ -37,7 +37,7 @@ export class ChatForm extends cc.Component {
 
     Init() {
         let scene = cc.director.getScene();
-        if(scene.name == "M_BiJi"){
+        if(scene.name == "M_BiJi"|| scene.name == "M_PDK"){
             this.InitData(this.pk_sprites);
         }else{
             this.InitData(this.mj_sprites);

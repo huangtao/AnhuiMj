@@ -10,6 +10,14 @@ export default class SingleToggle extends RuleItemToggleBase {
 	@property(cc.Toggle)
     singleToggle: cc.Toggle = null;
 
+    public get isChecked() {
+    	if (!this.singleToggle) {
+    		return false;
+    	}
+    	
+    	return this.singleToggle.isChecked;
+    }
+
 	public initShow(): void{
 		if (!this.showData) {
 			return;
@@ -17,12 +25,6 @@ export default class SingleToggle extends RuleItemToggleBase {
 
 		if (cc.isValid(this.attrDesc)) {
 			this.attrDesc.string = this.showData.desc;
-		}
-
-		if (this.showData.defaultSelected) {
-			this.singleToggle.check();
-		}else{
-			this.singleToggle.uncheck()
 		}
 	}
 
@@ -53,7 +55,6 @@ export default class SingleToggle extends RuleItemToggleBase {
 		this._attrParam.childrenAttr = this.showData.childrenAttr;
 		this._attrParam.parentAttr = this.showData.parentAttr;
 		this._attrParam.node = this.node;
-		this._attrParam.value = this.showData.value;
 		this._attrParam.attrName = this.showData.attr;
 		this._attrParam.value = this.showData.value;
 		this._attrParam.valueDesc = this.showData.desc;

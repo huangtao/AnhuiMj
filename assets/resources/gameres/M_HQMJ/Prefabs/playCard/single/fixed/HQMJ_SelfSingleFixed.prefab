@@ -1503,7 +1503,7 @@
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 48
@@ -1593,9 +1593,6 @@
       "__id__": 1
     },
     "_enabled": true,
-    "bmp_arrow": {
-      "__id__": 48
-    },
     "bmp_cardbackAry": [
       {
         "__id__": 12
@@ -1638,7 +1635,7 @@
         "__id__": 43
       }
     ],
-    "bmp_lightArt": [
+    "light_arrow": [
       {
         "__id__": 10
       },
@@ -1648,7 +1645,8 @@
       {
         "__id__": 34
       }
-    ]
+    ],
+    "light_node": null
   },
   {
     "__type__": "cc.PrefabInfo",

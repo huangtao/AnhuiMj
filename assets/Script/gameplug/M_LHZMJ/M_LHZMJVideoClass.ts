@@ -119,6 +119,8 @@ export default class M_LHZMJVideoClass extends GameVideoBase implements ILHZMJCl
     //是否已经胡牌
     private _alreadyHu:boolean;
 
+    private _realUserNum: number;
+
     /**
      * 自己的椅子号
      * */
@@ -126,7 +128,7 @@ export default class M_LHZMJVideoClass extends GameVideoBase implements ILHZMJCl
         return this.ChairID;
     }
 
-          public showHideCard(outCard:number):void{
+    public showHideCard(outCard:number):void{
       //  this.gameView.CardView.refreshHideCard(outCard);
     }
     /**
@@ -525,6 +527,7 @@ export default class M_LHZMJVideoClass extends GameVideoBase implements ILHZMJCl
     private Handle_CMD_S_Start(sendChair : number,msg: GameIF.CustomMessage):void{
         var gameStart: M_LHZMJ_GameMessage.CMD_S_Start = <M_LHZMJ_GameMessage.CMD_S_Start>msg;
         this.clear();
+        this._realUserNum = gameStart.realUserNum;
         this.gameView.GameStart();
         this.gameView.showGameNum(gameStart.totalGameNum,gameStart.gameNum,gameStart.realGameNum);
     }
@@ -1083,6 +1086,12 @@ export default class M_LHZMJVideoClass extends GameVideoBase implements ILHZMJCl
      * */
     public getSelfChair(): number{
         return this.SelfChair;
+    }
+     /**
+     * 取真实玩家数量
+     * */
+    public getRealUserNum():number{
+        return this._realUserNum;
     }
     /**
      * 取庄家椅子号

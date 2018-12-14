@@ -1,6 +1,6 @@
 import HQMJ_CardBase from "../single/HQMJ_CardBase";
 import HQMJ_SingleFixed from "../single/banlanceShow/HQMJ_SingleFixed";
-import { enFixedCardType } from "../../ConstDef/HQMJMahjongDef";
+import { enFixedCardType, HQMJ } from "../../ConstDef/HQMJMahjongDef";
 import { ReportError } from "../../../../Tools/Function";
 
 const { ccclass, property } = cc._decorator;
@@ -45,7 +45,7 @@ export default class HQMJ_BanlanceFixed extends HQMJ_CardBase {
         fixed.init();
         this.node.addChild(newnode);
         this._fixedData.push(fixed);
-        fixed.showCard(card,fixedType,chiType,pos);
+        fixed.showCard(card,fixedType,chiType,pos,HQMJ.ins.iclass);
         
         this.refreshFixedCard();
     }						

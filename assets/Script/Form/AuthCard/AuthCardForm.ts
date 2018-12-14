@@ -1,7 +1,8 @@
 import UIBase from "../Base/UIBase";
 import { WebRequest } from "../../Net/Open8hb";
 import { ActionNet } from "../../CustomType/Action";
-import Global from "../../Global/Global";
+import { UIName } from "../../Global/UIName";
+import { EventCode } from "../../Global/EventCode";
 
 const { ccclass, property } = cc._decorator;
 
@@ -14,6 +15,37 @@ export class AuthCardForm extends UIBase<any>{
     @property(cc.EditBox)    
     CardNum:cc.EditBox=null;
 
+    @property(cc.Node)
+    no_bind_panel : cc.Node = null;
+
+    @property(cc.Node)
+    bind_panel : cc.Node = null;
+
+    @property(cc.Label)
+    lab_real_name : cc.Label = null;
+
+    @property(cc.Label)
+    lab_id_card_num : cc.Label = null;
+
+
+    public ProType: string = "七豆";
+    public ProNum: string = "5";
+    public ImgId: number = 6;
+
+    InitShow(){
+        let real_name = this.UserInfo.userData.RealName;
+        let id_card_num  = this.UserInfo.userData.IdCardNum;
+
+        if(real_name != "" && id_card_num != ""){
+            this.no_bind_panel.active = false;
+            this.bind_panel.active = true;
+            this.lab_real_name.string = "真实姓名为：" + real_name;
+            this.lab_id_card_num.string = "身份证号为：" + id_card_num;
+        }else{
+            this.no_bind_panel.active = true;
+            this.bind_panel.active = false;
+        }
+    }
 
     public SureClick() {
 
@@ -29,25 +61,26 @@ export class AuthCardForm extends UIBase<any>{
         }
         cc.log("有效的身份信息 姓名=" + name + "  身份证号码=" + id);
         const data=WebRequest.DefaultData();
-        data.Add("name",name);
-        data.Add("idcard",id);
+        data.Add("in_realname", name);
+        data.Add("in_idcard", id);
 
         const action=new ActionNet(this,this.onsuccess,this.onerror);
 
-        // WebRequest.userinfo.bindidcard(action,data)
+        WebRequest.bind.BindID(action, data);
     }
 
     private onsuccess(str) {
-        cc.log(str);
+        this.UserInfo.userData.RealName = this.RealName.string;
+        this.UserInfo.userData.IdCardNum = this.CardNum.string;
         this.DataCache.UserInfo.userData.IsAuthentication = true;
-        this.UiManager.ShowTip("实名认证成功，祝你游戏愉快！");
+        this.UiManager.ShowUi(UIName.ShopGiftPanel, this); //弹出奖励面板
         this.CloseClick();
-
-        this.ShowParam.active = false;
+        this.EventManager.PostMessage(EventCode.LatestBalance);
     }
     private onerror() {
-        this.UiManager.ShowTip("实名认证出错，请核实信息后重新认证！");
+        cc.log("绑定失败");
     }
+    
     private checkID(ID: string) {
         if (typeof ID !== 'string') return false;
         var city = { 11: "北京", 12: "天津", 13: "河北", 14: "山西", 15: "内蒙古", 21: "辽宁", 22: "吉林", 23: "黑龙江 ", 31: "上海", 32: "江苏", 33: "浙江", 34: "安徽", 35: "福建", 36: "江西", 37: "山东", 41: "河南", 42: "湖北 ", 43: "湖南", 44: "广东", 45: "广西", 46: "海南", 50: "重庆", 51: "四川", 52: "贵州", 53: "云南", 54: "西藏 ", 61: "陕西", 62: "甘肃", 63: "青海", 64: "宁夏", 65: "新疆", 71: "台湾", 81: "香港", 82: "澳门", 91: "国外" };
@@ -69,5 +102,17 @@ export class AuthCardForm extends UIBase<any>{
         residue = arrCh[sum % 11];
         if (residue !== ID.substr(17, 1)) return false;
         return true;
+    }
+
+    /**
+     * 关闭时清空文本框
+     */
+    CloseClick(){
+        this.CardNum.string = "";
+        this.RealName.string = "";
+        this.lab_real_name.string = "";
+        this.lab_id_card_num.string = "";
+
+        super.CloseClick();
     }
 }

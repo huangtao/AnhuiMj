@@ -29,32 +29,18 @@ function Filter(obj) {
 
 }
 
+
 export class Action {
-    public static ResultFilter(obj:any,): boolean {
+
+
+
+    public static ResultFilter(obj: any): boolean {
         if (!cc.isValid(obj)) {
             return false;
         }
         if (obj.status === "success") {
             return true;
         }
-        // if (obj.status === "showtip") {
-        //     //Global.Instance.UiManager.ShowTip(obj.msg);
-        //     return false;
-        // }
-        // if (obj.status === "showbox") {
-        //     //Global.Instance.UiManager.ShowMsgBox(obj.msg);
-        //     return false;
-        // }
-        // if (obj.status === "restart") {
-        //     // Global.Instance.UiManager.ShowMsgBox(obj.msg, this, () => {
-        //     //     cc.game.restart();
-        //     // });
-        //     return false;
-        // }
-        // if (obj.status === "fail") {
-        //     Global.Instance.UiManager.ShowTip(obj.msg);
-        //     return false;
-        // }
         return false;
 
     }
@@ -115,11 +101,11 @@ export class ActionNet {
 
     public Run(argArray: any = null): boolean {
 
-        if (Filter(argArray)) {
+        if (this.Filter(argArray)) {
             this.RunOK([argArray]);
             return true;
         } else {
-            this.RunError([new Error(argArray.msg)]);
+            this.RunError([argArray]);
             return false;
         }
     }
@@ -147,6 +133,40 @@ export class ActionNet {
         if (this.thisObject && this.progressAction) {
             this.progressAction.apply(this.thisObject, argArray);
         }
+    }
+
+
+    private reqFail(obj) {
+        if (this.errorAction) {
+            return;
+        } else {
+            Global.Instance.UiManager.ShowTip(obj.msg);
+        }
+    }
+    private Filter(obj) {
+        if (obj.status === "success") {
+            return true;
+        }
+        if (obj.status === "showtip") {
+            Global.Instance.UiManager.ShowTip(obj.msg);
+            return false;
+        }
+        if (obj.status === "showbox") {
+            Global.Instance.UiManager.ShowMsgBox(obj.msg);
+            return false;
+        }
+        if (obj.status === "restart") {
+            Global.Instance.UiManager.ShowMsgBox(obj.msg, this, () => {
+                cc.game.restart();
+            });
+            return false;
+        }
+        if (obj.status === "fail") {
+            this.reqFail(obj);
+            return false;
+        }
+        return false;
+
     }
 }
 

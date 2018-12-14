@@ -47,8 +47,8 @@ export default class LHZMJ_UpActive extends LHZMJ_OtherActive {
             //开始排版
             for(var i: number = 0;i < this._cardData.length;i++) {
                 this._cardData[i].node.setLocalZOrder(i+1);
-                this._cardData[i].node.x = -496;
-                this._cardData[i].node.y = 215-(startPos + i*30);
+                this._cardData[i].node.x = -478;
+                this._cardData[i].node.y = 215-(startPos + i*33);
                 this._cardData[i].showCard(this._handCard[i],this.isLie,0);
 
                 if(this.isHoldAfter && (i == (this._cardData.length - 1))) {

@@ -64,7 +64,8 @@ export default class MGMJ_GameInfo extends cc.Component {
     public set tableCode(value:string){
         if(value.length > 0){
             this.GroupRoomInfo.active=true;
-            if(M_MGMJClass.ins.TableConfig.tableWhere > 0){
+            // if(MGMJ.ins.iclass.isVideo() ? M_MGMJVideoClass.ins.TableConfig.tableWhere : M_MGMJClass.ins.TableConfig.tableWhere > 0){
+            if(MGMJ.ins.iclass.getTableConfig().tableWhere){
                 this.lbl_RoomInfo.string = "亲友房:" + value;    
             }else{
                 this.lbl_RoomInfo.string = "房间号:" + value;
@@ -72,6 +73,7 @@ export default class MGMJ_GameInfo extends cc.Component {
         }
     }
     public SetGameNum(now:number,all:number):void{
+        console.log("---- now --"+now + "---- all --"+all);
         this.lbl_GameNum.string="局数:"+now+"/"+all;
     }
     /**

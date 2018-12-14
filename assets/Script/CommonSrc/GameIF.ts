@@ -4,8 +4,8 @@ import { TSRH } from "../Serializer/TypeSerializerRegisterHandle";
 export module GameIF {
     /**
      *
-     * @创建时间：2018年11月09日 17:32:55
-     * @创建人员：DESKTOP-U2RLB94\Cyq
+     * @创建时间：2018年12月13日 22:07:32
+     * @创建人员：SHENRUI\admin
      * @备注信息：消息基类,所有需要传输的消息均需要继承该类
      *
      */
@@ -36,8 +36,8 @@ export module GameIF {
 
     /**
      *
-     * @创建时间：2018年11月09日 17:32:55
-     * @创建人员：DESKTOP-U2RLB94\Cyq
+     * @创建时间：2018年12月13日 22:07:32
+     * @创建人员：SHENRUI\admin
      * @备注信息：游戏通用消息;
             主命令码：
             0~50:系统指令，平台
@@ -59,8 +59,8 @@ export module GameIF {
 
     /**
      *
-     * @创建时间：2018年11月09日 17:32:55
-     * @创建人员：DESKTOP-U2RLB94\Cyq
+     * @创建时间：2018年12月13日 22:07:32
+     * @创建人员：SHENRUI\admin
      * @备注信息：H5客户端连接成功的回调通知消息
      *
      */
@@ -81,8 +81,8 @@ export module GameIF {
 
     /**
      *
-     * 创建时间：2018年11月09日 17:32:55
-     * 创建人员：DESKTOP-U2RLB94\Cyq
+     * 创建时间：2018年12月13日 22:07:32
+     * 创建人员：SHENRUI\admin
      * 备注：
      *
      */

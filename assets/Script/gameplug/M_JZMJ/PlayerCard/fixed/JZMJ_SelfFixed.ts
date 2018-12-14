@@ -25,17 +25,17 @@ export default class JZMJ_SelfFixed extends JZMJ_FixedBase {
     //         }
     //     }
     // }
-    protected refreshFixedCard(_JZMJ = JZMJ.ins.iclass): void {
+    protected refreshFixedCard(_jzmj = JZMJ.ins.iclass): void {
         if(this._fixedData.length > 0){
-            if(_JZMJ.is2D()){
+            if(_jzmj.is2D()){
                 for(var i:number=0; i<this._fixedData.length; i++){
                     this._fixedData[i].node.x = -510 + i*230;
-                    this._fixedData[i].node.y = -290;
+                    this._fixedData[i].node.y = -300;
                 }
             }else{
                 for(let i:number=0; i<this._fixedData.length; i++){
-                    this._fixedData[i].node.x = -495 + i*246;
-                    this._fixedData[i].node.y = -297;
+                    this._fixedData[i].node.x = -495-20 + i*230;
+                    this._fixedData[i].node.y = -300;
                 }
             }
             

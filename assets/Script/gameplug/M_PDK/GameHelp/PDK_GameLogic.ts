@@ -269,7 +269,7 @@ export default class GameLogic {
         let shunzi = true;
         this.getSortCardArray(cardValueArray,cardCountArray);
         for(let i = 0;i<cardValueArray.length;i++){
-            if(cardValueArray[i]-1 != cardValueArray[i+1]){
+            if(i+1 < cardValueArray.length && cardValueArray[i]-1 != cardValueArray[i+1]){
                 shunzi = false;
             }
         }
@@ -278,7 +278,7 @@ export default class GameLogic {
 
     //判断是否为顺子、连对
     public static isShunOrDui(cardValueArray:number[],cardCountArray:number[]){
-        if(this.isConsecutive(cardValueArray,cardCountArray)){
+        if(this.isConsecutive(cardValueArray,cardCountArray) == false){
             return 0;
         }
         let shunzi = true;
@@ -390,7 +390,7 @@ export default class GameLogic {
         }else if(cards.length >= 4){
             let [cardValueArray,cardCountArray] = this.ObjToArray(cardHashObj);
             let shunOrDui = this.isShunOrDui(cardValueArray,cardCountArray);
-            if(shunOrDui == 1){
+            if(shunOrDui == 1 && cards.length > 4){
                 return CardType.ShunZi
             }else if( shunOrDui == 2){
                 return CardType.lianDui;
@@ -402,9 +402,13 @@ export default class GameLogic {
                 }else if(cardHashObjNum == 2){
                    if(cardHashObj[14] && cardHashObj[14] == 3){
                         return CardType.Bomb;
-                   }else{
+                   }else if(cardCountArray[0] == 3 || cardCountArray[1] == 3){
                        return CardType.ThreeAndOne;
+                   }else{
+                       return CardType.Error;
                    }
+                }else{
+                    return CardType.Error;
                 } 
             }else{
                 //5张

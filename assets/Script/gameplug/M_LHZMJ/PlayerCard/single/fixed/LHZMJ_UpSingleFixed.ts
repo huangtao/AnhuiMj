@@ -34,119 +34,7 @@ export default class LHZMJ_UpSingleFixed extends LHZMJ_SingleFixedBase {
         return false;
     }
 
-    /**
-     * 整理牌阵
-     * */
-    // protected arrangeCard() {
-    //     let url="";
-    //     switch(this.fixedType) {
-    //         case enFixedCardType.FixedCardType_AGang: {
-                
-    //             url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcardback_left_right_1280`;
-    //             // SetTextureRes(url,this.bmp_cardbackAry[0]);
-    //             // SetTextureRes(url,this.bmp_cardbackAry[1]);
-    //             // SetTextureRes(url,this.bmp_cardbackAry[2]);
-    //             url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_left_right_1280`;
-    //             // SetTextureRes(url,this.bmp_cardbackAry[3]);
-                
-    //             this.bmp_cardbackAry[0].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcardback_left_right_1280");
-    //             this.bmp_cardbackAry[1].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcardback_left_right_1280");
-    //             this.bmp_cardbackAry[2].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcardback_left_right_1280");
-    //             this.bmp_cardbackAry[3].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcard_left_right_1280");
-    //             this.bmp_cardcolorAry[1].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-                
-                
-    //             // url=LHZMJ.ins.iclass.getMahjongResName(this.cardValue);
-    //             // SetTextureRes(url,this.bmp_cardcolorAry[1]);
-
-    //             this.bmp_cardcolorAry[1].node.y = 15;
-    //             this.bmp_cardbackAry[0].node.active=true;
-    //             this.bmp_cardbackAry[1].node.active=true;
-    //             this.bmp_cardbackAry[2].node.active=true;
-    //             this.bmp_cardbackAry[3].node.active=true;
-    //             this.bmp_cardcolorAry[0].node.active=false;
-    //             this.bmp_cardcolorAry[1].node.active=true;
-    //             this.bmp_cardcolorAry[2].node.active=false;
-    //             // this._bmp_cardcolorAry[0].x = 1;
-    //             // this._bmp_cardcolorAry[0].y = 56;
-    //             // this._bmp_cardcolorAry[0].scaleX = 0.5;
-    //             // this._bmp_cardcolorAry[0].scaleY = 0.5;
-    //             // this._bmp_cardcolorAry[0].rotation=-90;
-    //             this.setPos();
-    //             break;
-    //         }
-    //         case enFixedCardType.FixedCardType_MGang:
-    //         case enFixedCardType.FixedCardType_BGang: {
-    //             url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_left_right_1280`;
-    //             // SetTextureRes(url,this.bmp_cardbackAry[0]);
-    //             // SetTextureRes(url,this.bmp_cardbackAry[1]);
-    //             // SetTextureRes(url,this.bmp_cardbackAry[2]);
-    //             // SetTextureRes(url,this.bmp_cardbackAry[3]);
-                
-    //             // //
-    //             // //=================
-    //             // //
-    //             // url=LHZMJ.ins.iclass.getMahjongResName(this.cardValue);
-    //             // SetTextureRes(url,this.bmp_cardcolorAry[0]);
-    //             // SetTextureRes(url,this.bmp_cardcolorAry[1]);
-    //             // SetTextureRes(url,this.bmp_cardcolorAry[2]);
-                
-    //             this.bmp_cardbackAry[0].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcard_left_right_1280");
-    //             this.bmp_cardbackAry[1].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcard_left_right_1280");
-    //             this.bmp_cardbackAry[2].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcard_left_right_1280");
-    //             this.bmp_cardbackAry[3].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcard_left_right_1280");
-    //             this.bmp_cardcolorAry[0].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-    //             this.bmp_cardcolorAry[1].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-    //             this.bmp_cardcolorAry[2].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-                
-    //             this.bmp_cardcolorAry[1].node.y = 15;
-    //             this.bmp_cardbackAry[0].node.active=true;
-    //             this.bmp_cardbackAry[1].node.active=true;
-    //             this.bmp_cardbackAry[2].node.active=true;
-    //             this.bmp_cardbackAry[3].node.active=true;
-    //             this.bmp_cardcolorAry[0].node.active=true;
-    //             this.bmp_cardcolorAry[1].node.active=true;
-    //             this.bmp_cardcolorAry[2].node.active=true;
-    //             this.setPos();
-    //             break;
-    //         }
-    //         case enFixedCardType.FixedCardType_Peng: {
-
-    //             url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_left_right_1280`;
-    //             // SetTextureRes(url,this.bmp_cardbackAry[0]);
-    //             // SetTextureRes(url,this.bmp_cardbackAry[1]);
-    //             // SetTextureRes(url,this.bmp_cardbackAry[2]);
-    //             // SetTextureRes(url,this.bmp_cardbackAry[3]);
-                
-    //             // //
-    //             // //=================
-    //             // //
-    //             // url=LHZMJ.ins.iclass.getMahjongResName(this.cardValue);
-    //             // SetTextureRes(url,this.bmp_cardcolorAry[0]);
-    //             // SetTextureRes(url,this.bmp_cardcolorAry[1]);
-    //             // SetTextureRes(url,this.bmp_cardcolorAry[2]);
-    //             this.bmp_cardbackAry[0].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcard_left_right_1280");
-    //             this.bmp_cardbackAry[1].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcard_left_right_1280");
-    //             this.bmp_cardbackAry[2].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcard_left_right_1280");
-    //             this.bmp_cardcolorAry[0].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-    //             this.bmp_cardcolorAry[1].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-    //             this.bmp_cardcolorAry[2].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-
-                
-    //             this.bmp_cardcolorAry[1].node.y = 5;
-    //             this.bmp_cardbackAry[0].node.active=true;
-    //             this.bmp_cardbackAry[1].node.active=true;
-    //             this.bmp_cardbackAry[2].node.active=true;
-    //             this.bmp_cardbackAry[3].node.active=false;
-    //             this.bmp_cardcolorAry[0].node.active=true;
-    //             this.bmp_cardcolorAry[1].node.active=true;
-    //             this.bmp_cardcolorAry[2].node.active=true;
-    //             this.setPos();
-    //             break;
-    //         }
-    //     }
-    //     this.node.active=true;
-    // }
+    
     protected arrangeCard() {
         let url="";
         if(LHZMJ.ins.iclass.is2D()){
@@ -177,19 +65,19 @@ export default class LHZMJ_UpSingleFixed extends LHZMJ_SingleFixedBase {
             this.bmp_cardcolorAry[0].node.x=0;
             this.bmp_cardcolorAry[0].node.y=37;
             this.bmp_cardcolorAry[0].node.skewY=0;
-            this.bmp_cardcolorAry[0].node.scaleX=0.5;
+            this.bmp_cardcolorAry[0].node.scaleX=0.4;
             this.bmp_cardcolorAry[0].node.scaleY=0.5;
 
             this.bmp_cardcolorAry[1].node.x=0;
             this.bmp_cardcolorAry[1].node.y=19;
             this.bmp_cardcolorAry[1].node.skewY=0;
-            this.bmp_cardcolorAry[1].node.scaleX=0.5;
+            this.bmp_cardcolorAry[1].node.scaleX=0.4;
             this.bmp_cardcolorAry[1].node.scaleY=0.5;
 
             this.bmp_cardcolorAry[2].node.x=0;
             this.bmp_cardcolorAry[2].node.y=-24;
             this.bmp_cardcolorAry[2].node.skewY=0;
-            this.bmp_cardcolorAry[2].node.scaleX=0.5;
+            this.bmp_cardcolorAry[2].node.scaleX=0.4;
             this.bmp_cardcolorAry[2].node.scaleY=0.5;
 
             this.bmp_cardHideAry[0].node.x=0;
@@ -209,6 +97,9 @@ export default class LHZMJ_UpSingleFixed extends LHZMJ_SingleFixedBase {
             this.bmp_cardHideAry[2].node.scaleX=0.45;
             this.bmp_cardHideAry[2].node.scaleY=0.45;
             this.bmp_cardHideAry[2].node.skewY=0;
+
+            this.light_node.x = 3;
+            this.light_node.y = 4;
             switch(this.fixedType) {
                 case enFixedCardType.FixedCardType_AGang: {
                 
@@ -319,21 +210,7 @@ export default class LHZMJ_UpSingleFixed extends LHZMJ_SingleFixedBase {
             this.set3DSize();
             switch(this.fixedType) {
                 case enFixedCardType.FixedCardType_AGang: {
-                    // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_backcard_self_1280`;
-                    // // SetTextureRes(url,this.bmp_cardbackAry[0]);
-                    // // SetTextureRes(url,this.bmp_cardbackAry[1]);
-                    // // SetTextureRes(url,this.bmp_cardbackAry[2]);
-                    // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_self_1280`;
-                    // // SetTextureRes(url,this.bmp_cardbackAry[3]);
-                    // // url=LHZMJ.ins.iclass.getMahjongResName(this.cardValue);
-                    // // SetTextureRes(url,this.bmp_cardcolorAry[1]);
-
-                    // this.bmp_cardbackAry[0].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_backcard_self_1280");
-                    // this.bmp_cardbackAry[1].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_backcard_self_1280");
-                    // this.bmp_cardbackAry[2].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_backcard_self_1280");
-                    // this.bmp_cardbackAry[3].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcard_self_1280");
-                    // this.bmp_cardcolorAry[1].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-                    // this.bmp_cardcolorAry[1].node.y = 30;
+                  
                     
                     if(this._cardIndex==1){
                         this.bmp_cardbackAry[0].spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_left_bm_bg_01");
@@ -529,24 +406,36 @@ export default class LHZMJ_UpSingleFixed extends LHZMJ_SingleFixedBase {
         this.node.active=true;
     }
     private setPos():void{
-        this.bmp_arrow.node.active=false;
+        // this.bmp_arrow.node.active=false;
+        if(LHZMJ.ins.iclass.is2D()){
+            this.light_node.rotation = 0;
+        }else{
+            this.light_node.rotation = 15;
+        }
+
         if(this._pos!=0 && this._pos>0 && this._pos<4){
             switch(this._pos)
             {
                 case 1:{
-                    this.bmp_arrow.node.rotation = 180;
+                     this.bmp_arrow[0].node.active = false;
+                    this.bmp_arrow[2].node.active = false;
+                    this.bmp_arrow[2].node.active = true;
                     break;
                 }
                 case 2:{
-                    this.bmp_arrow.node.rotation = 90;
+                     this.bmp_arrow[0].node.active = false;
+                    this.bmp_arrow[2].node.active = false;
+                    this.bmp_arrow[1].node.active = true;
                     break;
                 }
                 case 3:{
-                    this.bmp_arrow.node.rotation = 0;
+                     this.bmp_arrow[1].node.active = false;
+                    this.bmp_arrow[2].node.active = false;
+                    this.bmp_arrow[0].node.active = true;
                     break;
                 }
             }
-            this.bmp_arrow.node.active=true;;
+            // this.bmp_arrow.node.active=true;;
         }
     }
     private set3DSize(){
@@ -864,6 +753,7 @@ export default class LHZMJ_UpSingleFixed extends LHZMJ_SingleFixedBase {
         this.bmp_cardHideAry[0].node.setLocalZOrder(8);
         this.bmp_cardHideAry[1].node.setLocalZOrder(9);
         this.bmp_cardHideAry[2].node.setLocalZOrder(10);
-        this.bmp_arrow.node.setLocalZOrder(11);
+        // this.bmp_arrow.node.setLocalZOrder(11);
+        this.light_node.active = true;
     }
 }

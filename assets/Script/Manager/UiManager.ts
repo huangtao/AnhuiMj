@@ -5,22 +5,17 @@ import Dictionary from "../CustomType/Dictionary";
 import { Tips } from "../Form/General/Tips";
 import { MessageBox } from "../Form/General/MessageBox";
 import { UIName } from "../Global/UIName";
-import Global from "../Global/Global";
-import { EventCode } from "../Global/EventCode";
 import { LoadingForm } from "../Form/Loading/LoadingForm";
-import ConfigData from "../Global/ConfigData";
 import { GameCachePool } from "../Global/GameCachePool";
 import { UrlMsgBox } from "../Form/General/UrlMsgBox";
 import { TimerForm } from "../Form/General/TimerForm";
 import { QL_Common } from "../CommonSrc/QL_Common";
-import { NoticeForm } from "../Form/General/NoticeForm";
-import { IsIOS, PlayEffect } from "../Tools/Function";
+import { PlayEffect } from "../Tools/Function";
 import { InputFormViewParam } from "../Form/Daili/InputFormView";
-import { AudioType } from "../CustomType/Enum";
 import HornPanel from "../Form/Horn/HornPanel";
 import HornGamePanel from "../Form/Horn/HornGamePanel";
 import { UIOperationInfo } from "../CustomType/UIOperationInfo";
-import { isPrimitive } from "util";
+import { ThrowErrorHelper } from "../Global/ThrowErrorHelper";
 
 
 
@@ -34,7 +29,6 @@ export default class UiManager implements IUiManager {
     private _uiOpQueue: Array<UIOperationInfo> = new Array<UIOperationInfo>()
 
     private _loading: LoadingForm;
-    private _noticeForm: any;
     public constructor() {
         this._uiList = new Dictionary<string, UIBase<any>>();
         this._tipsList = new Array();
@@ -44,21 +38,18 @@ export default class UiManager implements IUiManager {
 
     private _loadingInfo: string;
     private _loadingShow: boolean;
-    private _noticeLock: boolean;
 
     ShowLoading(str?: string) {
         this._loadingInfo = str;
         this._loadingShow = true;
-        this._noticeLock = false;
         if (cc.isValid(this._loading)) {
             cc.log("已存在loading,直接再次显示");
             this._loading.Show(null);
             this.LoadingInfo(str);
             return;
         }
-        const t = this;
         cc.log("开始加载" + UIName.Loading);
-        cc.loader.loadRes("Prefabs/" + UIName.Loading, this.onLoadingLoaded.bind(this));
+        cc.loader.loadRes(UIName.Loading, this.onLoadingLoaded.bind(this));
     }
 
     CloseLoading() {
@@ -133,7 +124,7 @@ export default class UiManager implements IUiManager {
         const t = this;
         cc.loader.loadRes("Prefabs/General/Tips", function (err, prefab: cc.Prefab) {
             if (err) {
-                cc.error(err.message || err);
+                ThrowErrorHelper.error(err.message || err);
                 return;
             }
             const newNode = cc.instantiate(prefab);
@@ -158,21 +149,23 @@ export default class UiManager implements IUiManager {
             return;
         }
         const t = this;
-        cc.loader.loadRes("Prefabs/General/MessageBox", function (err, prefab: cc.Prefab) {
+        cc.loader.loadRes(UIName.MessageBox, function (err, prefab: cc.Prefab) {
             if (err) {
-                cc.error(err.message || err);
+                ThrowErrorHelper.error(err.message || err);
                 return;
             }
             const newNode = cc.instantiate(prefab);
             var box = newNode.getComponent<MessageBox>(MessageBox);
             t._msgBoxList.push(box);
+
+            box._uiName = UIName.MessageBox;
             box.Go(msg, thisobj, okAction, cancleAction, closeAction, okArgs, cancleArgs, closeArgs);
             box.text.horizontalAlign = align;
         });
     }
 
     ShowInputBox(param: InputFormViewParam) {
-        this.ShowUi('Daili/InputFormView', param);
+        this.ShowUi('Prefabs/Daili/InputFormView', param);
     }
 
     ShowUrlMsgBox(url: string): void {
@@ -185,7 +178,7 @@ export default class UiManager implements IUiManager {
         }
         cc.loader.loadRes("Prefabs/General/UrlMsgBox", cc.Prefab, (err, prefab: cc.Prefab) => {
             if (err) {
-                cc.error(err);
+                ThrowErrorHelper.error(err);
                 return;
             }
             node = cc.instantiate(prefab);
@@ -254,7 +247,7 @@ export default class UiManager implements IUiManager {
 
     private onLoadingLoaded(err, prefab: cc.Prefab) {
         if (err) {
-            cc.error(err.message || err);
+            ThrowErrorHelper.error(err.message || err);
             return;
         }
         const newNode = cc.instantiate(prefab);
@@ -286,60 +279,67 @@ export default class UiManager implements IUiManager {
     }
 
 
-    private onPlayNotice() {
-        // //如果正在播放公告，直接返回
-        // if (this._noticeLock) {
-        //     return;
-        // }
-        // if (!this._noticeList || this._noticeList.length === 0) {
+    // private onPlayNotice() {
+    //     // //如果正在播放公告，直接返回
+    //     // if (this._noticeLock) {
+    //     //     return;
+    //     // }
+    //     // if (!this._noticeList || this._noticeList.length === 0) {
 
-        //     if (cc.isValid(this._noticeForm)) {
-        //         this._noticeForm.Close();
-        //     }
-        //     return;
-        // }
-        // this._noticeLock = true;
-        // const notice = this._noticeList.shift();
+    //     //     if (cc.isValid(this._noticeForm)) {
+    //     //         this._noticeForm.Close();
+    //     //     }
+    //     //     return;
+    //     // }
+    //     // this._noticeLock = true;
+    //     // const notice = this._noticeList.shift();
 
-        // if (cc.isValid(this._noticeForm)) {
-        //     this._noticeForm.Go(notice);
-        //     return;
-        // } else {
-        //     const action = new Action(this, this.onPlayNoticeEnd);
-        //     cc.loader.loadRes("Prefabs/General/NoticeForm", cc.Prefab, function (err, prefab: cc.Prefab) {
-        //         if (err) {
-        //             cc.error(err);
-        //             return;
-        //         }
-        //         const node = cc.instantiate(prefab);
-        //         let c = node.getComponent<NoticeForm>(NoticeForm);
-        //         c.Action = action;
-        //         this._noticeForm = c;
-        //         c.Go(notice);
-        //     }.bind(this));
-        // }
-    }
+    //     // if (cc.isValid(this._noticeForm)) {
+    //     //     this._noticeForm.Go(notice);
+    //     //     return;
+    //     // } else {
+    //     //     const action = new Action(this, this.onPlayNoticeEnd);
+    //     //     cc.loader.loadRes("Prefabs/General/NoticeForm", cc.Prefab, function (err, prefab: cc.Prefab) {
+    //     //         if (err) {
+    //     //             ThrowErrorHelper.error(err);
+    //     //             return;
+    //     //         }
+    //     //         const node = cc.instantiate(prefab);
+    //     //         let c = node.getComponent<NoticeForm>(NoticeForm);
+    //     //         c.Action = action;
+    //     //         this._noticeForm = c;
+    //     //         c.Go(notice);
+    //     //     }.bind(this));
+    //     // }
+    // }
 
-    private onPlayNoticeEnd() {
-        this._noticeLock = false;
-        cc.log("公告播放完成！")
-        this.onPlayNotice();
-    }
+    // private onPlayNoticeEnd() {
+    //     this._noticeLock = false;
+    //     cc.log("公告播放完成！")
+    //     this.onPlayNotice();
+    // }
 
 
 
     private _doing = false;
     private TryProcessUIOperationHandle(force: boolean = false) {
-        if (force) {
-            this._doing = false;
+        try {
+
+            if (force) {
+                this._doing = false;
+            }
+            if (this._doing) return;
+            if (!this._uiOpQueue || this._uiOpQueue.length === 0) return false;
+            if (this._doing) return;
+            this._doing = true;
+            while (this.UIOperationHandle());
+            if (!this._uiOpQueue || this._uiOpQueue.length === 0) {
+                this.TryProcessUIOperationHandle();
+            }
         }
-        if (this._doing) return;
-        if (!this._uiOpQueue || this._uiOpQueue.length === 0) return false;
-        if (this._doing) return;
-        this._doing = true;
-        while (this.UIOperationHandle());
-        if (!this._uiOpQueue || this._uiOpQueue.length === 0) {
-            this.TryProcessUIOperationHandle();
+        catch (e) {
+            ThrowErrorHelper.error(e);
+            this.TryProcessUIOperationHandle(true);
         }
     }
     private UIOperationHandle(): boolean {
@@ -353,8 +353,7 @@ export default class UiManager implements IUiManager {
         const op = this._uiOpQueue.shift();
         if (!op) return true;
         cc.log(op);
-
-
+        
         let uiname = op.name;
         let param = op.param;
         let action = op.action;
@@ -363,15 +362,15 @@ export default class UiManager implements IUiManager {
                 return this.UIOperationHandle_show(uiname, param, action);
             }
             case "close": {
-                return this.UIOperationHandle_close(uiname, param, action);
+                return this.UIOperationHandle_close(uiname);
             }
             case "destroy": {
-                return this.UIOperationHandle_destroy(uiname, param, action);
+                return this.UIOperationHandle_destroy(uiname);
             }
         }
 
     }
-    private UIOperationHandle_destroy(uiname: string, param: any, action: any): boolean {
+    private UIOperationHandle_destroy(uiname: string): boolean {
 
         let ui = this._uiList.GetValue(uiname);
         if (cc.isValid(ui)) {
@@ -384,7 +383,7 @@ export default class UiManager implements IUiManager {
 
         return true;
     }
-    private UIOperationHandle_close(uiname: string, param: any, action: any): boolean {
+    private UIOperationHandle_close(uiname: string): boolean {
         let ui = this._uiList.GetValue(uiname);
         if (cc.isValid(ui)) {
             if (ui.canReUse) {
@@ -400,41 +399,53 @@ export default class UiManager implements IUiManager {
     private UIOperationHandle_show(uiname: any, param: any, action?: any): boolean {
         let ui = this._uiList.GetValue(uiname);
         if (cc.isValid(ui)) {
-            cc.info(`已存在${uiname}，直接显示`);
-            PlayEffect(cc.url.raw("resources/Sound/open_panel.mp3"));
-            ui.Show(null, param, action);
-            return true;
+            try {
+                cc.info(`已存在${uiname}，直接显示`);
+                PlayEffect(cc.url.raw("resources/Sound/open_panel.mp3"));
+                ui.Show(null, param, action);
+                return true;
+            } catch (e) {
+                ThrowErrorHelper.error(e);
+                ui.node.destroy();
+            }
         }
         const t = this;
         cc.log("开始加载" + uiname);
-        cc.loader.loadRes("Prefabs/" + uiname, function (err, prefab: cc.Prefab) {
+        cc.loader.loadRes(uiname, function (err, prefab: cc.Prefab) {
 
+            let uiBaseInstance: UIBase<any> = null;
             try {
                 if (err) {
-                    cc.error(err.message || err);
+                    ThrowErrorHelper.error(err.message || err);
                     return;
                 }
 
                 const newNode = cc.instantiate(prefab);
-                var u = <UIBase<any>>newNode.getComponent(UIBase)
-                if (!cc.isValid(u)) {
+                uiBaseInstance = <UIBase<any>>newNode.getComponent(UIBase)
+                if (!cc.isValid(uiBaseInstance)) {
                     cc.warn("无效的ui组件")
                     return;
                 }
 
                 PlayEffect(cc.url.raw("resources/Sound/open_panel.mp3"));
                 //检查是否是单根实例
-                if (u.isOneInstance) {
+                if (uiBaseInstance.isOneInstance) {
                     let _oneInstance = t._onlyOneInstance[uiname];
                     if (cc.isValid(_oneInstance)) {
                         return;
                     }
-                    t._onlyOneInstance[uiname] = u;
+                    t._onlyOneInstance[uiname] = uiBaseInstance;
                 }
-                u.Show(null, param, action);
-                t._uiList.AddOrUpdate(uiname, u);
+                //设置ui的名称
+                uiBaseInstance._uiName = uiname;
+                uiBaseInstance.Show(null, param, action);
+                t._uiList.AddOrUpdate(uiname, uiBaseInstance);
             } catch (e) {
-
+                ThrowErrorHelper.error(e);
+                if (cc.isValid(uiBaseInstance)) {
+                    uiBaseInstance.node.destroy();
+                    uiBaseInstance.destroy();
+                }
             } finally {
                 t.TryProcessUIOperationHandle(true);
             }

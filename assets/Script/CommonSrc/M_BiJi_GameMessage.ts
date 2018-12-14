@@ -5,7 +5,7 @@ import {GameIF} from "./GameIF";
 export module M_BiJi_GameMessage {
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -111,15 +111,19 @@ export module M_BiJi_GameMessage {
         *
         */
        public havesanshunzi: boolean = false;
+       /**
+        *
+        */
+       public startNum: number = 0;
    
     }
     SerializerCreator.Register("M_BiJi_GameMessage.CMD_S_Attribute", function () {return new CMD_S_Attribute()})
-    TSRH.RSerializer("13067", "!4|cardTypeModel&4|cellScore&14|checkIP&4|extendBet&!4|forBetRate&4|forceLeftMoney&4|forceLeftMoneyType&!4|gameCount&4|gameModel&14|hasForceLeft&14|havedropcard&14|havesanshunzi&14|havexiscore&14|isgroup&4|joinMoney&4|moneyType&4|roomType&4|rubCard&5|tableCostNum&4|tableCostType&4|tableCreateWaitTime&4|tableCreator&5|tableID", "M_BiJi_GameMessage.CMD_S_Attribute");
+    TSRH.RSerializer("13067", "!4|cardTypeModel&4|cellScore&14|checkIP&4|extendBet&!4|forBetRate&4|forceLeftMoney&4|forceLeftMoneyType&!4|gameCount&4|gameModel&14|hasForceLeft&14|havedropcard&14|havesanshunzi&14|havexiscore&14|isgroup&4|joinMoney&4|moneyType&4|roomType&4|rubCard&4|startNum&5|tableCostNum&4|tableCostType&4|tableCreateWaitTime&4|tableCreator&5|tableID", "M_BiJi_GameMessage.CMD_S_Attribute");
 
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -161,7 +165,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -191,7 +195,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -229,7 +233,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -267,7 +271,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -301,7 +305,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -383,7 +387,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -413,7 +417,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -447,7 +451,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -497,7 +501,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -567,7 +571,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -673,7 +677,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -699,7 +703,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -725,7 +729,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -747,7 +751,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -833,7 +837,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -875,7 +879,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -933,7 +937,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -959,7 +963,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -981,7 +985,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1015,7 +1019,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1049,7 +1053,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1075,7 +1079,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1101,7 +1105,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1131,7 +1135,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1153,7 +1157,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1187,7 +1191,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1217,7 +1221,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1243,7 +1247,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1305,7 +1309,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1331,7 +1335,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1361,7 +1365,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1387,7 +1391,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1409,7 +1413,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1435,7 +1439,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1457,7 +1461,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *
@@ -1479,7 +1483,7 @@ export module M_BiJi_GameMessage {
 
     /**
      *
-     * @创建时间：2018年11月07日 20:04:46
+     * @创建时间：2018年11月14日 19:37:34
      * @创建人员：PC-20180301DMRG\Administrator
      * @备注信息：
      *

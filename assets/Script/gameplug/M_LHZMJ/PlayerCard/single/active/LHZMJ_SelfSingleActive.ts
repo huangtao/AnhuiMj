@@ -21,9 +21,6 @@ export default class LHZMJ_SelfSingleActive extends LHZMJ_SingleActiveBase {
 
     @property(cc.Sprite)
     bmp_tingToken: cc.Sprite=null;
-
-    @property(cc.Sprite)
-    bmp_greenZZ:cc.Sprite=null;
     
     @property(cc.Sprite)
     bmp_greenbg:cc.Sprite=null;    
@@ -61,7 +58,6 @@ export default class LHZMJ_SelfSingleActive extends LHZMJ_SingleActiveBase {
         this._moveMax=0;
         this._isValid=true;
         this.node.active=false;
-        this.bmp_greenZZ.node.active=false;
         this.bmp_greenbg.node.active = false;
         
     }
@@ -251,7 +247,7 @@ export default class LHZMJ_SelfSingleActive extends LHZMJ_SingleActiveBase {
                     }else{
                         
                         M_LHZMJView.ins.CardView.selfActive.allDown();
-                        
+                        M_LHZMJClass.ins.showHideCard(this._cardValue);
                         if(this._ifCanTingAfterOutThisCard) {
                             //显示听牌
                             M_LHZMJClass.ins.showTingCard(this.cardValue,this.node.x,false);
@@ -325,7 +321,6 @@ export default class LHZMJ_SelfSingleActive extends LHZMJ_SingleActiveBase {
      * 是否显示显示绿色遮罩
      */
     public set ShowGreenZZ(isShow:boolean){
-        // this.bmp_greenZZ.node.active=isShow;
         this.bmp_greenbg.node.active = isShow;
     }
     /**
@@ -402,38 +397,45 @@ export default class LHZMJ_SelfSingleActive extends LHZMJ_SingleActiveBase {
         let url="";
         let url1="";
         if(LHZMJ.ins.iclass.is2D()){
+            this.HuiCardShowGreenZZ(card);
             this.node.width=79;
             this.node.height=119;
-            this.bmp_cardback.node.width=78;
-            this.bmp_cardback.node.height=110;
+            this.bmp_cardback.node.width=92;
+            this.bmp_cardback.node.height=132;
             this.bmp_cardback.node.scaleX=1;
             this.bmp_cardcolor.node.width=68;
             this.bmp_cardcolor.node.height=97;
             this.bmp_enable.node.width=73;
             this.bmp_enable.node.height=107;
+            this.bmp_greenbg.node.scaleX=1;
+            this.bmp_greenbg.node.scaleY=1;
+            this.bmp_greenbg.node.skewX=0;
+            this.bmp_greenbg.node.x=0;
+            this.bmp_greenbg.node.y=-10.5;
+            
 
             if(isLie){
                 this.bmp_enable.node.active=false;
+                
                 if(LHZMJMahjongDef.gBackMahjongValue != card){
-                    // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_self_1280`;
-                    // SetTextureRes(url,this.bmp_cardback);
                     
-                    // url=LHZMJ.ins.iclass.getMahjongResName(card);
-                    // SetTextureRes(url,this.bmp_cardcolor);
-
                     url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_self_1280`;
                     //url1=LHZMJ.ins.iclass.getMahjongResName(card);
                     this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("shoupaipg@2x");
                     this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(card);
                     //SetTextureResAry([url,url1],[this.bmp_cardback,this.bmp_cardcolor]);
                     //this.bmp_cardcolor.node.x = 0;//9;
-                    this.bmp_cardcolor.node.y = 10;//3;
-
+                    this.bmp_cardback.node.width=92; 
+                    this.bmp_cardback.node.height=132;
+                    this.bmp_cardcolor.node.width=68;
+                    this.bmp_cardcolor.node.height=97;
+                    this.bmp_cardcolor.node.y = 20;//3;
                     this.bmp_cardcolor.node.scaleX = 1;
-                    this.bmp_cardcolor.node.scaleY = 1;
+                    this.bmp_cardcolor.node.scaleY = 0.8;
                     this.bmp_cardcolor.node.skewX = 0;
                     this.bmp_cardcolor.node.skewY = 0;
-                    
+                    this.bmp_greenbg.node.x=2;
+                    this.bmp_greenbg.node.y=18;
 
                     this.bmp_cardcolor.node.active = true;
                     this.bmp_cardback.node.active = true;
@@ -443,23 +445,20 @@ export default class LHZMJ_SelfSingleActive extends LHZMJ_SingleActiveBase {
                     //SetTextureRes(url,this.bmp_cardback);
                     //this._bmp_cardback.texture = <egret.Texture>RES.getRes(switchResName("xzmj_backcard_self_png"));
                     this.bmp_cardback.node.active = true;
+                    this.bmp_cardcolor.node.width=68;
+                    this.bmp_cardcolor.node.height=97;
                     this.bmp_cardcolor.node.active=false;
                 }
-
-                
             }else{
-                // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_self_1280`;
-                // SetTextureRes(url,this.bmp_cardback);
-            
-                // url=LHZMJ.ins.iclass.getMahjongResName(card);
-                // SetTextureRes(url,this.bmp_cardcolor);
                 url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_self_1280`;
                 //url1=LHZMJ.ins.iclass.getMahjongResName(card);
                 this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("shoupai2@2x");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(card);
                 //SetTextureResAry([url,url1],[this.bmp_cardback,this.bmp_cardcolor]);
-
-                //this.bmp_cardcolor.node.x=0;//6;
+                this.bmp_cardback.node.width=92;
+                this.bmp_cardback.node.height=132;
+                this.bmp_cardcolor.node.width=68;
+                this.bmp_cardcolor.node.height=97;
                 this.bmp_cardcolor.node.y=-9;//15;
 
                 this.bmp_cardcolor.node.scaleX = 1;
@@ -537,7 +536,8 @@ export default class LHZMJ_SelfSingleActive extends LHZMJ_SingleActiveBase {
                 this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("s_btm_self_mj_bg");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(card);
                 //SetTextureResAry([url,url1],[this.bmp_cardback,this.bmp_cardcolor]);
-
+                this.bmp_cardcolor.node.width=68;
+                this.bmp_cardcolor.node.height=97;    
                 //this.bmp_cardcolor.node.x=0;//6;
                 this.bmp_cardcolor.node.y=-11.5;//15;
 

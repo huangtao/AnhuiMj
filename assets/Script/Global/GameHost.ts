@@ -70,6 +70,8 @@ export class GameHost implements IGameHost {
     }
 
     onErrorCode(code: number, reason: string): boolean {
+       Global.Instance.UiManager.CloseLoading();
+       
         switch (code) {
             case QL_Common.SystemErrorCode.ExitRoomFail:
                 this.UiManager.ShowMsgBox("玩家退出房间失败\n游戏已经开始");
@@ -226,7 +228,8 @@ export class GameHost implements IGameHost {
                     SendMessage.Instance.OfferPairTable(QL_Common.InvalidValue.InvalidTableID
                         , QL_Common.InvalidValue.InvalidChairID
                         , this._enterParam.group_id,
-                        this._enterParam['IsFreeCreate']);
+                        this._enterParam['IsFreeCreate']
+                        , this._enterParam.rule.RuleId);
                 } else {
                     SendMessage.Instance.OfferPairTable();
                 }
@@ -359,7 +362,11 @@ export class GameHost implements IGameHost {
         this._initGameParam.ChairID = chair.chairID;
         this._initGameParam.TableID = chair.tableID;
         this._initGameParam.GameStatus = 0;
-        this._initGameParam.GameRule = this._enterParam.rule;
+
+        if (this._enterParam.rule) {
+            this._initGameParam.GameRule = this._enterParam.rule.RoomData;
+        }
+
         // this._initGameParam.GroupId = this._enterParam.group_id;
         //配桌成功后初始化场景
         this.EventManager.PostMessage(EventCode.InitGameScene, this._initGameParam);

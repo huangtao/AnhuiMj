@@ -4,8 +4,8 @@ import { TSRH } from "../Serializer/TypeSerializerRegisterHandle";
 export module QL_Platfrom2Web_Session {
     /**
      *
-     * 创建时间：2018年11月09日 17:32:55
-     * 创建人员：DESKTOP-U2RLB94\Cyq
+     * 创建时间：2018年12月13日 22:07:32
+     * 创建人员：SHENRUI\admin
      * 备注：
      *
      */
@@ -23,8 +23,8 @@ export module QL_Platfrom2Web_Session {
 
     /**
      *
-     * @创建时间：2018年11月09日 17:32:55
-     * @创建人员：DESKTOP-U2RLB94\Cyq
+     * @创建时间：2018年12月13日 22:07:32
+     * @创建人员：SHENRUI\admin
      * @备注信息：玩家登陆服务器平台用 AccessToken 数据对象
             <para>签名方式分两种：</para>
             1、Platfrom 签名方式UserID+TimeTick+Password+LogonType

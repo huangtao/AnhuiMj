@@ -72,5 +72,5 @@ export enum CMD_Static {
     /**
      * 玩家准备
      */
-    SUB_C_Ready = 122,
+    SUB_S_Ready = 122,
 }

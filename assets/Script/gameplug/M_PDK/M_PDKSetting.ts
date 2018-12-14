@@ -31,6 +31,8 @@ export class M_PDK_GameData {
     public spades3MustOut: boolean = false;
     //红桃三必出
     public redPeach3MustOut: boolean = false;
+    //红桃三必出
+    public zhuaNiaoScore: number = 0;
 
     //炸弹+10
     public bomb: boolean = false;

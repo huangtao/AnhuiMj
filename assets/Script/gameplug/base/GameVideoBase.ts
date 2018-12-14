@@ -112,7 +112,7 @@ export class GameVideoBase extends UIBase<any>{
         this.EventManager.PostMessage(EventCode.onReplayBack);
     }
 
-    protected InitShow() {
+    InitShow() {
         const obj = this.ShowParam;
         if (!obj) return;
         this.OnResetGameClass();

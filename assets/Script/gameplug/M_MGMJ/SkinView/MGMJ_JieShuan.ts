@@ -149,9 +149,14 @@ export default class MGMJ_JieShuan extends cc.Component {
     private sharebtn():void{
         M_MGMJClass.ins.ScreenCapture(true);
     }   
-   
-    private goonbtn():void{
+    
+    public isVisible() : boolean{
+        return this.node.active;
+    }
+    
+    public goonbtn():void{
         this.scheduleOnce(()=>{         
+                console.log("------继续按钮调用------");
                 this.node.dispatchEvent(new MGMJEvent(MGMJEvent.msg_goongame));        
         },0.2);      
     }
@@ -189,6 +194,7 @@ export default class MGMJ_JieShuan extends cc.Component {
                         M_MGMJClass.ins.ExitGame();
                     },this);
                 }else{
+                    console.log("------ closebtn 关闭 ----")
                     this.node.dispatchEvent(new MGMJEvent(MGMJEvent.msg_goongame));
                 }
             }else{
@@ -253,7 +259,7 @@ export default class MGMJ_JieShuan extends cc.Component {
             this.img_shu.node.active = false;
             this.img_ping.node.active = false;
         }
-         if(balanceData.playerBalance[me].TotalScore<0){
+        if(balanceData.playerBalance[me].TotalScore<0){
             // M_MGMJVoice.PlayLose();
             M_MGMJVoice.PlayCardType(`/sound/lost.mp3`);     
             // let url="gameres/gameCommonRes/MaJiangPai/majiangresource/mjjiesuan/img_zjsdyj_title_2.png";
@@ -405,5 +411,10 @@ export default class MGMJ_JieShuan extends cc.Component {
 
         //},this,300);
        
+    }
+
+    onEnable() {
+        cc.info("--- active is true");
+        this.unscheduleAllCallbacks();
     }
 }

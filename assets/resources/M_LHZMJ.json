@@ -154,6 +154,7 @@
                     "nodeType": "CHECKBOX_LEFTRIGHT",
                     "defaultSelected": true,
                     "defaultValue": 2,
+                    "defaultShowIdx": 2,
                     "attr": "OutCardTime",
                     "enabled": true,
                     "list": [
@@ -167,7 +168,7 @@
                         },
                         {
                             "value": 2,
-                            "desc": "无限制出牌"
+                            "desc": "无限制"
                         }
                     ]
                 }
@@ -257,11 +258,6 @@
         {
             "attrName": "isGangJiuYou",
             "value": true,
-            "desc": "是否杠了就有"
-        },
-        {
-            "attrName": "IfCanSameIp",
-            "value": false,
             "desc": "是否杠了就有"
         }
     ]

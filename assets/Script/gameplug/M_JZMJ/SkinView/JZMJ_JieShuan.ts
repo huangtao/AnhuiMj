@@ -15,8 +15,7 @@ export default class JZMJ_JieShuan extends cc.Component {
 
     @property(cc.Label)
     lbl_gameid: cc.Label=null;
-    @property(cc.Label)
-    lbl_tableRule: cc.Label=null;
+    
     //牌型分
      @property([cc.Label])
     lbl_HuCardType: cc.Label[] = [];
@@ -37,26 +36,11 @@ export default class JZMJ_JieShuan extends cc.Component {
     img_hu: cc.Sprite[]=[];
 
     @property(cc.Button)
-    btn_yinCang: cc.Button=null;
-
-    @property(cc.Button)
-    btn_open: cc.Button=null;
-
-    @property(cc.Button)
-    btn_exit: cc.Button=null;
-
-    @property(cc.Button)
     btn_goon: cc.Button=null;
     //局数打完返回总结算
     @property(cc.Button)
     btn_LookZongJieSuan: cc.Button=null;
 
-    @property(cc.Button)
-    btn_share: cc.Button=null;
-
-    @property(cc.Button)
-    btn_close: cc.Button=null;
-  
     //中码图标
      @property([cc.Sprite])
     img_zhongma: cc.Sprite[]=[];
@@ -233,10 +217,6 @@ export default class JZMJ_JieShuan extends cc.Component {
 
         this.lbl_gameid.string = JZMJ.ins.iclass.getGameID();
         let msg=`底分${JZMJ.ins.iclass.getTableConfig().cellScore}|`;
-      //  msg+=JZMJ.ins.iclass.getTableConfig().IsGangKai?"杠后开花加番|":"";
-      //  msg+=JZMJ.ins.iclass.getTableConfig().IsQiDui?"七对加番|":"";
-      //  msg+=JZMJ.ins.iclass.getTableConfig().IsBuKao?"无风牌|":"";
-        this.lbl_tableRule.string=msg; 
         //显示庄家位置,相对于自己
         var bankerpos=(M_JZMJClass.ins.BankerChair-M_JZMJClass.ins.SelfChair+4)%4;
         this.img_banker.node.y = JZMJ_JieShuan.BankerPos[bankerpos].y + 65;
@@ -396,9 +376,6 @@ export default class JZMJ_JieShuan extends cc.Component {
         if(M_JZMJClass.ins.isSelfCreateRoom && this._isPlayEnoughGameNum) {
             M_JZMJClass.ins.ignoreForceLeft = true;
         }
-        this.btn_exit.node.active = !JZMJ.ins.iclass.isCreateRoom();
-        this.btn_share.node.active = JZMJ.ins.iclass.isCreateRoom();
-        //egret.setTimeout(()=>{
         console.log("jiesuan");
         
         this.scheduleOnce(function () {

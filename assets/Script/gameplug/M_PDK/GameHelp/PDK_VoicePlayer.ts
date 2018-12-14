@@ -41,21 +41,32 @@ export default class VoicePlayer {
             path += "Girl/";
         }
         if(cardType == CardType.One){
-            path = VoicePath + path + "1_" + value + ".mp3";
+            path = VoicePath + path + value + ".mp3";
         }else if(cardType == CardType.Two){
-            path = VoicePath  + path + "2_" + value + ".mp3";
+            path = VoicePath  + path + "dui" + value + ".mp3";
         }else if(cardType == CardType.lianDui){
             path = VoicePath  + path + "liandui.mp3";
         }else if(cardType == CardType.ThreeAndTwo){
             path = VoicePath  + path + "sandaier.mp3";
+        }else if(cardType == CardType.ThreeAndOne){
+            path = VoicePath  + path + "sandaiyi.mp3";
         }else if(cardType == CardType.Three){
-            path = VoicePath  + path + "sanzhang.mp3";
+            path = VoicePath  + path + "sange.mp3";
         }else if(cardType == CardType.ShunZi){
             path = VoicePath  + path + "shunzi.mp3";
         }else if(cardType == CardType.Bomb){
-            path = VoicePath  + path + "zhadan1.mp3";
+            path = VoicePath  + path + "zhadan.mp3";
+        }else if(cardType == CardType.Plane){
+            if(value == 1){
+                path = VoicePath  + path + "planewings.mp3";
+            }else if(value == 0){
+                path = VoicePath  + path + "plane.mp3";
+            }else{
+                path = VoicePath  + path + "feiji_bgm.mp3";
+            }
         }else if(cardType == CardType.Pass){
-            path = VoicePath  + path + "pass1.mp3";
+            //let randomNum = Math.floor(Math.random()*3) + 1;
+            path = VoicePath  + path + "buyao1.mp3";
         }else{
             return;
         }

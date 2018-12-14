@@ -30,7 +30,7 @@ export function SetFontRes(url: string, label: cc.Label) {
 }
 export function SetNodeChildrenOrder(node: cc.Node) {
     for (var i = 0; i < node.childrenCount; i++) {
-        node.children[i].setLocalZOrder(i);
+        node.children[i].zIndex = i;
     }
 }
 /**

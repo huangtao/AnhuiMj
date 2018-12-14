@@ -38,6 +38,12 @@ export class FriendCircleInfo {
    	public name: string;
 
     /**
+      * 指定授权的游戏列表
+      */
+    public accessGame: string;
+
+
+    /**
      * 亲友圈公告
      */
     public notice: string;
@@ -83,7 +89,7 @@ export class FriendCircleRule {
       /**
        * 游戏昵称
        */
-      public gameName: number;
+      public gameName: string;
 
       /**
        * 玩法
@@ -107,29 +113,59 @@ export class FriendCircleRule {
  */
 export class FriendCircleMember {
       /**
-       * 编号
+       * 玩家ID
        */
-      public id: number;
+      public userid: number = 0;
 
+      /**
+       * 玩家局数
+       */
+      public cnt: number = 0;;
+
+      /**
+       * 大赢家局数
+       */
+      public userwin: number = 0;;
+
+      /**
+       * 胜利局数
+       */
+      public victory: number = 0;;
+
+      /**
+       * 失败局数
+       */
+      public fail: number = 0;;
+
+      /**
+       * 积分
+       */
+      public moneynum: number = 0;;
+
+      /**
+       * 禁玩状态(1是被禁场地.2是被禁游戏)
+       */
+      public bantype: number = 0;;
+
+      /**
+       * flag 是否点亮
+       */
+      public flag: number = 0;;
+      
       /**
        * 是否是管理员
        */
-      public isAdmin: number;
-      
-      /**
-       * user id
-       */
-      public userId: string;
+      public isadmin: string = "";
 
       /**
        * 昵称
-       */      
-      public name: string;
+       */
+      public nickname: string = "";
 
       /**
        * 头像
-       */      
-      public header: string;
+       */
+      public picfile: string = "";
 }
 
 /**
@@ -160,4 +196,84 @@ export class FriendCircleRecordRank {
        * 总局数
        */
       public allRound: number;
+}
+
+/**
+ * 玩家分数结构
+ */
+export class PlayerFightScore {
+  /**
+  * 玩家Id
+  */
+  public userId: number;
+   
+  /**
+  * 分数
+  */
+  public moneyNum: number;
+  
+  /**
+  * 是否是胜利者
+  */
+  public isWinner: number;
+
+  /**
+  * 玩家昵称
+  */
+  public nickName: string;
+}
+
+/**
+ * 亲友圈战绩数据结构
+ */
+export class FriendCircleRecord {
+    /** 
+     * setId
+     */
+    public setId: number = 0;
+
+    /**
+     * 游戏Id
+     */
+    public gameId: number = 0;
+
+    /**
+     * 积分
+     */
+    public moneyNum: number = 0;
+
+    /**
+     * 结束时间
+     */
+    public addTime: number = 0;
+    
+    /**
+     * 桌子Id
+     */
+    public tableId: number = 0;
+    
+    /**
+     * 游戏局数
+     */
+    public gameNum: number = 0;
+
+    /**
+      * flag 是否点亮
+      */
+    public flag: number = 0;;
+    
+    /**
+     * 战绩mid
+     */
+    public mid: string = "";
+    
+    /**
+     * 游戏名
+     */
+    public gameName: string = "";
+
+    /**
+     * 玩家分数列表
+     */
+    public userData: PlayerFightScore[] = null;
 }

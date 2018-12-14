@@ -1,6 +1,4 @@
 import { Action, ActionNet } from "../../../../CustomType/Action";
-import Global from "../../../../Global/Global";
-import { UIName } from "../../../../Global/UIName";
 import { LoadHeader } from "../../../../Tools/Function";
 import { FriendCircleMember } from "../../../../CustomType/FriendCircleInfo";
 import FriendCircleDataCache from "../../FriendCircleDataCache";
@@ -94,17 +92,17 @@ export default class AdministratorManageItem extends cc.Component {
 
         // ID
     	if (cc.isValid(this.lab_userId)) {
-    		this.lab_userId.string = data.userId;
+    		this.lab_userId.string = data.userid + "";
     	}
 
         // 昵称
     	if (cc.isValid(this.lab_userName)) {
-    		this.lab_userName.string = data.name;
+    		this.lab_userName.string = data.nickname;
     	}
 
         // 头像
     	if (cc.isValid(this.sp_headImg)) {
-    		LoadHeader(data.header,this.sp_headImg);
+    		LoadHeader(data.picfile,this.sp_headImg);
     	}
     }
 
@@ -115,7 +113,7 @@ export default class AdministratorManageItem extends cc.Component {
     	if (this.AddOrDeleteCallBack) {
             let userId = null;
             if (this._showData) {
-                userId = this._showData.userId;
+                userId = this._showData.userid;
             }
             
     		this.AddOrDeleteCallBack.Run([{operate: args,userId: userId,item: this}])

@@ -3,13 +3,8 @@ import RankListItemScrollView from "./RankListItemScrollView";
 import { ActionNet, Action } from "../../CustomType/Action";
 import { WebRequest } from '../../Net/Open8hb';
 import { RankListItemInfo } from "./RankListItemInfo";
-import { LoadHeader, TranslateMoneyTypeName } from "../../Tools/Function";
-import { ShareParam } from "../../CustomType/ShareParam";
-import Global from "../../Global/Global";
-import { WxManager } from "../../Manager/WxManager";
+import { LoadHeader, TranslateMoneyTypeName, Debug } from "../../Tools/Function";
 import { UIName } from "../../Global/UIName";
-import RankListItem from './RankListItem';
-
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -70,6 +65,16 @@ export default class RankForm extends UIBase<any> {
     RankFormNode: cc.Node = null;
     @property(cc.Sprite)
     prize_TV: cc.Sprite = null;
+    @property(cc.Node)
+    lable_inning: cc.Node = null;
+    @property(cc.Node)
+    lable_gift: cc.Node = null;
+    @property(cc.Node)
+    lab_qidou_count: cc.Node = null;
+    @property(cc.Label)
+    lab_self_qidou: cc.Label = null;
+    @property(cc.Node)
+    btn_share_rank: cc.Node = null;
 
     /**
      * 今日榜显示名数
@@ -79,7 +84,7 @@ export default class RankForm extends UIBase<any> {
     /**
      * 总站榜显示名数
      */
-    private total_num: number = 50;
+    private total_num: number = 30;
     private status: boolean = true;
 
     /**
@@ -88,13 +93,17 @@ export default class RankForm extends UIBase<any> {
     private total_data = new Array<RankListItemInfo>();
 
     public InitShow() {
-        super.InitShow(); 
+        super.InitShow();
         this.total_selected.active = false;
         this.today_selected.active = true;
         this.RankListInfosShow("todayRank", this.today_num);
         let rankListItemScrollView: RankListItemScrollView = this.view.getComponent("RankListItemScrollView");
         rankListItemScrollView.resetList();
         rankListItemScrollView.setting(new Action(this, this.checkMyRank));
+
+        if (Debug()) {
+            this.btn_share_rank.active = true;
+        }
     }
 
 
@@ -103,7 +112,7 @@ export default class RankForm extends UIBase<any> {
     }
 
     /**
-     * 排行榜
+     * 排行榜 
      */
     public RankListInfosShow(type: string, count: number) {
         const action = new ActionNet(this, (obj) => this.success(obj, count), this.error);
@@ -143,6 +152,7 @@ export default class RankForm extends UIBase<any> {
                 if (count == this.today_num && info.rank <= this.today_num) { //如果是今日榜并且在排名内
                     this.myRank.string = info.rank.toString();
                 }
+
                 this.updateMyItem(info, count);
                 this.status = false;
                 if (info.rank > count) {
@@ -159,8 +169,14 @@ export default class RankForm extends UIBase<any> {
         if (obj && count == this.total_num) {
             this.total_data = infoArray;
             type = "total";
+            this.lable_inning.active = false;
+            this.lable_gift.active = false;
+            this.lab_qidou_count.active = true;
         } else {
             type = "today";
+            this.lable_inning.active = true;
+            this.lable_gift.active = true;
+            this.lab_qidou_count.active = false;
         }
 
         cc.info('-- rank list data:  ', infoArray);
@@ -173,6 +189,7 @@ export default class RankForm extends UIBase<any> {
         let rankListItemScrollView: RankListItemScrollView = this.view.getComponent("RankListItemScrollView");
         rankListItemScrollView.resetList();
         this.UiManager.ShowTip("查询失败");
+        this.NoRankShow();;
     }
 
     private checkStatus(status) {
@@ -213,7 +230,7 @@ export default class RankForm extends UIBase<any> {
                             if (data.rank > this.today_num) {
                                 this.ClearInfo();
                             } else {
-                                this.GiftInit(data, 188, 128, 88, 68, 0, 0);
+                                this.GiftInit(data, 188, 128, 88, 38, 0, 0);
                                 this.MyItem_rank.node.active = true;
                                 this.MyItem_noRank.node.active = false;
                             }
@@ -222,7 +239,8 @@ export default class RankForm extends UIBase<any> {
                             if (data.rank > this.total_num) {
                                 this.ClearInfo();
                             } else {
-                                this.GiftInit(data, 1, 2888, 1888, 3000, 2000, 1000);
+                                // this.GiftInit(data, 1, 2888, 1888, 3000, 2000, 1000);
+                                this.ShowQiDouRank();
                                 this.MyItem_rank.node.active = true;
                                 this.MyItem_noRank.node.active = false;
                             }
@@ -237,24 +255,20 @@ export default class RankForm extends UIBase<any> {
                     break;
             }
 
-            this.MyInning.string = data.inning_num.toString();
+            switch (count) {
+                case this.today_num:
+                    this.lab_self_qidou.string = "";
+                    this.MyInning.string = data.inning_num.toString();
+                    break;
+                case this.total_num:
+                    this.MyInning.string = "";
+                    this.lab_self_qidou.string = data.inning_num.toString();
+                    break;
+                default:
+                    break;
+            }
         } else {//未上榜
-            this.MyItem_rankImg_a.node.active = false;
-            this.MyItem_rankImg_b.node.active = false;
-            this.MyItem_rankImg_c.node.active = false;
-            this.prize_qidou.node.active = false;
-            this.prize_dimmond.node.active = false;
-            this.prize_TV.node.active = false;
-            this.MyItem_rank.node.active = false;
-            this.MyItem_noRank.string = "未上榜";
-            this.MyItem_noRank.node.active = true;
-
-            this.MyInning.string = "0";
-
-            // this.prize_qidou.node.active = false;
-            // this.prize_dimmond.node.active = true;
-
-            this.MyPrizeNum.string = "";
+            this.NoRankShow();
         }
         LoadHeader(this.UserInfo.userData.Header, this.MyHeaderImg);
         this.MyNickName.string = this.UserInfo.userData.NickName;
@@ -328,12 +342,15 @@ export default class RankForm extends UIBase<any> {
 
         switch (count) {
             case this.today_num:
-                this.GiftInit(data, 188, 128, 88, 68, 0, 0);
+                this.GiftInit(data, 188, 128, 88, 38, 0, 0);
                 break;
             case this.total_num:
-                this.GiftInit(data, 1, 2888, 1888, 3000, 2000, 1000);
+                this.ShowQiDouRank();
+                // this.GiftInit(data, 1, 2888, 1888, 3000, 2000, 1000);
                 break;
         }
+
+
     }
 
     /**
@@ -351,28 +368,28 @@ export default class RankForm extends UIBase<any> {
             case 1:
                 if (one > 1) {
                     this.prize_TV.node.active = false;
-                    this.prize_qidou.node.active = false;
-                    this.prize_dimmond.node.active = true;
+                    this.prize_qidou.node.active = true;
+                    this.prize_dimmond.node.active = false;
                     this.MyPrizeNum.string = one + "";
                     this.MyPrizeNum.node.active = true;
                 } else {
-                    this.prize_TV.node.active = true;
+                    this.prize_TV.node.active = false;
                     this.prize_qidou.node.active = false;
                     this.prize_dimmond.node.active = false;
                     this.MyPrizeNum.node.active = false;
                 }
                 break;
             case 2:
-                this.prize_dimmond.node.active = true;
+                this.prize_dimmond.node.active = false;
                 this.MyPrizeNum.node.active = true;
-                this.prize_qidou.node.active = false;
+                this.prize_qidou.node.active = true;
                 this.MyPrizeNum.string = tow + "";
                 this.prize_TV.node.active = false;
                 this.MyPrizeNum.node.active = true;
                 break;
             case 3:
-                this.prize_dimmond.node.active = true;
-                this.prize_qidou.node.active = false;
+                this.prize_dimmond.node.active = false;
+                this.prize_qidou.node.active = true;
                 this.MyPrizeNum.string = three + "";
                 this.prize_TV.node.active = false;
                 this.MyPrizeNum.node.active = true;
@@ -427,5 +444,42 @@ export default class RankForm extends UIBase<any> {
         this.MyItem_rank.node.active = false;
         this.prize_qidou.node.active = false;
         this.prize_dimmond.node.active = false;
+    }
+
+    private ClickGift() {
+        this.UiManager.ShowUi(UIName.Gift);
+        this.CloseClick(); //关闭本窗体
+    }
+
+    private clickTask(){
+        this.UiManager.ShowUi(UIName.Task);
+        this.CloseClick(); //关闭本窗体
+    }
+
+    private ShowQiDouRank() {
+        this.prize_TV.node.active = false;
+        this.prize_qidou.node.active = false;
+        this.prize_dimmond.node.active = false;
+        this.MyPrizeNum.node.active = false;
+    }
+
+    private NoRankShow(){
+        this.MyItem_rankImg_a.node.active = false;
+        this.MyItem_rankImg_b.node.active = false;
+        this.MyItem_rankImg_c.node.active = false;
+        this.prize_qidou.node.active = false;
+        this.prize_dimmond.node.active = false;
+        this.prize_TV.node.active = false;
+        this.MyItem_rank.node.active = false;
+        this.MyItem_noRank.string = "未上榜";
+        this.MyItem_noRank.node.active = true;
+
+        this.MyInning.string = "0";
+        this.lab_self_qidou.string = "";
+
+        // this.prize_qidou.node.active = false;
+        // this.prize_dimmond.node.active = true;
+
+        this.MyPrizeNum.string = "";
     }
 }

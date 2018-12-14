@@ -28,19 +28,19 @@ export default class LHZMJ_OppoSinglePool extends LHZMJ_SinglePoolBase {
         // this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(card);
         
         if(LHZMJ.ins.iclass.is2D()){
-            this.bmp_cardback.node.width=42;
-            this.bmp_cardback.node.height=58;
+            this.bmp_cardback.node.width=43;
+            this.bmp_cardback.node.height=60;
             this.bmp_cardback.node.scaleX=1;
 
             this.bmp_cardcolor.node.x=0;
-            this.bmp_cardcolor.node.y=4;
+            this.bmp_cardcolor.node.y=6;
             this.bmp_cardcolor.node.scaleX=0.45;
             this.bmp_cardcolor.node.scaleY=0.45;
             this.bmp_cardcolor.node.skewX=0;
 
             this.bmp_cardHide.node.x=0;
-            this.bmp_cardHide.node.y=4;
-            this.bmp_cardHide.node.scaleX=0.56;
+            this.bmp_cardHide.node.y=7.5;
+            this.bmp_cardHide.node.scaleX=0.44;
             this.bmp_cardHide.node.scaleY=0.43;
             this.bmp_cardHide.node.skewX=0;
             this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("shangdp_back@2x");

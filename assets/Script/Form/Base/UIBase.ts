@@ -13,6 +13,7 @@ const { ccclass, property } = cc._decorator;
  */
 export default abstract class UIBase<T> extends cc.Component implements IEventHandler {
 
+    public _uiName: string = "";
     protected isShowUI: boolean = false;
     //表示当前的页面是否已经激活进场动画
     protected hasEnterAnimation: boolean = false;
@@ -28,8 +29,12 @@ export default abstract class UIBase<T> extends cc.Component implements IEventHa
 
 
     protected _isFree = true;
-    private _canClose: boolean = true;
+    private _enterAnim: boolean = false;
     private _reqClose: boolean = false;
+    private _reqCloseParam: Array<any> = [];
+
+    private _reqShow: boolean = true;
+    private _reqShowParams: Array<any> = [];
     public get IsFree() {
         return this._isFree;
     }
@@ -132,18 +137,23 @@ export default abstract class UIBase<T> extends cc.Component implements IEventHa
      * @param action 
      */
     public Show(root?: cc.Node, param?: T, action?: Action) {
+
+        this._reqClose = false;
+        this._reqShow = true;
+        this._reqShowParams = [root, param, action];
         if (this.isShowUI && this.isOneInstance) {
-            if (this._canClose) {
+            // 如果动画流程结束则调用界面重新显示的方法，先关闭后显示
+            if (!this._enterAnim) {
                 //如果当前界面可以关闭，则调用关闭后重新显示
                 let a: Action = new Action(this, this.Show, [root, param, action]);
                 this.Close(a);
             }
             return;
         }
-        this._canClose = false;
+         
         this.isShowUI = true;
+        this._enterAnim = true;
         this._isFree = false;
-        this._reqClose = false;
         if (!(cc.isValid(root) && this.isValid)) {
             //root = cc.director.getScene();
             root = cc.Canvas.instance.node;
@@ -164,12 +174,12 @@ export default abstract class UIBase<T> extends cc.Component implements IEventHa
         }
         this.InitShow();
         this.PlayEnterAnimation(() => {
+            this._enterAnim = false;
             this.OnShow();
-            this._canClose = true;
             if (action) {
                 action.RunArgs();
             }
-            if(this._reqClose){
+            if (this._reqClose) {
                 this.CloseClick();
             }
         });
@@ -180,20 +190,28 @@ export default abstract class UIBase<T> extends cc.Component implements IEventHa
      * @param action 
      */
     public Close(action?: Action, param?: any) {
-        if(!this._canClose){
-            this._reqClose = true;
-            if(this._canClose){
-                this.scheduleOnce(()=>{
+
+        this._reqShow = false;
+        this._reqClose = true;
+
+        if (this._enterAnim) {
+            if (!this._enterAnim) {
+                this.scheduleOnce(() => {
                     this.CloseClick();
-                },0);
+                }, 0);
             }
             return;
         }
         this.scheduleOnce(() => {
-            if (!this.isShowUI || this.hasEnterAnimation) return;
+            if (!this.isShowUI || this._enterAnim) return;
             this.hasEnterAnimation = false;
+            this._enterAnim = true;
             this.PlayExitAnimation(() => {
+                this._enterAnim = false;
                 this.CloseUI(action);
+                if (this._reqShow) {
+                    this.Show.apply(this, this._reqShowParams);
+                }
             })
         });
     }
@@ -227,7 +245,7 @@ export default abstract class UIBase<T> extends cc.Component implements IEventHa
             return;
         }
         if (!!callBack) {
-            callBack();
+            this.scheduleOnce(callBack,0);
         }
     }
     protected PlayExitAnimation(callBack?: Function) {
@@ -238,7 +256,7 @@ export default abstract class UIBase<T> extends cc.Component implements IEventHa
             return;
         }
         if (!!callBack) {
-            callBack();
+            this.scheduleOnce(callBack,0); 
         }
     }
     protected EnterAnimation(callBack?: Function) {
@@ -292,7 +310,7 @@ export default abstract class UIBase<T> extends cc.Component implements IEventHa
                         callBack();
                     }
                     catch (e) {
-                        cc.error(e);
+                        cc.log(e);
                     }
                     finally {
                         this.hasExitAnimation = false;
@@ -325,6 +343,10 @@ export default abstract class UIBase<T> extends cc.Component implements IEventHa
     }
     public CloseClick() {
         this.Close();
+    }
+
+    public DestoryUi() {
+        Global.Instance.UiManager.DestroyUi(this._uiName);
     }
 
 }

@@ -14,9 +14,12 @@ private static _ins: LHZMJ_SingleFixedBase;
         public get gameClass(): LHZMJ_SingleFixedBase { return LHZMJ_SingleFixedBase.ins; }
 
 
+    @property(cc.Node)
+    light_node:cc.Node=null;
 
     @property(cc.Sprite)
-    bmp_arrow:cc.Sprite=null;
+    bmp_arrow:cc.Sprite[]=[];
+
     //四个牌背
     @property([cc.Sprite])
     bmp_cardbackAry: cc.Sprite[]=[];

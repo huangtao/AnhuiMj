@@ -1,21 +1,15 @@
-import { WebRequest } from "../../../Net/Open8hb";
-import { IDictionary } from "../../../Interface/IDictionary";
-import UIBase from "../../Base/UIBase";
-import UiManager from "../../../Manager/UiManager";
 import Global from "../../../Global/Global";
-import { Action, ActionNet } from "../../../CustomType/Action";
 import { QL_Common } from "../../../CommonSrc/QL_Common";
 import { UIName } from "../../../Global/UIName";
 import FriendCircleDataCache from "../FriendCircleDataCache";
-import FriendCircleWebHandle from "../FriendCircleWebHandle";
 import { QL_Common_GameMessageCommon } from "../../../CommonSrc/QL_Common_GameMessageCommon";
-import { FriendCircleInfo ,FriendCircleRule} from "../../../CustomType/FriendCircleInfo";
-import { ClickJoinRoomItem } from "./ClickJoinRoomItem";
-import { StrToObject } from "../../../Tools/Function";
-import UrlCtrl from "../../../Net/UrlCtrl";
+import { FriendCircleRule } from "../../../CustomType/FriendCircleInfo";
+import { StrToObject, LoadHeader } from "../../../Tools/Function";
 import { ShareParam } from "../../../CustomType/ShareParam";
 import ConfigData from "../../../Global/ConfigData";
 import SendMessage from "../../../Global/SendMessage";
+import FriendCircleWebHandle from "../FriendCircleWebHandle";
+import { Action } from "../../../CustomType/Action";
 
 const { ccclass, property } = cc._decorator;
 
@@ -23,7 +17,7 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class RoomRuleItem extends cc.Component {
-	public IsEventHandler: boolean = true
+    public IsEventHandler: boolean = true
     public IsKeyHandler: boolean = true;
 
     /**
@@ -31,13 +25,6 @@ export default class RoomRuleItem extends cc.Component {
      */
     @property(cc.Prefab)
     prefab_memberItem: cc.Prefab = null;
-
-
-   /**
-    * 变更按钮
-    */
-    @property(cc.Button)
-    btn_modifyRule: cc.Button = null;
 
     /**
      * 分享按钮
@@ -55,20 +42,54 @@ export default class RoomRuleItem extends cc.Component {
     * 桌子状态
     */
     @property(cc.Label)
-    lab_status: cc.Label = null;
+    lab_gameStatus: cc.Label = null;
 
     /**
-    * 桌子玩法
+    * 当前局数
     */
     @property(cc.Label)
-    lab_rule: cc.Label = null;
+    lab_gameRound: cc.Label = null;
 
+    /**
+    * 游戏名称
+    */
+    @property(cc.Label)
+    lab_gameName: cc.Label = null;
+
+    /**
+     * 游戏logo
+     */
+    @property(cc.Sprite)
+    sp_gameIcon: cc.Sprite = null;
+
+    /**
+     * 坐下按钮图标
+     */
+    @property(cc.Sprite)
+    sp_sitDown: cc.Sprite = null;
+
+    /**
+     * 玩家头像列表
+     */
+    @property([cc.Sprite])
+    playerHeadImgList: cc.Sprite[] = [];
+
+    /**
+     * 玩家头像节点列表
+     */
+    @property([cc.Node])
+    playerHeadNoList: cc.Node[] = [];
+
+    /**
+     * 玩家头像节点列表
+     */
+    @property([cc.SpriteFrame])
+    frame_gameIconList: cc.SpriteFrame[] = [];
 
     /**
      * 是否是规则模板(0 不是，1 是)
      */
-    @property(Number)
-    isRuleModel: Number = 0;
+    isRuleModel: boolean = false;
 
     /**
      * 桌子最大玩家数
@@ -80,36 +101,44 @@ export default class RoomRuleItem extends cc.Component {
      */
     private _talbleInfo: QL_Common.UserCreateTableInfo = null;
 
-    public getTableInfo(): QL_Common.UserCreateTableInfo{
+    public getTableInfo(): QL_Common.UserCreateTableInfo {
         return this._talbleInfo;
     }
 
-    public setTableInfo(tableInfo: QL_Common.UserCreateTableInfo){
+    public setTableInfo(tableInfo: QL_Common.UserCreateTableInfo) {
         this._talbleInfo = tableInfo;
     }
 
-    /**
-     * 房间头像按钮数组
-     */ 
-    private _memberItemList: Array<ClickJoinRoomItem> = null;
-
-    public get MemberItemlist(): Array<ClickJoinRoomItem> {
-        if (!this._memberItemList) {
-            this._memberItemList = new Array<ClickJoinRoomItem>();
-        }
-
-        return this._memberItemList;
-    }
-
-    public set MemberItemlist(array: Array<ClickJoinRoomItem>) {
-        this._memberItemList = array;
-    }
-    
-    public initData(){
+    public initData() {
         this.clearTableHead();
 
-        this.btn_modifyRule.node.active = false;
+        // 初始化默认显示
+        // 隐藏游戏图标
+        this.sp_gameIcon.node.active = false;
+
+        // 隐藏游戏状态
+        this.lab_gameStatus.node.active = false;
+
+        // 隐藏游戏进行的进度局数
+        this.lab_gameStatus.node.active = false;
+
+        // 隐藏坐下按钮图标
+        this.sp_sitDown.node.active = false;
+
+        // 分享按钮
         this.btn_share.node.active = false;
+
+        // 解散按钮
+        this.btn_dissolve.node.active = false;
+
+        //游戏图标
+        this.sp_gameIcon.node.active = false;
+
+        // 游戏名称
+        this.lab_gameName.node.active = false;
+
+        // 局数显示
+        this.lab_gameRound.node.active = false;
     }
 
     /**
@@ -118,123 +147,23 @@ export default class RoomRuleItem extends cc.Component {
      * @Desc     更新玩法信息数据显示
      * @param    {any}      data [description]
      */
-    public updateRuleUIShow(data: any){
+    public updateRuleUIShow(data: any) {
         if (!data) {
             return;
         }
 
-        if (this.btn_modifyRule && this.btn_share.node && this.btn_dissolve) {
-            this.btn_modifyRule.node.active = false;
-            this.btn_share.node.active = false;
-            this.btn_dissolve.node.active = false;
-        }
-        
-        let ruleInfo = FriendCircleDataCache.Instance.getCurFriendCircleRule();
 
-        // 更新玩法显示
-        if (this.lab_rule) {
-            this.lab_rule.string = ruleInfo.ruleDesc;
-        }
-
-        let isAdmin = FriendCircleDataCache.Instance.selfIsAdministrator();
-        // 只有管理员有变更和分享权限
-        if (isAdmin) {
-            // 只有模板才有变更和分享按钮
-            if (this.isRuleModel) {
-                this.btn_modifyRule.node.active = true;
-                this.btn_share.node.active = true;
-                this.btn_dissolve.node.active = false;
-            }else{
-                // 解散功能只有非模板界面有
-                this.btn_dissolve.node.active = true;
-                this.btn_share.node.active = false;
-                this.btn_modifyRule.node.active = false;
-            }
-        }
-
-        if (!this.MemberItemlist || 0 == this.MemberItemlist.length) {
-            this.createJoinRoomBtn();
-        }      
-    }
-
-    /**
-     * 创建加入游戏加号按钮显示
-     */
-    public createJoinRoomBtn() {
-        // 获取游戏信息
-        let curFriendCircle = FriendCircleDataCache.Instance.CurEnterFriendCircle;
-
-        if (!curFriendCircle) {
-            return;
-        }
-
-        let ruleInfo = FriendCircleDataCache.Instance.getCurFriendCircleRule();
-
-        let gameId = ruleInfo.gameId;
-        let roomInfo = Global.Instance.DataCache.RoomList.GetRoomByGameID(gameId);
-        let userCount = roomInfo[0].MaxCount; // 人数
-
-        this._maxUserCount = userCount;
-
-        if (!this.prefab_memberItem) {
-            return;
-        }
-
-        // 坐标
-        // 三人
-        let threePosList = [
-        ];
-        // 四人
-        let fourPosList = [
-            {x: -47, y: 80},
-            {x: 58 , y: 80},
-            {x: -47, y: 10},
-            {x: 58 , y: 10}
-        ];
-
-        // 五人
-        let fivePosList = [
-            {x: -53, y: 80},
-            {x: 60, y: 80},
-            {x: -100, y: 7},
-            {x: 5, y: 7},
-            {x: 112, y: 7}
-        ];
-
-        let posList = fourPosList;
-
-        if (4 == userCount) {
-            posList = fourPosList;
-        }else if(5 == userCount){
-            posList = fivePosList;
-        }
-        
-        // 创建头像Item显示
-        for (var idx = 0; idx < userCount; ++idx) {
-            let prefab = cc.instantiate(this.prefab_memberItem);
-            prefab.setPosition(posList[idx].x,posList[idx].y);
-            let comp = prefab.getComponent(ClickJoinRoomItem);
-
-            if (comp) {
-                comp.ClickEvent = new Action(this,this.joinRoomHandle);
-                this.MemberItemlist.push(comp);
-            }
-            
-            this.node.addChild(prefab);
-        }
     }
 
     /**
      * 清空桌子头像
      */
     public clearTableHead() {
-        for (var idx = 0; idx < this.MemberItemlist.length; ++idx) {
-            if (this.MemberItemlist[idx]) {
-                this.MemberItemlist[idx].node.removeFromParent();
+        for (var idx = 0; idx < this.playerHeadNoList.length; ++idx) {
+            if (this.playerHeadNoList[idx]) {
+                this.playerHeadNoList[idx].active = false;
             }
         }
-
-        this.MemberItemlist = [];
     }
 
     /**
@@ -244,121 +173,193 @@ export default class RoomRuleItem extends cc.Component {
         // 点击加入之前应刷新当前空闲桌子状态和数据避免多人点击开桌子
         // 请求房间桌子列表
         let curFriendCircle = FriendCircleDataCache.Instance.CurEnterFriendCircle;
-        SendMessage.Instance.QueryGroupTableList(parseInt(curFriendCircle.ID));
+        let ruleInfo = FriendCircleDataCache.Instance.CurSelectedRule;
+        let userId = Global.Instance.DataCache.UserInfo.userData.UserID;
         
-        /*// 判断该位置是否已经有玩家
-        
-        if (bSited) {
-            return;
-        }
-*/
+        SendMessage.Instance.QueryGroupTableList(parseInt(curFriendCircle.ID), ruleInfo.Id);
+
         // 判断是否游戏已经开始
         if (this._talbleInfo && this._talbleInfo.status == QL_Common.UserCreateTableNoticeStatus.TableInGameing) {
             Global.Instance.UiManager.ShowTip('游戏已经开始');
             return;
         }
 
-        let ruleInfo = FriendCircleDataCache.Instance.getCurFriendCircleRule();
-
         if (!ruleInfo || !curFriendCircle) {
             return;
         }
 
-        // 如果房间已存在直接加入房间否则创建房间
-        const rule = {
-            CheckMoneyNum: 1,
-            CurrencyType: 0,
-            RoomData: null,
-            GroupId: 0,
-        };
+        let enterTalbe = function () {
+            // 如果房间已存在直接加入房间否则创建房间
+            const rule = {
+                CheckMoneyNum: 1,
+                CurrencyType: 0,
+                RoomData: null,
+                GroupId: 0,
+                RuleId: 0,
+            };
 
-        rule.CheckMoneyNum = 1;
-        rule.CurrencyType = QL_Common.CurrencyType.Diamond;
-        let ruleData = {
+            rule.CheckMoneyNum = 1;
+            rule.CurrencyType = QL_Common.CurrencyType.Diamond;
+            let ruleData = {
                 GameData: null,
                 TableCost: 0
             };
 
-        
-        let ruleObj = StrToObject(ruleInfo.ruleStr);
 
-        for(let key in ruleObj){
-            ruleObj[key] = eval(ruleObj[key]);
-        }
+            let ruleObj = StrToObject(ruleInfo.ruleStr);
 
-        if (ruleObj["TableCost"]) {
-            ruleData.TableCost = ruleObj["TableCost"];
-            delete ruleObj["TableCost"];
-        }
+            for (let key in ruleObj) {
+                ruleObj[key] = eval(ruleObj[key]);
+            }
 
-        ruleData.GameData = ruleObj;
-        rule.RoomData = ruleData;
-        
-        if (!rule) {
-            Global.Instance.UiManager.ShowTip("无有效的游戏规则");
-            return;
-        }
-        
-        cc.log(rule.RoomData);
-        Global.Instance.DataCache.GroupId = parseInt(curFriendCircle.ID);
+            if (ruleObj["TableCost"]) {
+                ruleData.TableCost = ruleObj["TableCost"];
+                delete ruleObj["TableCost"];
+            }
 
-        if (this._talbleInfo) {
-            Global.Instance.GameHost.TryEnterRoom(this._talbleInfo.TableId, QL_Common.EnterRoomMethod.TableID, rule.RoomData, null);
-        } else {
-            const room = Global.Instance.DataCache.RoomList.GetCreateRoom(ruleInfo.gameId);
+            ruleData.GameData = ruleObj;
+            rule.RoomData = ruleData;
+            rule.RuleId = ruleInfo.Id;
 
-            if(!room){
-               cc.warn("没有创建房间"); 
-           }else{
-              Global.Instance.GameHost.TryEnterRoom(room.ID, QL_Common.EnterRoomMethod.RoomID, rule.RoomData, {IsFreeCreate: false});
-           }
-        }
+            if (!rule) {
+                Global.Instance.UiManager.ShowTip("无有效的游戏规则");
+                return;
+            }
+
+            cc.log(rule.RoomData);
+            Global.Instance.DataCache.GroupId = parseInt(curFriendCircle.ID);
+
+            if (this._talbleInfo) {
+                Global.Instance.UiManager.ShowLoading("正在进入房间...");
+                Global.Instance.GameHost.TryEnterRoom(this._talbleInfo.TableId, QL_Common.EnterRoomMethod.TableID, rule.RoomData, null);
+            } else {
+                const room = Global.Instance.DataCache.RoomList.GetCreateRoom(ruleInfo.gameId);
+
+                if (!room) {
+                    cc.warn("没有创建房间");
+                } else {
+                    Global.Instance.GameHost.TryEnterRoom(room.ID, QL_Common.EnterRoomMethod.RoomID, rule, { IsFreeCreate: false });
+                }
+            }
+        }.bind(this)
+
+        Global.Instance.UiManager.ShowLoading("正在请求数据...");
+        // 判断是否玩家被禁玩
+        FriendCircleWebHandle.GroupUserGameBan(parseInt(curFriendCircle.ID), 2, 0, ruleInfo.gameId, "Q", userId, new Action(this, (res) => {
+            if ("success" != res.status) {
+                Global.Instance.UiManager.CloseLoading();
+                Global.Instance.UiManager.ShowTip("请求数据失败!");
+                return;
+            }
+
+            if (res.isBan) {
+                Global.Instance.UiManager.ShowTip("您没有权限进入该玩法,请联系圈主!");
+                return;
+            }
+
+            enterTalbe();
+        }));
     }
 
     /**
      * 刷新桌子显示
      */
-    public refreshTableShow(ruleInfo: FriendCircleRule, talble: QL_Common.UserCreateTableInfo){
-        if (!talble || !ruleInfo) {
+    public refreshTableShow(ruleInfo: FriendCircleRule, table: QL_Common.UserCreateTableInfo) {
+        if (!ruleInfo) {
             return;
         }
 
-        cc.info('--- refreshTableShow ',talble);
-        this._talbleInfo = talble;
-
         // 先刷新玩法显示，再刷新玩家头像显示和游戏状态
-        this.updateRuleUIShow(ruleInfo);
+        // this.updateRuleUIShow(ruleInfo);
+        let isAdmin = FriendCircleDataCache.Instance.selfIsAdministrator();
+        let gameInfo = Global.Instance.DataCache.GameList.GetGame(ruleInfo.gameId);
 
-        // 刷新头像显示
-        for (let idx = 0; idx < this.MemberItemlist.length; ++idx) {
-            let comp: ClickJoinRoomItem = this.MemberItemlist[idx];
+        // 游戏名称显示
+        if (ruleInfo) {
+            this.lab_gameName.string = ruleInfo.gameName;
+        }
 
-            if (idx <= talble.PlayerCount - 1) {
-                comp.playerSit(talble.PlayerHeaders[idx]);
-            }else{
+        this.lab_gameName.node.active = true;
+        // 只有模板才有分享和解散按钮
+        if (this.isRuleModel) {
+            this.sp_sitDown.node.active = true;
 
-                if (talble.status == QL_Common.UserCreateTableNoticeStatus.TableInGameing ) {
-                    // 游戏已经开始剩下座位隐藏
-                    comp.playerHide();
-                }else{
-                    comp.playerLeave();
-                }
+            if (isAdmin) {
+                this.btn_share.node.active = true;
+            }
+        } else {
+            // 游戏图标
+            this.sp_gameIcon.node.active = true;
+
+            if (gameInfo) {
+                this.sp_gameIcon.spriteFrame = this.frame_gameIconList[gameInfo.GameType];
             }
         }
 
+        if (!table) {
+            return;
+        }
+
+        cc.log('--- refreshTableShow ', table);
+        this._talbleInfo = table;
+
+        // 刷新头像显示
+        for (let idx = 0; idx < this.playerHeadImgList.length; ++idx) {
+            let spHead = this.playerHeadImgList[idx];
+            let nodeHead = this.playerHeadNoList[idx];
+            nodeHead.active = true;
+            if (idx <= table.PlayerCount - 1) {
+                LoadHeader(table.PlayerHeaders[idx], spHead);
+            } else {
+                nodeHead.removeFromParent();
+            }
+        }
+
+        // 获取游戏信息
+        let roomList: QL_Common.RoomClient[] = Global.Instance.DataCache.RoomList.GetRoomByGameID(ruleInfo.gameId);
+        let maxUserCount = 0;
+
+        if (roomList && roomList[0]) {
+            maxUserCount = roomList[0].MaxCount;
+        }
+
         // 更新桌子状态和人数显示
-        if (this.lab_status && !this.isRuleModel) {
+        if (!this.isRuleModel) {
             let status = '';
-            switch (talble.status) {
+            switch (table.status) {
                 case QL_Common.UserCreateTableNoticeStatus.CreateTable:
-                    // 创建桌子
-                    status = '准备中';
+                    {
+                        // 创建桌子
+                        status = '准备中';
+                        this.lab_gameStatus.node.active = true;
+
+                        // 显示"几缺几"
+                        if (maxUserCount > 0) {
+                            this.lab_gameStatus.string = "\n" + maxUserCount + "缺" + (maxUserCount - table.PlayerCount);
+                        }
+
+                        if (isAdmin) {
+                            this.btn_dissolve.node.active = true;
+                            this.lab_gameName.node.active = false;
+                        }
+                    }
                     break;
                 case QL_Common.UserCreateTableNoticeStatus.TableInGameing:
-                    // 指示桌子游戏开始
-                    status = '游戏中';
+                    {
+                        // 指示桌子游戏开始
+                        status = '游戏中';
+                        this.lab_gameRound.node.active = true;
+                        this.lab_gameStatus.node.active = true;
+                        // 获取局数进度
+                        let round = ruleInfo.ruleDesc.replace(/[^0-9]/ig, "");
+                        this.lab_gameRound.string = '(' + table.GameNum + '/' + round + '局)';
+                        this.lab_gameStatus.string = '游戏中';
+                    }
                     break;
                 case QL_Common.UserCreateTableNoticeStatus.TableGameOver:
+                    {
+                        this.lab_gameStatus.node.active = true;
+                    }
                     // 指示桌子游戏结束
                     status = '游戏结束';
                     break;
@@ -369,10 +370,6 @@ export default class RoomRuleItem extends cc.Component {
                     // code...
                     break;
             }
-
-            // 获取局数
-            let round = ruleInfo.ruleDesc.replace(/[^0-9]/ig,"");
-            this.lab_status.string = status + '(' + talble.GameNum + '/' + round + ')';
         }
     }
 
@@ -380,28 +377,24 @@ export default class RoomRuleItem extends cc.Component {
      * 分享按钮事件
      */
     public btnShareClick() {
-        let curRule = FriendCircleDataCache.Instance.getCurFriendCircleRule();
-        const share = new ShareParam();
-        share.link = ConfigData.SiteConfig.DownloadUrl;
-        share.title = curRule.gameName+" 亲友房已开 圈号："+ FriendCircleDataCache.Instance.CurEnterFriendCircle.ID;
-        share.text  = '七乐' + curRule.gameName + '：' + curRule.ruleDesc;
-        Global.Instance.UiManager.ShowUi(UIName.Share,share);
-    }
+        let curRule = FriendCircleDataCache.Instance.CurSelectedRule;
+        let gameName = curRule.gameName;
 
-    /**
-     * 变更玩法按钮事件
-     */
-    public btnModifyClick() {
-        // 先判断当前是否有桌子
-        let tableList = FriendCircleDataCache.Instance.RoomTableList;
-
-        if (tableList.Count > 0) {
-            Global.Instance.UiManager.ShowTip('当前还有玩家在房间');
-            return;
+        if (51 == curRule.gameId) {
+            gameName = "快乐BiJi";
         }
 
-        // 创建玩法
-        Global.Instance.UiManager.ShowUi(UIName.SelectGame,{act:null,isFriendCircle: true});
+        if (76 == curRule.gameId) {
+            gameName = "快乐PinShi";
+        }
+
+        const share = new ShareParam();
+        share.link = ConfigData.SiteConfig.DownloadUrl;
+        share.title = gameName + " 亲友房已开 圈号：" + FriendCircleDataCache.Instance.CurEnterFriendCircle.ID;
+        share.text = '七乐' + gameName + '：' + curRule.ruleDesc;
+
+
+        Global.Instance.UiManager.ShowUi(UIName.Share, share);
     }
 
     /**
@@ -424,10 +417,10 @@ export default class RoomRuleItem extends cc.Component {
         }
 
         //GroupId
-        if(this._talbleInfo.GroupId>0){
+        if (this._talbleInfo.GroupId > 0) {
             Global.Instance.UiManager.ShowMsgBox("如果创建房间时消耗了钻石，解散时将返还钻石。\n是否解散该房间？", this, enter);
-        }else{
+        } else {
             Global.Instance.UiManager.ShowMsgBox("如果创建房间时消耗了房卡，解散时将返还房卡。\n是否解散该房间？", this, enter);
         }
-    }    
+    }
 }

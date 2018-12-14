@@ -27,16 +27,18 @@ export default class LHZMJ_SelfSinglePool extends LHZMJ_SinglePoolBase {
             this.bmp_cardback.node.width=42;
             this.bmp_cardback.node.height=58;
             this.bmp_cardback.node.scaleX=1;
+            this.bmp_cardback.node.skewX=0;
+            this.bmp_cardback.node.skewY=0;
 
             this.bmp_cardcolor.node.x=0;
-            this.bmp_cardcolor.node.y=4;
+            this.bmp_cardcolor.node.y=5;
             this.bmp_cardcolor.node.scaleX=0.45;
             this.bmp_cardcolor.node.scaleY=0.45;
             this.bmp_cardcolor.node.skewX=0;
 
             this.bmp_cardHide.node.x=0;
-            this.bmp_cardHide.node.y=5;
-            this.bmp_cardHide.node.scaleX=0.56;
+            this.bmp_cardHide.node.y=7;
+            this.bmp_cardHide.node.scaleX=0.55;
             this.bmp_cardHide.node.scaleY=0.43;
             this.bmp_cardHide.node.skewX=0;
             this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("shangdp_back@2x");

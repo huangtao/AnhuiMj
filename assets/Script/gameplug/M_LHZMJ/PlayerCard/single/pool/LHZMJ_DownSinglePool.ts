@@ -27,20 +27,20 @@ export default class LHZMJ_DownSinglePool extends LHZMJ_SinglePoolBase {
         //SetTextureRes(url,this.bmp_cardcolor);
         // this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(card);
         if(LHZMJ.ins.iclass.is2D()){
-            this.bmp_cardback.node.width=52;
-            this.bmp_cardback.node.height=42;
-            this.bmp_cardback.node.scaleX=1;
+            this.bmp_cardback.node.width=56;
+            this.bmp_cardback.node.height=45;
+            this.bmp_cardback.node.scaleY=1.1;
 
             this.bmp_cardcolor.node.x=0;
-            this.bmp_cardcolor.node.y=5;
-            this.bmp_cardcolor.node.scaleX=0.45;
+            this.bmp_cardcolor.node.y=8;
+            this.bmp_cardcolor.node.scaleX=0.4;
             this.bmp_cardcolor.node.scaleY=0.45;
             this.bmp_cardcolor.node.skewY=0;
 
             this.bmp_cardHide.node.x=0;
-            this.bmp_cardHide.node.y=5;
-            this.bmp_cardHide.node.scaleX=0.45;
-            this.bmp_cardHide.node.scaleY=0.45;
+            this.bmp_cardHide.node.y=8;
+            this.bmp_cardHide.node.scaleX=0.44;
+            this.bmp_cardHide.node.scaleY=0.5;
             this.bmp_cardHide.node.skewY=0;
             this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("zuoyoupg@2x");
             this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(card);

@@ -1,18 +1,12 @@
-import { WebRequest } from "../../../Net/Open8hb";
-import { IDictionary } from "../../../Interface/IDictionary";
-import UIBase from "../../Base/UIBase";
-import UiManager from "../../../Manager/UiManager";
 import Global from "../../../Global/Global";
 import { Action, ActionNet } from "../../../CustomType/Action";
-import { HallNodePools } from "../../../Global/HallNodePools";
-import { EventCode } from "../../../Global/EventCode";
 import { QL_Common } from "../../../CommonSrc/QL_Common";
 import { UIName } from "../../../Global/UIName";
 import FriendCircleWebHandle from "../FriendCircleWebHandle";
 import FriendCircleDataCache from "../FriendCircleDataCache";
 import RoomRuleItem from "./RoomRuleItem";
 import Dictionary from "../../../CustomType/Dictionary";
-import { FriendCircleInfo } from "../../../CustomType/FriendCircleInfo";
+import { FriendCircleRule } from "../../../CustomType/FriendCircleInfo";
 import SendMessage from "../../../Global/SendMessage";
 import { PlayEffect } from "../../../Tools/Function";
 
@@ -36,9 +30,8 @@ export default class GeneralField extends cc.Component {
     refreshBtn: cc.Button = null;
 
     /**
-     * 列表项
+     * 桌子模板
      */
-    @property(cc.Node)
     roomRuleModel: cc.Node = null;
 
     /**
@@ -48,10 +41,16 @@ export default class GeneralField extends cc.Component {
     prefab_tableItem: cc.Prefab = null;
 
     /**
-     * 桌子列表容器Layout
+     * 桌子翻页容器
      */
-    @property(cc.Layout)
-    layout_tableList: cc.Layout = null;
+    @property(cc.PageView)
+    pageView_tableList: cc.PageView = null;
+
+    /**
+     * 桌子翻页容器
+     */
+    @property(cc.Prefab)
+    prefab_RoomTableListPageItem: cc.Prefab = null;
 
     /**
      * 提示没有玩法
@@ -67,38 +66,38 @@ export default class GeneralField extends cc.Component {
     /**
      * 桌子节点列表
      */
-    private _roomTableList: Dictionary<string,RoomRuleItem> = null;
-    
-    private get RoomTableList(): Dictionary<string,RoomRuleItem>{
+    private _roomTableList: Dictionary<string, RoomRuleItem> = null;
+
+    private get RoomTableList(): Dictionary<string, RoomRuleItem> {
         if (!this._roomTableList) {
-            this._roomTableList = new Dictionary<string,RoomRuleItem>();
+            this._roomTableList = new Dictionary<string, RoomRuleItem>();
         }
 
         return this._roomTableList;
     }
 
-    // 亲友圈ID
-    private circleInfo: FriendCircleInfo;
+    // 玩法信息
+    private _ruleInfo: FriendCircleRule;
 
     /**
      * 是否是圈主
      */
     private _isCircleOwner: boolean = false;
 
-    public onLoad(){
-     console.log("onLoad");
+    public onLoad() {
+        console.log("onLoad");
     }
 
-    public start(){
-        
+    public start() {
+
     }
 
     /**
      * 初始化数据
      */
-    public initData(circleInfo: FriendCircleInfo,isCircleOwner: boolean){
+    public initData(ruleInfo: FriendCircleRule, isCircleOwner: boolean) {
         this._isRequesting = false;
-        this.circleInfo = circleInfo;
+        this._ruleInfo = ruleInfo;
         this._isCircleOwner = isCircleOwner;
 
         // 设置初始状态
@@ -106,171 +105,149 @@ export default class GeneralField extends cc.Component {
             this.lab_noRuleTip.node.active = false;
         }
 
-        if (this.createRuleBtn) {
-            this.createRuleBtn.node.active = false;
-        }
-
-        if (this.roomRuleModel) {
-            this.roomRuleModel.active = false;
-        }
-
         this.btnRefreshClick();
-
-        /**
-         * 设置添加玩法监听
-         */
-        let act: Action = new Action(this,this.addRuleHandle);
-        FriendCircleWebHandle.setAddRuleHandle(act);
     }
 
     /**
      * 请求亲友圈玩法
      */
-    public requestFriendCircRuleList(cb?: Action){
+    public requestFriendCircRuleList(cb?: Action) {
         // 请求亲友圈玩法信息
         var that = this;
         let _callback = cb;
-        let action = new Action(this,(args)=>{
-            console.log(args.args);
+        let action = new Action(this, (args) => {
+            console.log(args);
             if (_callback) {
                 _callback.Run([args])
             };
 
-            if ("success" != args.args.status) {
+            if (!args) {
                 Global.Instance.UiManager.ShowTip("获取亲友圈玩法信息失败!")
                 return;
-            }else{
+            } else {
                 that.refreshRuleUIShow();
             }
         });
 
-        if (this.circleInfo) {
-            FriendCircleWebHandle.requestFriendCircRuleList(this.circleInfo.ID,action);
+        if (this._ruleInfo) {
+            FriendCircleWebHandle.requestFriendCircRuleList(this._ruleInfo.friendId + '', action);
         }
     }
 
     /** 
      * 刷新玩法显示
      */
-    public refreshRuleUIShow(){
-        let ruleInfo = FriendCircleDataCache.Instance.getCurFriendCircleRule();
+    public refreshRuleUIShow() {
+        let ruleInfo = FriendCircleDataCache.Instance.CurSelectedRule;
 
-        if (!ruleInfo ) {
-            let isAddmin = FriendCircleDataCache.Instance.selfIsAdministrator();
-            // 没有玩法如果是管理员,显示创建玩法按钮
-            if (isAddmin) {
-                this.createRuleBtn.node.active = true;
-            }else{
-                this.lab_noRuleTip.node.active = true;
-                this.createRuleBtn.node.active = false;
-            }
-
-            this.roomRuleModel.active = false;
-        }else{
-            this.lab_noRuleTip.node.active = false;
-            this.createRuleBtn.node.active = false;
-            this.roomRuleModel.active = true;
-
+        if (ruleInfo && this.roomRuleModel) {
             let roomModel = <RoomRuleItem>this.roomRuleModel.getComponent("RoomRuleItem");
             roomModel.initData();
-            roomModel.updateRuleUIShow(ruleInfo);
+            roomModel.refreshTableShow(ruleInfo, null);
         }
     }
 
     /**
-     * 创建游戏规则桌子
+     * 创建游戏规则
      */
     public createGameRue() {
-        Global.Instance.UiManager.ShowUi(UIName.SelectGame,{act:null,isFriendCircle: true});
+        Global.Instance.UiManager.ShowUi(UIName.SelectGame, { act: null, isFriendCircle: true });
     }
 
     /**
      * 更新桌子列表显示
      */
     private refreshRoomTableList() {
-        if (!this.prefab_tableItem || !this.layout_tableList) {
+        if (!this.prefab_tableItem || !this.pageView_tableList) {
             return;
         }
 
         let keys = this.RoomTableList.Keys;
 
-        // 先清空当前桌子列表显示
-        for (let index = 0; index < this.RoomTableList.Count; ++index) {
-            let info = this.RoomTableList.GetValue(keys[index]);
- 
-            if (info && info.node) {
-                this.layout_tableList.node.removeChild(info.node);
-            }
-        }
-
-        // 清空模板显示
-        let roomRuleModel: RoomRuleItem = this.roomRuleModel.getComponent(RoomRuleItem);
-
-        if (roomRuleModel) {
-            roomRuleModel.setTableInfo(null);
-        }
- 
+        // 先清空所有桌子
+        this.pageView_tableList.removeAllPages();
+        this.roomRuleModel = null;
         this.RoomTableList.Clear();
 
         // 重新创建桌子列表
         let roomTableList = FriendCircleDataCache.Instance.RoomTableList;
- 
-        if (0 == roomTableList.Count) {
+        let ruleInfo = FriendCircleDataCache.Instance.CurSelectedRule;
+
+        if (!ruleInfo) {
             return;
         }
-
-        let ruleInfo = FriendCircleDataCache.Instance.getCurFriendCircleRule();
-
+        
         // 获取游戏信息
         let roomInfo = Global.Instance.DataCache.RoomList.GetRoomByGameID(ruleInfo.gameId);
         let maxCount = roomInfo[0].MaxCount; // 人数
 
         keys = roomTableList.Keys;
-        // 创建新桌子
+
+        // 创建新桌子(每页显示6个)
+        let tableCount = 0; // 桌子数量统计
+        let curPage: any = null; // 当前页
+
+        // 创建桌子模板
+
+        let roomRuleModel: RoomRuleItem = null;
+
+        if (!this.roomRuleModel) {
+            this.roomRuleModel = cc.instantiate(this.prefab_tableItem);
+            roomRuleModel = this.roomRuleModel.getComponent("RoomRuleItem");
+            roomRuleModel.setTableInfo(null);
+            roomRuleModel.isRuleModel = true;
+
+            // 刷新玩法显示
+            this.refreshRuleUIShow();
+        }
+
+        // 添加桌子模板
+        curPage = cc.instantiate(this.prefab_RoomTableListPageItem);
+        let layout = curPage.getComponent("cc.Layout");
+        layout.node.addChild(this.roomRuleModel);
+        this.pageView_tableList.addPage(curPage);
+        tableCount++;
+
         for (let idx = 0; idx < roomTableList.Count; ++idx) {
             let talbleInfo: QL_Common.UserCreateTableInfo = roomTableList.GetValue(keys[idx]);
 
             // 游戏未已开始、或人数满了在准备中的桌子 并且不是自由创建的桌子
-            if (!roomRuleModel.getTableInfo() 
+            if (!roomRuleModel.getTableInfo()
                 && (QL_Common.UserCreateTableNoticeStatus.CreateTable == talbleInfo.status
-                 && talbleInfo.PlayerCount < maxCount) && !talbleInfo.IsFreeCreate && !talbleInfo.IsFullUsered) {
+                    && talbleInfo.PlayerCount < maxCount) && !talbleInfo.IsFreeCreate && !talbleInfo.IsFullUsered) {
                 // 模板刷新 
-                if (this.roomRuleModel) {                    
+                if (this.roomRuleModel) {
                     if (talbleInfo.status == QL_Common.UserCreateTableNoticeStatus.CreateTable) {
-                        roomRuleModel.refreshTableShow(ruleInfo,talbleInfo);
+                        roomRuleModel.refreshTableShow(ruleInfo, talbleInfo);
                     }
                 }
-            }else if(talbleInfo.status != QL_Common.UserCreateTableNoticeStatus.TableGameOver){
+            } else if (talbleInfo.status != QL_Common.UserCreateTableNoticeStatus.TableGameOver) {
+                // 创建Layout页Item
+                if (tableCount % 6 == 0 && tableCount < roomTableList.Count + 1) {
+                    curPage = cc.instantiate(this.prefab_RoomTableListPageItem);
+                    this.pageView_tableList.addPage(curPage);
+                }
+
                 // 创建桌子
                 let prefab = cc.instantiate(this.prefab_tableItem);
                 let comp: RoomRuleItem = prefab.getComponent(RoomRuleItem);
-    
+
                 if (comp) {
                     comp.initData();
-                    comp.refreshTableShow(ruleInfo,talbleInfo);
-                    this.RoomTableList.AddOrUpdate(talbleInfo.TableId.toString(),comp);
-                    this.layout_tableList.node.addChild(prefab);
-                }  
+                    comp.refreshTableShow(ruleInfo, talbleInfo);
+                    this.RoomTableList.AddOrUpdate(talbleInfo.TableId.toString(), comp);
+                    let layout = curPage.getComponent("cc.Layout");
+                    tableCount ++;
+                    layout.node.addChild(prefab);
+                }
             }
-
         }
     }
 
     /**
-     * 添加规则消息回调
-     */
-    public addRuleHandle() {
-        // 关闭界面
-        Global.Instance.UiManager.CloseUi(UIName.SelectRule);
-        Global.Instance.UiManager.CloseUi(UIName.SelectGame);
-
-        // 创建规则成功 刷新玩法列表
-        this.requestFriendCircRuleList();
-    }
-    /**
      * 刷新按钮事件
      */
-    public btnRefreshClick(){
+    public btnRefreshClick() {
         if (this._isRequesting) {
             Global.Instance.UiManager.ShowTip('您的请求操作过于频繁!请稍后再试');
             return;
@@ -279,10 +256,9 @@ export default class GeneralField extends cc.Component {
         this._isRequesting = true;
 
         // 请求玩法列表
-        this.requestFriendCircRuleList(new Action(this,(res)=>{
+        this.requestFriendCircRuleList(new Action(this, (res) => {
             // 请求房间桌子列表
-            SendMessage.Instance.QueryGroupTableList(parseInt(this.circleInfo.ID));
-
+            this.requestTableList();
             // 请求亲友圈信息
             FriendCircleWebHandle.requestFriendCircleList();
         }));
@@ -291,14 +267,20 @@ export default class GeneralField extends cc.Component {
     }
 
     /**
+     * 请求桌子列表
+     */
+    public requestTableList() {
+        SendMessage.Instance.QueryGroupTableList(this._ruleInfo.friendId, this._ruleInfo.Id);
+    }
+    /**
      * 消息回调
      */
-    public OnMessageComeIn(cm: any){
+    public OnMessageComeIn(cm: any) {
         let g = cm as QL_Common.MSG_S_GroupTableList;
         this._isRequesting = false;
 
         if (!g) return;
-        if (this.circleInfo.ID != g.GroupId.toString()) {
+        if (this._ruleInfo.friendId != g.GroupId) {
             // 操作的房间列表不是当前选中的群组，直接返回
             return;
         }

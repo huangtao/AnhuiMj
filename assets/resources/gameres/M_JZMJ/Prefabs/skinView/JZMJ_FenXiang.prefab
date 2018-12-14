@@ -8527,7 +8527,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "HQMJ_FenXiang",
+    "component": "JZMJ_FenXiang",
     "handler": "copyScore",
     "customEventData": ""
   },

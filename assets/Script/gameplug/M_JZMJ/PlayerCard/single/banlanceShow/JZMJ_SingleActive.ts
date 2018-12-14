@@ -27,4 +27,15 @@ export default class JZMJ_SingleActive extends JZMJ_SingleActiveBase {
         this.bmp_cardcolor.node.scaleY=0.6;
                   
     }
+
+    public showCardJisSuan(card: number,isLie: boolean): void {
+        super.showCard(card,isLie,0);
+        
+        this.bmp_cardcolor.node.active = true;
+        this.bmp_cardback.node.active = true;
+        
+        this.bmp_cardback.spriteFrame=JZMJ.ins.iclass.getMahjong3DPaiBeiRes("hand_self_1");
+        this.bmp_cardcolor.spriteFrame=JZMJ.ins.iclass.getMahjongPaiHuaResOut(card);
+    }
+
 }

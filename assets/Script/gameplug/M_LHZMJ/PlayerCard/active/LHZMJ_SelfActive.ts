@@ -106,13 +106,14 @@ export default class LHZMJ_SelfActive extends LHZMJ_ActiveBase {
      * 整理手牌
      * */
     public arrangeHandCard(): void {
-        for(var i: number = 0;i < this._cardData.length;i++) {
-            (<LHZMJ_SelfSingleActive>this._cardData[i]).showBackCard();
+        // for(var i: number = 0;i < this._cardData.length;i++) {
+        //     (<LHZMJ_SelfSingleActive>this._cardData[i]).showBackCard();
             
-        }
+        // }
         
         //延时0.8秒,显示正常手牌
-        this.scheduleOnce(this.arrangeCardComplete,0.8);
+        // this.scheduleOnce(this.arrangeCardComplete,0.8);
+        this.arrangeCardComplete();
 
     }
     
@@ -168,8 +169,8 @@ export default class LHZMJ_SelfActive extends LHZMJ_ActiveBase {
 
             for(var i: number = 0;i < this._cardData.length;i++) {
                 //this._cardData[i].node.setLocalZOrder(i+1);
-                this._cardData[i].node.x = startPos + i * 87-590;
-                this._cardData[i].node.y = -293;
+                this._cardData[i].node.x = startPos + i * 88-590;
+                this._cardData[i].node.y = -300;
 
                 this._cardData[i].showCard(this._handCard[i],this.isLie,0);
 
@@ -217,7 +218,7 @@ export default class LHZMJ_SelfActive extends LHZMJ_ActiveBase {
             //开始排版
             for(var i: number = 0;i < this._cardData.length;i++) {
             //this._cardData[i].node.setLocalZOrder(i+1);
-            this._cardData[i].node.x = startPos + i * 83-600;
+            this._cardData[i].node.x = startPos + i * 88-590;
             this._cardData[i].node.y = -300;
 
             this._cardData[i].showCard(this._handCard[i],this.isLie,0);

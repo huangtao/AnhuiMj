@@ -49,7 +49,7 @@ export default class RecordDetailItem extends ScrollHelperItem {
   		this.lab_roundIdx.string = idx + 1 +'';
 
   		// 显示玩家分数
-  		for (var index = 0; index < 5; ++index) {
+  		for (var index = 0; index < 6; ++index) {
   				let lab_score = cc.find("lab_score" + index,this.node).getComponent(cc.Label);
 
           if (index > data.detailListItem.length - 1) {

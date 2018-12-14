@@ -42,8 +42,9 @@ export interface IPDKView {
     OutCard(cChair:number,cards:number[],cardType:CardType);
     TimerOver(value: TimeFlag);
     Rec_GameStart(msg: GameIF.CustomMessage, aniFinish: boolean);
-    playCardTypeAni(cardType:CardType,chair:number,pos:cc.Vec2);
+    playCardTypeAni(cardType:CardType,chair:number,pos:cc.Vec2,cardsCount:number);
     ShowPlayerInfo(chair: number);
+    ShowZhuaNiaoIcon(cChair:number);
 
 }
 

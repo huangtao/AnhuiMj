@@ -63,15 +63,18 @@ export default class HQMJ_OppoPool extends HQMJ_PoolBase {
         let valueIdx: number = 0;
         let cardIdx: number = this._poolCard.length;
         if(_hqmjclass.is2D()){
-            for(var i: number = 0;i < lineNum;i++) {
-                for(var j: number = 0;j < 10;j++) {
+            this.resetZ_2d();
+            this.node.rotation = 0;
+            let lineNum2d = Math.ceil((this._poolCard.length - 1) / 12) + 1;
+            for(var i: number = 0;i < lineNum2d;i++) {
+                for(var j: number = 0;j < 12;j++) {
 
                     if((cardIdx > 0) && (valueIdx < this._cardAry.length)) {
 
                         --cardIdx;
 
-                        this._poolCard[cardIdx].node.x = 189 - j * 42;
-                        this._poolCard[cardIdx].node.y = 118 + i * 48;
+                        this._poolCard[cardIdx].node.x = 220 - j * 40;
+                        this._poolCard[cardIdx].node.y = 133 + i * 47;
                         this._poolCard[cardIdx].showCard(this._cardAry[valueIdx],0,_hqmjclass);
 
                         ++valueIdx;
@@ -101,7 +104,11 @@ export default class HQMJ_OppoPool extends HQMJ_PoolBase {
         let ry: number = this._poolCard[lastIdx].node.y + this._poolCard[lastIdx].size.height / 2;
         return { x: rx,y: ry };
     }
-
+    private resetZ_2d(): void {
+        for (let i: number = 0; i < this._poolCard.length; i++) {
+                this._poolCard[i].node.setLocalZOrder(i+1);
+            }
+    }
     private resetZ(): void {
         if (this._poolCard.length <= 5) {
             for (let i: number = 0; i < this._poolCard.length; i++) {

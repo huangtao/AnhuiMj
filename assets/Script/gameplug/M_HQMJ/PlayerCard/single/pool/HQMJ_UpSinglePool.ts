@@ -23,22 +23,22 @@ export default class HQMJ_UpSinglePool extends HQMJ_SinglePoolBase {
         super.showCard(card,index,_hqmj);
 
         if(_hqmj.is2D()){
-            this.bmp_cardback.node.width=52;
-            this.bmp_cardback.node.height=42;
+            this.bmp_cardback.node.width=56;
+            this.bmp_cardback.node.height=45;
             this.bmp_cardback.node.scaleX=1;
 
             this.bmp_cardcolor.node.x=0;
-            this.bmp_cardcolor.node.y=5;
-            this.bmp_cardcolor.node.scaleX=0.45;
-            this.bmp_cardcolor.node.scaleY=0.45;
+            this.bmp_cardcolor.node.y=8;
+            this.bmp_cardcolor.node.scaleX=0.4;
+            this.bmp_cardcolor.node.scaleY=0.55;
             this.bmp_cardcolor.node.skewY=0;
 
             this.bmp_cardHide.node.x=0;
-            this.bmp_cardHide.node.y=5;
-            this.bmp_cardHide.node.scaleX=0.45;
+            this.bmp_cardHide.node.y=8;
+            this.bmp_cardHide.node.scaleX=0.4;
             this.bmp_cardHide.node.scaleY=0.45;
             this.bmp_cardHide.node.skewY=0;
-            this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("pb3_showcard_left_right_1280");
+            this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("zuoyoupg@2x");
             this.bmp_cardcolor.spriteFrame=_hqmj.getMahjongPaiHuaRes(card);
         }else{
             this.show3DCard(_hqmj);

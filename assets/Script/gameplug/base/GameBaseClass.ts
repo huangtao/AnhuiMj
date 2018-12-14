@@ -25,6 +25,8 @@ import { ConstValues } from "../../Global/ConstValues";
 import { Action } from "../../CustomType/Action";
 import { LastCardIndex } from '../M_BiJi/GameHelp/BJ_GameHelp';
 import { ResumeGame } from "../../Form/ResumeGame/ResumeGame";
+import { LocalStorage } from "../../CustomType/LocalStorage";
+import { ResumeGameParam } from "../../CustomType/ResumeGameParam";
 
 export abstract class GameBaseClass extends ReConnectBase {
 
@@ -56,14 +58,14 @@ export abstract class GameBaseClass extends ReConnectBase {
     public set GameRule(rule: any) {
         this._gameRule = rule;
     }
-    private _resumeGame : ResumeGame = null;
-    public get resumeGame(){
+    private _resumeGame: ResumeGame = null;
+    public get resumeGame() {
         return this._resumeGame;
     }
-    public set resumeGame(value:ResumeGame){
+    public set resumeGame(value: ResumeGame) {
         this._resumeGame = value;
     }
-    
+
     private _gameInfo: QL_Common.GameInfo = null;
     public get GameInfo() {
         return this._gameInfo;
@@ -95,6 +97,28 @@ export abstract class GameBaseClass extends ReConnectBase {
     private _onLoadChat = false;
     private _mapsForm: MapsForm;
     private _onLoadMap = false;
+
+    /**
+     * 是否是2D
+     */
+    public is2D() {
+        let localSelect = LocalStorage.GetItem("Game_Canvas");
+        return (localSelect == "2D") ? true : false;
+    }
+
+    /**
+     * 获取当前场景类型 2D或3D
+     */
+    public getCurSceneCanvas() {
+        let localCanvas = LocalStorage.GetItem("Game_Canvas");
+
+        if (localCanvas) {
+            return localCanvas;
+        } else {
+            // 默认是3D
+            return "3D";
+        }
+    }
 
     public get isSelfCreateRoom() {
         if (!this._roomInfo) {
@@ -161,7 +185,7 @@ export abstract class GameBaseClass extends ReConnectBase {
      * @param node 
      */
     public ScreenCapture(haveMask: boolean, node: cc.Node = null) {
-        this.UiManager.ShowUi(UIName.GameShareForm,{shareType: 'img',shareParam: {node: node, haveMask: haveMask}})
+        this.UiManager.ShowUi(UIName.GameShareForm, { shareType: 'img', shareParam: { node: node, haveMask: haveMask } })
     }
     /**
      * 复制文本信息到字体剪贴板
@@ -192,7 +216,7 @@ export abstract class GameBaseClass extends ReConnectBase {
         share.link_param.parent = this.UserInfo.userData.UserID + "";
         share.link_param.chairid = charid + "";
         share.link_param.tableid = TableID + '';
-        this.UiManager.ShowUi(UIName.GameShareForm,{shareType: share.shareType,shareParam: share});
+        this.UiManager.ShowUi(UIName.GameShareForm, { shareType: share.shareType, shareParam: share });
     }
 
     /**
@@ -260,16 +284,17 @@ export abstract class GameBaseClass extends ReConnectBase {
      * 显示设置界面
      * canvasClick 游戏2D、3D切换
      */
-    public ShowSettingForm() {
+    public ShowSettingForm(enableChange2D: boolean = false) {
         PlayEffect(cc.url.raw("resources/Sound/open_panel.mp3"));
         cc.loader.loadRes("Prefabs/GameSetting/GameSettingForm", function (err, prefab: cc.Prefab) {
             if (err) {
                 return;
             }
             const node = cc.instantiate(prefab);
-            const m = node.getComponent<GameSettingForm>(GameSettingForm);
+            const m = node.getComponent(GameSettingForm);
             m.registerCanvasSwtichClick(new Action(this, this.canvaSwitchClickEvent));
-            m.Show(null);
+            m.Show(null, { canvas: this.is2D() });
+            m.setEnableChange2D(enableChange2D);
         }.bind(this));
     }
 
@@ -381,14 +406,14 @@ export abstract class GameBaseClass extends ReConnectBase {
      * 显示申请续局弹框
      * downTime: 倒计时
      */
-    public showResumeGameForm(gameEndEventHandle: Action, agreeEventHandle: Action, playerList: any, scoreList: any, countDownTime: number,statusList?: any) {
-        this.ShowUi(UIName.ResumeGame, { downTime: 0, gameEndEventHandle: gameEndEventHandle, agreeEventHandle: agreeEventHandle, playerList: playerList, scoreList: scoreList, countDownTime: countDownTime,statusList: statusList});
+    public showResumeGameForm(gameEndEventHandle: Action, agreeEventHandle: Action, playerList: any, scoreList: any, countDownTime: number, statusList?: any) {
+        this.ShowUi(UIName.ResumeGame, { downTime: 0, gameEndEventHandle: gameEndEventHandle, agreeEventHandle: agreeEventHandle, playerList: playerList, scoreList: scoreList, countDownTime: countDownTime, statusList: statusList });
     }
 
     /**
      * 显示个人信息框
      */
-    public showPlayerInfoForm(tableInfo: QL_Common.TablePlayer, pos: any, chairID : number) {
+    public showPlayerInfoForm(tableInfo: QL_Common.TablePlayer, pos: any, chairID: number) {
         let tableInfo_ = tableInfo;
         let pos_ = pos;
 
@@ -504,18 +529,18 @@ export abstract class GameBaseClass extends ReConnectBase {
             //玩家换桌
             case QL_Common.Main_CommonID.GS2C << 8 | QL_Common.GS2C.MSG_S_PlayerNewChairInfo:
                 this.HandleNet_MSG_S_PlayerNewChairInfo(cm);
-                return true;   
+                return true;
             //收到开始续局消息
-            case QL_Common.Main_CommonID.GS2C << 8 | QL_Common.GS2C.MSG_S_BeginGameContinue:
-                this.HandleNet_MSG_S_BeginGameContinue(cm);
-                return true; 
+            case QL_Common.Main_CommonID.GS2C << 8 | QL_Common.GS2C.MSG_S_BeginGameVote:
+                this.HandleNet_MSG_S_BeginGameVote(cm);
+                return true;
             //续局时服务端推送玩家状态    
-            case QL_Common.Main_CommonID.GS2C << 8 | QL_Common.GS2C.MSG_S_PlayerGameContinueStatus:
-                this.HandleNet_MSG_S_PlayerGameContinueStatus(cm);
-                return true;   
-            case QL_Common.Main_CommonID.GS2C << 8 | QL_Common.GS2C.MSG_S_EndGameContinue:
-                this.HandleNet_MSG_S_EndGameContinue(cm);
-                return true;                         
+            case QL_Common.Main_CommonID.GS2C << 8 | QL_Common.GS2C.MSG_S_PlayerGameVoteStatus:
+                this.HandleNet_MSG_S_PlayerGameVoteStatus(cm);
+                return true;
+            case QL_Common.Main_CommonID.GS2C << 8 | QL_Common.GS2C.MSG_S_EndGameVote:
+                this.HandleNet_MSG_S_EndGameVote(cm);
+                return true;
             default:
                 if (this.GetGameID() === cm.wMainCmdID && this._isInit) {
                     this.OnGameMessage(cm);
@@ -627,9 +652,9 @@ export abstract class GameBaseClass extends ReConnectBase {
             case ChatType.Emoji:
                 let path = "";
                 let scene = cc.director.getScene();
-                if(scene.name == "M_BiJi"){
+                if (scene.name == "M_BiJi" || scene.name == "M_PDK") {
                     path = "Animation/Emoji/PK/gfx_chat_puke_" + chart.chartContext;
-                }else{
+                } else {
                     path = "Animation/Emoji/MJ/gfx_chat_majiang_" + chart.chartContext;
                 }
                 cc.loader.loadRes(path, cc.AnimationClip, function (err, clip) {
@@ -654,7 +679,7 @@ export abstract class GameBaseClass extends ReConnectBase {
                 let target_chairid;//发起玩家的椅子号
 
                 let exist = chart.chartContext.indexOf("_"); //如果下划线存在
-                if(exist > - 1){
+                if (exist > - 1) {
                     let str_array = chart.chartContext.split("_");
                     chart.chartContext = str_array[0];
                     target_chairid = parseInt(str_array[1]);
@@ -668,7 +693,7 @@ export abstract class GameBaseClass extends ReConnectBase {
                 // }else{
                 //     filename = "Animation/Item/gfx_meili_" + chart.chartContext + "_feixing_animation"
                 // }
-            
+
                 // if(!play_flag){
                 //     cc.log("鼓掌没有命中动画");
                 //     return;
@@ -766,66 +791,76 @@ export abstract class GameBaseClass extends ReConnectBase {
      * 续局开始，显示弹窗
      * @param msg 
      */
-    private HandleNet_MSG_S_BeginGameContinue(msg:GameIF.CustomMessage):void{
-        const change = <QL_Common.MSG_S_BeginGameContinue>msg;
+    private HandleNet_MSG_S_BeginGameVote(msg: GameIF.CustomMessage): void {
+        const change = <QL_Common.MSG_S_BeginGameVote>msg;
         var scoreList = new Array(this.TablePlayer.length);
-        cc.log("我自己的椅子号"+this._chairID);
-        for(let i = 0,j=0;i<this.TablePlayer.length;i++){
-            if(this.TablePlayer[i]!=null){
-                 scoreList[i] = change.GamePlayerScore[j].GameScore;      
-                 j++;
+        cc.log("我自己的椅子号" + this._chairID);
+        for (let i = 0, j = 0; i < this.TablePlayer.length; i++) {
+            if (this.TablePlayer[i] != null) {
+                scoreList[i] = change.GamePlayerScore[j].GameScore;
+                j++;
             }
-                
+
         }
-         this.ShowUi(UIName.ResumeGame, { downTime: 0, gameEndEventHandle: this.refuseNext, 
-             agreeEventHandle: this.agreeNext, playerList: this.TablePlayer, scoreList, countDownTime: change.Time,statusList: null});
+        let p: ResumeGameParam = new ResumeGameParam();
+
+        p.downTime = 0;
+        p.gameEndEventHandle = this.refuseNext;
+        p.agreeEventHandle = this.agreeNext;
+        p.playerList = this.TablePlayer;
+        p.scoreList = scoreList;
+        p.countDownTime = change.Time;
+        p.gameVoteType = change.GameVoteType;
+        p.statusList = null;
+
+        this.ShowUi(UIName.ResumeGame, p);
     }
     /**
      * 续局时，服务端推送玩家续局投票状态
      * @param msg 
      */
-    private HandleNet_MSG_S_PlayerGameContinueStatus(msg:GameIF.CustomMessage):void{
-        const playerstatus = <QL_Common.MSG_S_PlayerGameContinueStatus>msg;
+    private HandleNet_MSG_S_PlayerGameVoteStatus(msg: GameIF.CustomMessage): void {
+        const playerstatus = <QL_Common.MSG_S_PlayerGameVoteStatus>msg;
         let resumeNode = Global.Instance.UiManager.GetUINode(UIName.ResumeGame);
-            if(resumeNode){
-                this.resumeGame = resumeNode.getComponent("ResumeGame");
-                this.resumeGame.updatePlayerVoteStatus(playerstatus.PlayerId,playerstatus.status);
-            }else{
-                // this.scheduleOnce(function () { 
-                // this.resumeGame = resumeNode.getComponent("ResumeGame");
-                // this.resumeGame.updatePlayerVoteStatus(playerstatus.PlayerId,playerstatus.status);
-                //  }.bind(this), 1)
-               
-            }
+        if (resumeNode) {
+            this.resumeGame = resumeNode.getComponent("ResumeGame");
+            this.resumeGame.updatePlayerVoteStatus(playerstatus.PlayerId, playerstatus.status);
+        } else {
+            // this.scheduleOnce(function () { 
+            // this.resumeGame = resumeNode.getComponent("ResumeGame");
+            // this.resumeGame.updatePlayerVoteStatus(playerstatus.PlayerId,playerstatus.status);
+            //  }.bind(this), 1)
+
+        }
     }
     /**
      * 续局完成
      * @param msg 
      */
-    private HandleNet_MSG_S_EndGameContinue(msg:GameIF.CustomMessage):void{
-            const nextresult = <QL_Common.MSG_S_EndGameContinue>msg;
-            if(nextresult.status == QL_Common.GameContinueStatus.Denied){
+    private HandleNet_MSG_S_EndGameVote(msg: GameIF.CustomMessage): void {
+        const nextresult = <QL_Common.MSG_S_EndGameVote>msg;
+        if (nextresult.status == QL_Common.GameVoteStatus.Denied) {
             let resumeNode = Global.Instance.UiManager.GetUINode(UIName.ResumeGame);
-            if(resumeNode){
+            if (resumeNode) {
                 this.resumeGame = resumeNode.getComponent("ResumeGame");
                 this.resumeGame.CloseUiContinue();
                 this.OnRefuseNextGame();
             }
-        }else{
-             let resumeNode = Global.Instance.UiManager.GetUINode(UIName.ResumeGame);
-            if(resumeNode){
+        } else {
+            let resumeNode = Global.Instance.UiManager.GetUINode(UIName.ResumeGame);
+            if (resumeNode) {
                 this.resumeGame = resumeNode.getComponent("ResumeGame");
                 this.resumeGame.CloseUiContinue();
                 this.OnAgreeNextGame();
             }
-            }
-            
+        }
+
     }
-    private refuseNext(){
-        SendMessage.Instance.GameContinueStatus(QL_Common.GameContinueStatus.Denied);
+    private refuseNext() {
+        // SendMessage.Instance.GameVoteStatus(QL_Common.GameVoteStatus.Denied);
     }
-    private agreeNext(){
-        SendMessage.Instance.GameContinueStatus(QL_Common.GameContinueStatus.Agree);
+    private agreeNext() {
+        // SendMessage.Instance.GameVoteStatus(QL_Common.GameVoteStatus.Agree);
     }
     private HandleNet_MSG_S_PlayerNewChairInfo(msg: GameIF.CustomMessage): void {
         const change = <QL_Common.MSG_S_PlayerNewChairInfo>msg;
@@ -868,7 +903,7 @@ export abstract class GameBaseClass extends ReConnectBase {
     /**
      * 是否可以续局
      */
-    protected abstract CheckCanNext():boolean;
+    protected abstract CheckCanNext(): boolean;
     /**
      * 初始化游戏 有参数 用于初始化，每次游戏中断线重连都会被调用
      */
@@ -891,16 +926,16 @@ export abstract class GameBaseClass extends ReConnectBase {
     public GetChatMsg(): string[] {
         return [""];
     }
-/**
- * 续剧结果同意
- */
-    protected OnAgreeNextGame():void{
+    /**
+     * 续剧结果同意
+     */
+    protected OnAgreeNextGame(): void {
 
     }
-/**
- * 续局结果拒绝
- */
-    protected OnRefuseNextGame():void{
+    /**
+     * 续局结果拒绝
+     */
+    protected OnRefuseNextGame(): void {
 
     }
 
@@ -980,7 +1015,7 @@ export abstract class GameBaseClass extends ReConnectBase {
     /**
      * 玩家道具
      * */
-    protected OnPlayerChatItem(self_chairID : number ,chairID: number, player: QL_Common.TablePlayer, index : string): void {
+    protected OnPlayerChatItem(self_chairID: number, chairID: number, player: QL_Common.TablePlayer, index: string): void {
 
     }
 
@@ -1094,7 +1129,7 @@ export abstract class GameBaseClass extends ReConnectBase {
     protected OnRecordTimeout() {
 
     }
-    
+
 
     // ================================ 重写结束 ================================
 
@@ -1243,6 +1278,7 @@ export abstract class GameBaseClass extends ReConnectBase {
         if (cc.isValid(this._mapsForm)) {
             this._mapsForm.SetPlayer(0, player, null, 0);
         }
+
     }
 
 }

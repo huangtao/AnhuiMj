@@ -5,7 +5,7 @@ import {GameIF} from "./GameIF";
 export module M_PDK_GameMessage {
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -135,7 +135,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -173,7 +173,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -243,7 +243,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -289,7 +289,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -351,7 +351,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -385,7 +385,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -411,7 +411,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -429,15 +429,19 @@ export module M_PDK_GameMessage {
         *
         */
        public score: number[] = null;
+       /**
+        *
+        */
+       public isRefresh: boolean = false;
    
     }
     SerializerCreator.Register("M_PDK_GameMessage.CMD_S_PlayerScore", function () {return new CMD_S_PlayerScore()})
-    TSRH.RSerializer("13329", "!4|score", "M_PDK_GameMessage.CMD_S_PlayerScore");
+    TSRH.RSerializer("13329", "14|isRefresh&!4|score", "M_PDK_GameMessage.CMD_S_PlayerScore");
 
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -459,7 +463,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -529,7 +533,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -571,7 +575,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -629,7 +633,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -655,7 +659,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -677,7 +681,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -711,7 +715,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -745,7 +749,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -771,7 +775,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -797,7 +801,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -819,7 +823,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -845,7 +849,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -931,7 +935,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -957,7 +961,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -987,7 +991,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -1013,7 +1017,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -1035,7 +1039,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -1061,7 +1065,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月10日 10:33:39
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *

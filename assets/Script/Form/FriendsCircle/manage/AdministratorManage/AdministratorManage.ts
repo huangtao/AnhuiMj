@@ -1,4 +1,4 @@
-import { Action, ActionNet } from "../../../../CustomType/Action";
+import { Action } from "../../../../CustomType/Action";
 import { UIName } from "../../../../Global/UIName";
 import Global from "../../../../Global/Global";
 import FriendCircleDataCache from "../../FriendCircleDataCache";
@@ -87,6 +87,9 @@ export default class AdministratorManage extends ManageChildBase {
 
         Global.Instance.UiManager.ShowLoading('正在获数据...');
         let act = new Action(this,(res)=>{
+            if ("success" != res.status) {
+                return;
+            }
             // 创建Item
             let num = this.getAdministratorNum();
             let adminList = FriendCircleDataCache.Instance.getAdminList();
@@ -99,7 +102,7 @@ export default class AdministratorManage extends ManageChildBase {
 
             // 圈主昵称
             if (this.lab_userName && circleOwner) {
-                this.lab_userName.string = circleOwner.name;
+                this.lab_userName.string = circleOwner.nickname;
             }
 
             if (this.prefab_adminItem) {
@@ -161,13 +164,13 @@ export default class AdministratorManage extends ManageChildBase {
             return;
         }
 
-        if ('ADD' == this._curOperate && userInfo.isAdmin > 0) {
+        if ('ADD' == this._curOperate && parseInt(userInfo.isadmin) > 0) {
             Global.Instance.UiManager.ShowTip('该成员已经是管理员');
             return;
         }
 
         let _userInfo = userInfo;
-        if ('0' == userInfo.userId) {
+        if ('0' == userInfo.userid.toString()) {
             cc.info('-- [addOrDeleteAdministrator userId error');
             return;
         }
@@ -191,14 +194,14 @@ export default class AdministratorManage extends ManageChildBase {
         });
 
         let curFriendCircle = FriendCircleDataCache.Instance.CurEnterFriendCircle;
-        let _userId = userInfo.userId;
+        let _userId = userInfo.userid;
         let _isAdmin = 0;
 
         if ('ADD' == this._curOperate) {
             _isAdmin = 1;
         }
         
-        FriendCircleWebHandle.addOrDeleteAdmin(parseInt(_userId),parseInt(curFriendCircle.ID),_isAdmin,act);
+        FriendCircleWebHandle.addOrDeleteAdmin(_userId,parseInt(curFriendCircle.ID),_isAdmin,act);
     }
 
     /**

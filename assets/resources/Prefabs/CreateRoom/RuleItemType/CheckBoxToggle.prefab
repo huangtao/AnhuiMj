@@ -161,7 +161,7 @@
     "asset": {
       "__uuid__": "dbee33e3-08f7-483d-a19e-991aada6387d"
     },
-    "fileId": "27ZPruIkRFf7fJsYKi8n0N",
+    "fileId": "adWugaTXNBDb15vfjzlx7e",
     "sync": false
   },
   {
@@ -252,7 +252,7 @@
     "asset": {
       "__uuid__": "dbee33e3-08f7-483d-a19e-991aada6387d"
     },
-    "fileId": "72QsoceBpCHqzpkm07BXQ0",
+    "fileId": "7fSXnrIDtNz6vop5zaYJTw",
     "sync": false
   },
   {
@@ -291,7 +291,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 120,
-      "height": 40
+      "height": 30
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -320,7 +320,7 @@
     "_useOriginalSize": false,
     "_actualFontSize": 30,
     "_fontSize": 30,
-    "_lineHeight": 40,
+    "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -339,7 +339,7 @@
     "asset": {
       "__uuid__": "dbee33e3-08f7-483d-a19e-991aada6387d"
     },
-    "fileId": "34fteG0R9Py79TjWEnqNen",
+    "fileId": "b2WbDJ8X5Ij53wsD0p+RGg",
     "sync": false
   },
   {
@@ -436,7 +436,7 @@
     "asset": {
       "__uuid__": "dbee33e3-08f7-483d-a19e-991aada6387d"
     },
-    "fileId": "d8hkrHwNRCfZ5ED4bipmiv",
+    "fileId": "a2GlUjboFG3aETaXdfcLvG",
     "sync": false
   }
 ]

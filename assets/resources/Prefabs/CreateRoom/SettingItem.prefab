@@ -57,7 +57,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 811,
+      "width": 821,
       "height": 60
     },
     "_rotationX": 0,
@@ -455,7 +455,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 811,
+      "width": 821,
       "height": 60
     },
     "_resize": 1,

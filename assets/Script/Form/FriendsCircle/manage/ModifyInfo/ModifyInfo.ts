@@ -2,7 +2,6 @@ import FriendCircleDataCache from "../../FriendCircleDataCache";
 import FriendCircleWebHandle from "../../FriendCircleWebHandle";
 import ManageChildBase from "../ManageChildBase";
 import Global from "../../../../Global/Global";
-import { Action, ActionNet } from "../../../../CustomType/Action";
 
 const {ccclass, property} = cc._decorator;
 

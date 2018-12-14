@@ -30,12 +30,12 @@ export default class HQMJ_SelfFixed extends HQMJ_FixedBase {
             if(_hqmj.is2D()){
                 for(var i:number=0; i<this._fixedData.length; i++){
                     this._fixedData[i].node.x = -510 + i*230;
-                    this._fixedData[i].node.y = -290;
+                    this._fixedData[i].node.y = -300;
                 }
             }else{
                 for(let i:number=0; i<this._fixedData.length; i++){
-                    this._fixedData[i].node.x = -495 + i*246;
-                    this._fixedData[i].node.y = -297;
+                    this._fixedData[i].node.x = -495-20 + i*230;
+                    this._fixedData[i].node.y = -300;
                 }
             }
             

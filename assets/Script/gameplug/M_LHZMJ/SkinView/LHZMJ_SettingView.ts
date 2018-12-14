@@ -43,7 +43,10 @@ export default class LHZMJ_SettingView extends cc.Component {
     @property(cc.Node)
     view:cc.Node=null;
 
-    
+    @property(cc.Button)
+    btn_back_jiesan: cc.Button=null;
+    @property(cc.Button)
+    btn_back_tuichu: cc.Button=null;
 
     private _isClose: boolean;
     private _locked:boolean;
@@ -56,6 +59,22 @@ export default class LHZMJ_SettingView extends cc.Component {
         this._isClose = true;
 
         this.refreshStatus();
+        this.refreshBtn_backStatus();
+    }
+
+    public refreshBtn_backStatus(){
+        
+        if (LHZMJ.ins.iclass.isVideo() || !LHZMJ.ins.iclass.isCreateRoom()) {
+            this.btn_back_jiesan.node.active = false;
+            this.btn_back_tuichu.node.active = true;
+        // } else if(LHZMJ.ins.iclass.getUserNumRule() == 4 && LHZMJ.ins.iclass.getRealUserNum() == 3){
+        //     this.btn_back_jiesan.node.active = LHZMJ.ins.iclass.getTableStauts() != QL_Common.TableStatus.gameing;
+        //     this.btn_back_tuichu.node.active = LHZMJ.ins.iclass.getTableStauts() == QL_Common.TableStatus.gameing;    
+        }else{
+            //游戏过程中才可以解散房间
+            this.btn_back_jiesan.node.active = LHZMJ.ins.iclass.getTableStauts() == QL_Common.TableStatus.gameing;
+            this.btn_back_tuichu.node.active = LHZMJ.ins.iclass.getTableStauts() != QL_Common.TableStatus.gameing;
+        }
     }
 
     private closeSetting(): void {
@@ -76,7 +95,6 @@ export default class LHZMJ_SettingView extends cc.Component {
 
     private refreshStatus(): void {
         this.btn_open.node.active = this._isClose;
-
     }
 
     public showRule(): void {
@@ -88,7 +106,10 @@ export default class LHZMJ_SettingView extends cc.Component {
         if (LHZMJ.ins.iclass.isVideo() || !LHZMJ.ins.iclass.isCreateRoom()) {
             this.btn_dissTable.node.active = false;
             this.btn_exit.node.active = true;
-        } else {
+        // } else if(LHZMJ.ins.iclass.getUserNumRule() == 4 && LHZMJ.ins.iclass.getRealUserNum() == 3){
+        //     this.btn_dissTable.node.active = LHZMJ.ins.iclass.getTableStauts() != QL_Common.TableStatus.gameing;
+        //     this.btn_exit.node.active = LHZMJ.ins.iclass.getTableStauts() == QL_Common.TableStatus.gameing;    
+        }else{
             //游戏过程中才可以解散房间
             this.btn_dissTable.node.active = LHZMJ.ins.iclass.getTableStauts() == QL_Common.TableStatus.gameing;
             this.btn_exit.node.active = LHZMJ.ins.iclass.getTableStauts() != QL_Common.TableStatus.gameing;

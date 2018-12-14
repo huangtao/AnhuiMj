@@ -1,29 +1,21 @@
-import { WebRequest } from "../../../Net/Open8hb";
-import { IDictionary } from "../../../Interface/IDictionary";
-import { LoadHeader } from "../../../Tools/Function"
-import UIBase from "../../Base/UIBase";
-import UiManager from "../../../Manager/UiManager";
+import { LoadHeader, StrToObject } from "../../../Tools/Function"
 import Global from "../../../Global/Global";
 import { Action, ActionNet } from "../../../CustomType/Action";
-import { GameCachePool } from "../../../Global/GameCachePool";
-import { HallNodePools } from "../../../Global/HallNodePools";
-import { EventCode } from "../../../Global/EventCode";
 import { QL_Common } from "../../../CommonSrc/QL_Common";
 import { UIName } from "../../../Global/UIName";
 import { FriendsCircleListItem } from "./FriendsCircleListItem";
 import FriendCircleWebHandle from "../FriendCircleWebHandle";
 import FriendCircleDataCache from "../FriendCircleDataCache";
-import { PlayEffect } from "../../../Tools/Function";
-
-import UrlCtrl from "../../../Net/UrlCtrl";
+import { LocalStorage } from "../../../CustomType/LocalStorage";
+import { FriendCircleRule } from "../../../CustomType/FriendCircleInfo";
+import { FriendCircleWanfaItem } from "./FriendCircleWanfaItem";
+import Dictionary from "../../../CustomType/Dictionary";
+import SendMessage from "../../../Global/SendMessage";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class CreateSelecteFriendsCircle extends UIBase<any> {
-    public IsEventHandler: boolean = true
-    public IsKeyHandler: boolean = true;
-    public get isPlayPopAction(): boolean { return false; }
+export default class CreateSelecteFriendsCircle extends cc.Component {
     /**
      * 加入群组或者创建群组操作面板
      */
@@ -31,58 +23,131 @@ export default class CreateSelecteFriendsCircle extends UIBase<any> {
     joinOrCreateGroup: cc.Node = null;
 
     /**
-     * 列表项
+     * 亲友圈列表项
      */
     @property(cc.Prefab)
     groupItemPrefab: cc.Node = null;
 
-    /**
-      * 玩家昵称
-      */
-    @property(cc.Label)
-    lab_nickname: cc.Label = null;
 
     /**
-     * 玩家ID
+     * 玩法面板
      */
-    @property(cc.Label)
-    lab_ID: cc.Label = null;
+    @property(cc.Layout)
+    layout_Wanfa: cc.Layout = null;
 
     /**
-     * 玩家头像
+     * 玩法列表项
      */
-    @property(cc.Sprite)
-    sp_headImg: cc.Sprite = null;
+    @property(cc.Prefab)
+    prefab_wanfa: cc.Node = null;
 
-    /**
-     * 亲友圈帮助提示框
+    /** 
+     * 亲友圈信息面板
      */
     @property(cc.Node)
-    node_help: cc.Node = null;
+    node_friendInfo: cc.Node = null;
+
+    /** 
+     * 没有亲友圈的面板
+     */
+    @property(cc.Node)
+    node_noFriend: cc.Node = null;
+
+    /** 
+     * 没有玩法的面板
+     */
+    @property(cc.Node)
+    node_noWanfa: cc.Node = null;
+
+    /** 
+     * 玩法列表的面板
+     */
+    @property(cc.Node)
+    node_wanfa: cc.Node = null;
+
+    /** 
+     * 钻石数量
+     */
+    @property(cc.Label)
+    lab_diamond: cc.Label = null;
+
+    /** 
+     * 七豆数量
+     */
+    @property(cc.Label)
+    lab_qidou: cc.Label = null;
+
+    /** 
+     * 切换按钮
+     */
+    @property(cc.Button)
+    btn_change: cc.Button = null;
+
+    /** 
+     * 战绩按钮
+     */
+    @property(cc.Button)
+    btn_record: cc.Button = null;
+
+
+    /**
+     * 当前选中的亲友圈Item
+     */
+    private _curSelectedItem: FriendsCircleListItem = null;
 
     // 是否在正在请求
     private bRequestIng: boolean = false;
 
-    protected OnShow() {
-        super.OnShow();
-        
-        // 显示玩家头像、ID
-        let userInfo = this.DataCache.UserInfo.userData;
+    /**
+     * 选择亲友圈点击事件注册
+     */
+    private _selectFriendClickEvent: Action = null;
+    public registSelectFriendClickEvent(act: Action) { this._selectFriendClickEvent = act };
 
-        // ID
-        this.lab_ID.string = String(userInfo.UserID);
+    /**
+     * 选择亲友圈玩法选中事件注册
+     */
+    private _selectFriendRuleClickEvent: Action = null;
+    public registSelectFriendRuleClickEvent(act: Action) { this._selectFriendRuleClickEvent = act };
 
-        // 头像
-        LoadHeader(userInfo.Header, this.sp_headImg);
+    /**
+     * 玩法列表Item组件
+     */
+    private _wanfaItemComList: Dictionary<number, FriendCircleWanfaItem>;
 
-        // 昵称
-        this.lab_nickname.string = userInfo.NickName;
-
-        // 先清空亲友圈数据
-        FriendCircleDataCache.Instance.clearData();
-
+    public init() {
+        // 初始化状态显示
+        this.node_friendInfo.active = false;
+        this.node_noFriend.active = false;
+        this.node_noWanfa.active = false;
+        this.btn_change.node.active = false;
+        this.btn_record.node.active = false;
         // 拉取亲友圈列表
         this.requestFriendCircleList();
+
+        // 钻石七豆数量显示
+        if (!Global.Instance.DataCache.UserInfo
+            || !Global.Instance.DataCache.UserInfo.userData) {
+            return;
+        }
+
+        if (cc.isValid(this.lab_qidou) && cc.isValid(this.lab_diamond)) {
+            if (!Global.Instance.DataCache.UserProp) {
+                return;
+            }
+
+            // 七豆
+            this.lab_qidou.string = Global.Instance.DataCache.UserProp.GetValue(QL_Common.CurrencyType.QiDou) + "";
+
+            // 钻石
+            this.lab_diamond.string = Global.Instance.DataCache.UserProp.GetValue(QL_Common.CurrencyType.Diamond) + ""
+        }
+
+        /**
+         * 设置添加玩法监听
+         */
+        let act: Action = new Action(this, this.addRuleHandle);
+        FriendCircleWebHandle.setAddRuleHandle(act);
     }
 
     /**
@@ -100,32 +165,142 @@ export default class CreateSelecteFriendsCircle extends UIBase<any> {
     }
 
     /**
-     * 刷新列表显示
+     * 刷新亲友圈列表显示
      */
-    private refreshListShow() {
+    private refreshFriendCircleListShow() {
         this.joinOrCreateGroup.removeAllChildren();
-        let data = FriendCircleDataCache.Instance.FriendCircleList;
-        let length = data.Count;
-        let values = data.Values;
+        let friendCircleList = FriendCircleDataCache.Instance.FriendCircleList;
+        let friendNum = friendCircleList.Count;
+        let values = friendCircleList.Values;
+
+        // 先获取本地存储的上次选择的亲友圈及玩法信息
+        let local_info: string = FriendCircleDataCache.Instance.getLocalStorage("localFriendCircleInfo");
+        let localFriendCircleInfo: any = StrToObject(local_info);
+
+        if (localFriendCircleInfo && !FriendCircleDataCache.Instance.getFriendCircleById(localFriendCircleInfo.groupId)) {
+            localFriendCircleInfo = null;
+            FriendCircleDataCache.Instance.saveToLocalStorage("localFriendCircleInfo", "");
+        }
+
+        if (this.node_friendInfo && this.node_noFriend) {
+            if (0 == friendNum) {
+                this.node_friendInfo.active = false;
+                this.node_wanfa.active = false;
+                this.node_noFriend.active = true;
+            } else {
+                this.node_friendInfo.active = true;
+                this.node_wanfa.active = true;
+                this.node_noFriend.active = false;
+            }
+        }
+
+        // 默认创建4个
+        if (friendNum < 4 || friendNum > 4) {
+            friendNum = 4;
+        }
+
+        for (var i = 0; i < friendNum; ++i) {
+            // 创建Item
+            let item = cc.instantiate(this.groupItemPrefab);
+            const friendItem = item.getComponent<FriendsCircleListItem>(FriendsCircleListItem);
+            const action = new Action(this, this.joinOrEnterCircle);
+            friendItem.clickAction = action;
+
+            if (i < friendNum) {
+                friendItem.setData(values[i]);
+            } else {
+                friendItem.setData(null);
+            }
+
+            if (!localFriendCircleInfo && 0 == i && friendCircleList.Count > 0) {
+                // 默认选中第一个
+                friendItem.setSelected();
+            }
+
+            // 选中本地记忆的的亲友圈
+            if (localFriendCircleInfo && values[i] && values[i].ID == localFriendCircleInfo.groupId) {
+                friendItem.setSelected();
+            }
+
+            this.joinOrCreateGroup.addChild(item);
+        }
+
+        // 如果亲友圈数量为0则显示没有亲友圈提示
+        if (0 == friendNum) {
+            // this.layout_Wanfa.node.active = false;
+            this.node_wanfa.active = false;
+            this.node_noFriend.active = true;
+        }
+    }
+
+    /**
+     * 刷新亲友圈玩法列表显示
+     */
+    private refreshRuleListShow(ruleList: any) {
+        //先清空节点重新创建
+        // this.layout_Wanfa.node.active = true;
+        this.node_wanfa.active = true;
+        this.node_noWanfa.active = false;
+
+        if (!this._wanfaItemComList) {
+            this._wanfaItemComList = new Dictionary<number, FriendCircleWanfaItem>();
+        }
+
+        this._wanfaItemComList.Clear();
+        this.layout_Wanfa.node.removeAllChildren();
+        let list = ruleList;
+
+        if (!list) {
+            list = [];
+        }
+
+        if (0 == list.length) {
+            // 如果不是圈主则显示没有创建玩法提示
+            if (!FriendCircleDataCache.Instance.selfIsAdministrator()) {
+                this.node_noWanfa.active = true;
+                return;
+            }
+        }
+
+        let length = list.length;
         // 默认创建4个
         if (length < 4 || length > 4) {
             length = 4;
         }
 
+        // 先获取本地存储的上次选择的亲友圈及玩法信息
+        let local_info: string = FriendCircleDataCache.Instance.getLocalStorage("localFriendCircleInfo");
+        let localFriendCircleInfo: any = StrToObject(local_info);
+        let isAdmin = FriendCircleDataCache.Instance.selfIsAdministrator();
+
         for (var i = 0; i < length; ++i) {
             // 创建Item
-            let item = cc.instantiate(this.groupItemPrefab);
-            const action = new Action(this, this.joinOrEnterCircle);
-            const component = item.getComponent<FriendsCircleListItem>(FriendsCircleListItem);
+            let item = cc.instantiate(this.prefab_wanfa);
+            const wanfaItem: FriendCircleWanfaItem = item.getComponent(FriendCircleWanfaItem);
+            let ruleInfo: FriendCircleRule = list[i];
 
-            if (i < length) {
-                component.setData(values[i]);
-            } else {
-                component.setData(null);
+            wanfaItem.initShow(ruleInfo, isAdmin);
+
+            // 设置"当前图标显示"
+            if (ruleInfo && localFriendCircleInfo && localFriendCircleInfo.ruleId == ruleInfo.Id) {
+                // 设置当前选择的玩法
+                FriendCircleDataCache.Instance.CurSelectedRule = ruleInfo;
+                wanfaItem.setCurIconShow(true);
             }
 
-            component.action = action;
-            this.joinOrCreateGroup.addChild(item);
+            if (ruleInfo) {
+                this._wanfaItemComList.Add(ruleInfo.Id, wanfaItem);
+                // 请求桌子列表
+                SendMessage.Instance.QueryGroupTableList(ruleInfo.friendId, ruleInfo.Id);
+            }
+
+            wanfaItem.registSelectFriendRuleClickEvent(new Action(this, this.selectFriendRule));
+            this.layout_Wanfa.node.addChild(item);
+        }
+
+        // 如果之前没有选择过玩法则默认选择玩法列表的第一个
+        if (!FriendCircleDataCache.Instance.CurSelectedRule && list.length > 0) {
+            FriendCircleDataCache.Instance.CurSelectedRule = list[0];
         }
     }
 
@@ -134,13 +309,13 @@ export default class CreateSelecteFriendsCircle extends UIBase<any> {
      */
     public createBtnCllickEventHandle() {
         // 判断是否已经成为代理
-        let agentId = this.DataCache.UserInfo.LinkAgentId;
+        let agentId = Global.Instance.DataCache.UserInfo.LinkAgentId;
 
         if (agentId > 0) {
             let action = new Action(this, this.createCircleCallback);
-            this.UiManager.ShowUi(UIName.CreateFriendCircle, action, null);
+            Global.Instance.UiManager.ShowUi(UIName.CreateFriendCircle, action, null);
         } else {
-            this.UiManager.ShowUi(UIName.CreateFriendCircleTip);
+            Global.Instance.UiManager.ShowUi(UIName.CreateFriendCircleTip);
         }
     }
 
@@ -153,11 +328,25 @@ export default class CreateSelecteFriendsCircle extends UIBase<any> {
     }
 
     /**
+     * 添加规则消息回调
+     */
+    public addRuleHandle() {
+        // 关闭界面
+        Global.Instance.UiManager.CloseUi(UIName.SelectRule);
+        Global.Instance.UiManager.CloseUi(UIName.SelectGame);
+
+        let friendInfo = FriendCircleDataCache.Instance.CurEnterFriendCircle;
+
+        // 创建规则成功 刷新玩法列表
+        this.requestFriendCircRuleList(parseInt(friendInfo.ID));
+    }
+
+    /**
      * 请求亲友圈列表
      */
     public requestFriendCircleList(): void {
         if (this.bRequestIng) {
-            this.UiManager.ShowTip('您的操作过于频繁，请稍后再试');
+            Global.Instance.UiManager.ShowTip('您的操作过于频繁，请稍后再试');
             return;
         }
 
@@ -168,10 +357,12 @@ export default class CreateSelecteFriendsCircle extends UIBase<any> {
             this.bRequestIng = false;
 
             if ("success" != args.status) {
-                this.UiManager.ShowTip("创建亲友圈失败!")
+                Global.Instance.UiManager.ShowTip("获取亲友圈列表失败!")
                 return;
             } else {
-                this.refreshListShow();
+                // 更新界面显示
+                let data = FriendCircleDataCache.Instance.FriendCircleList;
+                this.refreshFriendCircleListShow();
             }
         });
 
@@ -179,17 +370,37 @@ export default class CreateSelecteFriendsCircle extends UIBase<any> {
     }
 
     /**
-     * 加入或进入亲友圈获取玩法列表
+     * 请求玩法列表
+     */
+    public requestFriendCircRuleList(groupId: number) {
+        let groupId_ = groupId;
+        let act = new Action(this, (res) => {
+            let ruleInfo = res;
+            FriendCircleWebHandle.getMemberList(groupId_ + "", 0, 10, new Action(this, (res) => {
+                this.refreshRuleListShow(ruleInfo);
+                // 点击事件回调
+                if (this._selectFriendClickEvent) {
+                    this._selectFriendClickEvent.Run([]);
+                }
+            }));
+        });
+
+        Global.Instance.UiManager.ShowLoading("正在加载数据...");
+        FriendCircleWebHandle.requestFriendCircRuleList(groupId_ + "", act);
+    }
+
+    /**
+     * 加入或选择亲友圈
      */
     public joinOrEnterCircle(obj: any) {
         // 判断是加入还是进入
         if (obj.isJoin) {
             // 弹出加入亲友圈界面
-            this.UiManager.ShowUi(UIName.JoinRoom, "FriendCircle");
+            Global.Instance.UiManager.ShowUi(UIName.JoinRoom, "FriendCircle");
             let act = new Action(this, (args) => {
                 // 关闭加入房间界面
-                this.UiManager.CloseUi(UIName.JoinRoom);
-                this.UiManager.ShowTip('已申请,请联系圈主审核!');
+                Global.Instance.UiManager.CloseUi(UIName.JoinRoom);
+                Global.Instance.UiManager.ShowTip('已申请,请联系圈主审核!');
 
                 // 再次请求亲友圈列表进行刷新
                 this.requestFriendCircleList();
@@ -197,41 +408,93 @@ export default class CreateSelecteFriendsCircle extends UIBase<any> {
 
             FriendCircleWebHandle.setJoinFriendCircleHandle(act);
         } else {
-            let groupId = obj.circleInfo.ID;
-            let act = new Action(this, (res) => {
-                if ('success' != res.status) {
-                    return;
+
+            // 清空当前亲友圈
+            FriendCircleDataCache.Instance.clearData();
+
+            // 设置当前进入的亲友圈
+            let friendInfo = obj.circleInfo;
+            FriendCircleDataCache.Instance.CurEnterFriendCircle = friendInfo;
+
+            // // 点击事件回调
+            // if (this._selectFriendClickEvent) {
+            //     this._selectFriendClickEvent.Run([]);
+            // }
+
+            // 更新Item选中状态显示
+            let friendItem = <FriendsCircleListItem>obj.item;
+
+            if (this._curSelectedItem == friendItem) {
+                return;
+            }
+
+            if (friendItem) {
+                if (this._curSelectedItem) {
+                    this._curSelectedItem.cancelSelectedShow();
                 }
 
-                // 关闭当前界面
-                this.CloseClick();
+                friendItem.setSelectedStatusShow();
+                this._curSelectedItem = friendItem;
+            }
 
-                // 设置当前进入的亲友圈
-                FriendCircleDataCache.Instance.CurEnterFriendCircle = obj.circleInfo;
-                // 进入亲友圈
-                this.UiManager.ShowUi(UIName.FriendCircle, obj.circleInfo);
-            });
-
-            this.UiManager.ShowLoading('正在进入...');
-            FriendCircleWebHandle.getMemberList(groupId, 0, 24, act);
+            // 选择亲友圈,请求亲友圈玩法列表
+            this.requestFriendCircRuleList(parseInt(obj.circleInfo.ID));
         }
     }
 
     /**
-     * 刷新按钮
+     * 请求桌子列表回调
      */
-    public btnRefreshClickEventHandle() {
-        PlayEffect(cc.url.raw("resources/Sound/close_panel.mp3"));
-        // 拉取亲友圈列表
-        this.requestFriendCircleList();
+    public requestTableCb(cm: any) {
+        let g = cm as QL_Common.MSG_S_GroupTableList;
+        if (!g) return;
+
+        let wanfaItem = this._wanfaItemComList.GetValue(g.RuleId);
+
+        if (wanfaItem) {
+            wanfaItem.setTableNum(g.Total);
+        }
     }
 
     /**
-     * 帮助按钮处理
+     * 选择亲友圈玩法事件
      */
-    public helpBtnCllickEventHandle() {
-        if (this.node_help) {
-            this.node_help.active = !this.node_help.activeInHierarchy;
+    public selectFriendRule(ruleInfo: FriendCircleRule) {
+        let friendInfo = FriendCircleDataCache.Instance.CurEnterFriendCircle;
+        let userId = Global.Instance.DataCache.UserInfo.userData.UserID;
+
+        if (!friendInfo || !ruleInfo) {
+            return;
         }
+
+        Global.Instance.UiManager.ShowLoading("正在请求数据...");
+        // 判断是否玩家被禁玩
+        FriendCircleWebHandle.GroupUserGameBan(parseInt(friendInfo.ID), 2, 0, ruleInfo.gameId, "Q", userId, new Action(this, (res) => {
+            Global.Instance.UiManager.CloseLoading();
+            
+            if ("success" != res.status) {
+                return;
+            }
+
+            if (res.isBan) {
+                Global.Instance.UiManager.ShowTip("您没有权限进入该玩法,请联系圈主!");
+                return;
+            }
+
+            if (this._selectFriendRuleClickEvent) {
+                this._selectFriendRuleClickEvent.Run([ruleInfo]);
+            }
+
+            this.btn_change.node.active = true;
+
+        }));
+    }
+
+    /**
+     * 玩家申请加入亲友圈消息推送
+     */
+    public userReqJoinMsg(eventData: any) {
+        // 更新亲友圈红点显示
+
     }
 }

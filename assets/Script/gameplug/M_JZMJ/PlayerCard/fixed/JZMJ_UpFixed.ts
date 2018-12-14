@@ -24,16 +24,15 @@ export default class JZMJ_UpFixed extends JZMJ_FixedBase {
     //         }
     //     }
     // }
-    protected refreshFixedCard(_JZMJ = JZMJ.ins.iclass): void {
+    protected refreshFixedCard(_jzmj = JZMJ.ins.iclass): void {
         if(this._fixedData.length > 0) {
-            if(_JZMJ.is2D()){
+            if(_jzmj.is2D()){
                 for(var i: number = 0;i < this._fixedData.length;i++) {
-                    this._fixedData[i].node.x = -490;
-                    this._fixedData[i].node.y = 279 - i*112-16;
+                    this._fixedData[i].node.x = -478;
+                    this._fixedData[i].node.y = 233 - i*115;
                 }
-            }else{
-
             }
         }
     }
+    
 }

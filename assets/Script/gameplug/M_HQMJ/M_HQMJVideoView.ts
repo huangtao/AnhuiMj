@@ -440,7 +440,7 @@ export default class M_HQMJVideoView extends cc.Component {
         this._gameStatus_userInfo.tableOwener = M_HQMJVideoClass.ins.getTableConfig().tableCreatorChair;
         this._timerView.showArrow = M_HQMJVideoClass.ins.getSelfChair();
         this._timerView.showArr(255,M_HQMJVideoClass.ins.getSelfChair(),true);
-        this._timerView.timerNum = 0;
+        // this._timerView.timerNum = 0;
         this._timerView.showArrow = HQMJMahjongDef.gInvalidChar;
         this._timerView.node.active=false;
     }

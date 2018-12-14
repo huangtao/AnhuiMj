@@ -438,7 +438,7 @@ export default class M_JZMJVideoView extends cc.Component {
         this._gameStatus_userInfo.tableOwener = M_JZMJVideoClass.ins.getTableConfig().tableCreatorChair;
         this._timerView.showArrow = M_JZMJVideoClass.ins.getSelfChair();
         this._timerView.showArr(255,M_JZMJVideoClass.ins.getSelfChair(),true);
-        this._timerView.timerNum = 0;
+        // this._timerView.timerNum = 0;
         this._timerView.showArrow = JZMJMahjongDef.gInvalidChar;
         this._timerView.node.active=false;
     }

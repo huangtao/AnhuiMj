@@ -10,6 +10,8 @@ import { Action, ActionNet } from "../../CustomType/Action";
 import { WebRequest } from "../../Net/Open8hb";
 import FriendCircleWebHandle from "../FriendsCircle/FriendCircleWebHandle";
 import FriendCircleDataCache from "../FriendsCircle/FriendCircleDataCache";
+import { SubscribeManager } from "../../Manager/SubscribeManager";
+import { SubscribeChanelType } from "../../CustomType/Enum";
 
 const { ccclass, property } = cc._decorator;
 @ccclass
@@ -40,6 +42,8 @@ export class JoinRoom extends EnterNumForm {
         }else{
             // 亲友圈进来的
             FriendCircleWebHandle.joinFriendCircle(this._numStack.Num.toString());
+            // 订阅该亲友圈消息推送
+            SubscribeManager.Instance.subscribeChannel(SubscribeChanelType.CHANEL_TYPE_FRIENDCIRCLE, "Group#" + this._numStack.Num.toString());
         }
     }
 

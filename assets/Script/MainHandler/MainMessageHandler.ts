@@ -14,6 +14,7 @@ import { UIName } from "../Global/UIName";
 import UiManager from "../Manager/UiManager";
 import HornGamePanel from "../Form/Horn/HornGamePanel";
 import HornPanel from "../Form/Horn/HornPanel";
+import { LocalStorage } from "../CustomType/LocalStorage";
 
 /**
  * 主网络信息处理者
@@ -172,8 +173,9 @@ export default class MainMessageHandler implements ISocketHandler {
     private ls2c_loginSuccess(cm: GameIF.CustomMessage) {
         const success = <QL_Common.MSG_S_LoginSuccess>cm;
         //记住密码 下次使用
-        cc.sys.localStorage.setItem("account", success.playerData.UserAccount);
-        cc.sys.localStorage.setItem("logontoken", success.playerData.UserLogonToken);
+        // cc.sys.localStorage.setItem("account", success.playerData.UserAccount);
+        // cc.sys.localStorage.setItem("logontoken", success.playerData.UserLogonToken);
+        LocalStorage.LastUserLoginCache = success.playerData.LogonCacheToken;
         this.DataCache.UserInfo.userData = success.playerData;
         this.EventManager.PostMessage(EventCode.LoginSuccess);
         this.DataCache.MyRoom.Clear();
@@ -183,7 +185,7 @@ export default class MainMessageHandler implements ISocketHandler {
 
         let first = cc.sys.localStorage.getItem("firstuserid");
         if (!first) {
-            first = ConfigData.RegionName + ConfigData.SiteConfig.SiteVirtualDir + success.playerData.UserID;
+            first = ConfigData.RegionName + success.playerData.UserID;
             cc.sys.localStorage.setItem("firstuserid", first);
         }
         NativeCtrl.InitRecorder(first);

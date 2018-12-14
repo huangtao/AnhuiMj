@@ -28,6 +28,7 @@ import MGMJ_DissTable from "./SkinView/MGMJ_DissTable";
 import MGMJ_MsgBox from "./SkinView/MGMJ_MsgBox";
 import MJ_Cheating from "../MJCommon/MJ_Cheating";
 import MGMJ_Out from "./SkinView/MGMJ_Out";
+import MGMJ_BaoPai from "../MJCommon/MJ_BaoPai";
 import MGMJ_Pao from "./SkinView/MGMJ_Pao";
 import MGMJ_La from "./SkinView/MGMJ_La";
 import MGMJ_SettingView from './SkinView/MGMJ_SettingView';
@@ -40,6 +41,7 @@ import MGMJ_JiFenBanX from "./SkinView/MGMJ_JiFenBanX";
 import MGMJ_OutCardView from "./SkinView/MGMJ_OutCardView";
 import M_MGMJVoice from "./M_MGMJVoice";
 import HuDong_Animation from "../MJCommon/HuDong_Animation";
+import { AudioType } from "../../CustomType/Enum";
 
 @ccclass
 export default class M_MGMJView extends cc.Component implements IMGMJView {
@@ -326,6 +328,16 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
             return this._mjOut;
         }
 
+        //outpai
+        @property(cc.Prefab)
+        MGMJ_Bao:cc.Prefab=null;
+
+        private _BaoPai:MGMJ_BaoPai;
+
+        public get mg_baopai():MGMJ_BaoPai{
+            return this._BaoPai;
+        }
+
         @property(cc.Prefab)
         MGMJ_Pao_View:cc.Prefab=null;
         //跑
@@ -402,6 +414,11 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
         //请求听牌提示
         btn_tingtip:cc.Button=null;
 
+        //宝牌显示框
+        @property(cc.Sprite)
+        img_baokuang:cc.Sprite=null;
+
+
         onLoad(){
             M_MGMJView._ins = this;
             MGMJ.ins.iview = this;
@@ -434,13 +451,13 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
             this._outCardView=ocvnode.getComponent<MGMJ_OutCardView>(MGMJ_OutCardView);
             this.group_mid.addChild(ocvnode);
 
-            let hudongnode = cc.instantiate(this.prefab_hudong);
-            this.huDongDaoJu = hudongnode.getComponent<HuDong_Animation>(HuDong_Animation);
-            this.node.addChild(hudongnode);
-
             let gsunode=cc.instantiate(this.GameStatus_userInfo_View);
             this._gameStatus_userInfo=gsunode.getComponent<MGMJ_GameStatusUserInfo>(MGMJ_GameStatusUserInfo);
             this.node.addChild(gsunode);      
+
+            let hudongnode = cc.instantiate(this.prefab_hudong);
+            this.huDongDaoJu = hudongnode.getComponent<HuDong_Animation>(HuDong_Animation);
+            this.node.addChild(hudongnode);
 
             let opnode=cc.instantiate(this.MGMJ_OP_View);
             this._operatorView=opnode.getComponent<MGMJ_OperatorView>(MGMJ_OperatorView);
@@ -513,6 +530,10 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
             let mjoutNode=cc.instantiate(this.MGMJ_Out);
             this._mjOut=mjoutNode.getComponent<MGMJ_Out>(MGMJ_Out);
             this.node.addChild(mjoutNode);
+
+            let mjbaopai=cc.instantiate(this.MGMJ_Bao);
+            this._BaoPai=mjbaopai.getComponent<MGMJ_BaoPai>(MGMJ_BaoPai);
+            this.node.addChild(mjbaopai);
 
             let jsnode=cc.instantiate(this.MGMJ_JieShuan_View);
             this._jieShuan=jsnode.getComponent<MGMJ_JieShuan>(MGMJ_JieShuan);
@@ -649,6 +670,11 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
 
         }
 
+        //设置宝牌的框
+        public getBaoPaiKuang():cc.Sprite{
+            return this.img_baokuang;
+        }
+
         private onshowSetting(e:cc.Event.EventTouch):void{
             // this._setting.showView();
             //M_MGMJClass.ins.ShowSettingForm();
@@ -704,6 +730,8 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
         }else{
             this.ReadyStatusUserInfo.ShowGuZhang(spschair);
             this.GameStatusUserInfo.ShowGuZhang(spschair);
+            var path = cc.url.raw("resources/Sound/Item/guzhang.mp3");
+            this.gameClass.PlaySound(path,AudioType.Effect,false);
             // M_HQMJVoice.playDaoJu("guzhang.mp3");
         }
         // if(idx==4){
@@ -970,6 +998,10 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
             this._timerView.showArr(255,MGMJ.ins.iclass.getSelfChair());
             this._timerView.node.active=false;
             this._cardView.node.active = true;
+            if(M_MGMJClass.ins.TableConfig.CheckPeiZi==0){
+                M_MGMJView.ins.mg_baopai.showBaoPai(M_MGMJClass.ins.TableConfig.SetPeiZi);
+                this.img_baokuang.node.active =true;
+            }
             
         }
 
@@ -1055,6 +1087,7 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
                 
                 //继续游戏
                 case MGMJEvent.msg_goongame: {
+                    console.log("------------M_MGMJViews  msg_goongame -----");
                     this.clear();
                     this._gameInfo.node.active = true;
                     //if(M_MGMJClass.ins.TableConfig.IsBuKao){
@@ -1068,13 +1101,14 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
                     if(M_MGMJClass.ins.checkMoneyCanGame){
                         console.log(`isSelfCreateRoom=${this.gameClass.isSelfCreateRoom}`);
                         console.log(`alreadyGameNum=${M_MGMJClass.ins.TableConfig.alreadyGameNum}`);
-                        console.log(`isPlayEnoughGameNum=${M_MGMJClass.ins.TableConfig.isPlayEnoughGameNum}`);
+                        console.log(`isPlayEnoughGameNum=${M_MGMJClass.ins.TableConfig.isPlayEnoughGameNum(M_MGMJClass.ins._addNum)}`);
                         
-                        if(this.gameClass.isSelfCreateRoom && (M_MGMJClass.ins.TableConfig.alreadyGameNum > 0) && !M_MGMJClass.ins.TableConfig.isPlayEnoughGameNum){
+                        if(this.gameClass.isSelfCreateRoom && (M_MGMJClass.ins.TableConfig.alreadyGameNum > 0) && !M_MGMJClass.ins.TableConfig.isPlayEnoughGameNum(M_MGMJClass.ins._addNum)){
                             this.ReadyStatusUserInfo.OnPlayerStatusChange(M_MGMJClass.ins.SelfChair,QL_Common.GState.PlayerReady);
-                            
+                            console.log("-----继续下一局执行-----");
                             this.gameClass.SendGameData(new M_MGMJ_GameMessage.CMD_C_NextGame());                       
                         }else{
+                            console.log("----come here in now ------");
                             M_MGMJClass.ins.SendUserReady();
                         }
                     }

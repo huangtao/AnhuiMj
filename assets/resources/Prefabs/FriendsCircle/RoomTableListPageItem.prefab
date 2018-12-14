@@ -82,12 +82,12 @@
       "height": 40
     },
     "_N$startAxis": 0,
-    "_N$paddingLeft": 0,
+    "_N$paddingLeft": 25,
     "_N$paddingRight": 0,
-    "_N$paddingTop": 0,
+    "_N$paddingTop": 35,
     "_N$paddingBottom": 0,
-    "_N$spacingX": 20,
-    "_N$spacingY": 0,
+    "_N$spacingX": 95,
+    "_N$spacingY": 50,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0
   },

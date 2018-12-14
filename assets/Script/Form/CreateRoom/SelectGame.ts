@@ -9,14 +9,15 @@ import GameListScrollView from "./GameListScrollView";
 import CreateRoomDataCache from "./CreateRoomDataCache";
 import GameItem from "./GameItem";
 import TopFormBase from "../General/TopFormBase";
+import FriendCircleDataCache from "../FriendsCircle/FriendCircleDataCache";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
 export class SelectGame extends TopFormBase {
-	public IsEventHandler: boolean = true;
+    public IsEventHandler: boolean = true;
     public IsKeyHandler: boolean = true;
-    
+
     public get isPlayPopAction(): boolean { return false; }
 
 	/** 
@@ -47,7 +48,7 @@ export class SelectGame extends TopFormBase {
      */
     private _curAddGameItem: GameItem = null;
 
-    public InitShow(){
+    public InitShow() {
         super.InitShow();
         this.initCityListUI();
     }
@@ -55,11 +56,34 @@ export class SelectGame extends TopFormBase {
     /**
      * 初始化城市列表
      */
-    public initCityListUI(): void{
-    	// 初始化滚动列表
-    	let scroll_city: CityListScrollView = this.scroll_cityList.getComponent("CityListScrollView");
+    public initCityListUI(): void {
+        // 初始化滚动列表
+        let scroll_city: CityListScrollView = this.scroll_cityList.getComponent("CityListScrollView");
         let cityList = CreateRoomDataCache.Instance.cityList;
-        let act = new Action(this,this.cityItemClickEvent);
+        // 默认是大厅进来的
+        cityList = CreateRoomDataCache.Instance.getHallCityGameList();
+
+        if (this.ShowParam) {
+            // 如果不是从亲友圈过来的则过滤掉亲友圈授权的特殊游戏列表
+            if (this.ShowParam.isFriendCircle) {
+                // 如果是从亲友圈进来的则判断并获取指定授权的游戏列表
+                let curFriendInfo = FriendCircleDataCache.Instance.CurEnterFriendCircle;
+                let gameIdArry = [];
+                if (curFriendInfo && curFriendInfo.accessGame) {
+                    let gameList = curFriendInfo.accessGame.split(",");
+                    for (var idx = 0; idx < gameList.length; ++idx) {
+                        if (gameList[idx]) {
+                            gameIdArry.push(parseInt(gameList[idx]));
+                        }
+                    }
+                }
+
+                cityList = CreateRoomDataCache.Instance.getFriendCityGameList(gameIdArry);
+            }
+        }
+
+
+        let act = new Action(this, this.cityItemClickEvent);
         scroll_city.resetList();
         scroll_city.clickAction = act;
         scroll_city.cityList = cityList;
@@ -73,72 +97,78 @@ export class SelectGame extends TopFormBase {
     /**
      * 城市按钮点击事件
      */
-    private cityItemClickEvent(info: any): void{
+    private cityItemClickEvent(info: any): void {
         if (!info || !info.list) {
             return;
         }
 
-    	// 切换面板
-    	this.chanageGamePanel();
+        // 切换面板
+        this.chanageGamePanel();
 
-    	// 显示游戏列表
-    	switch (info.name) {
-    		case "CHAGNWAN":
-    			// 常玩
-    			this.showOfenPlayGameList();
-    			break;
-    		case "TUIJIAN":
-    			// 推荐
-    			this.showRecommendGameList(info.list);
-    			break;
-    		default:
-    			// 城市
-    			this.initGameListUI(info.list);
-    			break;
-    	}
+        // 显示游戏列表
+        switch (info.name) {
+            case "CHAGNWAN":
+                // 常玩
+                this.showOfenPlayGameList();
+                break;
+            case "TUIJIAN":
+                // 推荐
+                this.showRecommendGameList(info.list);
+                break;
+            default:
+                // 城市
+                this.initGameListUI(info.list);
+                break;
+        }
     }
 
     /**
      *  切换城市标签
      */
-    public chanageGamePanel(): void{
-    	// 清空面板
+    public chanageGamePanel(): void {
+        // 清空面板
         this.layout_game.node.removeAllChildren();
     }
 
     /**
      * 显示城市游戏列表
      */
-    public initGameListUI(gameList: any): void{
+    public initGameListUI(gameList: any): void {
         if (!gameList) {
             return;
         }
 
-        let itemSize:cc.Size;
-    	// 创建游戏列表
-    	for (var idx = 0; idx < gameList.length; ++idx) {
-    		const newNode = cc.instantiate(this.prefab_gameItem);
+        let itemSize: cc.Size;
+        // 创建游戏列表
+        for (var idx = 0; idx < gameList.length; ++idx) {
+            const newNode = cc.instantiate(this.prefab_gameItem);
             const item: GameItem = newNode.getComponent(GameItem);
 
             if (!cc.isValid(itemSize)) {
                 itemSize = item.node.getContentSize();
             }
 
-            let act = new Action(this,this.addGameToHall);
+            let act = new Action(this, this.addGameToHall);
             item.action = act;
-            item.isFriendCircle = this.ShowParam.isFriendCircle;
-            
+
+            if (!this.ShowParam) {
+               item.isFriendCircle = false;
+            } else {
+                item.isFriendCircle = this.ShowParam.isFriendCircle;
+                item.isAddRule = this.ShowParam.isAddRule;
+            }
+
             item.initUI(gameList[idx]);
             item.node.getContentSize();
-            
+
             this.layout_game.node.addChild(item.node);
-    	}
+        }
     }
 
     /**
      * 显示常玩游戏列表
      */
-    public showOfenPlayGameList(): void{
+    public showOfenPlayGameList(): void {
         let gameList = CreateRoomDataCache.Instance.getOftenPlayGameList();
 
         if (gameList.length > 0) {
@@ -152,21 +182,21 @@ export class SelectGame extends TopFormBase {
      * @Desc     显示推荐游戏列表
      * @param    {any}      info [description]
      */
-    public showRecommendGameList(info: any): void{
+    public showRecommendGameList(info: any): void {
         this.initGameListUI(info);
     }
 
     /**
      * 根据定位排序游戏列表
      */
-    private orderGameListByGPS(): void{
+    private orderGameListByGPS(): void {
 
     }
 
     /**
      * 更新当前添加游戏的状态显示并通知大厅刷新
      */
-    public addGameToHall(item: GameItem): void{
+    public addGameToHall(item: GameItem): void {
         if (!cc.isValid(item)) {
             return;
         }

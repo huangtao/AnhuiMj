@@ -22,6 +22,11 @@ export default class LHZMJ_GameInfo extends cc.Component {
     @property(cc.Label)
     lbl_GameNum: cc.Label=null;
 
+    @property(cc.Sprite)
+    sprite_2d:cc.Sprite=null;
+    @property(cc.Sprite)
+    sprite_3d:cc.Sprite=null;
+
     private _leftCardNum:number;
     private _groupid:number;
 
@@ -45,9 +50,20 @@ export default class LHZMJ_GameInfo extends cc.Component {
         
         this.GroupLeftCard.active=false;
         this._groupid = 0;
+
+        if(LHZMJ.ins.iclass.is2D()){
+            this.sprite_2d.node.active = false;
+            this.sprite_3d.node.active = true;
+        }else{
+            this.sprite_3d.node.active = false;
+            this.sprite_2d.node.active = true;
+        }
     }
 
-    
+    private changeSence(e,any:string){
+        LHZMJ.ins.iclass.canvaSwitchClickEvent(any);
+    }
+
     /**
      * 设置桌子号
      * */
@@ -77,7 +93,12 @@ export default class LHZMJ_GameInfo extends cc.Component {
      * */
     public holdCardOver():void{
         this.GroupLeftCard.active=true;
-        this.leftCardNum = LHZMJMahjongDef.gCardCount_Package - (LHZMJMahjongDef.gCardCount_Active - 1) * LHZMJMahjongDef.gPlayerNum;
+        if(LHZMJ.ins.iclass.isVideo()){
+            this.leftCardNum = LHZMJMahjongDef.gCardCount_Package - (LHZMJMahjongDef.gCardCount_Active - 1) * M_LHZMJVideoClass.ins.getRealUserNum();
+        }else{
+            this.leftCardNum = LHZMJMahjongDef.gCardCount_Package - (LHZMJMahjongDef.gCardCount_Active - 1) * LHZMJ.ins.iclass.getRealUserNum();    
+        }
+        
     }
     public get cardCount():number{
         return this._leftCardNum;

@@ -1503,7 +1503,7 @@
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 48
@@ -1638,7 +1638,7 @@
         "__id__": 43
       }
     ],
-    "bmp_lightArt": [
+    "light_arrow": [
       {
         "__id__": 10
       },

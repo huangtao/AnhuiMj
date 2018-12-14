@@ -817,7 +817,7 @@
     },
     "verticalDirection": 0,
     "num": 0,
-    "itemNum": 6,
+    "itemNum": 7,
     "distance": 85,
     "needSize": 0,
     "visibleHeight": 0,
@@ -1799,7 +1799,8 @@
     "btn_add": {
       "__id__": 40
     },
-    "disabledPanel": null
+    "disabledPanel": null,
+    "icon": []
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -2562,7 +2563,8 @@
     "btn_add": {
       "__id__": 64
     },
-    "disabledPanel": null
+    "disabledPanel": null,
+    "icon": []
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -3325,7 +3327,8 @@
     "btn_add": {
       "__id__": 88
     },
-    "disabledPanel": null
+    "disabledPanel": null,
+    "icon": []
   },
   {
     "__type__": "cc.PrefabInfo",

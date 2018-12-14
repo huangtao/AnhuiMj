@@ -97,9 +97,15 @@ export default class LHZMJ_ActiveBase extends LHZMJ_CardBase {
     /**
      * 刷新手牌数据
      * */
-    public refreshHandCardData(cardAry:Array<number>):void{
+    public refreshHandCardData(cardAry:Array<number>,isORC:boolean=false):void{
         this.unscheduleAllCallbacks();
-        console.log("抛弃！！！！！！！！！！！！1")
+      
+        if(this._handCard.length == 0){
+             if(!isORC){
+                cc.log("请注意手牌数量此时是-00000,丢弃刷新手牌消息")
+                return;
+            }
+        }
         if(!LHZMJMahjongAlgorithm1.IsSame(cardAry,this._handCard))
         {
             console.log("手牌不一样1！！！！！！！！！！！！")

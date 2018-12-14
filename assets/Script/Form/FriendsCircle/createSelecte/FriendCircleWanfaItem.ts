@@ -1,12 +1,11 @@
 import { Action } from "../../../CustomType/Action";
-import { FriendCircleInfo, FriendCircleRule } from "../../../CustomType/FriendCircleInfo";
-import { LoadHeader } from "../../../Tools/Function";
+import { FriendCircleRule } from "../../../CustomType/FriendCircleInfo";
 import { LocalStorage } from "../../../CustomType/LocalStorage";
 import FriendCircleDataCache from "../FriendCircleDataCache";
-import SendMessage from "../../../Global/SendMessage";
 import Global from "../../../Global/Global";
 import { UIName } from "../../../Global/UIName";
 import { QL_Common } from "../../../CommonSrc/QL_Common";
+import { StrToObject } from "../../../Tools/Function";
 
 const { ccclass, property } = cc._decorator;
 @ccclass
@@ -116,6 +115,7 @@ export class FriendCircleWanfaItem extends cc.Component {
     public initShow(data: FriendCircleRule, isAdmin?: boolean) {
         this._ruleInfo = data;
         this._isAdmin = isAdmin;
+
         // 初始化默认显示
         if (this.node_unLockStatus && this.node_lockStatus && this.node_curIcon) {
             this.node_unLockStatus.active = false;
@@ -150,7 +150,7 @@ export class FriendCircleWanfaItem extends cc.Component {
 
         // 桌数
         if (this.lab_tableNum) {
-            this.lab_tableNum.string = /*data.tableNum*/ "99";
+            this.lab_tableNum.string =  "";
         }
 
         // 游戏状态(休息中...)
@@ -212,11 +212,11 @@ export class FriendCircleWanfaItem extends cc.Component {
     }
 
     /**
-     * 添加或变更玩法
+     * 添加玩法
      */
     public addRule() {
         // 创建玩法
-        Global.Instance.UiManager.ShowUi(UIName.SelectGame, { act: null, isFriendCircle: true });
+        Global.Instance.UiManager.ShowUi(UIName.SelectGame, { act: null, isFriendCircle: true, isAddRule: !this._bUnlocked });
     }
 
     /**
@@ -227,7 +227,8 @@ export class FriendCircleWanfaItem extends cc.Component {
             // 解锁状态 (进入桌子列表)
             // 记录当前进入的亲友圈和玩法
             let str = "groupId:" + this._ruleInfo.friendId + "|ruleId:" + this._ruleInfo.Id;
-            LocalStorage.SetItem("localFriendCircleInfo", str);
+            let userId = Global.Instance.DataCache.UserInfo.userData.UserID;
+            FriendCircleDataCache.Instance.saveToLocalStorage("localFriendCircleInfo", str);
 
             // 设置当前选择的玩法
             FriendCircleDataCache.Instance.CurSelectedRule = this._ruleInfo;
@@ -268,14 +269,21 @@ export class FriendCircleWanfaItem extends cc.Component {
         FriendCircleDataCache.Instance.CurSelectedRule = this._ruleInfo;
 
         // 创建玩法
-        Global.Instance.UiManager.ShowUi(UIName.SelectGame,{act:null,isFriendCircle: true});
+        Global.Instance.UiManager.ShowUi(UIName.SelectGame,{act:null,isFriendCircle: true, isAddRule: !this._bUnlocked});
     }
 
     /**
      * 显示玩法
      */
     public btnShowWanfaClickEvent() {
-
+        let gameRule = StrToObject(this._ruleInfo.ruleStr);
+        let gameInfo = Global.Instance.DataCache.GameList.GetGame(this._ruleInfo.gameId);
+        
+        if(!gameInfo) {
+            return;
+        }
+        
+        Global.Instance.UiManager.ShowUi(UIName.GameWanFa, { rule: gameRule, modelName: gameInfo.ModuleName });
     }
 
     /**

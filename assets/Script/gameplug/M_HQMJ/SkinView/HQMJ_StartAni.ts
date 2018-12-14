@@ -10,12 +10,14 @@ export default class HQMJ_StartAni extends cc.Component {
         // init logic
         
     }
-
+    start() {
+        this.ani.on("finished",this.anistop,this);
+    }
     /**
      * 初始化数据
      */
     public init(){
-        this.node.active = false;
+        // this.node.active = false;
     }
 
     /**
@@ -23,8 +25,15 @@ export default class HQMJ_StartAni extends cc.Component {
      */
     public play(){
         this.node.active = true;
-        //this.node.active = false;
+        this.ani.node.active = true;
         this.ani.play();
+    }
+
+    private anistop(){
+        this.ani.stop();
+        this.unscheduleAllCallbacks();
+        this.ani.node.active = false;
+
     }
 
 }

@@ -8,14 +8,11 @@ import Global from "../Global/Global";
 import { EventCode } from "../Global/EventCode";
 import SendMessage from "../Global/SendMessage";
 import { ChatType } from "../CustomType/Enum";
-import { ShareParamExpands } from "../CustomType/ShareParam";
 import { ParseInviteUri, TryJSONParse, ParseInviteJson } from "../Tools/Function";
 import { WebRequest } from "../Net/Open8hb";
-import { ActionNet, Action } from "../CustomType/Action";
-import { DateTime } from "../Serializer/DateTime";
+import { ActionNet } from "../CustomType/Action";
 import { DownloadFile } from "../Net/DownloadFile";
-import { Voice } from "../CustomType/UploadInfo";
-import { NativeCtrl } from "./NativeCtrl";
+import { UploadInfo_Type_Voice } from "../CustomType/UploadInfo";
 export class NativeCallBack {
     public static InfoToJs(method: string, value: string) {
         // if (cc.sys.platform === cc.sys.IPHONE || cc.sys.platform === cc.sys.IPAD) {
@@ -29,7 +26,7 @@ export class NativeCallBack {
                 this.onRecorderEnd(value);
                 return;
             case "onRecorderError":
-                this.onRecorderError(value);
+                this.onRecorderError();
                 return;
             case "onStartRecordError":
                 this.onStartRecordError(value);
@@ -38,7 +35,7 @@ export class NativeCallBack {
                 this.onUpLoadSuccess(value);
                 return;
             case "onRecorderPlayEnd":
-                this.onRecorderPlayEnd(value);
+                this.onRecorderPlayEnd();
                 return;
             case "OnWxMessageResp":
                 this.OnWxMessageResp(value);
@@ -60,6 +57,9 @@ export class NativeCallBack {
             case "onUploadFileCompleted":
                 this.onUploadFileCompleted(value);
                 return;
+            case "OnNativeJsCallback":
+                this.OnNativeJsCallback(value);
+                return;
             default: {
                 cc.warn("未处理的method" + method);
                 return;
@@ -67,7 +67,7 @@ export class NativeCallBack {
         }
 
     }
-    static onRecorderError(value: string): any {
+    static onRecorderError(): any {
         throw new Error("Method not implemented.");
     }
 
@@ -81,7 +81,7 @@ export class NativeCallBack {
     }
 
     private static onRecorderEnd(str: string): void {
-        const data = this.DataCache.UploadInfos.GetUploadInfo(Voice);
+        const data = this.DataCache.UploadInfos.GetUploadInfo(UploadInfo_Type_Voice);
         if (!data) {
             return;
         }
@@ -109,7 +109,7 @@ export class NativeCallBack {
         }
     }
 
-    private static onRecorderPlayEnd(e: string) {
+    private static onRecorderPlayEnd() {
         //Global.Instance.AudioManager.OnRecordEnd();
     }
     private static OnWxMessageResp(e: string) {
@@ -119,7 +119,7 @@ export class NativeCallBack {
     private static OnNewUri(e: string) {
         // 分享回调拉起APP回调参数
         let shareCallBackInfo = JSON.parse(e);
-        cc.log('-- OnNewUri param',shareCallBackInfo);
+        cc.log('-- OnNewUri param', shareCallBackInfo);
 
         let param = null;
         switch (shareCallBackInfo.type) {
@@ -130,7 +130,7 @@ export class NativeCallBack {
                 param = ParseInviteUri(shareCallBackInfo.value);
                 break;
         }
-        
+
         this.DataCache.ShareParam = param;
         this.EventManager.PostMessage(EventCode.onNewUri);
     }
@@ -152,13 +152,6 @@ export class NativeCallBack {
 
     private static onUploadPicSuccess(e: string) {
         e = e + "?" + (new Date().valueOf());
-        const action = new ActionNet(this, () => {
-            this.UiManager.ShowTip("修改头像成功");
-            this.DataCache.UserInfo.userData.Header = e;
-            //this.EventManager.PostMessage(EventCode.onPlayerInfoChange);
-        }, () => {
-            this.UiManager.ShowTip("修改头像失败");
-        });
         cc.log("修改头像为" + e);
         // WebRequest.userinfo.set_userinfo(action, e, null, null);
     }
@@ -194,6 +187,15 @@ export class NativeCallBack {
         cc.log(JSON.stringify(obj));
 
         Global.Instance.ActionManager.RunCallback(obj.callBack, obj.response);
+
+    }
+    private static OnNativeJsCallback(value) {
+        cc.log(value);
+        let obj = TryJSONParse(value);
+        if (!obj) return;
+        
+        cc.log(JSON.stringify(obj));
+        Global.Instance.ActionManager.RunCallback(obj.callBack, obj);
 
     }
 }

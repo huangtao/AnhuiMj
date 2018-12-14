@@ -176,19 +176,19 @@ export default class LHZMJ_OppoSingleFixed extends LHZMJ_SingleFixedBase {
             this.bmp_cardbackAry[3].node.scaleX=1;
 
             this.bmp_cardcolorAry[0].node.x=-36.5;
-            this.bmp_cardcolorAry[0].node.y=5;
+            this.bmp_cardcolorAry[0].node.y=8;
             this.bmp_cardcolorAry[0].node.skewX=0;
             this.bmp_cardcolorAry[0].node.scaleX=0.45;
             this.bmp_cardcolorAry[0].node.scaleY=0.45;
 
             this.bmp_cardcolorAry[1].node.x=4;
-            this.bmp_cardcolorAry[1].node.y=18;
+            this.bmp_cardcolorAry[1].node.y=21;
             this.bmp_cardcolorAry[1].node.skewX=0;
             this.bmp_cardcolorAry[1].node.scaleX=0.45;
             this.bmp_cardcolorAry[1].node.scaleY=0.45;
 
-            this.bmp_cardcolorAry[2].node.x=36.5;
-            this.bmp_cardcolorAry[2].node.y=5;
+            this.bmp_cardcolorAry[2].node.x=44.5;
+            this.bmp_cardcolorAry[2].node.y=8;
             this.bmp_cardcolorAry[2].node.skewX=0;
             this.bmp_cardcolorAry[2].node.scaleX=0.45;
             this.bmp_cardcolorAry[2].node.scaleY=0.45;
@@ -210,6 +210,9 @@ export default class LHZMJ_OppoSingleFixed extends LHZMJ_SingleFixedBase {
             this.bmp_cardHideAry[2].node.scaleX=0.45;
             this.bmp_cardHideAry[2].node.scaleY=0.45;
             this.bmp_cardHideAry[2].node.skewX=0;
+
+            this.light_node.x = 2;
+            this.light_node.y = -2;
             switch(this.fixedType) {
                 case enFixedCardType.FixedCardType_AGang: {
                 
@@ -232,7 +235,7 @@ export default class LHZMJ_OppoSingleFixed extends LHZMJ_SingleFixedBase {
                     this.bmp_cardcolorAry[1].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
 
 
-                    this.bmp_cardcolorAry[1].node.y = 18;
+                    this.bmp_cardcolorAry[1].node.y = 21;
                     this.bmp_cardbackAry[0].node.active=true;
                     this.bmp_cardbackAry[1].node.active=true;
                     this.bmp_cardbackAry[2].node.active=true;
@@ -272,7 +275,7 @@ export default class LHZMJ_OppoSingleFixed extends LHZMJ_SingleFixedBase {
                     this.bmp_cardcolorAry[2].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
 
                     
-                    this.bmp_cardcolorAry[1].node.y = 18;
+                    this.bmp_cardcolorAry[1].node.y = 21;
                     this.bmp_cardbackAry[0].node.active=true;
                     this.bmp_cardbackAry[1].node.active=true;
                     this.bmp_cardbackAry[2].node.active=true;
@@ -306,7 +309,7 @@ export default class LHZMJ_OppoSingleFixed extends LHZMJ_SingleFixedBase {
                     this.bmp_cardcolorAry[2].spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
 
                     
-                    this.bmp_cardcolorAry[1].node.y = 5;
+                    this.bmp_cardcolorAry[1].node.y = 8;
                     this.bmp_cardbackAry[0].node.active=true;
                     this.bmp_cardbackAry[1].node.active=true;
                     this.bmp_cardbackAry[2].node.active=true;
@@ -528,24 +531,30 @@ export default class LHZMJ_OppoSingleFixed extends LHZMJ_SingleFixedBase {
         this.node.active=true;
     }
     private setPos():void{
-        this.bmp_arrow.node.active=false;
+        // this.bmp_arrow.node.active=false;
         if(this._pos!=0 && this._pos>0 && this._pos<4){
             switch(this._pos)
             {
                 case 1:{
-                    this.bmp_arrow.node.rotation = -90;
+                    this.bmp_arrow[2].node.active = false;
+                    this.bmp_arrow[1].node.active = false;
+                    this.bmp_arrow[0].node.active = true;
                     break;
                 }
                 case 2:{
-                    this.bmp_arrow.node.rotation = 180;
+                    this.bmp_arrow[0].node.active = false;
+                    this.bmp_arrow[2].node.active = false;
+                    this.bmp_arrow[1].node.active = true;
                     break;
                 }
                 case 3:{
-                    this.bmp_arrow.node.rotation = 90;
+                    this.bmp_arrow[0].node.active = false;
+                    this.bmp_arrow[1].node.active = false;
+                    this.bmp_arrow[2].node.active = true;
                     break;
                 }
             }
-            this.bmp_arrow.node.active=true;;
+            // this.bmp_arrow.node.active=true;;
         }
     }
 
@@ -849,7 +858,7 @@ export default class LHZMJ_OppoSingleFixed extends LHZMJ_SingleFixedBase {
         this.bmp_cardHideAry[0].node.setLocalZOrder(8);
         this.bmp_cardHideAry[1].node.setLocalZOrder(9);
         this.bmp_cardHideAry[2].node.setLocalZOrder(10);
-        this.bmp_arrow.node.setLocalZOrder(11);
+        this.light_node.active = true;
         this.node.y = this.node.y+25;
         
     }

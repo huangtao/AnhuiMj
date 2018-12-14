@@ -127,18 +127,18 @@ export default class SkinButtonView extends cc.Component {
                 this.btn_ready.node.active = true;
                 this.btn_invitation.node.active = true;
                 this.btn_copyroom.node.active = true;
-                this.btn_invitation.node.x = -160;
+                //this.btn_invitation.node.x = -160;
                 this.btn_ready.node.x = 0;
                 this.btn_ready.node.y = -80;
             }
             else if (state == QL_Common.GState.PlayerReady) {
                 this.btn_invitation.node.active = true;
-                this.btn_invitation.node.x = -160;
+                //this.btn_invitation.node.x = -160;
                 this.btn_copyroom.node.active = true;
                 this.btn_ready.node.active = false;
             }
             else {
-                this.btn_ready.node.active = true;
+                this.btn_ready.node.active = false;
                 this.btn_ready.node.x = 0;
                 this.btn_ready.node.y = -320;
                 this.btn_invitation.node.active = false;
@@ -147,7 +147,7 @@ export default class SkinButtonView extends cc.Component {
         }
         else {
             if (state == QL_Common.GState.Free || state == QL_Common.GState.SitDown) {
-                this.btn_ready.node.active = true;
+                this.btn_ready.node.active = false;
                 this.btn_ready.node.x = 0;
                 this.btn_ready.node.y = -320;
                 this.btn_invitation.node.active = false;

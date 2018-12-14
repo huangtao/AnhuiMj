@@ -221,7 +221,14 @@ export default class M_JZMJView extends cc.Component implements IJZMJView {
             return this._jieShuan;
         }
 
+        @property(cc.Sprite)
+        backpack:cc.Sprite = null;
+        //2d桌布
+        @property(cc.SpriteFrame)
+        private backpack_2d:cc.SpriteFrame = null;
 
+        @property(cc.SpriteFrame)
+        private backpack_3d:cc.SpriteFrame = null;
 
         @property(cc.Button)
         //录音
@@ -230,6 +237,16 @@ export default class M_JZMJView extends cc.Component implements IJZMJView {
         @property(cc.Button)
         //语句设置
         btn_chat:cc.Button=null;
+
+        //2、3D切换按钮
+        @property(cc.Button)
+        btn_2d:cc.Button = null;
+        @property(cc.Button)
+        btn_3d:cc.Button = null;
+
+        //退出房间按钮
+        @property(cc.Button)
+        btn_exit:cc.Button = null;
 
         @property(cc.Prefab)
         JZMJ_help_View: cc.Prefab=null;
@@ -568,14 +585,12 @@ export default class M_JZMJView extends cc.Component implements IJZMJView {
                 this.StartAni.init();
             }
             
-            //this._operatorView.node.on(JZMJEvent.JZMJ_EVENT_TYPE,this.onGameEvent,this);
-            //this._selGang.node.on(JZMJEvent.JZMJ_EVENT_TYPE,this.onGameEvent,this);
-            //this._cardView.node.on(JZMJEvent.JZMJ_EVENT_TYPE,this.onGameEvent,this);
-            // this._qiangGang.node.on(JZMJEvent.JZMJ_EVENT_TYPE,this.onGameEvent,this);
-            // this._jieShuan.node.on(JZMJEvent.JZMJ_EVENT_TYPE,this.onGameEvent,this);
+            if(JZMJ.ins.iclass.is2D()){
+                this.backpack.spriteFrame = this.backpack_2d; 
+            }else{
+                this.backpack.spriteFrame = this.backpack_3d;
+            }
             
-            //this._readyStatus_userInfo.node.on(JZMJEvent.JZMJ_EVENT_TYPE,this.onGameEvent,this);
-            //this._szAni.node.on(JZMJEvent.JZMJ_EVENT_TYPE,this.onGameEvent,this);
         }
         private onMap():void{
             this.gameClass.ShowMaps();
@@ -665,6 +680,33 @@ export default class M_JZMJView extends cc.Component implements IJZMJView {
             }
             this.gameClass.showTingCard(0,3000,true);
             //this.btn_tingtip.interactable=this.TingTip.node.active;
+        }
+
+        /**
+        * 罗盘
+        */
+        public ShowTimerView(chair:number): void {
+            if (cc.isValid(this._timerView)) {
+                this._timerView.showLuoPan();
+            } else {
+                cc.loader.loadRes("gameres/M_JZMJ/Prefabs/skinView/JZMJ_Timer3D", function (err, prefab) {
+                    if (err) {
+                        cc.error(err);
+                        return;
+                    }
+                    if (!cc.isValid(this._timerView)) {
+                        let timenode: cc.Node = cc.instantiate(prefab);
+                        this._timerView = timenode.getComponent<JZMJ_TimerView>(JZMJ_TimerView);
+                        // timenode.setLocalZOrder(4);
+                        this.group_mid.addChild(timenode);
+                        this._timerView.init();
+                        this._timerView.showLuoPan(chair);
+                    }else{
+                        this._timerView.showLuoPan(chair);
+                    }
+                }.bind(this));
+            }
+
         }
         
         // //骰子动画
@@ -866,6 +908,8 @@ export default class M_JZMJView extends cc.Component implements IJZMJView {
             this.btn_location.node.active = M_JZMJClass.ins.isSelfCreateRoom;
             this.btn_chat.node.active=true;
             this.group_gameNum.active=false;
+            //新加的
+            this._readyStatus_userInfo.onEnable();
         }
         
         public GameStart():void{
@@ -1113,6 +1157,27 @@ export default class M_JZMJView extends cc.Component implements IJZMJView {
             else {
                 //this.DestroyTimer();
                 this.gameClass.SendGameData(new M_JZMJ_GameMessage.CMD_C_NextGame());
+            }
+        }
+
+        private On2d(){//2D切换
+            this.btn_2d.node.active = false;
+            this.btn_3d.node.active = true;
+            M_JZMJClass.ins.canvaSwitchClickEvent("2D");
+        }
+
+        private On3d(){//3D切换
+            this.btn_3d.node.active = false;
+            this.btn_2d.node.active = true;
+            M_JZMJClass.ins.canvaSwitchClickEvent("3D");
+        }
+
+        //独立的退出键
+        private OnExit():void{
+            if(JZMJ.ins.iclass.getTableStauts() == QL_Common.TableStatus.gameing){
+                this._setting.onDissable();//解散
+            }else{
+                this._setting.onExit();//退出
             }
         }
 

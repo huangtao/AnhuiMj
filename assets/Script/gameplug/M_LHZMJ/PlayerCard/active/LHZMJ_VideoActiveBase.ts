@@ -37,7 +37,11 @@ export default class LHZMJ_VideoActiveBase extends LHZMJ_ActiveBase {
         var holdNum =holdIdx;// (3 == holdIdx ? 1 : 4);
 
         for(var i: number = 0;i < holdNum;i++) {
-            this._handCard.push(LHZMJ.ins.iclass.getPlayerHandCardData(LHZMJ.ins.iclass.logic2physicalChair(this._logicChair))[i]);//[holdIdx * 4 + i]);
+            cc.log(LHZMJ.ins.iclass.getPlayerHandCardData(LHZMJ.ins.iclass.logic2physicalChair(this._logicChair)));
+            if(LHZMJ.ins.iclass.getPlayerHandCardData(LHZMJ.ins.iclass.logic2physicalChair(this._logicChair)) != null){
+                this._handCard.push(LHZMJ.ins.iclass.getPlayerHandCardData(LHZMJ.ins.iclass.logic2physicalChair(this._logicChair))[i]);//[holdIdx * 4 + i]);
+            }
+            
         }
         this.handCardChange();
 

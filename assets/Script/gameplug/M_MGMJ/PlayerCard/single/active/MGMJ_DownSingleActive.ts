@@ -152,9 +152,7 @@ export default class MGMJ_DownSingleActive extends MGMJ_SingleActiveBase {
         }
     }
 
-    private 
-    
-    showDaoPai():void{
+    private showDaoPai():void{
         // cc.log(this._cardIndex + "------" +this._cardValue);
         switch(this._cardIndex){
             case 1:{

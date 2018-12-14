@@ -122,7 +122,7 @@ export default class SkinPlayer extends cc.Component {
             }
             case 1: {
                 this.node.x = 590;
-                this.node.y = 50;
+                this.node.y = 80;
                 break;
             }
             case 2: {
@@ -134,7 +134,7 @@ export default class SkinPlayer extends cc.Component {
                 // this.node.x = 0;
                 // this.node.y = 292;
                 this.node.x = -590;
-                this.node.y = 50;
+                this.node.y = 80;
                 break;
             }
            
@@ -221,11 +221,10 @@ export default class SkinPlayer extends cc.Component {
      */
     public SetUserInfo(faceID: string, name: string, gender: number) {      
         if( name.length > 5){
-            this.ss1 = name.substring(0,3) + "...";            
+            this.ss1 = name.substring(0,4) + "...";            
         }else{
             this.ss1 = name;
         }
-
         this.node.active = true;
         this.userGender = gender;
         this.label_name.node.active = true;
@@ -243,10 +242,10 @@ export default class SkinPlayer extends cc.Component {
     /**
      * 设置玩家余额
      */
-    public SetUserMoney(value: number) {
+    public SetUserMoney(value: number,isRefresh:boolean) {
         if (this.node.active && this.userState != UserState.None) {
             let upMoney = value - this.money;
-            if(upMoney != 0){
+            if(upMoney != 0 && isRefresh){
                 if(value > 0){
                     this.label_scoreAni.font = this.bitmapFont[0];
                 }else{
@@ -360,13 +359,19 @@ export default class SkinPlayer extends cc.Component {
         this.img_frame.node.active = false;
     }
     /**
-     * 游戏开始的清理
+     * 清理玩家状态
      */
-    public GameStartClear() {
+    public clearUserState(){
         if (this.userState != UserState.Look)
             this.HideUserReady();
         if (this.userState == UserState.Ready)
             this.userState = UserState.Free;
+    }
+
+    /**
+     * 游戏开始的清理
+     */
+    public GameStartClear() {
         this.sprite_zhaNiao.node.active = false;
         this.node_handCard.active = false;
         this.node_OutCard.active = false;
@@ -464,16 +469,30 @@ export default class SkinPlayer extends cc.Component {
                 this.showPlayerTips(2);
                 cardLogicValue = null;
             }else{
-                PDK.ins.iview.playCardTypeAni(cardType,this._chair,this.node.getPosition());
-                cardLogicValue = GameLogic.GetCardLogicValue(cards[0]);
+                PDK.ins.iview.playCardTypeAni(cardType,this._chair,this.node.getPosition(),cards.length);
+                if(cardType == CardType.Plane){
+                    if(cards.length == 10 || cards.length == 15 ){
+                        cardLogicValue = 1;
+                    }else{
+                        cardLogicValue = 0;
+                    }
+                }else{
+                    cardLogicValue = GameLogic.GetCardLogicValue(cards[0]);
+                }
             }
+            //剩余牌数
             let leftCount = parseInt(this.label_CardCount.string) - cards.length;
             this.label_CardCount.string = leftCount.toString();
+            //报警动画
             if(this._chair != 0 && leftCount == 1){
                 this.Ani_warningEffect.play();
                 this.node_warningEffect.active = true;
             }
+            //音效
             VoicePlayer.PlayCardType(cardType,cardLogicValue,VoiceType.Mandarin,this.userGender);
+            if(cardType == CardType.Plane){
+                VoicePlayer.PlayCardType(cardType,3,VoiceType.Mandarin,this.userGender);
+            }
         }
     }
     public getCardTypeStr(cardType:CardType){

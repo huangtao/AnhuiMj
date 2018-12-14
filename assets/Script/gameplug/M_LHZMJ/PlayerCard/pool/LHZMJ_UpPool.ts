@@ -48,17 +48,19 @@ export default class LHZMJ_UpPool extends LHZMJ_PoolBase {
             return {x:0,y:0};
         }
         
-        let columnNum = Math.ceil((this._poolCard.length - 1) / 9) + 1;
+        
         if(LHZMJ.ins.iclass.is2D()){
+            this.resetZ_2d();
             this.node.rotation = 0;
-            for(var i: number = 0;i < columnNum;i++) {
-                for(var j: number = 0;j < 10;j++) {
+            let columnNum2d = Math.ceil((this._poolCard.length - 1) / 12) + 1;
+            for(var i: number = 0;i < columnNum2d;i++) {
+                for(var j: number = 0;j < 12;j++) {
 
-                    if((i * 10 + j) < this._poolCard.length) {
+                    if((i * 12 + j) < this._poolCard.length) {
 
-                        this._poolCard[i * 10 + j].node.x = -280 - i * 50.5;
-                        this._poolCard[i * 10 + j].node.y = 182.5-15.75- j * 31.5-4;
-                        this._poolCard[i * 10 + j].showCard(this._cardAry[i * 10 + j],0);
+                        this._poolCard[i * 12 + j].node.x = -298 - i * 53;
+                        this._poolCard[i * 12 + j].node.y = 206.5 - j * 34;
+                        this._poolCard[i * 12 + j].showCard(this._cardAry[i * 12 + j],0);
 
                     } else {
                         break;
@@ -67,6 +69,7 @@ export default class LHZMJ_UpPool extends LHZMJ_PoolBase {
                 }
             }
         }else{
+            let columnNum = Math.ceil((this._poolCard.length - 1) / 9) + 1;
             this.resetZ();
             for(let i: number = 0;i < columnNum;i++) {
                 for(let j: number = 0;j < 9;j++) {
@@ -112,6 +115,12 @@ export default class LHZMJ_UpPool extends LHZMJ_PoolBase {
             }
         }
 
+    }
+
+    private resetZ_2d(){
+         for(let i: number = 0;i < this._poolCard.length;i++){
+            this._poolCard[i].node.setLocalZOrder(i+1);
+        }
     }
     // private resetZ():void{
     //     if(this._poolCard.length>20){

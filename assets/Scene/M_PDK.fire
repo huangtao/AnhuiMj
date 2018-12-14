@@ -45,7 +45,7 @@
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
     "groupIndex": 0,
-    "autoReleaseAssets": true
+    "autoReleaseAssets": false
   },
   {
     "__type__": "cc.Node",
@@ -338,8 +338,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 180,
-      "height": 52
+      "width": 150,
+      "height": 36
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -348,7 +348,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -630,
-      "y": 325.3
+      "y": 335
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -404,7 +404,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 57,
-      "y": 12
+      "y": -0.1
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -560,7 +560,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 22,
-      "y": 11
+      "y": 0.2
     },
     "_skewX": 0,
     "_skewY": 0,

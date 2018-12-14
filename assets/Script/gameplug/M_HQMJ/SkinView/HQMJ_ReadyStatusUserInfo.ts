@@ -20,9 +20,6 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
         { x: -5,y: -60+30 },
         { x: -5,y: -60+30 },
         { x: -5,y: -60+30 }
-        // { x: 170,y: 10 },
-        // { x: 0,y: 80 },
-        // { x: -170,y: 10 }
     ]; 
 
 
@@ -44,14 +41,6 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
     group_chat: cc.Node[]=[];
     private chatAry:Array<MJ_ChatContext>;
     
-    // @property(cc.Node)
-    // group_kickuser: cc.Node=null;
-
-    // @property([cc.Button])
-    // group_kickusers: cc.Button[]=[];
-    
-    // @property(cc.Button)
-    // btn_kick: cc.Button=null;
     @property(cc.Button)
     kickBtn1:cc.Button = null;
     @property(cc.Button)
@@ -72,6 +61,12 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
     @property(cc.Button)
     btn_invite: cc.Button=null;
 
+    @property(cc.Button)
+    btn_copy: cc.Button = null;
+
+    @property(cc.Sprite)
+    btn_warming: cc.Button = null;
+
     private _hqmjClass: any = null;
 
     public set HQMJClass(value: any){
@@ -81,13 +76,17 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
     public get HQMJClass():any{
        return this._hqmjClass;
     }
-    
+
     onLoad() {
         // init logic
         //this.init();
         for(var i=0;i<4;i++){
             this.userAry[i].node.active = false;
-        }        
+        }
+        for(let i=0;i<HQMJMahjongDef.gPlayerNum;i++){
+            this.unscheduleAllCallbacks();
+            this.group_user[i].on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
+        }      
     }
 
     public init():void{
@@ -136,11 +135,7 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
         this.kickBtn3.node.on(cc.Node.EventType.TOUCH_END,() => {
                 let chair: number = this.HQMJClass.logic2physicalChair(3);
                 this.onKickUser(chair);
-        },this);           
-
-        for(let i=0;i<HQMJMahjongDef.gPlayerNum;i++){
-            this.group_user[i].on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
-        }
+        },this);                  
         
     }
     /**
@@ -148,10 +143,10 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
      * @param chair 椅子号
      */
     public GetPlayerPoint(chair:number){
-        let point = new cc.Vec2(HQMJ_ReadyStatusUserInfo.UserDataGamingPos[chair].x, HQMJ_ReadyStatusUserInfo.UserDataGamingPos[chair].y);   
+        let point = new cc.Vec2(HQMJ_ReadyStatusUserInfo.UserDataGamingPos[chair].x, HQMJ_ReadyStatusUserInfo.UserDataGamingPos[chair].y);
         switch(chair){
-            case 0:point.x-=240;
-                    point.y+=30;
+            case 0:point.x-=260;
+                    point.y+=130;
                     break;
             case 1:point.x+=220;
                     point.y+=50;
@@ -178,19 +173,17 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
         M_HQMJVoice.PlayCardType(`/sound/Button32.mp3`);
         var chair: number = this.HQMJClass.logic2physicalChair(logicChair);
         console.log("选择了用户"+logicChair+chair);
-        //M_HQMJView.ins.UserData.showUserData(this.HQMJClass.getTablePlayerAry()[chair],HQMJ_ReadyStatusUserInfo.UserDataPos[logicChair].x,HQMJ_ReadyStatusUserInfo.UserDataPos[logicChair].y);
-       //M_HQMJView.ins.UserData.showUserData(this.HQMJClass.getTableConfig().isValid,this.HQMJClass.getTablePlayerAry()[chair],HQMJ_ReadyStatusUserInfo.UserDataPos[logicChair].x,HQMJ_ReadyStatusUserInfo.UserDataPos[logicChair].y);
-       let point = new cc.Vec2(HQMJ_ReadyStatusUserInfo.UserDataGamingPos[logicChair].x, HQMJ_ReadyStatusUserInfo.UserDataGamingPos[logicChair].y);
-       M_HQMJClass.ins.showPlayerInfoForm(HQMJ.ins.iclass.getTablePlayerAry()[chair],point, chair);
+        let point = new cc.Vec2(HQMJ_ReadyStatusUserInfo.UserDataGamingPos[logicChair].x, HQMJ_ReadyStatusUserInfo.UserDataGamingPos[logicChair].y);
+        M_HQMJClass.ins.showPlayerInfoForm(HQMJ.ins.iclass.getTablePlayerAry()[chair],point, chair);
+    }
+
+    private showPlayerInfoForm(){
+        
     }
     /**
      * 设置断线玩家
      * */
     public set offlineChair(chair: number) {
-        //this._img_offline[this.HQMJClass.physical2logicChair(chair)].visible = true;
-        // if(M_HQMJClass.ins.isSelfCreateRoom && (M_HQMJClass.ins.TableConfig.alreadyGameNum > 0)) {
-        //     this._img_readyStatus[this.HQMJClass.physical2logicChair(chair)].visible = true;
-        // }
         this.userAry[this.HQMJClass.physical2logicChair(chair)].Setoffline();
     }
 
@@ -198,16 +191,15 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
      * 设置重连玩家
      * */
     public set reconnectChair(chair: number) {
-        //this._img_offline[this.HQMJClass.physical2logicChair(chair)].visible = false;
         this.userAry[this.HQMJClass.physical2logicChair(chair)].Hideoffline();
-    }                
+    }
+
+    //复制房间号
+    private OnCopyRoomNum() : void{
+        M_HQMJClass.ins.CopyToClipboard(HQMJ.ins.iclass.getTableConfig().TableCode);
+    }
                     
     private onShare():void{
-        //var chair: number = this.HQMJClass.logic2physicalChair(lgchair);
-        //M_HQMJView.ins.OnButtonShare();
-        // M_HQMJClass.ins.showShare("合肥麻将邀请",chair);
-        //             console.log(`分享内容:${M_HQMJClass.ins.ShareTitle}`);
-        // HQMJ.ins.iview.OnButtonShare();
         var curPlayer = M_HQMJClass.ins.getTablePlayerAry();
         let curPlayerCount:number=0;//查看当前桌上玩家数
         for(let i:number=0;i<curPlayer.length;i++){
@@ -261,10 +253,6 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
     public OnTablePlayer(chairID: number,player: QL_Common.TablePlayer): void {
         this.showChairPlayer(chairID,player);
     }
-    // public OnShowUserState(chairID):void{
-    //     var logicChair: number = this.HQMJClass.physical2logicChair(chairID);
-    //     this.group_ready[logicChair].node.active = true;
-    // }
     /**
      * 玩家状态发生改变,如新的玩家坐下后默认状态为SitDown,然后玩家准备,新状态就是Ready状态,
      * 只记录其他在自己进入游戏后进入的玩家状态变化
@@ -272,13 +260,11 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
     public OnPlayerStatusChange(chairID: number,newStatus: QL_Common.GState): void {
         
         var logicChair: number = this.HQMJClass.physical2logicChair(chairID);
-       // this.group_ready[logicChair].node.active = (QL_Common.GState.PlayerReady == newStatus);//|| QL.Common.GState.OfflineInGame == newStatus);
         if(!this.group_ready[logicChair].node.active){
             this.group_ready[logicChair].node.active = (QL_Common.GState.PlayerReady == newStatus);
         }
         if(QL_Common.GState.PlayerReady != newStatus)
         {      
-           // this.group_ready[logicChair].node.active = QL_Common.GState.OfflineInGame == newStatus;//this.HQMJClass.getTablePlayerAry()[chairID].DiamondsNum>=M_HQMJClass.ins.gameMoneyNum && Uyi.Common.GState.OfflineInGame == newStatus;
             if(!this.group_ready[logicChair].node.active)
             {
                 this.group_ready[logicChair].node.active=this.HQMJClass.getTableConfig().alreadyGameNum>0;
@@ -289,19 +275,13 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
         }else{
             this.userAry[logicChair].Hideoffline();
         }    
-        // if((this.HQMJClass.getSelfChair() == chairID) && (QL_Common.GState.PlayerReady == newStatus)){
-        //     this._btn_ready.visible=false;
-        //     //返回大厅消失
-        //     this._btn_dissTable.visible = false;
-        // }
+        
     }
     
     public OnPlayerLeave(chairID: number): void {
 
         var logicChair: number = this.HQMJClass.physical2logicChair(chairID);
         
-        //egret.Tween.removeTweens(this._img_look[logicChair]);
-
         //头像不显示
         this.userAry[logicChair].Clear();
         this.userAry[logicChair].node.active = false;
@@ -384,15 +364,12 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
         }else{
             ss = player.NickName;
         }
-        
         this.userAry[logicChair].node.active = true;
-
         this.userAry[logicChair].SetUserInfo(player.FaceID,ss,player.Gender);
         
         //显示余额
         this.userAry[logicChair].SetMoney(this.getPlayerLeftMoneyNum(player));//showUserMoney(this.HQMJClass.getRoomData().CheckMoneyType,this.getPlayerLeftMoneyNum(player));
         this.userAry[logicChair].ShowMoney(!this.HQMJClass.getTableConfig().needHideUserMoney);
-        
 
         //不是自己,隐藏邀请按钮
         /*if(player.PlayerID != M_HQMJClass.ins.userData.UserID) {
@@ -406,19 +383,14 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
             this.group_ready[logicChair].node.active=true;
 
         }
-
         this.userAry[logicChair].node.active=true;
-
-        // if(M_HQMJClass.ins.SelfIsTableOwener){
-            
-        // }
     }
     public SelfReady():void{
          if(this.HQMJClass.getTablePlayerAry()[this.HQMJClass.getSelfChair()].PlayerState==QL_Common.GState.SitDown){
             if(this.HQMJClass.getTableConfig().isValid && this.HQMJClass.getTableConfig().alreadyGameNum==0){
                 this.btn_ready.node.active=true;
-                this.btn_ready.node.x=130;
-                this.btn_invite.node.x=-130;
+                this.btn_ready.node.x=0;
+                // this.btn_invite.node.x=-130;
                 this.group_userReady.active=true;
             }else{
                 this.onReady();
@@ -427,32 +399,31 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
         else if(this.HQMJClass.getTablePlayerAry()[this.HQMJClass.getSelfChair()].PlayerState==QL_Common.GState.PlayerReady){
             if(this.HQMJClass.getTableConfig().isValid && this.HQMJClass.getTableConfig().alreadyGameNum==0){
                 this.btn_ready.node.active=false;
-                this.btn_invite.node.x=0;
+                // this.btn_invite.node.x=0;
                 this.group_userReady.active=true;
             }
         }
     }
         
     private onReady():void{
-        
         //如果不够,开始求助
         if(M_HQMJClass.ins.checkMoneyCanGame()){
-            if(M_HQMJClass.ins.isSelfCreateRoom && (M_HQMJClass.ins.TableConfig.alreadyGameNum > 0) && !M_HQMJClass.ins.TableConfig.isPlayEnoughGameNum(M_HQMJClass.ins._addNum)) {
+            // if(M_HQMJClass.ins.isSelfCreateRoom && (M_HQMJClass.ins.TableConfig.alreadyGameNum > 0) && !M_HQMJClass.ins.TableConfig.isPlayEnoughGameNum(M_HQMJClass.ins._addNum)) {
                 //继续游戏
                 //this.dispatchEvent(new HQMJEvent(HQMJEvent.msg_goongame));
-            }else{
+            // }else{
                 //发送准备
                 M_HQMJView.ins.OnReady();
-            }       
+            // }       
             // //解散桌子不能用
             // this._btn_dissTable.visible=false;
             // this._btn_ready.visible=false;
              this.btn_ready.node.active=false;
-            this.btn_invite.node.x=0;
+            // this.btn_invite.node.x=0;
         }
          else {
-            if(this.HQMJClass.getTableStauts()!=QL_Common.TableStatus.gameing)
-            {
+            // if(this.HQMJClass.getTableStauts()!=QL_Common.TableStatus.gameing)
+            // {
                 M_HQMJClass.ins.UiManager.ShowMsgBox('余额不足请先充值！', "确定", () => {
                     //打开充值
                     M_HQMJClass.ins.showPay();
@@ -460,7 +431,7 @@ export default class HQMJ_ReadyStatusUserInfo extends cc.Component {
                     //打开充值
                     this.HQMJClass.exit();
                 });
-            }
+            // }
         } 
         // else{                 
         //     var tipMsg: string = `您的游戏币已经不足,无法继续游戏,本次共需要:${TranslateMoneyTypeName(this.HQMJClass.getRoomData().TableCostMoneyType)}X${M_HQMJClass.ins.gameMoneyNum},点击关闭将会返回大厅。您还可以选择：`;

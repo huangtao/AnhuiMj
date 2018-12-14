@@ -120,7 +120,15 @@ export default class JZMJ_OppoActive extends JZMJ_OtherActive {
                         this._cardData[i].node.x -= 15;
                     }
                 }
+                if(this._cardData.length == 2){
+                    this._cardData[0].node.x -= 10;
+                    this._cardData[1].node.x -= 10;
+                }
+                if(this._cardData.length == 1){
+                        this._cardData[0].node.x -= 20;
+                }
             }
+            
         }
     }
 

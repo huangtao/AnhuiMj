@@ -52,7 +52,7 @@ export default class JZMJ_OppoPool extends JZMJ_PoolBase {
     //     var ry: number = this._poolCard[lastIdx].node.y + this._poolCard[lastIdx].size.height / 2;
     //     return { x: rx,y: ry };
     // }
-    protected refreshPoolCard(_JZMJclass): {x:number,y:number} {
+    protected refreshPoolCard(_jzmjclass): {x:number,y:number} {
         
         if(this._poolCard.length < 1) {
             return {x:0,y:0};
@@ -62,17 +62,20 @@ export default class JZMJ_OppoPool extends JZMJ_PoolBase {
         let lastIdx = 0;
         let valueIdx: number = 0;
         let cardIdx: number = this._poolCard.length;
-        if(_JZMJclass.is2D()){
-            for(var i: number = 0;i < lineNum;i++) {
-                for(var j: number = 0;j < 10;j++) {
+        if(_jzmjclass.is2D()){
+            this.resetZ_2d();
+            this.node.rotation = 0;
+            let lineNum2d = Math.ceil((this._poolCard.length - 1) / 12) + 1;
+            for(var i: number = 0;i < lineNum2d;i++) {
+                for(var j: number = 0;j < 12;j++) {
 
                     if((cardIdx > 0) && (valueIdx < this._cardAry.length)) {
 
                         --cardIdx;
 
-                        this._poolCard[cardIdx].node.x = 189 - j * 42;
-                        this._poolCard[cardIdx].node.y = 118 + i * 48;
-                        this._poolCard[cardIdx].showCard(this._cardAry[valueIdx],0,_JZMJclass);
+                        this._poolCard[cardIdx].node.x = 220 - j * 40;
+                        this._poolCard[cardIdx].node.y = 133 + i * 47;
+                        this._poolCard[cardIdx].showCard(this._cardAry[valueIdx],0,_jzmjclass);
 
                         ++valueIdx;
                         
@@ -87,7 +90,7 @@ export default class JZMJ_OppoPool extends JZMJ_PoolBase {
             for(let i: number = 0;i < lineNum;i++) {
                 for(let j: number = 0;j < 10;j++) {
                     if((i * 10 + j) < this._poolCard.length) {
-                        this._poolCard[i * 10 + j].showCard(this._cardAry[i * 10 + j],i * 10 + j+1,_JZMJclass);
+                        this._poolCard[i * 10 + j].showCard(this._cardAry[i * 10 + j],i * 10 + j+1,_jzmjclass);
 
                     } else {
                         break;
@@ -100,6 +103,12 @@ export default class JZMJ_OppoPool extends JZMJ_PoolBase {
         let rx: number = this._poolCard[lastIdx].node.x;
         let ry: number = this._poolCard[lastIdx].node.y + this._poolCard[lastIdx].size.height / 2;
         return { x: rx,y: ry };
+    }
+
+    private resetZ_2d(): void {
+        for (let i: number = 0; i < this._poolCard.length; i++) {
+                this._poolCard[i].node.setLocalZOrder(i+1);
+            }
     }
 
     private resetZ(): void {

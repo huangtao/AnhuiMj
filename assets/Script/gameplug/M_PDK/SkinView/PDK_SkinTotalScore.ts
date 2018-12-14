@@ -39,7 +39,11 @@ export default class SkinTotalScore extends cc.Component {
         this.group.addChild(node0);
         return node0.getComponent<SkinTotalScoreItem>(SkinTotalScoreItem);
     }
-    public Show() {
+    public Show(roomId:number) {
+        this.roomnum.string = roomId.toString();
+        this.jushu.string = PDK.ins.iview.GetGameInfo().gameCount[1].toString();
+
+
         let scoreview = PDK.ins.iview.GetScoreView();
         this.SetTime();
 
@@ -69,18 +73,9 @@ export default class SkinTotalScore extends cc.Component {
             }
             
             for(let j = 0;j<scoreview.beiMenGuolist.length;j++){
-                let RoundBeiMenguoCount = 0;
-               for(let n = 0;n< playerCount;n++){
-                 if(scoreview.beiMenGuolist[j].data[n] > 0){
-                    RoundBeiMenguoCount += 1;
-                 }
-               }
-               if(RoundBeiMenguoCount > 0 ){
-                menGuoCount[i] += 1;
-               }
+                menGuoCount[i] += scoreview.beiMenGuolist[j].data[i];
             }
         }
-
         
         let maxScore = Math.max(...total);
         for (let i = 0; i < playerCount; i++) {

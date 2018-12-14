@@ -10,8 +10,6 @@ const { ccclass, property } = cc._decorator;
 export default class LHZMJ_OppoSingleActive extends LHZMJ_SingleActiveBase {
     @property(cc.Sprite)
     bmp_liecardback: cc.Sprite=null;
-     @property(cc.Sprite)
-    bmp_greenZZ:cc.Sprite=null;
 
     @property(cc.Sprite)
     bmp_greenbg:cc.Sprite=null;
@@ -24,14 +22,13 @@ export default class LHZMJ_OppoSingleActive extends LHZMJ_SingleActiveBase {
     public init(){
         super.init();
         this.node.active=false;
-        this.bmp_greenZZ.node.active=false;
+     
         this.bmp_greenbg.node.active = false;
     }
          /**
      * 是否显示显示绿色遮罩
      */
     public set ShowGreenZZ(isShow:boolean){
-       // this.bmp_greenZZ.node.active=isShow;
         this.bmp_greenbg.node.active = isShow;
     }
 
@@ -64,11 +61,11 @@ export default class LHZMJ_OppoSingleActive extends LHZMJ_SingleActiveBase {
         let url="";
         let url1="";
         if(LHZMJ.ins.iclass.is2D()){
-            this.bmp_liecardback.node.width=39;
-            this.bmp_liecardback.node.height=56;
+            this.bmp_liecardback.node.width=43;
+            this.bmp_liecardback.node.height=60;
             this.bmp_liecardback.node.scaleX=1;
-            this.bmp_cardback.node.width=39;
-            this.bmp_cardback.node.height=56;
+            this.bmp_cardback.node.width=42;
+            this.bmp_cardback.node.height=64;
 
             this.bmp_cardcolor.node.x=0;
             this.bmp_cardcolor.node.y=5;

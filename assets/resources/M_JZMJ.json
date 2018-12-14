@@ -129,15 +129,15 @@
                     "list": [
                         {
                             "attr": "BuKao",
-                            "value": 0,
-                            "desc": "死不靠",
+                            "value": 1,
+                            "desc": "活不靠",
                             "enabled": true,
                             "defaultSelected": true
                         },
-                        {
+                         {
                             "attr": "BuKao",
-                            "value": 1,
-                            "desc": "活不靠",
+                            "value": 0,
+                            "desc": "死不靠",
                             "enabled": true,
                             "defaultSelected": false
                         }

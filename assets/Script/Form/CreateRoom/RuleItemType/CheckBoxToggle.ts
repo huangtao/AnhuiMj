@@ -19,15 +19,16 @@ export default class CheckBoxToggle extends RuleItemToggleBase {
 		if (cc.isValid(this.attrDesc)) {
 			this.attrDesc.string = this.showData.desc;
 		}
-
-		// 默认状态
-		if (this.showData.defaultSelected) {
-			this.checkBox.check();
-		}else{
-			this.checkBox.uncheck()
-		}
 	}
 
+	public get isChecked() {
+    	if (!this.checkBox) {
+    		return false;
+    	}
+    	
+    	return this.checkBox.isChecked;
+    }
+    
 	/**
      * 设置选中状态下和值
      */

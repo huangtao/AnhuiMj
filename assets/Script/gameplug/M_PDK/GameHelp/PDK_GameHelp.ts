@@ -268,7 +268,7 @@ export class GameRule{
     public FZBP:boolean;
     public SZTW:boolean;
     public showRemainNum:boolean;
-    public checkIP:boolean;
+    public ifcansameip:boolean;
     public checkGps:boolean;
 
     

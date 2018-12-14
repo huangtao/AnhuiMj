@@ -8,9 +8,18 @@ export default class LHZMJ_TimerView extends cc.Component {
     @property(cc.Label)
     lbl_timerNum: cc.Label = null;
 
+    @property(cc.Label)
+    lbl_timerNum_2d: cc.Label = null;
+
+    @property([cc.Node])
+    img_arrow_2d: cc.Node[] = [];
+    
     @property([cc.Node])
     img_arrow: cc.Node[] = [];
-    //private _img_arrows:Array<cc.Sprite>;
+    
+    @property(cc.Node)
+    Node_2d:cc.Node = null;
+
     @property(cc.Animation)
     ArrowNode: cc.Animation=null;
     @property(cc.Sprite)
@@ -28,6 +37,8 @@ export default class LHZMJ_TimerView extends cc.Component {
     @property([cc.SpriteFrame])
     private dipan_res: cc.SpriteFrame[] = [];
     // private _index:number;
+     @property(cc.Sprite)
+     img_dipan_2d:cc.Sprite = null;
     // private _play:boolean;
     onLoad() {
         // init logic
@@ -50,15 +61,43 @@ export default class LHZMJ_TimerView extends cc.Component {
         if(chair==LHZMJMahjongDef.gInvalidChar){
             return;
         }
+
         if(this.node.active){
             return;
         }
-        this.img_dipan.spriteFrame = this.dipan_res[chair];
-        this.img_Node0[chair].node.active = true;
-        this.img_Node1[(chair+1)%4].node.active = true;
-        this.img_Node2[(chair+2)%4].node.active = true;
-        this.img_Node3[(chair+3)%4].node.active = true;
+
+        if(LHZMJ.ins.iclass.is2D()){
+            this.img_dipan.node.active = false;
+            this.lbl_timerNum.node.active = false;
+
+            this.img_arrow[0].active =false;
+            this.img_arrow[1].active =false;
+            this.img_arrow[2].active =false;
+            this.img_arrow[3].active =false;
+
+
+            this.img_dipan_2d.node.rotation = 90*chair;
+            this.img_dipan_2d.node.active = true;
+            this.lbl_timerNum_2d.node.active = true;
+        }else{
+            this.img_dipan_2d.node.active = false;
+            this.lbl_timerNum_2d.node.active = false;
+
+            this.img_arrow[0].active =true;
+            this.img_arrow[1].active =true;
+            this.img_arrow[2].active =true;
+            this.img_arrow[3].active =true;
+
+            this.img_dipan.spriteFrame = this.dipan_res[chair];
+            this.lbl_timerNum.node.active = true;
+            this.img_Node0[chair].node.active = true;
+            this.img_Node1[(chair+1)%4].node.active = true;
+            this.img_Node2[(chair+2)%4].node.active = true;
+            this.img_Node3[(chair+3)%4].node.active = true;
+        }
+        this.ArrowNode.node.active = true;
         this.node.active = chair != LHZMJMahjongDef.gInvalidChar;
+
     }
     // onDisable(){
     //     this._index=0;
@@ -71,14 +110,40 @@ export default class LHZMJ_TimerView extends cc.Component {
         this.showLuoPan(chair);
         }
         this.node.active = chair != LHZMJMahjongDef.gInvalidChar;
-        this.img_dipan.node.active = true;
+        if(!LHZMJ.ins.iclass.is2D()){
+            this.img_dipan.node.active = true;
+            this.img_arrow[0].active =true;
+            this.img_arrow[1].active =true;
+            this.img_arrow[2].active =true;
+            this.img_arrow[3].active =true;
+
+            this.img_dipan_2d.node.active = false;
+
+        }else{
+            this.img_dipan.node.active = false;
+            this.img_arrow[0].active =false;
+            this.img_arrow[1].active =false;
+            this.img_arrow[2].active =false;
+            this.img_arrow[3].active =false;
+
+            this.img_dipan_2d.node.active = true;
+            this.img_dipan_2d.node.rotation = 90*LHZMJ.ins.iclass.getSelfChair();
+        }
+        
         // let action= cc.repeatForever(cc.sequence(cc.fadeTo(0.5, 0), cc.fadeTo(0.5, 255)));
+   
         for (var i: number = 0; i < LHZMJMahjongDef.gPlayerNum; i++) {
             // this.img_arrow[i].stopAllActions();
             // this.img_arrow[i].stop();
             // this.img_arrow[i].active= (i == LHZMJ.ins.iclass.physical2logicChair(chair));
             // if (chair != LHZMJMahjongDef.gInvalidChar) {
-                this.img_arrow[i].active = (i == LHZMJ.ins.iclass.physical2logicChair(chair));
+                if(LHZMJ.ins.iclass.is2D()){
+                    this.Node_2d.active = true;
+                    this.img_arrow_2d[i].active = (i == LHZMJ.ins.iclass.physical2logicChair(chair));
+                }else{
+                    this.Node_2d.active =false;
+                    this.img_arrow[i].active = (i == LHZMJ.ins.iclass.physical2logicChair(chair));
+                }
                 // if (i == LHZMJ.ins.iclass.physical2logicChair(chair)) {
                 //     // this.img_arrow[i].opacity=255;
                 //     // this.img_arrow[i].runAction(action);
@@ -86,12 +151,13 @@ export default class LHZMJ_TimerView extends cc.Component {
                 // }
             // }
         }
+
+                 
         if (chair != LHZMJMahjongDef.gInvalidChar) {
-            this.ArrowNode.stop();
-            this.ArrowNode.play();
-            // this._index=0;
-            // this._play=true;
+                this.ArrowNode.stop();
+                this.ArrowNode.play();
         }
+        
     }
 
     // update(){
@@ -167,6 +233,15 @@ export default class LHZMJ_TimerView extends cc.Component {
      * 计时器数字
      * */
     public set timerNum(timer: number) {
-        this.lbl_timerNum.string = timer.toString();
+        if(LHZMJ.ins.iclass.is2D()){
+            this.lbl_timerNum.node.active = false;
+            this.lbl_timerNum_2d.node.active = true;
+            this.lbl_timerNum_2d.string = timer.toString();
+
+        }else{
+            this.lbl_timerNum_2d.node.active = false;
+            this.lbl_timerNum.node.active = true;
+            this.lbl_timerNum.string = timer.toString();
+        }
     }
 }

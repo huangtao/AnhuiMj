@@ -64,7 +64,12 @@ export default class GiftForm extends UIBase<any> {
             return;
         }
 
-        this.LabQiDou.string = Global.Instance.DataCache.UserProp.GetValue(QL_Common.CurrencyType.QiDou).toString(); //七豆数量显示
+        let qidou = Global.Instance.DataCache.UserProp.GetValue(QL_Common.CurrencyType.QiDou);
+        if(qidou){
+            this.LabQiDou.string = qidou.toString(); //七豆数量显示
+        }else{
+            this.LabQiDou.string = "0";
+        }
 
         if(!this.dataList[type]){
             this.UiManager.ShowLoading("正在获取兑换商品数据");
@@ -82,6 +87,7 @@ export default class GiftForm extends UIBase<any> {
      * 获取数据成功
      */
     private success(obj){
+        this.UiManager.CloseLoading();
         this.UiManager.ShowLoading("正在加载兑换商品数据");
         if(!obj){
             this.UiManager.CloseLoading();
@@ -228,7 +234,7 @@ export default class GiftForm extends UIBase<any> {
                 }
             }
         }
-
+        
         this.UiManager.CloseLoading();
     }
 

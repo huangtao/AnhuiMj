@@ -76,7 +76,7 @@ export default class RecordItem extends ScrollHelperItem {
       }
 
   		// 显示玩家昵称和分数
-  		for (var idx = 0; idx < 5; ++idx) {
+  		for (var idx = 0; idx < 6; ++idx) {
         let nickname = cc.find("lab_userName" + idx,this.node).getComponent(cc.Label);
         let lab_score: cc.Label = cc.find("lab_userName" + idx + "/lab_score" + idx,this.node).getComponent(cc.Label);
 

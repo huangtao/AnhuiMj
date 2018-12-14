@@ -2,6 +2,7 @@ import GameLogic from "../GameHelp/PDK_GameLogic";
 import { QL_Common } from "../../../CommonSrc/QL_Common";
 import { TexturePath, CommonTexturePath } from "../GameHelp/PDK_GameHelp";
 import Global from "../../../Global/Global";
+import  M_PDKView  from "../M_PDKView";
 
 const { ccclass, property } = cc._decorator;
 
@@ -34,7 +35,12 @@ export default class SkinLabelView extends cc.Component {
 
     public allgamenum:number;
 
+    private bg_touchStartTime = null;
+    private bg_touchEndTime = null; 
+
     onLoad() {
+        this.node.on(cc.Node.EventType.TOUCH_START,this.bg_touchBegin,this);
+        this.node.on(cc.Node.EventType.TOUCH_END,this.bg_touchEnd,this);
         this.Init();
     }
     public Init() {
@@ -49,28 +55,26 @@ export default class SkinLabelView extends cc.Component {
     public Destroy() {
 
     }
-
-    /**
-     * 设置游戏结果局数
-     */
-    public SetGameCountResult(value: number[]) {
-        this.SetGameCount([value[0] - 1, value[1]]);
+    //背景开始触摸
+    private bg_touchBegin(e:cc.Event.EventTouch){
+        this.bg_touchStartTime = new Date().getTime();
     }
+    //背景触摸结束
+    private bg_touchEnd(e:cc.Event.EventTouch){
+        this.bg_touchEndTime = new Date().getTime();
+        if(this.bg_touchEndTime - this.bg_touchStartTime < 200 ){
+            M_PDKView.Instance.selfSelectCardView.cancelSelected();
+        }
+        M_PDKView.Instance.skinButtonView.HideMenu();
+    }
+
     /**
      * 设置局数
      */
     public SetGameCount(value: number[]) {
-        if (value[0] < value[1]){
-            this.label_gameCount.string = "局数：" + (value[0] + 1) + "/" + value[1];
-            this.gamenum = value[0]+1;
-            this.allnum = value[1];
-       }
-          
-       else{
-           this.label_gameCount.string = "局数：" + (value[0]) + "/" + value[1];
-           this.gamenum = value[0];
-           this.allnum = value[1];
-       }
+        this.label_gameCount.string = "局数：" + (value[0]) + "/" + value[1];
+        this.gamenum = value[0];
+        this.allnum = value[1];
     }
     /**
      * 设置房间号
@@ -78,12 +82,12 @@ export default class SkinLabelView extends cc.Component {
     public SetTableNum(value: number,isGroup:boolean=false) {
         this.group_tablenum.active = true;
     if(Global.Instance.DataCache.GroupId>0){
-            this.label_tablenum.string = "亲友圈房号：" + value;
+            this.label_tablenum.string = "亲友圈房号:" + value;
         }else{
             if(isGroup){
-                 this.label_tablenum.string = "亲友圈房号：" + value;
+                 this.label_tablenum.string = "亲友圈房号:" + value;
             }else{
-                this.label_tablenum.string = "房间号： " + value;
+                this.label_tablenum.string = "房间号:" + value;
             }
             
         }

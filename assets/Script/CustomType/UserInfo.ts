@@ -67,6 +67,17 @@ export default class UserInfo {
      * 玩家是否是第一次登陆
      */
     public isFirstLogon = 0;
+
+    /**
+     * 玩家是否绑定手机
+     */
+    public isBindPhone = 0;
+
+    /**
+     * 玩家完成的任务数量
+     */
+    public taskCount = 0;
+
     /**
      * 当成为代理后此值是生成的代理Id
      */
@@ -120,6 +131,12 @@ export default class UserInfo {
                 }
                 if(value.AttachParam[i].Key === "LinkAgentId"){
                     this.LinkAgentId = parseInt(value.AttachParam[i].Value);
+                }
+                if(value.AttachParam[i].Key === "isBindPhone"){
+                    this.isBindPhone = parseInt(value.AttachParam[i].Value);
+                }
+                if(value.AttachParam[i].Key === "taskCount"){
+                    this.taskCount = parseInt(value.AttachParam[i].Value);
                 }
             }
         }
@@ -233,7 +250,7 @@ class UserSessionKey {
         const action = new ActionNet(this, this.policySuccess, this.policyError);
         //
         let data = WebRequest.DefaultData(true);
-        data.AddOrUpdate("type", "voices");
+        data.AddOrUpdate("type", "voices|header");
         WebRequest.userinfo.GetUploadPolicy(action, data);
     }
 

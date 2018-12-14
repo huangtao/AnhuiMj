@@ -56,6 +56,7 @@ const { ccclass, property } = cc._decorator;
 	 */
     export interface IMGMJView {
         OnButtonShare():void;
+        getBaoPaiKuang():cc.Sprite;
     }
     
     /**
@@ -114,6 +115,7 @@ const { ccclass, property } = cc._decorator;
         /// </summary>
         public static gMahjongCard:Array<number>=[0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x11,0x12,0x13,0x14,0x15,0x16,0x17,0x18,0x19,0x21,0x22,0x23,
                                                     0x24,0x25,0x26,0x27,0x28,0x29,0x31,0x32,0x33,0x34,0x35,0x36,0x37];
+        //public static gMahjongCard:Array<number>=[0x35];
         /// <summary>
         /// 花色掩码
         /// </summary>
@@ -815,6 +817,7 @@ const { ccclass, property } = cc._decorator;
         private _playerNum:number;
         //等待时间
         private _waitTimeNum:number;
+        private _checkPeiZi:number;
         private _setPeiZi:number;
         private _dianPao:boolean;
         private _qiangGangHu:boolean;
@@ -890,7 +893,8 @@ const { ccclass, property } = cc._decorator;
             palyerNum:number,
             waitTimeNum:number,
             checkGPS:boolean,
-            setPeiZi:number,
+            checkPeiZi:number,
+            peiziCount:number,
             dianPao:boolean,
             qiangGangHu:boolean,
             cellScore:number,
@@ -927,7 +931,8 @@ const { ccclass, property } = cc._decorator;
         ):void{      
             this._playerNum=palyerNum;
             this._waitTimeNum=waitTimeNum;
-            this._setPeiZi = setPeiZi;
+            this._checkPeiZi = checkPeiZi;
+            this._setPeiZi = peiziCount;
             this._dianPao = dianPao;
             this._qiangGangHu = qiangGangHu;
             this._cellScore=cellScore;
@@ -985,10 +990,34 @@ const { ccclass, property } = cc._decorator;
         }
 
         /**
+         * 点炮
+         *
+         */
+        public get DianPao():boolean{
+            return this._dianPao;
+        }
+        /**
+         * peizi
+         */
+        public get CheckPeiZi():number{
+            return this._checkPeiZi;
+        }
+        /**
          * peizi
          */
         public get SetPeiZi():number{
             return this._setPeiZi;
+        }
+
+        public initPeiZi(value:number) {
+            this._setPeiZi=value;
+        }
+
+        /**
+         * 抢杠胡
+         */
+        public get QiangGangHu():boolean{
+            return this._qiangGangHu;
         }
         /**
          * 房主买单
@@ -1047,13 +1076,13 @@ const { ccclass, property } = cc._decorator;
         /**
          * 是否打满了设置的局数
          * */
-        public get isPlayEnoughGameNum():boolean{
+        public isPlayEnoughGameNum(addNum:number):boolean{
             let jushu:number=0;
             if(this._setGameNum == 0)
                 jushu = 8;
             if(this._setGameNum == 1)
                 jushu = 16;
-            return this._alreadyGameNum >= jushu;
+            return this._alreadyGameNum >= jushu*addNum;
         }
 
         

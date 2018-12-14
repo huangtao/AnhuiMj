@@ -93,7 +93,7 @@ export default class JZMJ_BanlanceActive extends JZMJ_CardBase {
         for(var i: number = 0;i < this._cardData.length;i++) {
             this._cardData[i].node.x = startPos + i * 44-350+22.5+50;
             this._cardData[i].node.y = -5;
-            this._cardData[i].showCard(this._handCard[i],true);
+            this._cardData[i].showCardJisSuan(this._handCard[i],true);
             
             if(this._holdCard != JZMJMahjongDef.gInvalidMahjongValue && (i == (this._cardData.length - 1))) {
                 this._cardData[i].node.x += 10;//控制间隔
@@ -110,7 +110,6 @@ export default class JZMJ_BanlanceActive extends JZMJ_CardBase {
 
             var newNum = this._handCard.length - this._cardData.length;
             for(var i: number = 0;i < newNum;i++) {
-              //  var newnode=cc.instantiate(this.CardType);
               let newnode = JZMJ_BanlanceActive._freeNode.get();
                 if (!cc.isValid(newnode)) {
                     newnode = cc.instantiate(this.CardType);
@@ -126,8 +125,7 @@ export default class JZMJ_BanlanceActive extends JZMJ_CardBase {
 
             var delNum = this._cardData.length - this._handCard.length;
             for(var i: number = 0;i < delNum;i++) {
-             //   this._cardData[i].node.destroy();
-              JZMJ_BanlanceActive._freeNode.put(this._cardData[i].node);
+            JZMJ_BanlanceActive._freeNode.put(this._cardData[i].node);
             }
             this._cardData.splice(0,delNum);
         }

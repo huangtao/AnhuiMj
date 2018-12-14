@@ -55,3 +55,11 @@ export enum ChatType{
      */
     Item,
 }
+
+/**
+ * 订阅消息类型
+ */
+export enum SubscribeChanelType {
+    // 亲友圈消息
+    CHANEL_TYPE_FRIENDCIRCLE = "FriendCircle"
+}

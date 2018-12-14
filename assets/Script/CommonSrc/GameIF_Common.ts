@@ -5,8 +5,8 @@ import {QL_Common} from "./QL_Common";
 export module GameIF_Common {
     /**
      *
-     * 创建时间：2018年11月09日 17:32:55
-     * 创建人员：DESKTOP-U2RLB94\Cyq
+     * 创建时间：2018年12月13日 22:07:32
+     * 创建人员：SHENRUI\admin
      * 备注：选项类型
      *
      */
@@ -24,8 +24,8 @@ export module GameIF_Common {
 
     /**
      *
-     * @创建时间：2018年11月09日 17:32:55
-     * @创建人员：DESKTOP-U2RLB94\Cyq
+     * @创建时间：2018年12月13日 22:07:32
+     * @创建人员：SHENRUI\admin
      * @备注信息：
      *
      */
@@ -47,8 +47,8 @@ export module GameIF_Common {
 
     /**
      *
-     * @创建时间：2018年11月09日 17:32:55
-     * @创建人员：DESKTOP-U2RLB94\Cyq
+     * @创建时间：2018年12月13日 22:07:32
+     * @创建人员：SHENRUI\admin
      * @备注信息：
      *
      */
@@ -74,8 +74,8 @@ export module GameIF_Common {
 
     /**
      *
-     * @创建时间：2018年11月09日 17:32:55
-     * @创建人员：DESKTOP-U2RLB94\Cyq
+     * @创建时间：2018年12月13日 22:07:32
+     * @创建人员：SHENRUI\admin
      * @备注信息：用于标记一个选项
      *
      */
@@ -97,8 +97,8 @@ export module GameIF_Common {
 
     /**
      *
-     * @创建时间：2018年11月09日 17:32:55
-     * @创建人员：DESKTOP-U2RLB94\Cyq
+     * @创建时间：2018年12月13日 22:07:32
+     * @创建人员：SHENRUI\admin
      * @备注信息：游戏规则项
      *
      */
@@ -120,8 +120,8 @@ export module GameIF_Common {
 
     /**
      *
-     * @创建时间：2018年11月09日 17:32:55
-     * @创建人员：DESKTOP-U2RLB94\Cyq
+     * @创建时间：2018年12月13日 22:07:32
+     * @创建人员：SHENRUI\admin
      * @备注信息：游戏私有规则分组
      *
      */
@@ -151,8 +151,8 @@ export module GameIF_Common {
 
     /**
      *
-     * @创建时间：2018年11月09日 17:32:55
-     * @创建人员：DESKTOP-U2RLB94\Cyq
+     * @创建时间：2018年12月13日 22:07:32
+     * @创建人员：SHENRUI\admin
      * @备注信息：一条局数与消费
      *
      */
@@ -178,8 +178,8 @@ export module GameIF_Common {
 
     /**
      *
-     * @创建时间：2018年11月09日 17:32:55
-     * @创建人员：DESKTOP-U2RLB94\Cyq
+     * @创建时间：2018年12月13日 22:07:32
+     * @创建人员：SHENRUI\admin
      * @备注信息：游戏局数与消费相关
      *
      */
@@ -205,8 +205,8 @@ export module GameIF_Common {
 
     /**
      *
-     * @创建时间：2018年11月09日 17:32:55
-     * @创建人员：DESKTOP-U2RLB94\Cyq
+     * @创建时间：2018年12月13日 22:07:32
+     * @创建人员：SHENRUI\admin
      * @备注信息：游戏规则总表
      *
      */
@@ -236,8 +236,8 @@ export module GameIF_Common {
 
     /**
      *
-     * @创建时间：2018年11月09日 17:32:55
-     * @创建人员：DESKTOP-U2RLB94\Cyq
+     * @创建时间：2018年12月13日 22:07:32
+     * @创建人员：SHENRUI\admin
      * @备注信息：场地特殊属性
      *
      */

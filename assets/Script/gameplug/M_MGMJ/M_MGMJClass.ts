@@ -5,7 +5,6 @@ import { GameIF } from "../../CommonSrc/GameIF";
 import { ShareParam } from "../../CustomType/ShareParam";
 // import { String, set, Label, update, property } from '../../../../creator';
 import SendMessage from '../../Global/SendMessage';
-import PrefabClass from './PrefabClass';
 
 import Global from "../../Global/Global";
 import M_MGMJView from './M_MGMJView';
@@ -32,6 +31,7 @@ import MGMJ_SelChi from './SkinView/MGMJ_SelChi';
 import MGMJ_BaoTing from './SkinView/MGMJ_Bao';
 import MGMJ_PaiWalls from './SkinView/MGMJ_PaiWalls';
 import { QL_Common } from "../../CommonSrc/QL_Common";
+import { UIName } from "../../Global/UIName";
 const { ccclass, property } = cc._decorator;
 
 
@@ -82,6 +82,9 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         public is2D():boolean{
             return false;
         }      
+
+        //续局次数(1表示0次)
+        public _addNum:number = 1;
 
         //当前桌子人数
         public _currentPlayer:number = 0;
@@ -382,6 +385,10 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
             return this._handCard[this._handCard.length - 1];
         }
 
+        protected CheckCanNext():boolean{
+            return true;
+        }
+
         /**
          * 显示听牌
          * */
@@ -400,11 +407,11 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
             // var tingAry: Array<number> = MGMJMahjongAlgorithm.GetTingCardArray(checkAry);    
             var tingAry: Array<number> = MGMJMahjongAlogrithmHaveHun.GetTingCardArray(checkAry,hunzi);    
             console.log("听牌长度"+tingAry.length);
-                   
+            //设置听牌排序
+            MGMJMahjongAlgorithm.sortCardAry(tingAry,true);
             var tingTip: Array<TingCardTip> = new Array<TingCardTip>();
             
             if(tingAry.length > 0){
-                
                 for(var j:number=0; j<tingAry.length; j++){
                     checkAry.push(tingAry[j]);
                     console.log("听牌"+tingAry[j]);
@@ -412,9 +419,12 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
 
                     MGMJMahjongAlgorithm.delCard(checkAry,[tingAry[j]]);
                 }
+                M_MGMJView.ins.btn_tingtip.node.active = true;
             }
             
             M_MGMJView.ins.TingTip.showTingTip(tingTip,tips);
+
+            // M_MGMJView.ins.btn_tingtip.node.active=tips;
             // if(tingTip.length > 0){
          
             //      if((pos + M_MGMJView.ins.TingTip.size.width/2) > 640){
@@ -516,6 +526,8 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
             outCard.outCard = card;
             this.SendGameData(outCard);
 
+            // this.OnNetResponding();
+
             //M_MGMJView.ins.TipMsgView.showTip("出了一张牌，4秒钟后自动隐藏",true,4);
             //console.log("======================================出了一张牌============================");
             //M_MGMJView.ins.MsgBox.showMsgBox("出了一张牌，多写很多字，看是否能够自动换行，出了一张牌，多写很多字，看是否能够自动换行，出了一张牌，多写很多字，看是否能够自动换行，出了一张牌，多写很多字，看是否能够自动换行，出了一张牌，多写很多字，看是否能够自动换行，");
@@ -536,6 +548,8 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
             var vote: M_MGMJ_GameMessage.CMD_C_Vote = new M_MGMJ_GameMessage.CMD_C_Vote();
             vote.voteResult = voteResult;
             this.SendGameData(vote);
+            //碰牌切换网络
+            // this.OnNetResponding();
         }
         
         /**
@@ -850,6 +864,12 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
                 //桌子解散成功
                 case M_MGMJ_GameMessage.MGMJMsgID_s2c.CMD_S_DissTableSuccess:{
                     this.Handle_CMD_S_DissTableSuccess(cm);
+                    break;
+                }
+
+                //续局提示框
+                case M_MGMJ_GameMessage.MGMJMsgID_s2c.CMD_S_AddGameNum:{
+                    this.Hanle_CMD_S_AddGameNum(cm);
                     break;
                 }
 
@@ -1376,6 +1396,7 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         switch(e.msgCode){
             //继续游戏
             case MGMJEvent.msg_goongame: {
+                console.log("------------M_MGMJClass  msg_goongame -----");
                 this.clear();
                 //if(this._timer.isRuning() && this._timer.TimerID==MGMJTimerDef.timer_id_ready){
                 M_MGMJView.ins.TimerView.node.active = true;
@@ -1384,6 +1405,7 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
                 this.stopTimer();
                 //隐藏邀请好友按钮
                 M_MGMJView.ins.ReadyStatusUserInfo.btn_invite.node.active = false;
+                M_MGMJView.ins.ReadyStatusUserInfo.btn_ready.node.active = false;
 
                 // M_MGMJView.ins.TimerView.node.active = false;
                 //玩家点击继续游戏 清除所有的牌蹲
@@ -1392,6 +1414,8 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
                 this.gameView.ReadyStatusUserInfo.kickBtn[0].node.active = false;
                 this.gameView.ReadyStatusUserInfo.kickBtn[1].node.active = false;
                 this.gameView.ReadyStatusUserInfo.kickBtn[2].node.active = false;
+                //上局宝牌清除
+                this.gameView.mg_baopai.node.active = false;
         
                 break;
             }
@@ -1559,13 +1583,15 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         * */
     private Handle_CMD_S_TableConfig(msg: GameIF.CustomMessage):void{
         var tableConfig: M_MGMJ_GameMessage.CMD_S_TableConfig = <M_MGMJ_GameMessage.CMD_S_TableConfig>msg;
+        this._addNum = tableConfig.addNum;
         this.GameRule["GameData"] = tableConfig;
         // this.GameRule = tableConfig;
         this._tableConfig.init(
             tableConfig.PlayerNum,
             tableConfig.WaitTimeNum,
             tableConfig.CheckGps>0,
-            tableConfig.SetPeiZi,
+            tableConfig.CheckPeiZi,
+            tableConfig.PeiZi,
             tableConfig.DianPao>0,
             tableConfig.QiangGangHu>0,
             tableConfig.daiDaPai,
@@ -1609,7 +1635,7 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
             gameCount = 8;
         if(this._tableConfig.setGameNum == 1)
             gameCount = 16;    
-        M_MGMJView.ins.GameInfo.SetGameNum(this._tableConfig.alreadyGameNum,gameCount);
+        M_MGMJView.ins.GameInfo.SetGameNum(this._tableConfig.alreadyGameNum,gameCount*this._addNum);
         M_MGMJView.ins.GameInfo.tableCode = tableConfig.TableCode;
         M_MGMJView.ins.ReadyStatusUserInfo.SelfReady();
         
@@ -1618,6 +1644,10 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
             M_MGMJView.ins.ReadyStatusUserInfo.hideUserMoney();
         }
         this.showFangxiang(this.getSelfChair());
+
+        //进入房间 显示玩法
+        if(this.getTableStauts()!=QL_Common.TableStatus.gameing)
+            this.showWanfa();
 
         // SetTextureRes(url,M_MGMJView.ins.fangXiangView);
 
@@ -1665,6 +1695,9 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
     private Handle_CMD_S_Start(msg: GameIF.CustomMessage):void{
         var gameStart: M_MGMJ_GameMessage.CMD_S_Start = <M_MGMJ_GameMessage.CMD_S_Start>msg;
         this.clear();
+        //处理随机配子
+        this.TableConfig.initPeiZi(gameStart.PeiZiCount);
+        
         this._isIgnoreForceLeft=false;
         this.gameView.GameStart();
 
@@ -1786,8 +1819,8 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         M_MGMJView.ins.PaoView.btn_pao_1.node.active=true;
         if(pao.pao==false){
         M_MGMJView.ins.PaoView.btn_pao_2.node.active=true;
-        }
-
+    }
+    
         //this.regTimer(MGMJTimerDef.timer_id_vote,MGMJTimerDef.timer_len_vote,this.SelfChair);
     }
 
@@ -1830,6 +1863,62 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         M_MGMJView.ins.GameStatusUserInfo.SetLa(la.points);
     }
 
+    //玩家续局投票
+    private Hanle_CMD_S_AddGameNum(msg:GameIF.CustomMessage):void{
+        var addGameNum : M_MGMJ_GameMessage.CMD_S_AddGameNum = <M_MGMJ_GameMessage.CMD_S_AddGameNum>msg;
+
+        // if(addGameNum.gameNum == 2){//服务端自动发起续局投票
+        //     this.showResumeGameForm(new Action(this,this.RefusedAddGameNum),new Action(this,this.AgreeAddGameNum),this.getTablePlayerAry(),this._tempScore,30);
+        // }
+        if(addGameNum.gameNum == 0){//玩家同意续局
+            // cc.log("同意续局=======");
+            // let resumeNode = Global.Instance.UiManager.GetUINode(UIName.ResumeGame);
+            // if(resumeNode){
+            //     this.resumeGame = resumeNode.getComponent("ResumeGame");
+            //     this.resumeGame.updatePlayerVoteStatus(addGameNum.chair,0);
+            // }
+        }
+        if(addGameNum.gameNum == 1){//玩家拒绝续局
+            // cc.log("拒绝续局=======");
+            // let resumeNode = Global.Instance.UiManager.GetUINode(UIName.ResumeGame);
+            // if(resumeNode){
+            //     this.resumeGame = resumeNode.getComponent("ResumeGame");
+            //     this.resumeGame.updatePlayerVoteStatus(addGameNum.chair,1);
+            // }
+            // Global.Instance.UiManager.CloseUi(UIName.ResumeGame);
+            // if(!M_HQMJView.ins.JieShuanView.isVisible()){
+            //     this.TablePlayer[this.SelfChair].PlayerState = 0;
+            //     this.exit();
+            // }
+        }
+        if(addGameNum.gameNum == 100){//所有玩家同意续局
+            cc.log("-----全部同意续局-----");
+            this._addNum = addGameNum.addNum;
+
+            if(M_MGMJView.ins.JieShuanView.isVisible()){
+                M_MGMJView.ins.JieShuanView.node.active = false;
+            }
+
+            this.OnPlayerStatusChange(this.SelfChair,QL_Common.GState.PlayerReady);
+            M_MGMJView.ins.ReadyStatusUserInfo.group_userReady.active = true;
+            M_MGMJView.ins.ReadyStatusUserInfo.btn_ready.node.active = true;
+            M_MGMJView.ins.ReadyStatusUserInfo.btn_ready.node.x=0;
+            M_MGMJView.ins.ReadyStatusUserInfo.group_ready[0].node.active = false;
+        }
+        if(addGameNum.gameNum == 101){//有玩家钻石不足
+            Global.Instance.UiManager.CloseUi(UIName.ResumeGame);
+            if(!M_MGMJView.ins.JieShuanView.isVisible()){
+                this.TablePlayer[this.SelfChair].PlayerState = 0;
+                this.exit();
+            }
+        }
+
+        if(M_MGMJView.ins.JieShuanView.isVisible()){
+            M_MGMJView.ins.JieShuanView.node.active = false;
+        }
+
+    }
+
     /**
      * 初始化牌
      * */
@@ -1856,13 +1945,12 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         var startSendCard: M_MGMJ_GameMessage.CMD_S_StartSendCard = <M_MGMJ_GameMessage.CMD_S_StartSendCard>msg;
         this._gamePhase = enGamePhase.GamePhase_SendCard;
         //this.node.dispatchEvent(new MGMJEvent(MGMJEvent.msg_startSendCard));
-        //延迟加载 因为要等待牌墙删除动作结束
-      //  setTimeout(function(){
-        // this.scheduleOnce(function () {
-            this.gameView.StartSendCard();
-            // console.log("--------延时发牌-------")
-            // }.bind(this), 0.8)
-      //  }.bind(this),800);
+        this.gameView.StartSendCard();
+        //翻出宝牌
+        // if(this._tableConfig.SetPeiZi!=0x37){
+        // M_MGMJView.ins.mg_baopai.showBaoPai(this._tableConfig.SetPeiZi);
+        
+        
     }
     /**
      * 玩家手牌数据
@@ -1919,6 +2007,7 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         M_MGMJView.ins.CardView.selfActive.activeEnable(false);
         M_MGMJView.ins.OperatorView.node.active=false;
         M_MGMJView.ins.SelGangView.node.active=false;
+        // M_MGMJView.ins.btn_tingtip.node.active =false;
         //注册计时器
         this.regTimer(MGMJTimerDef.timer_id_playerop,activePlayer.timer,this._activePlayer,this.SelfChair);
     }
@@ -1992,10 +2081,12 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
 
             M_MGMJView.ins.CardView.selfActive.showTingCardToken(null);
             M_MGMJView.ins.TingTip.showTingTip(null,true);
-              this._isTing = MGMJMahjongAlgorithm.CheckIfCanTingCardArray(this._handCard);
+            // this._isTing = MGMJMahjongAlgorithm.CheckIfCanTingCardArray(this._handCard);
+            var hunzi:Array<number> = new Array<number>();
+            hunzi[0]= this._tableConfig.SetPeiZi; 
+            this._isTing = MGMJMahjongAlogrithmHaveHun.GetTingCardArray(this._handCard,hunzi);   
             //   this.gameView.TingBtn(this._isTing);
-            if(this._isTing){
-                M_MGMJView.ins.btn_tingtip.node.active = true;
+            if(this._isTing.length>0){
                 this.showTingCard(0,3000,true);
             }else{
                 M_MGMJView.ins.btn_tingtip.node.active = false;
@@ -2003,7 +2094,6 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
             // if(this._isTing){
             //     M_MGMJView.ins.GameStatusUserInfo.Ting = playerOutCard.chair;
             //    }
-
         }
             
         }
@@ -2352,8 +2442,11 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         M_MGMJView.ins.CardView.selfActive.refreshCardStatus();
         M_MGMJView.ins.CardView.selfActive.standPai();
         //检查打出哪些牌可以听牌
-        var tingToken: Array<number> = MGMJMahjongAlgorithm.GetLastCardToTing(this._handCard);
-      cc.log("当前操作玩家22222222222222222");
+        // var tingToken: Array<number> = MGMJMahjongAlgorithm.GetLastCardToTing(this._handCard);
+        var hunzi:Array<number> = new Array<number>();
+        hunzi[0]= this._tableConfig.SetPeiZi;
+        var tingToken: Array<number> = MGMJMahjongAlogrithmHaveHun.GetLastCardToTing(this._handCard,hunzi);
+        cc.log("当前操作玩家22222222222222222");
         //console.log("听牌"+tingToken.length)
         M_MGMJView.ins.CardView.selfActive.showTingCardToken(tingToken);
     }
@@ -2369,7 +2462,7 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         M_MGMJView.ins.QiangGangView.showQiangGang(startQiangGang.card);
         
         //注册计时器
-        this.regTimer(MGMJTimerDef.timer_id_qianggang,MGMJTimerDef.timer_len_qianggang,this.SelfChair);
+        // this.regTimer(MGMJTimerDef.timer_id_qianggang,MGMJTimerDef.timer_len_qianggang,this.SelfChair);
     }
     /**
      * 删除抢杠牌
@@ -2410,8 +2503,8 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         M_MGMJView.ins.GameJiFenBan.gameRecord(recordData);
         M_MGMJView.ins.PlayFenXiang.gameRecord(recordData);
         M_MGMJView.ins.JieShuanView.showJieShuan(balance);
-               if(this.TableConfig.isPlayEnoughGameNum){
-              M_MGMJView.ins.DissTable.node.active=false;
+       if(this.TableConfig.isPlayEnoughGameNum(this._addNum)){
+          M_MGMJView.ins.DissTable.node.active=false;
         }
         M_MGMJView.ins.UserData.node.active=false;
     }
@@ -2429,7 +2522,7 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
      * */
     private Handle_CMD_S_GameRecordResult(msg: GameIF.CustomMessage): void {
         var data : M_MGMJ_GameMessage.CMD_S_GameRecordResult = <M_MGMJ_GameMessage.CMD_S_GameRecordResult>msg;
-        M_MGMJView.ins.GameJiFenBan.gameRecordDataCome(data.record);
+        // M_MGMJView.ins.GameJiFenBan.gameRecordDataCome(data.record);
         M_MGMJView.ins.PlayFenXiang.gameRecordDataCome(data.record);
     }
     /**
@@ -2532,7 +2625,7 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         createTable.PlayerNum = data.PlayerNum;
         createTable.WaitTimeNum = data.OutCardTime;
         createTable.SetGameNum = data.SetGameNum;
-        createTable.SetPeiZi = data.SetPeiZi;
+        createTable.CheckPeiZi = data.CheckPeiZi;
         createTable.zhanZhuang = data.zhanZhuang;
         createTable.DianPao = data.DianPao;
         createTable.QiangGangHu = data.QiangGangHu;
@@ -2557,6 +2650,11 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         createTable.gangFen = data.gangFen;
         createTable.whoLose = data.whoLose;
         
+        // if(createTable.SetPeiZi != 0X37){//宝牌框的显示与隐藏
+        //     M_MGMJView.ins.img_baokuang.node.active = true;
+        // }else{
+        //     M_MGMJView.ins.img_baokuang.node.active = false;
+        // }
         // if(data.tableCreatorPay==2){//如果是房主支付
         //     if(data.SetGameNum ==0){ //如果是8局
         //          createTable.TableCost = 32;//桌费32钻
@@ -2629,10 +2727,10 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         //通知玩家进入
         this.gameView.playerComeing();//dispatchEvent(new MGMJEvent(MGMJEvent.msg_playerComeing));
         //局数恢复
-        M_MGMJView.ins.showGameNum(this._tableConfig.setGameNum,this._tableConfig.alreadyGameNum,this._tableConfig.realGameNum);
+        M_MGMJView.ins.showGameNum(this._tableConfig.setGameNum*this._addNum,this._tableConfig.alreadyGameNum,this._tableConfig.realGameNum);
         var gameInfo : M_MGMJ_GameMessage.CMD_S_ORC_GameInfo = <M_MGMJ_GameMessage.CMD_S_ORC_GameInfo>msg;
         this._bankerChair = gameInfo.bankerChair;
-        this._lianBanker=gameInfo.lianBanker+1;
+        this._lianBanker=gameInfo.lianBanker;
         this._gameid = gameInfo.gameid;
         this._gamePhase = gameInfo.gamePhase;
         M_MGMJView.ins.GameStatusUserInfo.setBankerChair(this._bankerChair,this._lianBanker);
@@ -2720,7 +2818,7 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
             gameCount = 8;
         if(this._tableConfig.setGameNum == 1)
             gameCount = 16; 
-        M_MGMJView.ins.GameInfo.SetGameNum(this._tableConfig.alreadyGameNum,gameCount);
+        M_MGMJView.ins.GameInfo.SetGameNum(this._tableConfig.alreadyGameNum,gameCount*this._addNum);
         M_MGMJView.ins.GameInfo.tableCode=this._tableConfig.TableCode;
         //设置计分板玩家名称
         // for(var m: number = 0;m < MGMJMahjongDef.gPlayerNum;m++) {
@@ -2730,7 +2828,11 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
         // }
         M_MGMJView.ins.PlayFenXiang.SetPlayerData(this._tableConfig.alreadyGameNum);
         M_MGMJView.ins.GameJiFenBan.SetPlayerData();
-        this._isTing = MGMJMahjongAlgorithm.CheckIfCanTingCardArray(this._handCard);
+
+        // this._isTing = MGMJMahjongAlgorithm.CheckIfCanTingCardArray(this._handCard);
+        var hunzi:Array<number> = new Array<number>();
+        hunzi[0]= this._tableConfig.SetPeiZi; 
+        this._isTing= MGMJMahjongAlogrithmHaveHun.GetTingCardArray(this._handCard,hunzi);   
         if(this._isTing)
             this.showTingCard(0,3000,true);
         //this.gameView.TingBtn(this._isTing);
@@ -2780,12 +2882,12 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
                 gameCount = 8;
             if(this._tableConfig.setGameNum == 1)
                 gameCount = 16; 
-            M_MGMJView.ins.GameInfo.SetGameNum(this._tableConfig.alreadyGameNum,gameCount);
+            M_MGMJView.ins.GameInfo.SetGameNum(this._tableConfig.alreadyGameNum,gameCount*this._addNum);
         }
         
-        if(this._tableConfig.needHideUserMoney){
-            M_MGMJView.ins.ReadyStatusUserInfo.hideUserMoney();
-        }
+        // if(this._tableConfig.needHideUserMoney){
+        //     M_MGMJView.ins.ReadyStatusUserInfo.hideUserMoney();
+        // }
 
         this.showFangxiang(this.SelfChair);
 
@@ -2802,6 +2904,13 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
             this.gameView.ReadyStatusUserInfo.kickBtn[2].node.active = false;
             this.gameView.ReadyStatusUserInfo.btn_ready.node.active = false;
             this.gameView.ReadyStatusUserInfo.btn_invite.node.active = false;
+        }
+
+        if(tablefree.isXuJu == 1){
+            M_MGMJView.ins.ReadyStatusUserInfo.btn_ready.node.active = true;
+            M_MGMJView.ins.ReadyStatusUserInfo.btn_ready.node.x=0;
+            M_MGMJView.ins.ReadyStatusUserInfo.group_ready[0].node.active = false;
+            this._addNum = tablefree.addNum;
         }
         
     }
@@ -3062,7 +3171,7 @@ export default class M_MGMJClass extends GameBaseClass implements IMGMJClass {
     }
     
 
-        getFreeActive(chair:number):cc.NodePool{
+    getFreeActive(chair:number):cc.NodePool{
         return MGMJ_CardView._freeActiveNode[chair];
         // switch(chair){
         //     case 0:{

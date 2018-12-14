@@ -16,7 +16,7 @@ export default class HQMJ_SelfVideoActive extends HQMJ_VideoActiveBase {
     }
 
     private static ArrangeStartPos: Array<number> = [70,280,504,718,962];
-    private static ArrangeStartPos3D: Array<number> = [-572,-308-50,-44-150,178-200,442-300];
+    private static ArrangeStartPos3D: Array<number> = [-595,-330,-82,150,380];
 
     /**
      * 玩家胡牌
@@ -105,8 +105,8 @@ export default class HQMJ_SelfVideoActive extends HQMJ_VideoActiveBase {
             for(let i: number = 0;i < this._cardData.length;i++) {
                 //this._cardData[i].node.setLocalZOrder(i+1);
                 this.resetZ();
-                this._cardData[i].node.x = startPos + i * 75 + 100;
-                this._cardData[i].node.y = -284-20;
+                this._cardData[i].node.x = startPos + i * 90;
+                this._cardData[i].node.y = -295;
 
                 if(!this.isHoldAfter && this._cardData.length%3==2 && (i == (this._cardData.length - 1))){//自己碰过之后会右移第一张牌
                     this._cardData[i].node.x += 20;

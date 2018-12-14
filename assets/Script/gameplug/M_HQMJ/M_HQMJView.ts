@@ -1,6 +1,6 @@
 const {ccclass, property} = cc._decorator;
 
-import { HQMJMahjongDef, IHQMJView, HQMJ, HQMJTableConfig, HQMJTimer, enGamePhase, HQMJOutCardPlayer, HQMJRecordCard, enHQMJAniType } from "./ConstDef/HQMJMahjongDef";
+import { HQMJMahjongDef, IHQMJView, HQMJ, HQMJTableConfig, HQMJTimer, enGamePhase, HQMJOutCardPlayer, HQMJRecordCard, enHQMJAniType } from './ConstDef/HQMJMahjongDef';
 import { QL_Common } from "../../CommonSrc/QL_Common";
 import { GameIF } from "../../CommonSrc/GameIF";
 import M_HQMJClass from './M_HQMJClass';
@@ -245,7 +245,14 @@ export default class M_HQMJView extends cc.Component implements IHQMJView {
             return this._jieShuan;
         }
 
+        @property(cc.Sprite)
+        backpack:cc.Sprite = null;
+        //2d桌布
+        @property(cc.SpriteFrame)
+        private backpack_2d:cc.SpriteFrame = null;
 
+        @property(cc.SpriteFrame)
+        private backpack_3d:cc.SpriteFrame = null;
 
         @property(cc.Button)
         //录音
@@ -254,6 +261,16 @@ export default class M_HQMJView extends cc.Component implements IHQMJView {
         @property(cc.Button)
         //语句设置
         btn_chat:cc.Button=null;
+
+        //2、3D切换按钮
+        @property(cc.Button)
+        btn_2d:cc.Button = null;
+        @property(cc.Button)
+        btn_3d:cc.Button = null;
+
+        //退出房间按钮
+        @property(cc.Button)
+        btn_exit:cc.Button = null;
 
         @property(cc.Prefab)
         HQMJ_help_View: cc.Prefab=null;
@@ -439,6 +456,14 @@ export default class M_HQMJView extends cc.Component implements IHQMJView {
             this._gameStatus_userInfo=gsunode.getComponent<HQMJ_GameStatusUserInfo>(HQMJ_GameStatusUserInfo);
             this.node.addChild(gsunode);      
 
+            let tingtipnode=cc.instantiate(this.HQMJ_TingTip_View);
+            this._tingTip=tingtipnode.getComponent<HQMJ_TingTip>(HQMJ_TingTip);
+            this.node.addChild(tingtipnode);
+            
+            let baocnode=cc.instantiate(this.HQMJ_BaoTing_View);
+            this._BaoTing=baocnode.getComponent<HQMJ_BaoTing>(HQMJ_BaoTing);
+            this.node.addChild(baocnode);
+
             let opnode=cc.instantiate(this.HQMJ_OP_View);
             this._operatorView=opnode.getComponent<HQMJ_OperatorView>(HQMJ_OperatorView);
             this.node.addChild(opnode);
@@ -447,9 +472,6 @@ export default class M_HQMJView extends cc.Component implements IHQMJView {
             this._selChi=selcnode.getComponent<HQMJ_SelChi>(HQMJ_SelChi);
             this.node.addChild(selcnode);
 
-            let baocnode=cc.instantiate(this.HQMJ_BaoTing_View);
-            this._BaoTing=baocnode.getComponent<HQMJ_BaoTing>(HQMJ_BaoTing);
-            this.node.addChild(baocnode);
 
             let selgnode=cc.instantiate(this.HQMJ_SelGang_View);
             this._selGang=selgnode.getComponent<HQMJ_SelGang>(HQMJ_SelGang);
@@ -459,9 +481,6 @@ export default class M_HQMJView extends cc.Component implements IHQMJView {
             this._qiangGang=qianggnode.getComponent<HQMJ_QiangGangView>(HQMJ_QiangGangView);
             this.node.addChild(qianggnode);
 
-            let tingtipnode=cc.instantiate(this.HQMJ_TingTip_View);
-            this._tingTip=tingtipnode.getComponent<HQMJ_TingTip>(HQMJ_TingTip);
-            this.node.addChild(tingtipnode);
 
             let paonode=cc.instantiate(this.HQMJ_Pao_View);
             this._pao=paonode.getComponent<HQMJ_Pao>(HQMJ_Pao);
@@ -598,8 +617,15 @@ export default class M_HQMJView extends cc.Component implements IHQMJView {
             this._recordVideo.init();
             console.log("View初始化");
             
+            if (cc.isValid(this._startAni)) {
+                this.StartAni.init();
+            }
             
-            
+            if(HQMJ.ins.iclass.is2D()){
+                this.backpack.spriteFrame = this.backpack_2d; 
+            }else{
+                this.backpack.spriteFrame = this.backpack_3d;
+            }
             //this._operatorView.node.on(HQMJEvent.HQMJ_EVENT_TYPE,this.onGameEvent,this);
             //this._selGang.node.on(HQMJEvent.HQMJ_EVENT_TYPE,this.onGameEvent,this);
             //this._cardView.node.on(HQMJEvent.HQMJ_EVENT_TYPE,this.onGameEvent,this);
@@ -699,6 +725,32 @@ export default class M_HQMJView extends cc.Component implements IHQMJView {
             //this.btn_tingtip.interactable=this.TingTip.node.active;
         }
         
+        /**
+     * 罗盘
+     */
+        public ShowTimerView(chair:number): void {
+        if (cc.isValid(this._timerView)) {
+             this._timerView.showLuoPan();
+        } else {
+            cc.loader.loadRes("gameres/M_LHZMJ/Prefabs/skinView/LHZMJ_Timer3D", function (err, prefab) {
+                if (err) {
+                    cc.error(err);
+                    return;
+                }
+                if (!cc.isValid(this._timerView)) {
+                    let timenode: cc.Node = cc.instantiate(prefab);
+                    this._timerView = timenode.getComponent<HQMJ_TimerView>(HQMJ_TimerView);
+                    // timenode.setLocalZOrder(4);
+                    this.group_mid.addChild(timenode);
+                    this._timerView.init();
+                    this._timerView.showLuoPan(chair);
+                }else{
+                    this._timerView.showLuoPan(chair);
+                }
+            }.bind(this));
+        }
+
+    }
         // //骰子动画
         // private _szAni: HQMJ_SZAni;
         // /**
@@ -899,6 +951,8 @@ export default class M_HQMJView extends cc.Component implements IHQMJView {
             this.btn_location.node.active = M_HQMJClass.ins.isSelfCreateRoom;
             this.btn_chat.node.active=true;
             this.group_gameNum.active=false;
+            //新加的
+            this._readyStatus_userInfo.onEnable();
         }
         
         public GameStart():void{
@@ -920,7 +974,7 @@ export default class M_HQMJView extends cc.Component implements IHQMJView {
             this._timerView.timerNum = 0;
             this._timerView.showArrow = HQMJ.ins.iclass.getSelfChair();
             this._timerView.showArr(255,HQMJ.ins.iclass.getSelfChair());
-            this._timerView.node.active=false;
+            this._timerView.node.active=true;
             this._cardView.node.active = true;
             
         }
@@ -932,7 +986,7 @@ export default class M_HQMJView extends cc.Component implements IHQMJView {
                 this.CardView.holdTricksCard(i,13);
             }
             this.scheduleOnce(()=>{
-                 this._startAni.node.active=false;
+                //  this._startAni.node.active=false;
                  this._szAni.playSZ(M_HQMJClass.ins.SZ1,M_HQMJClass.ins.SZ2,HQMJEvent.msg_holdCardSZComplete);
              },0.25);
         }
@@ -1149,6 +1203,27 @@ export default class M_HQMJView extends cc.Component implements IHQMJView {
             }
         }
 
+        private On2d():void{//2D切换
+            this.btn_2d.node.active = false;
+            this.btn_3d.node.active = true;
+            M_HQMJClass.ins.canvaSwitchClickEvent("2D");
+        }
+
+        private On3d():void{//3D切换
+            this.btn_3d.node.active = false;
+            this.btn_2d.node.active = true;
+            M_HQMJClass.ins.canvaSwitchClickEvent("3D");
+        }
+
+        //独立的退出键
+        private OnExit():void{
+            if(HQMJ.ins.iclass.getTableStauts() == QL_Common.TableStatus.gameing){
+                this._setting.onDissable();//解散
+            }else{
+                this._setting.onExit();//退出
+            }
+        }
+
         /**
          * 显示游戏局数
          * */
@@ -1209,10 +1284,10 @@ export default class M_HQMJView extends cc.Component implements IHQMJView {
                      this._aniPanel.PlayAnimation("AniBao",logicChair);                 
                     break;
                 }
-                case enHQMJAniType.aniType_start: {
-                     this._aniPanel.PlayAnimation("AniStart",logicChair);                 
-                    break;
-                }
+                // case enHQMJAniType.aniType_start: {
+                //      this._aniPanel.PlayAnimation("AniStart",logicChair);                 
+                //     break;
+                // }
             }
           
         }

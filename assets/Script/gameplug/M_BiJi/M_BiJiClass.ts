@@ -21,6 +21,7 @@ export default class M_BiJiClass extends GameBaseClass implements IBiJiClass {
     private skingameView: M_BiJiView = null;
     private chatMsg: string[];
     public allmoney:number=0;
+    public validata:boolean = false;
     public VoiceType() { return this.VoiceType; }
 
     onLoad(): void {
@@ -318,10 +319,12 @@ export default class M_BiJiClass extends GameBaseClass implements IBiJiClass {
     protected OnAgreeNextGame(){
         cc.log("所有玩家同意续局");
         this.skingameView.tableInfo.tableCostNum+=this.allmoney;
-     //   this.skingameView.AgreeNextGameReset();
+        this.validata = true;
+         this.skingameView.AgreeNextGameReset();
     }
     protected OnRefuseNextGame(){
         cc.log("有玩家拒绝续局");
+        
         this.skingameView.RefuseNextGameReset();
     }
     protected CheckCanNext():boolean{

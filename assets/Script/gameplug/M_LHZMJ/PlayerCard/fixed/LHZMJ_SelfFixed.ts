@@ -34,7 +34,7 @@ export default class LHZMJ_SelfFixed extends LHZMJ_FixedBase {
             }else{
                 for(let i:number=0; i<this._fixedData.length; i++){
                     this._fixedData[i].node.x = -495 + i*246;
-                    this._fixedData[i].node.y = -310;
+                    this._fixedData[i].node.y = -290;
                 }
             }
             

@@ -42,6 +42,9 @@ export default class JZMJ_GamingUser extends cc.Component {
     @property(cc.Sprite)
     img_pao:cc.Sprite=null;
 
+    @property(cc.Sprite)
+    img_xuanpao:cc.Sprite=null;
+
     @property(cc.Label)
     lbl_pao:cc.Label=null;
 
@@ -232,4 +235,13 @@ export default class JZMJ_GamingUser extends cc.Component {
         this.img_pao.node.active=true;
         this.lbl_pao.string = score + "跑";
     }
+
+    public hidePao():void{
+        this.img_xuanpao.node.active = false;
+    }
+
+    public showPao():void{
+        this.img_xuanpao.node.active = true;
+    }
+
 }

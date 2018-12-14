@@ -35,21 +35,20 @@ export default class LHZMJ_PaiQiang extends cc.Component {
     private bankchair: number;
 
     onLoad() {
-        this.paiWall_1 = new Array(LHZMJMahjongDef.gCardWalls_number);
-        this.paiWall_2 = new Array(LHZMJMahjongDef.gCardWalls_number);
-        this.paiWall_3 = new Array(LHZMJMahjongDef.gCardWalls_number);
-        this.paiWall_0 = new Array(LHZMJMahjongDef.gCardWalls_number);
-
-        for (var i = 0; i < LHZMJMahjongDef.gCardWalls_number; i++) {
-            this.paiWall_0[i] = this.paiQiangNode[0].getChildByName("ID_PAIQIANG_MJ" + i).getComponent<cc.Sprite>(cc.Sprite);
-            this.paiWall_1[i] = this.paiQiangNode[1].getChildByName("ID_PAIQIANG_MJ" + i).getComponent<cc.Sprite>(cc.Sprite);
-            this.paiWall_2[i] = this.paiQiangNode[2].getChildByName("ID_PAIQIANG_MJ" + i).getComponent<cc.Sprite>(cc.Sprite);
-            this.paiWall_3[i] = this.paiQiangNode[3].getChildByName("ID_PAIQIANG_MJ" + i).getComponent<cc.Sprite>(cc.Sprite);
-        }
         this.idx = 0;
         this.holdidx = 52;
         this.bankchair = -1;
         cc.log("牌墙实例化完成");
+
+        if (this.paiWall_0 && this.paiWall_1 && this.paiWall_2 && this.paiWall_3) {
+            for (var i = 0; i < LHZMJMahjongDef.gCardWalls_number; i++) {
+                this.paiWall_0[i] = this.paiQiangNode[0].getChildByName("ID_PAIQIANG_MJ" + i).getComponent<cc.Sprite>(cc.Sprite);
+                this.paiWall_1[i] = this.paiQiangNode[1].getChildByName("ID_PAIQIANG_MJ" + i).getComponent<cc.Sprite>(cc.Sprite);
+                this.paiWall_2[i] = this.paiQiangNode[2].getChildByName("ID_PAIQIANG_MJ" + i).getComponent<cc.Sprite>(cc.Sprite);
+                this.paiWall_3[i] = this.paiQiangNode[3].getChildByName("ID_PAIQIANG_MJ" + i).getComponent<cc.Sprite>(cc.Sprite);
+            }
+        }
+
 
     }
     start() {
@@ -60,6 +59,14 @@ export default class LHZMJ_PaiQiang extends cc.Component {
         this.idx = 0;
         this.bankchair = -1;
         this.prepareHoldIdx(52);
+
+        if (!this.paiWall_0 && !this.paiWall_1 && !this.paiWall_2 && !this.paiWall_3) {
+            this.paiWall_1 = new Array(LHZMJMahjongDef.gCardWalls_number);
+            this.paiWall_2 = new Array(LHZMJMahjongDef.gCardWalls_number);
+            this.paiWall_3 = new Array(LHZMJMahjongDef.gCardWalls_number);
+            this.paiWall_0 = new Array(LHZMJMahjongDef.gCardWalls_number);
+        }
+
     }
     public holdACard() {
         if (this.bankchair == -1) {
@@ -67,17 +74,30 @@ export default class LHZMJ_PaiQiang extends cc.Component {
         }
         var idx = Math.floor(this.holdidx / 28);
         switch ((this.bankchair + idx) % 4) {
-            case 0: this.paiWall_0[this.holdidx % 28].node.active = false;
-                this.holdidx++;
+            case 0:
+                if (cc.isValid(this.paiWall_0[this.holdidx % 28])) {
+                    this.paiWall_0[this.holdidx % 28].node.active = false;
+                    this.holdidx++;
+                }
                 break;
-            case 1: this.paiWall_1[this.holdidx % 28].node.active = false;
-                this.holdidx++;
+            case 1:
+                if (cc.isValid(this.paiWall_1[this.holdidx % 28])) {
+                    this.paiWall_1[this.holdidx % 28].node.active = false;
+                    this.holdidx++;
+                }
                 break;
-            case 2: this.paiWall_2[this.holdidx % 28].node.active = false;
-                this.holdidx++;
+            case 2:
+                if (cc.isValid(this.paiWall_2[this.holdidx % 28])) {
+                    this.paiWall_2[this.holdidx % 28].node.active = false;
+                    this.holdidx++;
+                }
                 break;
-            case 3: this.paiWall_3[this.holdidx % 28].node.active = false;
-                this.holdidx++;
+            case 3:
+                if (cc.isValid(this.paiWall_3[this.holdidx % 28])) {
+                    this.paiWall_3[this.holdidx % 28].node.active = false;
+                    this.holdidx++;
+                }
+
                 break;
         }
 
@@ -85,7 +105,13 @@ export default class LHZMJ_PaiQiang extends cc.Component {
     public prepareHoldIdx(idx: number = 52) {
         this.holdidx = idx;
     }
-    public showPaiQiang(cardidx:number) {
+    public showPaiQiang(cardidx: number) {
+        cc.log(this.holdidx+";"+cardidx);
+        if (this.holdidx == 53) {
+            cc.error("showpaiqiang():参数错误！！！");
+            this.holdidx = 52;
+        }
+
         this.node.active = true;
         for (var i = 0; i < LHZMJMahjongDef.gCardWalls_number; i++) {
             this.paiWall_0[i].node.active = true;
@@ -108,6 +134,11 @@ export default class LHZMJ_PaiQiang extends cc.Component {
                     this.paiWall_1[4 * (this.idx - 7) + 1].node.active = false;
                     this.paiWall_1[4 * (this.idx - 7) + 2].node.active = false;
                     this.paiWall_1[4 * (this.idx - 7) + 3].node.active = false;
+                    cc.log("---------------------------------------------------");
+                    cc.log("--- 0 paiWall_1: false",4 * (this.idx - 7));
+                    cc.log("--- 0 paiWall_1: false",4 * (this.idx - 7) + 1);
+                    cc.log("--- 0 paiWall_1: false",4 * (this.idx - 7) + 2);
+                    cc.log("--- 0 paiWall_1: false",4 * (this.idx - 7) + 3);
                 }
                     break;
 
@@ -116,11 +147,21 @@ export default class LHZMJ_PaiQiang extends cc.Component {
                     this.paiWall_1[4 * this.idx + 1].node.active = false;
                     this.paiWall_1[4 * this.idx + 2].node.active = false;
                     this.paiWall_1[4 * this.idx + 3].node.active = false;
+                    cc.log("---------------------------------------------------");
+                    cc.log("--- 1 paiWall_1: false",4 * this.idx);
+                    cc.log("--- 1 paiWall_1: false",4 * this.idx + 1);
+                    cc.log("--- 1 paiWall_1: false",4 * this.idx + 2);
+                    cc.log("--- 1 paiWall_1: false",4 * this.idx + 3);
                 } else {
                     this.paiWall_2[4 * (this.idx - 7)].node.active = false;
                     this.paiWall_2[4 * (this.idx - 7) + 1].node.active = false;
                     this.paiWall_2[4 * (this.idx - 7) + 2].node.active = false;
                     this.paiWall_2[4 * (this.idx - 7) + 3].node.active = false;
+                    cc.log("---------------------------------------------------");
+                    cc.log("--- 1 paiWall_2: false",4 * (this.idx - 7));
+                    cc.log("--- 1 paiWall_2: false",4 * (this.idx - 7) + 1);
+                    cc.log("--- 1 paiWall_2: false",4 * (this.idx - 7) + 2);
+                    cc.log("--- 1 paiWall_2: false",4 * (this.idx - 7) + 3);
                 }
                     break;
                 case 2: if (this.idx < 7) {
@@ -128,6 +169,11 @@ export default class LHZMJ_PaiQiang extends cc.Component {
                     this.paiWall_2[4 * this.idx + 1].node.active = false;
                     this.paiWall_2[4 * this.idx + 2].node.active = false;
                     this.paiWall_2[4 * this.idx + 3].node.active = false;
+                    cc.log("---------------------------------------------------");
+                    cc.log("--- 2 paiWall_2: false",4 * this.idx);
+                    cc.log("--- 2 paiWall_2: false",4 * this.idx + 1);
+                    cc.log("--- 2 paiWall_2: false",4 * this.idx + 2);
+                    cc.log("--- 2 paiWall_2: false",4 * this.idx + 3);
                 } else {
                     this.paiWall_3[4 * (this.idx - 7)].node.active = false;
                     this.paiWall_3[4 * (this.idx - 7) + 1].node.active = false;
@@ -150,9 +196,9 @@ export default class LHZMJ_PaiQiang extends cc.Component {
             }
             this.idx++;
         }
-         for(var k = 52;k+cardidx<112;k++){
-             this.holdACard();
-         }  
+        for (var k = 52; k + cardidx < 112; k++) {
+            this.holdACard();
+        }
 
 
     }

@@ -4,6 +4,9 @@ export class AppInfo {
     //升级下载地址
     downloadurl:string;
 
+    //渠道
+    up_channel:string;
+
     //版本号
     pkg_version: number;
     js_version:string

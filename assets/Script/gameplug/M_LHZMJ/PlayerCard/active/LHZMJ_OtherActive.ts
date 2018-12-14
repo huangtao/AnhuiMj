@@ -17,7 +17,7 @@ export default class LHZMJ_OtherActive extends LHZMJ_ActiveBase {
         for(var i:number=0; i<cardAry.length; i++){
             cardAry[i]=0x01;
         }
-        super.refreshHandCardData(cardAry);
+        super.refreshHandCardData(cardAry,true);
     }
     
     /**

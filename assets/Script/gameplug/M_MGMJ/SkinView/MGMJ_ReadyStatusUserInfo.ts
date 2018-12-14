@@ -74,6 +74,9 @@ export default class MGMJ_ReadyStatusUserInfo extends cc.Component {
         for(var i=0;i<4;i++){
             this.userAry[i].node.active = false;
         }
+        for(let i=0;i<MGMJMahjongDef.gPlayerNum;i++){
+            this.group_user[i].on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
+        }
         
     }
 
@@ -120,9 +123,7 @@ export default class MGMJ_ReadyStatusUserInfo extends cc.Component {
         //             this.onKickUser(chair);
         //     },this);           
         // }
-        for(let i=0;i<MGMJMahjongDef.gPlayerNum;i++){
-            this.group_user[i].on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
-        }
+        
         //处理踢人按钮
         for(let i= 0 ;i<this.kickBtn.length;i++){
             let chair: number = M_MGMJClass.ins.logic2physicalChair(i+1);
@@ -226,20 +227,14 @@ export default class MGMJ_ReadyStatusUserInfo extends cc.Component {
             wanfa = "房主支付,";
         if(M_MGMJClass.ins.TableConfig.IsTableCreatorPay == 3)
             wanfa = "圈主支付,";
-        if(!M_MGMJClass.ins.TableConfig.isWhoLose)
-            wanfa += "赢倒三家有,";
-        if(M_MGMJClass.ins.TableConfig.isWhoLose)
-            wanfa += "谁打谁出分,";
-        if(!M_MGMJClass.ins.TableConfig.isCanChi)
-            wanfa += "不准吃牌,";
-        if(M_MGMJClass.ins.TableConfig.isDaiDaPai)
-            wanfa += "带大牌,";
-        if(!M_MGMJClass.ins.TableConfig.isDaiDaPai)
-            wanfa += "不带大牌,";
-        if(M_MGMJClass.ins.TableConfig.isGangFen)
-            wanfa += "带明杠暗杠,";
-        if(!M_MGMJClass.ins.TableConfig.isGangFen)
-            wanfa += "不带明杠暗杠,";
+        if(M_MGMJClass.ins.TableConfig.SetPeiZi==55)
+            wanfa += "白皮配子,";
+        if(M_MGMJClass.ins.TableConfig.SetPeiZi!=55)
+            wanfa += "随机配子,";
+        if(M_MGMJClass.ins.TableConfig.DianPao)
+            wanfa += "可点炮,";
+        if(M_MGMJClass.ins.TableConfig.QiangGangHu)
+            wanfa += "可抢杠胡,";
         if(M_MGMJClass.ins.TableConfig.isZhanZhuang)
             wanfa += "占庄,";
             

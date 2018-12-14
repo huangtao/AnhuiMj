@@ -88,9 +88,14 @@ export default class HBMJ_SinglePlayerFX extends cc.Component {
 
     public SetPlayer(playidx:number):void{
         
+
         this._idx = playidx;
-        this.lbl_play.string = LHZMJ.ins.iclass.getTablePlayerAry()[this._idx].NickName;
-        this._player="ID:" + `${LHZMJ.ins.iclass.getTablePlayerAry()[this._idx].PlayerID}`;
-        LoadHeader(LHZMJ.ins.iclass.getTablePlayerAry()[this._idx].FaceID, this.img_play);
+        cc.log(LHZMJ.ins.iclass.getTablePlayerAry()+"++++++++++");
+        if(LHZMJ.ins.iclass.getTablePlayerAry()[this._idx]!= null){
+            this.lbl_play.string = LHZMJ.ins.iclass.getTablePlayerAry()[this._idx].NickName;
+            this._player="ID:" + `${LHZMJ.ins.iclass.getTablePlayerAry()[this._idx].PlayerID}`;
+            LoadHeader(LHZMJ.ins.iclass.getTablePlayerAry()[this._idx].FaceID, this.img_play);
+        }
+        
     }
 }

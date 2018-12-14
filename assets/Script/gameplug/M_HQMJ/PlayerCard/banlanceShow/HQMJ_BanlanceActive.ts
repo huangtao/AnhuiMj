@@ -93,7 +93,7 @@ export default class HQMJ_BanlanceActive extends HQMJ_CardBase {
         for(var i: number = 0;i < this._cardData.length;i++) {
             this._cardData[i].node.x = startPos + i * 44-350+22.5+50;
             this._cardData[i].node.y = -5;
-            this._cardData[i].showCard(this._handCard[i],true);
+            this._cardData[i].showCardJieSuan(this._handCard[i],true);
             
             if(this._holdCard != HQMJMahjongDef.gInvalidMahjongValue && (i == (this._cardData.length - 1))) {
                 this._cardData[i].node.x += 10;//控制间隔
