@@ -57,7 +57,7 @@ export default class LHZMJ_TimerView extends cc.Component {
         this.node.active = false;
         // this._play=false;
     }
-    public  showLuoPan(chair:number){
+    public showLuoPan(chair:number){
         if(chair==LHZMJMahjongDef.gInvalidChar){
             return;
         }
@@ -99,12 +99,7 @@ export default class LHZMJ_TimerView extends cc.Component {
         this.node.active = chair != LHZMJMahjongDef.gInvalidChar;
 
     }
-    // onDisable(){
-    //     this._index=0;
-    // }
-    /**
-     * 显示计时器箭头
-     * */
+  
     public set showArrow(chair: number) {
         if(!this.node.active){
         this.showLuoPan(chair);
@@ -116,7 +111,7 @@ export default class LHZMJ_TimerView extends cc.Component {
             this.img_arrow[1].active =true;
             this.img_arrow[2].active =true;
             this.img_arrow[3].active =true;
-
+            
             this.img_dipan_2d.node.active = false;
 
         }else{
@@ -130,13 +125,8 @@ export default class LHZMJ_TimerView extends cc.Component {
             this.img_dipan_2d.node.rotation = 90*LHZMJ.ins.iclass.getSelfChair();
         }
         
-        // let action= cc.repeatForever(cc.sequence(cc.fadeTo(0.5, 0), cc.fadeTo(0.5, 255)));
-   
         for (var i: number = 0; i < LHZMJMahjongDef.gPlayerNum; i++) {
-            // this.img_arrow[i].stopAllActions();
-            // this.img_arrow[i].stop();
-            // this.img_arrow[i].active= (i == LHZMJ.ins.iclass.physical2logicChair(chair));
-            // if (chair != LHZMJMahjongDef.gInvalidChar) {
+            
                 if(LHZMJ.ins.iclass.is2D()){
                     this.Node_2d.active = true;
                     this.img_arrow_2d[i].active = (i == LHZMJ.ins.iclass.physical2logicChair(chair));
@@ -144,12 +134,6 @@ export default class LHZMJ_TimerView extends cc.Component {
                     this.Node_2d.active =false;
                     this.img_arrow[i].active = (i == LHZMJ.ins.iclass.physical2logicChair(chair));
                 }
-                // if (i == LHZMJ.ins.iclass.physical2logicChair(chair)) {
-                //     // this.img_arrow[i].opacity=255;
-                //     // this.img_arrow[i].runAction(action);
-                //     this.img_arrow[i].play();
-                // }
-            // }
         }
 
                  
@@ -160,73 +144,19 @@ export default class LHZMJ_TimerView extends cc.Component {
         
     }
 
-    // update(){
-    //     // if(this._play){
-    //     //     if(this._index==0){
-    //     //         this.ArrowNode.node.opacity=0;
-    //     //     }else if(this._index==5){
-    //     //         this.ArrowNode.node.opacity=40;
-    //     //     }else if(this._index==10){
-    //     //         this.ArrowNode.node.opacity=80;
-    //     //     }else if(this._index==15){
-    //     //         this.ArrowNode.node.opacity=120;
-    //     //     }else if(this._index==20){
-    //     //         this.ArrowNode.node.opacity=160;
-    //     //     }else if(this._index==25){
-    //     //         this.ArrowNode.node.opacity=205;
-    //     //     }else if(this._index==30){
-    //     //         this.ArrowNode.node.opacity=255;
-    //     //     }else if(this._index==35){
-    //     //         this.ArrowNode.node.opacity=205;
-    //     //     }else if(this._index==40){
-    //     //         this.ArrowNode.node.opacity=160;
-    //     //     }else if(this._index==45){
-    //     //         this.ArrowNode.node.opacity=120;
-    //     //     }else if(this._index==50){
-    //     //         this.ArrowNode.node.opacity=80;
-    //     //     }else if(this._index==55){
-    //     //         this.ArrowNode.node.opacity=40;
-    //     //     }else if(this._index>59){
-    //     //         this.ArrowNode.node.opacity=0;
-    //     //         this._index=0;
-    //     //     }
-    //     //     this._index++;
-    //     // }
-    //     if(this._play){
-    //         if(this._index%3==0){
-    //             if(this._index>30){
-    //                 this.ArrowNode.node.opacity=(60-this._index)/5*30+75;
-    //             }else{
-    //                 this.ArrowNode.node.opacity=this._index/5*30+75;
-    //             }
-    //         }
-            
-    //         if(this._index>59){
-    //             this.ArrowNode.node.opacity=75;
-    //             this._index=0;
-    //         }
-    //         this._index++;
-    //     }
-    // }
 
     public clearAction(): void {
-        // for (var i: number = 0; i < LHZMJMahjongDef.gPlayerNum; i++) {
-        //     // this.img_arrow[i].stopAllActions();
-        //     this.img_arrow[i].stop();
-        // }
+       
         this.ArrowNode.stop();
         this.unscheduleAllCallbacks();
-        // this._play=false;
+       
     }
 
     /**
      * 隐藏箭头
      * */
     public hideArrow(): void {
-        // for(var i: number = 0;i < LHZMJMahjongDef.gPlayerNum;i++) {
-        //     this._img_arrow[i].visible = false;
-        //     egret.Tween.removeTweens(this._img_arrow[i]);
-        // }
+        
     }
 
     /**

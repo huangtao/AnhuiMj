@@ -7,7 +7,7 @@ import { FriendsCircleListItem } from "./FriendsCircleListItem";
 import FriendCircleWebHandle from "../FriendCircleWebHandle";
 import FriendCircleDataCache from "../FriendCircleDataCache";
 import { LocalStorage } from "../../../CustomType/LocalStorage";
-import { FriendCircleRule } from "../../../CustomType/FriendCircleInfo";
+import { FriendCircleRule, FriendCircleInfo } from "../../../CustomType/FriendCircleInfo";
 import { FriendCircleWanfaItem } from "./FriendCircleWanfaItem";
 import Dictionary from "../../../CustomType/Dictionary";
 import SendMessage from "../../../Global/SendMessage";
@@ -89,6 +89,12 @@ export default class CreateSelecteFriendsCircle extends cc.Component {
     @property(cc.Button)
     btn_record: cc.Button = null;
 
+    /** 
+     * 消息红点
+     */
+    @property(cc.Node)
+    sp_msgRedPoint: cc.Node = null;
+
 
     /**
      * 当前选中的亲友圈Item
@@ -122,6 +128,10 @@ export default class CreateSelecteFriendsCircle extends cc.Component {
         this.node_noWanfa.active = false;
         this.btn_change.node.active = false;
         this.btn_record.node.active = false;
+
+        this.joinOrCreateGroup.removeAllChildren();
+        this.layout_Wanfa.node.removeAllChildren();
+
         // 拉取亲友圈列表
         this.requestFriendCircleList();
 
@@ -273,13 +283,13 @@ export default class CreateSelecteFriendsCircle extends cc.Component {
         let localFriendCircleInfo: any = StrToObject(local_info);
         let isAdmin = FriendCircleDataCache.Instance.selfIsAdministrator();
 
-        for (var i = 0; i < length; ++i) {
+        for (let i = 0; i < length; ++i) {
             // 创建Item
             let item = cc.instantiate(this.prefab_wanfa);
             const wanfaItem: FriendCircleWanfaItem = item.getComponent(FriendCircleWanfaItem);
             let ruleInfo: FriendCircleRule = list[i];
-
-            wanfaItem.initShow(ruleInfo, isAdmin);
+            
+            wanfaItem.initShow(ruleInfo, isAdmin, i + 1);
 
             // 设置"当前图标显示"
             if (ruleInfo && localFriendCircleInfo && localFriendCircleInfo.ruleId == ruleInfo.Id) {
@@ -289,7 +299,7 @@ export default class CreateSelecteFriendsCircle extends cc.Component {
             }
 
             if (ruleInfo) {
-                this._wanfaItemComList.Add(ruleInfo.Id, wanfaItem);
+                this._wanfaItemComList.AddOrUpdate(ruleInfo.Id, wanfaItem);
                 // 请求桌子列表
                 SendMessage.Instance.QueryGroupTableList(ruleInfo.friendId, ruleInfo.Id);
             }
@@ -385,7 +395,6 @@ export default class CreateSelecteFriendsCircle extends cc.Component {
             }));
         });
 
-        Global.Instance.UiManager.ShowLoading("正在加载数据...");
         FriendCircleWebHandle.requestFriendCircRuleList(groupId_ + "", act);
     }
 
@@ -413,8 +422,11 @@ export default class CreateSelecteFriendsCircle extends cc.Component {
             FriendCircleDataCache.Instance.clearData();
 
             // 设置当前进入的亲友圈
-            let friendInfo = obj.circleInfo;
+            let friendInfo: FriendCircleInfo = obj.circleInfo;
             FriendCircleDataCache.Instance.CurEnterFriendCircle = friendInfo;
+
+            // 请求消息列表
+            FriendCircleWebHandle.getMessageList(friendInfo.ID, new Action(this, (this.updateMsgRedPointShow)));
 
             // // 点击事件回调
             // if (this._selectFriendClickEvent) {
@@ -439,6 +451,17 @@ export default class CreateSelecteFriendsCircle extends cc.Component {
 
             // 选择亲友圈,请求亲友圈玩法列表
             this.requestFriendCircRuleList(parseInt(obj.circleInfo.ID));
+        }
+    }
+
+    /**
+     * 更新消息红点显示
+     */
+    public updateMsgRedPointShow() {
+        if (FriendCircleDataCache.Instance.UnDealMessageList.Count > 0 && FriendCircleDataCache.Instance.selfIsAdministrator()) {
+            this.sp_msgRedPoint.active = true;
+        } else {
+            this.sp_msgRedPoint.active = false;
         }
     }
 

@@ -28,13 +28,13 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
         // this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(card);
         
         if(MGMJ.ins.iclass.is2D()){
-            this.bmp_cardback.node.width=42;
-            this.bmp_cardback.node.height=58;
+            this.bmp_cardback.node.width=43;
+            this.bmp_cardback.node.height=60;
             this.bmp_cardback.node.scaleX=1;
 
             this.bmp_cardcolor.node.x=0;
-            this.bmp_cardcolor.node.y=4;
-            this.bmp_cardcolor.node.scaleX=0.45;
+            this.bmp_cardcolor.node.y=8;
+            this.bmp_cardcolor.node.scaleX=0.75;
             this.bmp_cardcolor.node.scaleY=0.45;
             this.bmp_cardcolor.node.skewX=0;
 
@@ -43,7 +43,7 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
             this.bmp_cardHide.node.scaleX=0.56;
             this.bmp_cardHide.node.scaleY=0.43;
             this.bmp_cardHide.node.skewX=0;
-            this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcard_oppo_1280");
+            this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("shangdp_back@2x");
             this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(card);
         }else{
             this.show3DCard();
@@ -72,11 +72,11 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.45;
                 this.bmp_cardcolor.node.skewX=-3;
 
-                this.bmp_cardHide.node.x=0.4;
-                this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=-4;
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=colorY;
+                this.bmp_cardHide.node.scaleX=0.55;
+                this.bmp_cardHide.node.scaleY=0.45;
+                this.bmp_cardHide.node.skewX=-3;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_1");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -91,10 +91,10 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.45;
                 this.bmp_cardcolor.node.skewX=-2;
 
-                this.bmp_cardHide.node.x=-0.1;
-                this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
+                this.bmp_cardHide.node.x=0;
+                this.bmp_cardHide.node.y=colorY;
+                this.bmp_cardHide.node.scaleX=0.55;
+                this.bmp_cardHide.node.scaleY=0.45;
                 this.bmp_cardHide.node.skewX=-2.5;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_2");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
@@ -110,11 +110,11 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.45;
                 this.bmp_cardcolor.node.skewX=-1.5;
 
-                this.bmp_cardHide.node.x=-0.1;
-                this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=-2;
+                this.bmp_cardHide.node.x=0;
+                this.bmp_cardHide.node.y=colorY;
+                this.bmp_cardHide.node.scaleX=0.55;
+                this.bmp_cardHide.node.scaleY=0.45;
+                this.bmp_cardHide.node.skewX=-1.5;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_3");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -130,9 +130,9 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.skewX=-1;
 
                 this.bmp_cardHide.node.x=0;
-                this.bmp_cardHide.node.y=10.2;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
+                this.bmp_cardHide.node.y=colorY;
+                this.bmp_cardHide.node.scaleX=0.55;
+                this.bmp_cardHide.node.scaleY=0.45;
                 this.bmp_cardHide.node.skewX=-1;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_4");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
@@ -149,9 +149,9 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.skewX=0;
 
                 this.bmp_cardHide.node.x=0;
-                this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
+                this.bmp_cardHide.node.y=colorY;
+                this.bmp_cardHide.node.scaleX=0.55;
+                this.bmp_cardHide.node.scaleY=0.45;
                 this.bmp_cardHide.node.skewX=0;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_5");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
@@ -168,9 +168,9 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.skewX=0;
 
                 this.bmp_cardHide.node.x=0;
-                this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
+                this.bmp_cardHide.node.y=colorY;
+                this.bmp_cardHide.node.scaleX=0.55;
+                this.bmp_cardHide.node.scaleY=0.45;
                 this.bmp_cardHide.node.skewX=0;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_6");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
@@ -187,9 +187,9 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.skewX=1;
 
                 this.bmp_cardHide.node.x=0;
-                this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
+                this.bmp_cardHide.node.y=colorY;
+                this.bmp_cardHide.node.scaleX=0.55;
+                this.bmp_cardHide.node.scaleY=0.45;
                 this.bmp_cardHide.node.skewX=1;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_19");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
@@ -206,10 +206,10 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.skewX=1.5;
 
                 this.bmp_cardHide.node.x=0.1;
-                this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=2;
+                this.bmp_cardHide.node.y=colorY;
+                this.bmp_cardHide.node.scaleX=0.55;
+                this.bmp_cardHide.node.scaleY=0.45;
+                this.bmp_cardHide.node.skewX=1.5;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_22");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -224,11 +224,11 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.45;
                 this.bmp_cardcolor.node.skewX=2;
 
-                this.bmp_cardHide.node.x=0.1;
-                this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=2.5;
+                this.bmp_cardHide.node.x=0;
+                this.bmp_cardHide.node.y=colorY;
+                this.bmp_cardHide.node.scaleX=0.55;
+                this.bmp_cardHide.node.scaleY=0.45;
+                this.bmp_cardHide.node.skewX=2;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_25");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -243,11 +243,11 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleX=0.5;
                 this.bmp_cardcolor.node.scaleY=0.4;
 
-                this.bmp_cardHide.node.x=-0.4;
+                this.bmp_cardHide.node.x=0;
                 this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=4;
+                this.bmp_cardHide.node.scaleX=0.5;
+                this.bmp_cardHide.node.scaleY=0.4;
+                // this.bmp_cardHide.node.skewX=4;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_7");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -262,11 +262,11 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.4;
                 this.bmp_cardcolor.node.skewX=-3;
 
-                this.bmp_cardHide.node.x=0.4;
+                this.bmp_cardHide.node.x=1;
                 this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=-4;
+                this.bmp_cardHide.node.scaleX=0.5;
+                this.bmp_cardHide.node.scaleY=0.4;
+                this.bmp_cardHide.node.skewX=-3;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_8");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -281,11 +281,11 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.4;
                 this.bmp_cardcolor.node.skewX=-2;
 
-                this.bmp_cardHide.node.x=-0.1;
+                this.bmp_cardHide.node.x=0;
                 this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=-2.5;
+                this.bmp_cardHide.node.scaleX=0.5;
+                this.bmp_cardHide.node.scaleY=0.4;
+                this.bmp_cardHide.node.skewX=-2;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_9");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -300,11 +300,11 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.4;
                 this.bmp_cardcolor.node.skewX=-1.5;
 
-                this.bmp_cardHide.node.x=-0.1;
+                this.bmp_cardHide.node.x=0;
                 this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=-2;
+                this.bmp_cardHide.node.scaleX=0.5;
+                this.bmp_cardHide.node.scaleY=0.4;
+                this.bmp_cardHide.node.skewX=-1.5;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_10");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -321,8 +321,8 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
 
                 this.bmp_cardHide.node.x=0;
                 this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
+                this.bmp_cardHide.node.scaleX=0.5;
+                this.bmp_cardHide.node.scaleY=0.4;
                 this.bmp_cardHide.node.skewX=-1;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_11");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
@@ -338,10 +338,10 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.4;
                 this.bmp_cardcolor.node.skewX=0;
 
-                this.bmp_cardHide.node.x=0;
+                this.bmp_cardHide.node.x=1;
                 this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
+                this.bmp_cardHide.node.scaleX=0.5;
+                this.bmp_cardHide.node.scaleY=0.4;
                 this.bmp_cardHide.node.skewX=0;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_12");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
@@ -358,8 +358,8 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.skewX=0;
                 this.bmp_cardHide.node.x=0;
                 this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
+                this.bmp_cardHide.node.scaleX=0.5;
+                this.bmp_cardHide.node.scaleY=0.4;
                 this.bmp_cardHide.node.skewX=0;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_20");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
@@ -376,9 +376,9 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.skewX=0.5;
                 this.bmp_cardHide.node.x=0;
                 this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=1;
+                this.bmp_cardHide.node.scaleX=0.5;
+                this.bmp_cardHide.node.scaleY=0.4;
+                this.bmp_cardHide.node.skewX=0.5;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_23");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -393,11 +393,11 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.4;
                 this.bmp_cardcolor.node.skewX=1;
 
-                this.bmp_cardHide.node.x=0.1;
+                this.bmp_cardHide.node.x=0;
                 this.bmp_cardHide.node.y=10;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=2;
+                this.bmp_cardHide.node.scaleX=0.5;
+                this.bmp_cardHide.node.scaleY=0.4;
+                this.bmp_cardHide.node.skewX=1;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_26");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -413,11 +413,11 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.38;
                 this.bmp_cardcolor.node.skewX=2;
 
-                this.bmp_cardHide.node.x=0.1;
+                this.bmp_cardHide.node.x=0;
                 this.bmp_cardHide.node.y=10;
                 this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=2.5;
+                this.bmp_cardHide.node.scaleY=0.38;
+                this.bmp_cardHide.node.skewX=2;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_13");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -432,11 +432,11 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.38;
                 this.bmp_cardcolor.node.skewX=3;
 
-                this.bmp_cardHide.node.x=-0.4;
+                this.bmp_cardHide.node.x=-1;
                 this.bmp_cardHide.node.y=10;
                 this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=4;
+                this.bmp_cardHide.node.scaleY=0.38;
+                this.bmp_cardHide.node.skewX=3;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_14");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -452,10 +452,10 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.38;
                 this.bmp_cardcolor.node.skewX=-3;
 
-                this.bmp_cardHide.node.x=0.4;
-                this.bmp_cardHide.node.y=10.2;
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=10;
                 this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
+                this.bmp_cardHide.node.scaleY=0.38;
                 this.bmp_cardHide.node.skewX=-3;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_15");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
@@ -471,11 +471,11 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.38;
                 this.bmp_cardcolor.node.skewX=-2;
 
-                this.bmp_cardHide.node.x=-0.1;
+                this.bmp_cardHide.node.x=0;
                 this.bmp_cardHide.node.y=10;
                 this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=-3;
+                this.bmp_cardHide.node.scaleY=0.38;
+                this.bmp_cardHide.node.skewX=-2;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_16");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -490,11 +490,11 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardcolor.node.scaleY=0.38;
                 this.bmp_cardcolor.node.skewX=-1.5;
 
-                this.bmp_cardHide.node.x=-0.1;
+                this.bmp_cardHide.node.x=0;
                 this.bmp_cardHide.node.y=10;
                 this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
-                this.bmp_cardHide.node.skewX=-2;
+                this.bmp_cardHide.node.scaleY=0.38;
+                this.bmp_cardHide.node.skewX=-1.5;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_17");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
@@ -512,7 +512,7 @@ export default class MGMJ_OppoSinglePool extends MGMJ_SinglePoolBase {
                 this.bmp_cardHide.node.x=0;
                 this.bmp_cardHide.node.y=10;
                 this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.35;
+                this.bmp_cardHide.node.scaleY=0.38;
                 this.bmp_cardHide.node.skewX=-1;
                 this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("field_oppo_24");
                 this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);

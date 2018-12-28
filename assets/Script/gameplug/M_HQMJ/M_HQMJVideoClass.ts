@@ -1877,82 +1877,28 @@ export default class M_HQMJVideoClass extends GameVideoBase implements IHQMJClas
         this._recordCard.outACard(playerOutCard.card);
         let sex:number=this.TablePlayer[playerOutCard.chair].Gender==1?1:2;
         let chair = playerOutCard.chair;
-        // M_HQMJVoice.PlayCardType(`/sound/dapai.mp3`);
-        //播放音效,todo
-        //  if(true){//如果是普通话
-            // if(chair % 2 == 0)
-                // M_HQMJVoice.PlayCardType(`/sound/PT/1/mj_1_${HQMJMahjongAlgorithm.GetMahjongColor(playerOutCard.card)}_${HQMJMahjongAlgorithm.GetMahjongValue(playerOutCard.card)}.mp3`);
-            // else
-                // M_HQMJVoice.PlayCardType(`/sound/PT/2/mj_2_${HQMJMahjongAlgorithm.GetMahjongColor(playerOutCard.card)}_${HQMJMahjongAlgorithm.GetMahjongValue(playerOutCard.card)}.mp3`);
-        //  }else{
-            //M_HQMJVoice.PlayCardType(`/sound/${sex}/mj_${sex}_${HQMJMahjongAlgorithm.GetMahjongColor(playerOutCard.card)}_${HQMJMahjongAlgorithm.GetMahjongValue(playerOutCard.card)}.mp3`);
-        //M_HQMJVoice.PlayDiaCardType(`resources/gameres/M_HQMJ/sound/dialectsound/${sex}/dsmj_${sex}_${HQMJMahjongAlgorithm.GetMahjongColor(playerOutCard.card)}_${HQMJMahjongAlgorithm.GetMahjongValue(playerOutCard.card)}.mp3`);
-        //  }
+       
         if(this._outCardPlayer.isValid){
             M_HQMJVideoView.ins.CardView.addCard2Pool(this._outCardPlayer.Chair,this._outCardPlayer.Card);
         }          
         //活动牌阵处理
         M_HQMJVideoView.ins.CardView.playerOutCard(playerOutCard.chair,playerOutCard.card);
              //听牌提示剩余牌可能要刷新
-        // if(M_HQMJVideoView.ins.TingTip.node.active){
-        //     this.showTingCard(0,3000);
-        // } 
         //如果是自己
         if(this.SelfChair == playerOutCard.chair){
             HQMJMahjongAlgorithm.delCard(this._handCard,[playerOutCard.card]);
             HQMJMahjongAlgorithm.sortCardAry(this._handCard);
-            // let str="服务端出2牌"
-            // for(let i=0;i<this._handCard.length;i++){
-            //     str+=" "+this._handCard[i];
-            // }
-            // console.log(str);
-            // M_HQMJVideoView.ins.CardView.selfVideoActive.activeEnable(false);
-            // M_HQMJVideoView.ins.CardView.selfVideoActive.refreshHandCardData(this._handCard);
             
             M_HQMJVideoView.ins.OperatorView.node.active=false;
-            // M_HQMJVideoView.ins.SelGangView.node.active=false;
 
             M_HQMJVideoView.ins.TimerView.hideArrow();
-            // M_HQMJVideoView.ins.CardView.selfVideoActive.allDown();
-
-            // M_HQMJVideoView.ins.CardView.selfVideoActive.showTingCardToken(null);
             M_HQMJVideoView.ins.TingTip.showTingTip(null,true);
               this._isTing = HQMJMahjongAlgorithm.CheckIfCanTingCardArray(this._handCard);
-            //   M_HQMJVideoView.ins.TingBtn(this._isTing);
-            if(this._isTing){
-                // M_HQMJVideoView.ins.btn_tingtip.node.active = true;
-                this.showTingCard(0,3000,true);
-            }else{
-                // M_HQMJVideoView.ins.btn_tingtip.node.active = false;
-            }
-            // if(this._isTing){
-            //     M_HQMJVideoView.ins.GameStatusUserInfo.Ting = playerOutCard.chair;
-            //    }
 
         }
             
         }
     
-        
-    
-    // else{
-    //         console.log("-----------变--牌变--牌---------")
-    //          if(this._isTing){
-    //             for(var k=0;k<4;k++)
-    //            {
-    //          for(var i=0;i<M_HQMJVideoView.ins.CardView.getFixed(k)._fixedData.length;i++)
-    //         {
-    //             if(M_HQMJVideoView.ins.CardView.getFixed(k)._fixedData[i].fixedType==enFixedCardType.FixedCardType_AGang)
-    //             {
-                
-    //             var url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei1/pb1_showcard_self_1280`;
-    //             SetTextureRes(url,M_HQMJVideoView.ins.CardView.getFixed(k)._fixedData[i].bmp_cardbackAry[3]);
-                 
-    //              console.log("-----------变--牌变--牌---------")
-    //             M_HQMJVideoView.ins.CardView.getFixed(k)._fixedData[i].bmp_cardcolorAry[1].node.active=true;
-    //         }}
-    //            }}
-    // }
     /**
      * 断线重连恢复玩家分数变化
      * */

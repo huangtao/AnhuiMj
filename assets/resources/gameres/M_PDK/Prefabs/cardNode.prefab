@@ -158,7 +158,7 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
+      "x": 0,
       "y": 0.5
     },
     "_contentSize": {
@@ -172,8 +172,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 120,
-      "y": 75.8
+      "x": 7,
+      "y": -13
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -249,7 +249,7 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 1,
+      "x": 0,
       "y": 0.5
     },
     "_contentSize": {
@@ -263,7 +263,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 80,
+      "x": 6,
       "y": -54
     },
     "_skewX": 0,

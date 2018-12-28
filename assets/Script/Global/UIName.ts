@@ -57,7 +57,7 @@ export namespace UIName {
   export const Address = "Prefabs/Person/ShippingAddress";
   export const Area = "Prefabs/Person/Area";
   export const Contact = "Prefabs/General/Contact";
-  export const Congratulation = "Prefabs/General/Congratulation";
+  export const Congratulation = "Prefabs/General/congratulation";
   export const Task = "Prefabs/Task/TaskForm";//任务
   export const EmailContentPanel = "Prefabs/Email/EmailContent";
   export const ShopGiftPanel = "Prefabs/General/congratulation";
@@ -67,6 +67,7 @@ export namespace UIName {
   export const BindPanel = "Prefabs/Moblie/BindPanel";
   export const BindPhonePanel = "Prefabs/Moblie/BindPhonePanel";
   export const PhoneLoginPanel = "Prefabs/PhoneLogin/PhoneLoginPanel";
+
 
 
 
@@ -157,4 +158,18 @@ export namespace UIName {
    */
   export const GamePlayerInfo = "Prefabs/gameres/PlayerInfoForm";
 
+  /**
+   * 转盘主界面
+   */
+  export const TurntablePanel = "Prefabs/Turntable/TurntablePanel";
+
+  /**
+   * 转盘详情界面
+   */
+  export const TurntableDesc = "Prefabs/Turntable/TurntableDesc";
+
+  /**
+   * 抽奖记录页面
+   */
+  export const TurntableRecordPanel = "Prefabs/Turntable/TurntableRecordPanel";
 }

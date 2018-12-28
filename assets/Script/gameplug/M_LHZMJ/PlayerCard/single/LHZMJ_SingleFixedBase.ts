@@ -14,11 +14,11 @@ private static _ins: LHZMJ_SingleFixedBase;
         public get gameClass(): LHZMJ_SingleFixedBase { return LHZMJ_SingleFixedBase.ins; }
 
 
-    @property(cc.Node)
-    light_node:cc.Node=null;
+    // @property(cc.Node)
+    // light_node:cc.Node=null;
 
-    @property(cc.Sprite)
-    bmp_arrow:cc.Sprite[]=[];
+    // @property(cc.Sprite)
+    // bmp_arrow:cc.Sprite[]=[];
 
     //四个牌背
     @property([cc.Sprite])
@@ -27,9 +27,12 @@ private static _ins: LHZMJ_SingleFixedBase;
     @property([cc.Sprite])
     bmp_cardcolorAry: cc.Sprite[]=[];
         //3个遮罩
-    @property([cc.Sprite])
-    bmp_cardHideAry: cc.Sprite[]=[];
+    // @property([cc.Sprite])
+    // bmp_cardHideAry: cc.Sprite[]=[];
 
+    @property([cc.Sprite])
+    light_arrow: cc.Sprite[]=[];
+    
     onLoad() {
         // init logic
         
@@ -68,13 +71,22 @@ private static _ins: LHZMJ_SingleFixedBase;
         //this._bmp_arrow=new egret.Bitmap();
         for(var i: number = 0;i < 3;i++) {
             this.bmp_cardbackAry[i].node.active=true;
-            this.bmp_cardHideAry[i].node.active=false;
+            // this.bmp_cardHideAry[i].node.active=false;
             this.bmp_cardcolorAry[i].node.active=true;
         }
 
         if(enFixedCardType.FixedCardType_Peng != this._fixdType) {
             this.bmp_cardbackAry[3].node.active=true;
         }
+
+        // if(pos != null && this._fixdType != enFixedCardType.FixedCardType_AGang){
+        //     for(var i=1;i<4;i++){
+        //         if(this._pos != i)
+        //             this.light_arrow[i].node.active = false;        
+        //         else
+        //             this.light_arrow[i].node.active = true;    
+        //     }
+        // }
     }
    
 
@@ -120,16 +132,16 @@ private static _ins: LHZMJ_SingleFixedBase;
         return result;
     }
     public showHide(card:number):void{
-        if(cc.isValid(this.node)){
-            if((enFixedCardType.FixedCardType_Peng == this._fixdType) && (card == this._cardValue)){
-                // for(let i: number = 0;i < 3;i++) {
-                //     this.bmp_cardHideAry[i].node.active=true;
-                // }
-            }else{
-                for(let i: number = 0;i < 3;i++) {
-                    this.bmp_cardHideAry[i].node.active=false;
-                }
-            }
-        }
+    //     if(cc.isValid(this.node)){
+    //         if((enFixedCardType.FixedCardType_Peng == this._fixdType) && (card == this._cardValue)){
+    //             // for(let i: number = 0;i < 3;i++) {
+    //             //     this.bmp_cardHideAry[i].node.active=true;
+    //             // }
+    //         }else{
+    //             for(let i: number = 0;i < 3;i++) {
+    //                 this.bmp_cardHideAry[i].node.active=false;
+    //             }
+    //         }
+    //     }
     }
 }

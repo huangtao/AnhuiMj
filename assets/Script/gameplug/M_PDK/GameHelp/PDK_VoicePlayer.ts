@@ -56,6 +56,8 @@ export default class VoicePlayer {
             path = VoicePath  + path + "shunzi.mp3";
         }else if(cardType == CardType.Bomb){
             path = VoicePath  + path + "zhadan.mp3";
+        }else if(cardType == CardType.FourAndTwo){
+            path = VoicePath  + path + "sidaier.mp3";
         }else if(cardType == CardType.Plane){
             if(value == 1){
                 path = VoicePath  + path + "planewings.mp3";

@@ -9967,8 +9967,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -80,
-      "y": -175
+      "x": -137,
+      "y": -165
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -9999,9 +9999,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 0,
-      "b": 0,
+      "r": 192,
+      "g": 27,
+      "b": 58,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -10012,7 +10012,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 171,
+      "width": 245,
       "height": 40
     },
     "_rotationX": 0,
@@ -10021,7 +10021,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 117,
+      "x": 151,
       "y": -3
     },
     "_skewX": 0,
@@ -10040,12 +10040,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
+    "_actualFontSize": 36,
+    "_fontSize": 36,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "b163d019-579c-428e-b155-062ab4c90274"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "防作弊监控中...",
     "_N$horizontalAlign": 1,

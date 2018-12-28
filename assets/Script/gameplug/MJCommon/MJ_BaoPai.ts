@@ -24,7 +24,7 @@ export default class MJ_BaoPai extends cc.Component {
         
         this.mj_pai.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("hand_self_1");
                     
-        this.mj_hua.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(outPai);
+        this.mj_hua.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaResOut(outPai);
         
         this.node.active = true;
         this.node.scaleX = 0.5;

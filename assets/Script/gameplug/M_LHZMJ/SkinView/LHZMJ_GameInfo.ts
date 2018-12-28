@@ -1,7 +1,8 @@
 import { LHZMJMahjongDef, LHZMJ } from "../ConstDef/LHZMJMahjongDef";
 import M_LHZMJVideoClass from "../M_LHZMJVideoClass";
 import M_LHZMJClass from "../M_LHZMJClass";
-
+import M_LHZMJView from "../M_LHZMJView";
+import { LocalStorage } from "../../../CustomType/LocalStorage";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -29,7 +30,10 @@ export default class LHZMJ_GameInfo extends cc.Component {
 
     private _leftCardNum:number;
     private _groupid:number;
-
+    /**
+     * 按钮是否可点击（避免短时间内用户连续点击多次按钮会出现问题)
+     */
+    private _isClickEnable: boolean = true;
     onLoad() {
         // init logic
         //this.init();
@@ -61,7 +65,20 @@ export default class LHZMJ_GameInfo extends cc.Component {
     }
 
     private changeSence(e,any:string){
+
+        if (!this._isClickEnable) {
+             M_LHZMJView.ins.TipMsgShow("您的操作过于频繁，请稍后再试");
+            return;
+        }
+
+        this._isClickEnable = false;
+        this.scheduleOnce(()=>{
+            this._isClickEnable = true;
+        }, 2);
+
         LHZMJ.ins.iclass.canvaSwitchClickEvent(any);
+        LocalStorage.SetItem("Game_Canvas",any);
+
     }
 
     /**

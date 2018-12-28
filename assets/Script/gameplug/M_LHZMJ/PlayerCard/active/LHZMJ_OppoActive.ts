@@ -27,7 +27,7 @@ export default class LHZMJ_OppoActive extends LHZMJ_OtherActive {
         //活动牌起点:x:847,733,619,505,391
         private static ArrangeStartPos_lie: Array<number> = [892,785,675,550,425];
 
-        private static ArrangeStartPos3D_stand: Array<number> = [260,140,20,-100,-240];
+        private static ArrangeStartPos3D_stand: Array<number> = [260,140,20,-100,-240+50];
         //
         //摊开状态,x间隔38
         //
@@ -42,10 +42,10 @@ export default class LHZMJ_OppoActive extends LHZMJ_OtherActive {
         if(LHZMJ.ins.iclass.is2D()){
             if(this.isLie) {
                 //起始位置private static ArrangeStartPos_stand: Array<number> = [892,785,675,550,425];
-                var startPos: number = LHZMJ_OppoActive.ArrangeStartPos_lie[this.fixedCardNum];
+                let startPos: number = LHZMJ_OppoActive.ArrangeStartPos_lie[this.fixedCardNum];
 
                 //开始排版
-                for(var i: number = 0;i < this._cardData.length;i++) {
+                for(let i: number = 0;i < this._cardData.length;i++) {
                     this._cardData[i].node.setLocalZOrder(i+1);
                     this._cardData[i].node.x = startPos - i * 42-640-18;
                     this._cardData[i].node.y = 309;
@@ -57,10 +57,10 @@ export default class LHZMJ_OppoActive extends LHZMJ_OtherActive {
                 }
             } else {
                 //起始位置
-                var startPos: number = LHZMJ_OppoActive.ArrangeStartPos_stand[this.fixedCardNum];
+                let startPos: number = LHZMJ_OppoActive.ArrangeStartPos_stand[this.fixedCardNum];
 
                 //开始排版
-                for(var i: number = 0;i < this._cardData.length;i++) {
+                for(let i: number = 0;i < this._cardData.length;i++) {
                     this._cardData[i].node.setLocalZOrder(i+1);
                     this._cardData[i].node.x = startPos - i * 37-640-18;
                     this._cardData[i].node.y = 309;
@@ -85,7 +85,7 @@ export default class LHZMJ_OppoActive extends LHZMJ_OtherActive {
             if(this.isLie) {
             //起始位置
                 let startPos: number = LHZMJ_OppoActive.ArrangeStartPos3D_lie[this.fixedCardNum];
-                this.resetZ();
+                // this.resetZ();
                 
                 //开始排版
                 for(let i: number = 0;i < this._cardData.length;i++) {
@@ -104,9 +104,9 @@ export default class LHZMJ_OppoActive extends LHZMJ_OtherActive {
 
                 //开始排版
                 for(let i: number = 0;i < this._cardData.length;i++) {
-                    this._cardData[i].node.setLocalZOrder(i+1);
-                    this._cardData[i].node.x = startPos - i * 40;
-                    this._cardData[i].node.y = 320;
+                    // this._cardData[i].node.setLocalZOrder(i+1);
+                    this._cardData[i].node.x = startPos - i * 36-20;
+                    this._cardData[i].node.y = 315;
                     this._cardData[i].showCard(this._handCard[i],this.isLie,i+temp+1);
 
                     if(this.isHoldAfter && (i == (this._cardData.length - 1))) {
@@ -114,6 +114,14 @@ export default class LHZMJ_OppoActive extends LHZMJ_OtherActive {
                     }
                      if(!this.isHoldAfter && this._cardData.length%3==2 && (i == (this._cardData.length - 1))){//碰过之后会右移第一张牌
                         this._cardData[i].node.x -= 15;
+                    }
+                    
+                    if(this._cardData.length == 2){
+                        this._cardData[0].node.x -= 10;
+                        this._cardData[1].node.x -= 10;
+                    }
+                    if(this._cardData.length == 1){
+                        this._cardData[0].node.x -= 20;
                     }
                 }
             }

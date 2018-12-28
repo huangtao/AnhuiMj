@@ -36,6 +36,11 @@ export default class FriendCircleWebHandle {
     private static _kickMemberHandle: Action = null;
 
     /**
+     * 设置处理申请消息回调
+     */
+    private static _dealApplyMsgHandle: Action = null;
+
+    /**
      * 禁玩或解禁回调事件
      */
     private static _banHandle: Action = null;
@@ -85,6 +90,17 @@ export default class FriendCircleWebHandle {
     }
 
     /**
+     * 设置处理申请消息回调
+     */
+    public static setDealApplyMsgHandle(act: Action){
+        if (!act) {
+            return;
+        }
+
+        FriendCircleWebHandle._dealApplyMsgHandle = act;
+    }
+
+    /**
      * 设置加入亲友圈回调事件
      */
     public static setJoinFriendCircleHandle(act: Action){
@@ -106,7 +122,6 @@ export default class FriendCircleWebHandle {
         FriendCircleWebHandle._modifyFriendCirleInfoHandle = act;
     }
         
-
     /**
      * 请求失败回调
      */
@@ -124,10 +139,20 @@ export default class FriendCircleWebHandle {
             cc.log('-- getJoinCircleListCb ',args);
 
             if (!args || !args.status) {
+                // 回调
+                if (action_) {
+                    action_.Run([args]);
+                    return;
+                }
                 return;
             }
             
             if ("success" != args.status) {
+                // 回调
+                if (action_) {
+                    action_.Run([args]);
+                    return;
+                }
                 return;
             }
 
@@ -162,7 +187,7 @@ export default class FriendCircleWebHandle {
 
         // 拉取亲友圈列表
         let data: IDictionary<string,any> = WebRequest.DefaultData(true);
-        const action = new ActionNet(this,getJoinCircleListCb,FriendCircleWebHandle.requestError);
+        const action = new ActionNet(this,getJoinCircleListCb,getJoinCircleListCb);
         WebRequest.FriendCircle.getJoinCircleList(action,data);
     }
 
@@ -191,6 +216,7 @@ export default class FriendCircleWebHandle {
                 let info = new FriendCircleRule();
                 info.friendId = parseInt(groupId_);
                 info.Id = tmpList[idx].id;
+                info.sortId = tmpList[idx].sortId;
                 info.gameId = tmpList[idx].gameId;
                 info.gameName = tmpList[idx].gameName;
                 info.ruleStr = tmpList[idx].ruleStr;
@@ -220,12 +246,12 @@ export default class FriendCircleWebHandle {
      * 添加玩法
      */
     public static addRule(ruleInfo: FriendCircleRule){
-        if (!ruleInfo) {
+        if (!ruleInfo || !ruleInfo.sortId) {
             cc.log("error: addRule param is error!");
             return;
         }
 
-        let  addRuleCb = (args)=>{
+        let addRuleCb = (args)=>{
             cc.log('-- addRuleCb ',args);
             if (!args || !args.status) {
                 return;
@@ -248,6 +274,7 @@ export default class FriendCircleWebHandle {
         data.Add("gameId",ruleInfo.gameId);
         data.Add("ruleStr",ruleInfo.ruleStr);
         data.Add("ruleDesc",ruleInfo.ruleDesc);
+        data.Add("sortId",ruleInfo.sortId);
         
         const action = new ActionNet(this,addRuleCb,FriendCircleWebHandle.requestError);
         WebRequest.FriendCircle.addRule(action,data);
@@ -410,7 +437,7 @@ export default class FriendCircleWebHandle {
     /**
      * 获取消息列表
      */
-    public static getMessageList(groupId: string, act?: Action){
+    public static getMessageList(groupId: string, act?: Action){        
         let action_ = act;
         let groupId_ = groupId;
         let getMessageListCb = (args)=>{
@@ -438,7 +465,6 @@ export default class FriendCircleWebHandle {
         data.Add("groupId",groupId);
         const action = new ActionNet(this,getMessageListCb,FriendCircleWebHandle.requestError);
         WebRequest.FriendCircle.getMessageList(action,data);
-        Global.Instance.UiManager.ShowLoading('正在获数据');
     }
 
     /**
@@ -465,6 +491,10 @@ export default class FriendCircleWebHandle {
 
             if (action_) {
                 action_.Run([args]);
+            }
+
+            if (this._dealApplyMsgHandle) {
+                this._dealApplyMsgHandle.Run([args]);
             }
         }
         
@@ -579,6 +609,7 @@ export default class FriendCircleWebHandle {
 
         let GroupUserGameBan = (args)=>{
             cc.log("--- GroupUserGameBan callback: ",args);
+            
             // 回调
             if (action_) {
                 action_.Run([args]);
@@ -602,7 +633,7 @@ export default class FriendCircleWebHandle {
         data.Add("in_type",opType);
         data.Add("in_userid",userId);
         
-        Global.Instance.UiManager.ShowLoading("正在执行操作...");
+        // Global.Instance.UiManager.ShowLoading("正在执行操作...");
         const action = new ActionNet(this, GroupUserGameBan, GroupUserGameBan);
         WebRequest.FriendCircle.GroupUserGameBan(action,data);
     }
@@ -641,7 +672,6 @@ export default class FriendCircleWebHandle {
         data.Add("startId",startId);
         data.Add("count", count);  
 
-        Global.Instance.UiManager.ShowLoading("正在请求数据...");
         const action = new ActionNet(this, getGroupStatCb, getGroupStatCb);
         WebRequest.FriendCircle.getGroupGameStat(action,data);
     }

@@ -231,7 +231,6 @@ export default class UiManager implements IUiManager {
                 this.ShowUi(UIName.HornGamePanel, [HornEntity.LoopCount, pos_x, pos_y]);
                 break;
             case systemHornType.Hall: //大厅跑马灯
-                cc.log("进来了. 大厅跑马灯");
                 if (HornPanel.HornHallIsPlay == true) {
                     return;
                 }
@@ -278,48 +277,7 @@ export default class UiManager implements IUiManager {
         // this.onPlayNotice();
     }
 
-
-    // private onPlayNotice() {
-    //     // //如果正在播放公告，直接返回
-    //     // if (this._noticeLock) {
-    //     //     return;
-    //     // }
-    //     // if (!this._noticeList || this._noticeList.length === 0) {
-
-    //     //     if (cc.isValid(this._noticeForm)) {
-    //     //         this._noticeForm.Close();
-    //     //     }
-    //     //     return;
-    //     // }
-    //     // this._noticeLock = true;
-    //     // const notice = this._noticeList.shift();
-
-    //     // if (cc.isValid(this._noticeForm)) {
-    //     //     this._noticeForm.Go(notice);
-    //     //     return;
-    //     // } else {
-    //     //     const action = new Action(this, this.onPlayNoticeEnd);
-    //     //     cc.loader.loadRes("Prefabs/General/NoticeForm", cc.Prefab, function (err, prefab: cc.Prefab) {
-    //     //         if (err) {
-    //     //             ThrowErrorHelper.error(err);
-    //     //             return;
-    //     //         }
-    //     //         const node = cc.instantiate(prefab);
-    //     //         let c = node.getComponent<NoticeForm>(NoticeForm);
-    //     //         c.Action = action;
-    //     //         this._noticeForm = c;
-    //     //         c.Go(notice);
-    //     //     }.bind(this));
-    //     // }
-    // }
-
-    // private onPlayNoticeEnd() {
-    //     this._noticeLock = false;
-    //     cc.log("公告播放完成！")
-    //     this.onPlayNotice();
-    // }
-
-
+    
 
     private _doing = false;
     private TryProcessUIOperationHandle(force: boolean = false) {
@@ -401,7 +359,11 @@ export default class UiManager implements IUiManager {
         if (cc.isValid(ui)) {
             try {
                 cc.info(`已存在${uiname}，直接显示`);
-                PlayEffect(cc.url.raw("resources/Sound/open_panel.mp3"));
+                
+                if (ui.isPopCloseEffect) {
+                    PlayEffect(cc.url.raw("resources/Sound/open_panel.mp3"));
+                }
+
                 ui.Show(null, param, action);
                 return true;
             } catch (e) {

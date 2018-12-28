@@ -28,16 +28,22 @@ export default class ResumeGamePlayerItem extends cc.Component {
 	@property(cc.Sprite)
 	sp_headImg: cc.Sprite = null;
 
-	playerid:number = 0;
+	/**
+	 * 分数面板节点
+	 */
+	@property(cc.Node)
+	node_score: cc.Node = null;
+
+	playerid: number = 0;
 
     /**
      * 初始化界面数据显示
      */
-	public initUI(playerInfo: any) {
+	public initUI(playerInfo: any, gameVoteType: number) {
 		// 分数
 		if (this.lab_score) {
 			this.lab_score.string = '';
-			
+
 			if (playerInfo.score < 0) {
 				cc.loader.loadRes('font/jian', cc.BitmapFont, (err, spriteFrame) => {
 					cc.log('-- score ', playerInfo.score);
@@ -59,12 +65,47 @@ export default class ResumeGamePlayerItem extends cc.Component {
 
 		// // 投票状态
 		if (this.lab_status) {
-			this.lab_status.node.color = cc.color(236,119,32);
+			this.lab_status.node.color = cc.color(236, 119, 32);
 		}
+
+		// 显示分数面板节点
+		switch (gameVoteType) {
+			case 0:
+			case 1:
+				{
+					this.node_score.active = true;
+				}
+				break;
+			default:
+				{
+					this.node_score.active = false;
+				}
+				break;
+		}
+
 		this.playerid = playerInfo.PlayerID;
-		cc.log("我自己的id"+this.playerid);
-		if(this.lab_status.string != "同意续局"){
-		this.lab_status.string = "投票中";
+		cc.log("我自己的id" + this.playerid);
+		if (this.lab_status.string != "同意续局") {
+			this.lab_status.string = "投票中";
+		} else {
+			let labelTipsStr: string = "";
+			switch (gameVoteType) {
+				case 0:
+				case 1:
+					{
+						this.node_score.active = true;
+						labelTipsStr = "同意续局...";
+					}
+					break;
+				default:
+					{
+						this.node_score.active = false;
+						labelTipsStr = "同意...";
+					}
+					break;
+			}
+
+			this.lab_status.string = labelTipsStr;
 		}
 
 		// 头像
@@ -76,14 +117,44 @@ export default class ResumeGamePlayerItem extends cc.Component {
 	/**
 	 * 更新投票状态显示
 	 */
-	public updateVoteStatusShow(status: number) {
+	public updateVoteStatusShow(status: number, voteType: number) {
 		if (this.lab_status) {
-			this.lab_status.node.color = cc.color(34,169,41);
+			this.lab_status.node.color = cc.color(34, 169, 41);
 			if (QL_Common.GameVoteStatus.Denied == status) {
-				this.lab_status.string = '结束游戏';
-			} else if(QL_Common.GameVoteStatus.Agree == status){
-				this.lab_status.string = '同意续局';
-			}else{
+				let labelTipsStr: string = "";
+				switch (voteType) {
+					case 0:
+					case 1:
+						{
+							labelTipsStr = "结束游戏";
+						}
+						break;
+					default:
+						{
+							labelTipsStr = "拒绝";
+						}
+						break;
+				}
+
+				this.lab_status.string = labelTipsStr;
+			} else if (QL_Common.GameVoteStatus.Agree == status) {
+				let labelTipsStr: string = "";
+				switch (voteType) {
+					case 0:
+					case 1:
+						{
+							labelTipsStr = "同意续局...";
+						}
+						break;
+					default:
+						{
+							labelTipsStr = "同意...";
+						}
+						break;
+				}
+
+				this.lab_status.string = labelTipsStr;
+			} else {
 				cc.log("状态未知,请检查");
 			}
 		}

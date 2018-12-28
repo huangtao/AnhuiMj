@@ -921,7 +921,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 127,
+      "width": 170,
       "height": 41
     },
     "_rotationX": 0,
@@ -930,7 +930,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 545,
+      "x": 555,
       "y": 340
     },
     "_skewX": 0,
@@ -982,7 +982,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -45,
+      "x": -62,
       "y": 1
     },
     "_skewX": 0,
@@ -1064,7 +1064,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -11,
+      "x": -28,
       "y": 1
     },
     "_skewX": 0,
@@ -1190,7 +1190,7 @@
       "__uuid__": "1ffcee04-3a59-42c8-a41f-061e4f787071"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -1295,13 +1295,13 @@
     },
     "_enabled": true,
     "paihua": {
-      "__uuid__": "a0a0741e-9185-4a70-bed0-240b963c58b1"
+      "__uuid__": "e59fbb4c-f5b6-41dd-a698-b138eea1db24"
     },
     "paibei": {
       "__uuid__": "dc67e6f1-7c1d-464e-a2ac-848797433c0b"
     },
     "paibei3d": {
-      "__uuid__": "3f860f29-ec26-4b83-a3b5-e364c01ee43a"
+      "__uuid__": "2b11d901-de97-446d-a3a3-758a979a76d3"
     },
     "gameView": {
       "__id__": 28

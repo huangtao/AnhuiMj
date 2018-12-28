@@ -100,7 +100,7 @@ export default class BBMJ_CardView extends cc.Component {
         this.PaiQiangInfo.init();
         this.node.active=true;
         this.timeidx = 0;
-        if(M_BBMJClass.ins.is2D()){
+        if(BBMJ.ins.iclass.is2D()){
             this.activeCard[1].node.rotation = 0;
             this.activeCard[3].node.rotation = 0;
             this.poolCard[3].node.rotation = 0;

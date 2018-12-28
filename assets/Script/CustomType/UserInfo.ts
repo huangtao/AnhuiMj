@@ -5,8 +5,9 @@ import ConfigData from "../Global/ConfigData";
 import { QL_Common } from "../CommonSrc/QL_Common";
 import { WebRequest } from "../Net/Open8hb";
 import { ActionNet } from "./Action";
-import { UploadInfo } from "./UploadInfo";
+import { UploadInfo, UploadInfo_Type_Userphoto } from "./UploadInfo";
 import { Debug } from "../Tools/Function";
+import { ConstValues } from "../Global/ConstValues";
 
 export default class UserInfo {
     public constructor() {
@@ -81,11 +82,16 @@ export default class UserInfo {
     /**
      * 当成为代理后此值是生成的代理Id
      */
-    public LinkAgentId:number=0;
+    public LinkAgentId: number = 0;
 
     public VIPNum: number = 0;
 
     private _userData: QL_Common.Player = null;
+
+    public userPhotoPath0: string = "";
+    public userPhotoPath1: string = "";
+    public userPhotoPath2: string = "";
+    public userPhotoPath3: string = "";
 
 
     /**
@@ -126,18 +132,25 @@ export default class UserInfo {
                     this.FRState = parseInt(value.AttachParam[i].Value);
                     continue;
                 }
-                if(value.AttachParam[i].Key === "isFirstLogon"){
+                if (value.AttachParam[i].Key === "isFirstLogon") {
                     this.isFirstLogon = parseInt(value.AttachParam[i].Value);
                 }
-                if(value.AttachParam[i].Key === "LinkAgentId"){
+                if (value.AttachParam[i].Key === "LinkAgentId") {
                     this.LinkAgentId = parseInt(value.AttachParam[i].Value);
                 }
-                if(value.AttachParam[i].Key === "isBindPhone"){
+                if (value.AttachParam[i].Key === "isBindPhone") {
                     this.isBindPhone = parseInt(value.AttachParam[i].Value);
                 }
-                if(value.AttachParam[i].Key === "taskCount"){
+                if (value.AttachParam[i].Key === "taskCount") {
                     this.taskCount = parseInt(value.AttachParam[i].Value);
                 }
+                for (let index: number = 0; index < ConstValues.MaxUserPhotoCount; index++) {
+                    let key = "userPhotoPath" + index.toString();
+                    if (value.AttachParam[i].Key === key) {
+                        this[key] = value.AttachParam[i].Value;
+                    }
+                }
+
             }
         }
         if (value.CAttachData) {
@@ -250,7 +263,7 @@ class UserSessionKey {
         const action = new ActionNet(this, this.policySuccess, this.policyError);
         //
         let data = WebRequest.DefaultData(true);
-        data.AddOrUpdate("type", "voices|header");
+        data.AddOrUpdate("type", `voices|header|${UploadInfo_Type_Userphoto}`);
         WebRequest.userinfo.GetUploadPolicy(action, data);
     }
 

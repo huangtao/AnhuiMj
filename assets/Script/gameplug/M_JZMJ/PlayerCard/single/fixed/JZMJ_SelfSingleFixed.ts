@@ -392,8 +392,6 @@ export default class JZMJ_SelfSingleFixed extends JZMJ_SingleFixedBase {
     private set3DSize(fixedType:any){
         // if(fixedType != enFixedCardType.FixedCardType_BGang){
             //碰牌时已经放大 补杠时不能再放大父节点
-            this.node.scaleX = 1;
-            this.node.scaleY = 1;
             this.node.scaleX=1.5;
             this.node.scaleY=1.5;
         // }
@@ -401,35 +399,27 @@ export default class JZMJ_SelfSingleFixed extends JZMJ_SingleFixedBase {
             case 1:{
                     this.bmp_cardbackAry[0].node.x=-35;
                     this.bmp_cardbackAry[0].node.y=3;
-                    // this.bmp_cardbackAry[0].node.width=68;
-                    // this.bmp_cardbackAry[0].node.height=72;
+                    this.bmp_cardbackAry[0].node.width=68;
+                    this.bmp_cardbackAry[0].node.height=72;
                     this.bmp_cardbackAry[0].node.setLocalZOrder(1);
-                    // this.bmp_cardbackAry[0].node.scaleX=0.9;
-                    // this.bmp_cardbackAry[0].node.scaleY=0.9;
 
                     this.bmp_cardbackAry[1].node.x=9.1;
                     this.bmp_cardbackAry[1].node.y=3;
-                    // this.bmp_cardbackAry[1].node.width=66;
-                    // this.bmp_cardbackAry[1].node.height=72;
+                    this.bmp_cardbackAry[1].node.width=68;
+                    this.bmp_cardbackAry[1].node.height=72;
                     this.bmp_cardbackAry[1].node.setLocalZOrder(2);
-                    // this.bmp_cardbackAry[1].node.scaleX=0.9;
-                    // this.bmp_cardbackAry[1].node.scaleY=0.9;
 
                     this.bmp_cardbackAry[2].node.x=53;
                     this.bmp_cardbackAry[2].node.y=3;
-                    // this.bmp_cardbackAry[2].node.width=64;
-                    // this.bmp_cardbackAry[2].node.height=72;
+                    this.bmp_cardbackAry[2].node.width=66;
+                    this.bmp_cardbackAry[2].node.height=72;
                     this.bmp_cardbackAry[2].node.setLocalZOrder(3);
-                    // this.bmp_cardbackAry[2].node.scaleX=0.9;
-                    // this.bmp_cardbackAry[2].node.scaleY=0.9;
 
                     this.bmp_cardbackAry[3].node.x=4.5;
                     this.bmp_cardbackAry[3].node.y=12.8;
                     this.bmp_cardbackAry[3].node.width=66;
                     this.bmp_cardbackAry[3].node.height=72;
                     this.bmp_cardbackAry[3].node.setLocalZOrder(6);
-                    // this.bmp_cardbackAry[3].node.scaleX=0.9;
-                    // this.bmp_cardbackAry[3].node.scaleY=0.9;
                 this.bmp_cardcolorAry[0].node.x=-2;
                 this.bmp_cardcolorAry[0].node.y=6.66;
                 this.bmp_cardcolorAry[0].node.scaleX=0.5;
@@ -490,35 +480,27 @@ export default class JZMJ_SelfSingleFixed extends JZMJ_SingleFixedBase {
                 // if(fixedType != enFixedCardType.FixedCardType_BGang){
                     this.bmp_cardbackAry[0].node.x=-35;
                     this.bmp_cardbackAry[0].node.y=3;
-                    // this.bmp_cardbackAry[0].node.width=68;
-                    // this.bmp_cardbackAry[0].node.height=72;
+                    this.bmp_cardbackAry[0].node.width=64;
+                    this.bmp_cardbackAry[0].node.height=72;
                     this.bmp_cardbackAry[0].node.setLocalZOrder(1);
-                    // this.bmp_cardbackAry[0].node.scaleX=0.9;
-                    // this.bmp_cardbackAry[0].node.scaleY=0.9;
 
                     this.bmp_cardbackAry[1].node.x=9.1;
                     this.bmp_cardbackAry[1].node.y=3;
-                    // this.bmp_cardbackAry[1].node.width=66;
-                    // this.bmp_cardbackAry[1].node.height=72;
+                    this.bmp_cardbackAry[1].node.width=62;
+                    this.bmp_cardbackAry[1].node.height=72;
                     this.bmp_cardbackAry[1].node.setLocalZOrder(2);
-                    // this.bmp_cardbackAry[1].node.scaleX=0.9;
-                    // this.bmp_cardbackAry[1].node.scaleY=0.9;
 
                     this.bmp_cardbackAry[2].node.x=53;
                     this.bmp_cardbackAry[2].node.y=3;
-                    // this.bmp_cardbackAry[2].node.width=64;
-                    // this.bmp_cardbackAry[2].node.height=72;
+                    this.bmp_cardbackAry[2].node.width=60;
+                    this.bmp_cardbackAry[2].node.height=72;
                     this.bmp_cardbackAry[2].node.setLocalZOrder(3);
-                    // this.bmp_cardbackAry[2].node.scaleX=0.9;
-                    // this.bmp_cardbackAry[2].node.scaleY=0.9;
 
                     this.bmp_cardbackAry[3].node.x=5.5;
                     this.bmp_cardbackAry[3].node.y=12.8;
-                    // this.bmp_cardbackAry[3].node.width=66;
-                    // this.bmp_cardbackAry[3].node.height=72;
+                    this.bmp_cardbackAry[3].node.width=62;
+                    this.bmp_cardbackAry[3].node.height=72;
                     this.bmp_cardbackAry[3].node.setLocalZOrder(6);
-                    // this.bmp_cardbackAry[3].node.scaleX=0.9;
-                    // this.bmp_cardbackAry[3].node.scaleY=0.9;
                 // }
                 this.bmp_cardcolorAry[0].node.x=-1;
                 this.bmp_cardcolorAry[0].node.y=6.66;
@@ -580,43 +562,35 @@ export default class JZMJ_SelfSingleFixed extends JZMJ_SingleFixedBase {
                 // if(fixedType != enFixedCardType.FixedCardType_BGang){
                     this.bmp_cardbackAry[0].node.x=-35;
                     this.bmp_cardbackAry[0].node.y=3;
-                    // this.bmp_cardbackAry[0].node.width=68;
-                    // this.bmp_cardbackAry[0].node.height=72;
+                    this.bmp_cardbackAry[0].node.width=58;
+                    this.bmp_cardbackAry[0].node.height=72;
                     this.bmp_cardbackAry[0].node.setLocalZOrder(1);
-                    this.bmp_cardbackAry[0].node.scaleX=0.9;
-                    this.bmp_cardbackAry[0].node.scaleY=0.9;
 
                     this.bmp_cardbackAry[1].node.x=9.1;
                     this.bmp_cardbackAry[1].node.y=3.1;
-                    // this.bmp_cardbackAry[1].node.width=66;
-                    // this.bmp_cardbackAry[1].node.height=72;
+                    this.bmp_cardbackAry[1].node.width=56;
+                    this.bmp_cardbackAry[1].node.height=72;
                     this.bmp_cardbackAry[1].node.setLocalZOrder(2);
-                    this.bmp_cardbackAry[1].node.scaleX=0.9;
-                    this.bmp_cardbackAry[1].node.scaleY=0.9;
 
                     this.bmp_cardbackAry[2].node.x=53;
                     this.bmp_cardbackAry[2].node.y=3;
-                    // this.bmp_cardbackAry[2].node.width=64;
-                    // this.bmp_cardbackAry[2].node.height=72;
+                    this.bmp_cardbackAry[2].node.width=54;
+                    this.bmp_cardbackAry[2].node.height=72;
                     this.bmp_cardbackAry[2].node.setLocalZOrder(3);
-                    this.bmp_cardbackAry[2].node.scaleX=0.9;
-                    this.bmp_cardbackAry[2].node.scaleY=0.9;
 
                     this.bmp_cardbackAry[3].node.x=7.5;
                     this.bmp_cardbackAry[3].node.y=12.8;
-                    // this.bmp_cardbackAry[3].node.width=66;
-                    // this.bmp_cardbackAry[3].node.height=72;
+                    this.bmp_cardbackAry[3].node.width=56;
+                    this.bmp_cardbackAry[3].node.height=72;
                     this.bmp_cardbackAry[3].node.setLocalZOrder(6);
-                    this.bmp_cardbackAry[3].node.scaleX=0.9;
-                    this.bmp_cardbackAry[3].node.scaleY=0.9;
                 // }
                 this.bmp_cardcolorAry[0].node.x=-2;
                 this.bmp_cardcolorAry[0].node.y=6.66;
                 this.bmp_cardcolorAry[0].node.scaleX=0.5;
                 this.bmp_cardcolorAry[0].node.scaleY=0.52;
                 this.bmp_cardcolorAry[0].node.skewX=5;
-                this.bmp_cardcolorAry[0].node.width=68;
-                this.bmp_cardcolorAry[0].node.height=95;
+                // this.bmp_cardcolorAry[0].node.width=68;
+                // this.bmp_cardcolorAry[0].node.height=95;
                 this.bmp_cardcolorAry[0].node.setLocalZOrder(4);
 
                 this.bmp_cardcolorAry[2].node.x=0;
@@ -624,8 +598,8 @@ export default class JZMJ_SelfSingleFixed extends JZMJ_SingleFixedBase {
                 this.bmp_cardcolorAry[2].node.scaleX=0.5;
                 this.bmp_cardcolorAry[2].node.scaleY=0.517;
                 this.bmp_cardcolorAry[2].node.skewX=2;
-                this.bmp_cardcolorAry[2].node.width=68;
-                this.bmp_cardcolorAry[2].node.height=95;
+                // this.bmp_cardcolorAry[2].node.width=68;
+                // this.bmp_cardcolorAry[2].node.height=95;
                 this.bmp_cardcolorAry[2].node.setLocalZOrder(5);
 
 
@@ -634,8 +608,8 @@ export default class JZMJ_SelfSingleFixed extends JZMJ_SingleFixedBase {
                 this.bmp_cardcolorAry[1].node.scaleX=0.5;
                 this.bmp_cardcolorAry[1].node.scaleY=0.518;
                 this.bmp_cardcolorAry[1].node.skewX=4;
-                 this.bmp_cardcolorAry[1].node.width=68;
-                this.bmp_cardcolorAry[1].node.height=95;
+                //  this.bmp_cardcolorAry[1].node.width=68;
+                // this.bmp_cardcolorAry[1].node.height=95;
                 this.bmp_cardcolorAry[1].node.setLocalZOrder(7);
                 
                 this.bmp_cardcolorAry[3].node.x=0;
@@ -643,8 +617,8 @@ export default class JZMJ_SelfSingleFixed extends JZMJ_SingleFixedBase {
                 this.bmp_cardcolorAry[3].node.scaleX=0.5;
                 this.bmp_cardcolorAry[3].node.scaleY=0.518;
                 this.bmp_cardcolorAry[3].node.skewX=4;
-                this.bmp_cardcolorAry[3].node.width=68;
-                this.bmp_cardcolorAry[3].node.height=95;
+                // this.bmp_cardcolorAry[3].node.width=68;
+                // this.bmp_cardcolorAry[3].node.height=95;
                 this.bmp_cardcolorAry[3].node.setLocalZOrder(8);
 
                 this.bmp_cardHideAry[0].node.x=-80.6;
@@ -669,35 +643,27 @@ export default class JZMJ_SelfSingleFixed extends JZMJ_SingleFixedBase {
             case 4:{
                     this.bmp_cardbackAry[0].node.x=-35;
                     this.bmp_cardbackAry[0].node.y=3;
-                    // this.bmp_cardbackAry[0].node.width=68;
-                    // this.bmp_cardbackAry[0].node.height=72;
+                    this.bmp_cardbackAry[0].node.width=52;
+                    this.bmp_cardbackAry[0].node.height=72;
                     this.bmp_cardbackAry[0].node.setLocalZOrder(1);
-                    this.bmp_cardbackAry[0].node.scaleX=0.9;
-                    this.bmp_cardbackAry[0].node.scaleY=0.9;
 
                     this.bmp_cardbackAry[1].node.x=8.8;
                     this.bmp_cardbackAry[1].node.y=3.1;
-                    // this.bmp_cardbackAry[1].node.width=66;
-                    // this.bmp_cardbackAry[1].node.height=72;
+                    this.bmp_cardbackAry[1].node.width=54;
+                    this.bmp_cardbackAry[1].node.height=72;
                     this.bmp_cardbackAry[1].node.setLocalZOrder(2);
-                    this.bmp_cardbackAry[1].node.scaleX=0.9;
-                    this.bmp_cardbackAry[1].node.scaleY=0.9;
 
                     this.bmp_cardbackAry[2].node.x=53;
                     this.bmp_cardbackAry[2].node.y=3;
-                    // this.bmp_cardbackAry[2].node.width=64;
-                    // this.bmp_cardbackAry[2].node.height=72;
+                    this.bmp_cardbackAry[2].node.width=54;
+                    this.bmp_cardbackAry[2].node.height=72;
                     this.bmp_cardbackAry[2].node.setLocalZOrder(3);
-                    this.bmp_cardbackAry[2].node.scaleX=0.9;
-                    this.bmp_cardbackAry[2].node.scaleY=0.9;
 
                     this.bmp_cardbackAry[3].node.x=8.5;
                     this.bmp_cardbackAry[3].node.y=12.8;
-                    // this.bmp_cardbackAry[3].node.width=66;
-                    // this.bmp_cardbackAry[3].node.height=72;
+                    this.bmp_cardbackAry[3].node.width=54;
+                    this.bmp_cardbackAry[3].node.height=72;
                     this.bmp_cardbackAry[3].node.setLocalZOrder(6);
-                    this.bmp_cardbackAry[3].node.scaleX=0.9;
-                    this.bmp_cardbackAry[3].node.scaleY=0.9;
                 this.bmp_cardcolorAry[0].node.x=0;
                 this.bmp_cardcolorAry[0].node.y=6.66;
                 this.bmp_cardcolorAry[0].node.scaleX=0.5;

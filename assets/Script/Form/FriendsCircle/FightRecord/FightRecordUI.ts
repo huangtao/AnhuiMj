@@ -96,8 +96,8 @@ export default class FightRecordUI extends UIBase<any> {
     /**
      * 战绩标签节点
      */
-    @property(cc.Node)
-    node_tabRecord: cc.Node = null;
+    @property({ type: [cc.Node], tooltip: '战绩的标签节点，管理员可见的在索引 0 ，普通玩家可见标签在索引 1' })
+    node_tabRecord: cc.Node[] = [];
 
     /**
      * 我的战绩列表滚动容器
@@ -204,27 +204,27 @@ export default class FightRecordUI extends UIBase<any> {
         this._scrollMyrecord = this.scrol_myRecord.getComponent(FightRecordScrollHelper);
         this._scrollMyrecord.PraiseActHandle = new Action(this, this.PraiseActHandle.bind(this));
         this._scrollMyrecord.RecordDetailHandle = new Action(this, this.RecordDetailHandle.bind(this));
-        
+
         this._scrollFriendRecord = this.scrol_friendRecord.getComponent(FightRecordScrollHelper);
         this._scrollFriendRecord.PraiseActHandle = new Action(this, this.PraiseActHandle.bind(this));
         this._scrollFriendRecord.RecordDetailHandle = new Action(this, this.RecordDetailHandle.bind(this));
 
         this._scrollMyrecord.registerScrollToTopOrBottonEvent(this.myRecordScrollEventHandle.bind(this));
         this._scrollFriendRecord.registerScrollToTopOrBottonEvent(this.allRecordScrollEventHandle.bind(this));
+
     }
 
     public OnShow() {
         // 初始化界面显示
 
-        // 管理员才可以看到我的战绩
+        // 管理员才可以看到亲友圈战绩
         let isAdmin = FriendCircleDataCache.Instance.selfIsAdministrator();
 
-        if (isAdmin) {
-            this.node_tabRecord.active = true;
-        } else {
-            this.node_tabRecord.active = false;
-        }
+        //设置管理员和普通玩家界面可见性
+        this.node_tabRecord[0].active = isAdmin;
+        this.node_tabRecord[1].active = !isAdmin;
 
+        this.node_searchDate.active = true;
         this.node_selectDate.active = false;
         this._curDateSelectTabIdx = 0;
         this.node_friendStatistics.active = false;
@@ -233,7 +233,7 @@ export default class FightRecordUI extends UIBase<any> {
         this.node_myField.active = true;
         this.node_friendField.active = false;
 
-        this.lab_friendDiamond.string = "耗钻数：0" ;
+        this.lab_friendDiamond.string = "耗钻数：0";
         this.lab_friendRoundNum.string = "开局数：0";
 
         this.lab_myScore.string = "积分：0";
@@ -333,10 +333,12 @@ export default class FightRecordUI extends UIBase<any> {
         let curRuleInfo = FriendCircleDataCache.Instance.CurSelectedRule;
 
         if (!curFriendCircle || !curRuleInfo || userId < 0) {
+             this._requestIng = false;
             cc.log("--- error: requestFightRecordData param is error");
             return;
         }
 
+        this.UiManager.ShowLoading("正在请求数据...");
         FriendCircleWebHandle.GroupGameStat(parseInt(curFriendCircle.ID), curRuleInfo.gameId, userId, 1, "", startId, count, beginTime, endTime, act)
     }
 
@@ -430,12 +432,12 @@ export default class FightRecordUI extends UIBase<any> {
 
             // 更新开局数和耗钻数
             if ("number" == typeof res.roomamt && "number" == typeof res.roomcnt) {
-                this.lab_friendDiamond.string = "耗钻数：" + res.roomamt; 
+                this.lab_friendDiamond.string = "耗钻数：" + res.roomamt;
                 this.lab_friendRoundNum.string = "开局数：" + res.roomcnt;
             }
 
             this._friendRecordStartId = res.nextId;
-            this.showFriendRecordData(this.    _friendRecordDataList);
+            this.showFriendRecordData(this._friendRecordDataList);
         }));
     }
 
@@ -551,13 +553,17 @@ export default class FightRecordUI extends UIBase<any> {
              * 获取大赢家
              */
             let getBigWinner = function (data: PlayerFightScore[]): PlayerFightScore {
-                let idx = 0;
+                let idx = -1;
                 let maxScore = 0;
                 for (let index = 0; index < data.length; ++index) {
                     if (data[index].moneyNum > maxScore) {
                         maxScore = data[index].moneyNum;
                         idx = index;
                     }
+                }
+
+                if (-1 == idx) {
+                    return null;
                 }
 
                 return data[idx];
@@ -576,7 +582,7 @@ export default class FightRecordUI extends UIBase<any> {
                     }
                 }
 
-                if (bigwinner.userId == userId) {
+                if (bigwinner && bigwinner.userId == userId) {
                     bigwinnerNum++;
                 }
             }
@@ -616,6 +622,7 @@ export default class FightRecordUI extends UIBase<any> {
             return;
         }
 
+        this.UiManager.ShowLoading("正在请求数据...");
         FriendCircleWebHandle.GroupSetRecordFlag(parseInt(curFriendCircle.ID), showData.setId, new Action(this, (res) => {
             if ("success" != res.status) {
                 return;

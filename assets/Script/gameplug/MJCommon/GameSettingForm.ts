@@ -177,7 +177,7 @@ export default class GameSettingForm extends UIBase<any> {
 
 		let localSelect = "";
 		if (this.ShowParam && this.ShowParam.canvas) {
-			localSelect = this.ShowParam.canvas? "0": "1";
+			localSelect = (this.ShowParam.canvas == "2D")?"0":"1";
 		}
 
 		if (localSelect) {
@@ -259,7 +259,7 @@ export default class GameSettingForm extends UIBase<any> {
 		/**
 		 * 本地存储当前选择的项
 		 */
-		// LocalStorage.SetItem("Game_Canvas",canvas);
+		LocalStorage.SetItem("Game_Canvas",canvas);
 		cc.log("-- canvas switch ", canvas);
 	}
 

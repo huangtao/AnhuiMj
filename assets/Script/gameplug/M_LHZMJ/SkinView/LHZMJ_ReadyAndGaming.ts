@@ -45,11 +45,16 @@ export default class LHZMJ_ReadyAndGaming extends cc.Component {
     @property(cc.Button)
     btn_threeBodyPlay: cc.Button=null;
 
+    @property(cc.Label)
+    lab_threeBodyPlay: cc.Label=null;
+    
     @property(cc.Node)
     group_other: cc.Node=null;
 
     @property(cc.Sprite)
     warning:cc.Sprite = null;
+
+    public _comeInCont:boolean = true;
 
     private voiceAry: Array<MJ_PlayVoiceStaus>;
 
@@ -431,7 +436,11 @@ export default class LHZMJ_ReadyAndGaming extends cc.Component {
 
     //向服务端发送消息玩家发起三人游戏投票
     private startThreeUserPlay(){
-        M_LHZMJClass.ins.SendGameData(new M_LHZMJ_GameMessage.CMD_C_ThreeUserPlay());
+        if (this._comeInCont) {
+            M_LHZMJView.ins.TipMsgShow("三人时才可发起申请！");
+        }else{
+            M_LHZMJClass.ins.SendGameData(new M_LHZMJ_GameMessage.CMD_C_ThreeUserPlay());
+        }
     }
 
     /**

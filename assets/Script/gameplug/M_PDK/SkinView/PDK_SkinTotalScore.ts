@@ -27,6 +27,7 @@ export default class SkinTotalScore extends cc.Component {
     private roomnum:cc.Label = null;
     private namelist:string[] = [];
     private scorelist:string[] =[];
+    private setid:number=0;
 
 
     onLoad() {
@@ -39,7 +40,7 @@ export default class SkinTotalScore extends cc.Component {
         this.group.addChild(node0);
         return node0.getComponent<SkinTotalScoreItem>(SkinTotalScoreItem);
     }
-    public Show(roomId:number) {
+    public Show(roomId:number,setid:number) {
         this.roomnum.string = roomId.toString();
         this.jushu.string = PDK.ins.iview.GetGameInfo().gameCount[1].toString();
 
@@ -89,15 +90,46 @@ export default class SkinTotalScore extends cc.Component {
                 bombCount[i],zhuaNiaoCount[i],menGuoCount[i],scoreview.datalist.length > 0 && total[i] == maxScore);
 
         }
+        this.setid = setid;
+        if(this.setid>0){
+            this.node.active = true;
+        }
+    }
+
+    public ModifySetId(setid:number){
+        this.setid = setid;
+        this.node.active = true;
+    }
+    public OnButtonCopy(url:string) {
+        if (this.setid <= 0) {
+            return;
+        }
+        if(url == ""){
+            return;
+        }
+        var xq = "查看详情:" + url + "\n房号:" + this.roomnum.string + "\n本局分数：" + "\n";
+        // var info ="本局分数："+"\n";
+        for (var i = 0; i < this.namelist.length; i++) {
+            xq += this.namelist[i] + ":" + this.scorelist[i] + "\n";
+        }
+        //xq=xq;
+        cc.log(xq);
+        PDK.ins.iclass.CopyToClipboardInfo(xq);
     }
     private OnButtonInfo() {
-     //   BiJi.ins.iview.ShowQueryScore();
-     var info ="本局分数："+"\n";
-     for(var i = 0;i<this.namelist.length;i++){
-         info += this.namelist[i]+":"+this.scorelist[i]+"\n";
-     }
-  
-    PDK.ins.iclass.CopyToClipboardInfo(info);
+        if (this.setid <= 0) {
+              var xq = "\n房号:" + this.roomnum.string + "\n本局分数：" + "\n";
+            // var info ="本局分数："+"\n";
+            for (var i = 0; i < this.namelist.length; i++) {
+                xq += this.namelist[i] + ":" + this.scorelist[i] + "\n";
+            }
+            //xq=xq;
+            cc.log(xq);
+            PDK.ins.iclass.CopyToClipboardInfo(xq);
+            return;
+        }
+
+        PDK.ins.iclass.GetSetId(this.setid);
     }
     private OnButtonShare() {
         PDK.ins.iclass.ScreenShot(true,this.bg);

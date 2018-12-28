@@ -76,6 +76,8 @@ export default class LHZMJ_FenXiang extends cc.Component {
     @property(cc.Label)
     rule1: cc.Label = null;
 
+    @property(cc.Node)
+    playerArr:cc.Node[] = [];
     //
     //======================================================
     //
@@ -144,10 +146,18 @@ export default class LHZMJ_FenXiang extends cc.Component {
             }
         }
 
-        scoreStr = "本局分数："+"\n"+this.playAry[0].lbl_play.string+":"+totalScore[0]+"\n"
-                    + this.playAry[1].lbl_play.string+":"+totalScore[1]+"\n"
-                    + this.playAry[2].lbl_play.string+":"+totalScore[2]+"\n"
-                    + this.playAry[3].lbl_play.string+":"+totalScore[3]+"\n";
+        for(var i = 0;i < 4 ; i++){
+            if(this.playAry[i].lbl_play.string != ""){
+                scoreStr = this.playAry[i].lbl_play.string+":"+totalScore[i]+"\n"+scoreStr;
+            }
+        }
+        scoreStr = "本局分数："+"\n"+scoreStr;
+
+        // this.playAry[0].lbl_play.string+":"+totalScore[0]+"\n"
+        //             + this.playAry[1].lbl_play.string+":"+totalScore[1]+"\n"
+        //             + this.playAry[2].lbl_play.string+":"+totalScore[2]+"\n"
+        //             + this.playAry[3].lbl_play.string+":"+totalScore[3]+"\n";
+
         M_LHZMJClass.ins.CopyToClipboard(scoreStr);
     }
 
@@ -201,8 +211,13 @@ export default class LHZMJ_FenXiang extends cc.Component {
         this._obj_ok_callback = obj;
         for (let i = 0; i < LHZMJMahjongDef.gPlayerNum; i++) {
             this.playAry[i].init();
-            if(null != M_LHZMJClass.ins.TablePlayer[i])
+            if (this.playAry[i].lbl_other.string == "undefined") { 
+                this.playerArr[i].active = false;
+            }
+            cc.log(M_LHZMJClass.ins.TablePlayer[i]);
+            if(null != M_LHZMJClass.ins.TablePlayer[i]){
                 LoadHeader(M_LHZMJClass.ins.TablePlayer[i].FaceID, this.img_head[i]);
+            }
         }
         M_LHZMJVoice.PlayCardType(`/sound/final_report.mp3`);
         this.onShow();
@@ -210,6 +225,7 @@ export default class LHZMJ_FenXiang extends cc.Component {
 
     public SetPlayerData(all:number):void{
         for (var n: number = 0; n < LHZMJMahjongDef.gPlayerNum; n++) {
+            cc.log(M_LHZMJClass.ins.TablePlayer[n]);
             this.playAry[n].SetPlayer(n);
         }
     }
@@ -333,7 +349,11 @@ export default class LHZMJ_FenXiang extends cc.Component {
         }
 
         for (var n: number = 0; n < LHZMJMahjongDef.gPlayerNum; n++) {
-            this.playAry[n].SetData(this._gameRecordAry.length,totalScore[n], totalScore[n] == winmax);
+            cc.log(M_LHZMJClass.ins.TablePlayer[n]);
+            
+                this.playAry[n].SetData(this._gameRecordAry.length,totalScore[n], totalScore[n] == winmax);
+           
+            
         }
     }
     /**

@@ -14,13 +14,14 @@ export default class LHZMJ_SinglePoolBase extends LHZMJ_SingleCardBase {
     @property(cc.Sprite)
     bmp_cardcolor: cc.Sprite=null;
 
-     @property(cc.Sprite)
-    bmp_greenZZ: cc.Sprite=null;
-        @property(cc.Sprite)
+    //  @property(cc.Sprite)
+    // bmp_greenZZ: cc.Sprite=null;
+    
+    @property(cc.Sprite)
     bmp_cardHide: cc.Sprite=null;
 
-         @property(cc.Sprite)
-    bmp_greenbg: cc.Sprite=null;
+    //      @property(cc.Sprite)
+    // bmp_greenbg: cc.Sprite=null;
 
       
         
@@ -44,7 +45,7 @@ export default class LHZMJ_SinglePoolBase extends LHZMJ_SingleCardBase {
      * 是否显示绿色遮罩
      */
     public set ShowGreenZZ(isShow:boolean){
-        this.bmp_greenZZ.node.active=isShow;
+        // this.bmp_greenZZ.node.active=isShow;
     }
 
     /**

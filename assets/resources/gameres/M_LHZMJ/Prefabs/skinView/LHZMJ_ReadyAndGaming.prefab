@@ -11593,7 +11593,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 219,
+      "width": 453,
       "height": 200
     },
     "_rotationX": 0,
@@ -11659,7 +11659,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": -117,
       "y": 0
     },
     "_skewX": 0,
@@ -11741,9 +11741,7 @@
       "b": 255,
       "a": 255
     },
-    "_N$normalSprite": {
-      "__uuid__": "6679788f-a5fc-4478-a50a-dd32cc814654"
-    },
+    "_N$normalSprite": null,
     "_N$pressedSprite": {
       "__uuid__": "e9ec654c-97a2-4787-9325-e6a10375219a"
     },
@@ -11796,7 +11794,7 @@
       }
     ],
     "_tag": -1,
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 383
@@ -11834,7 +11832,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 109.5,
+      "x": 117,
       "y": 0
     },
     "_skewX": 0,
@@ -11882,7 +11880,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 164,
+      "width": 168,
       "height": 40
     },
     "_rotationX": 0,
@@ -11985,12 +11983,12 @@
       "__id__": 378
     },
     "_enabled": true,
-    "transition": 3,
+    "transition": 1,
     "pressedColor": {
       "__type__": "cc.Color",
-      "r": 211,
-      "g": 211,
-      "b": 211,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "hoverColor": {
@@ -12011,16 +12009,16 @@
     "_N$enableAutoGrayEffect": false,
     "_N$normalColor": {
       "__type__": "cc.Color",
-      "r": 214,
-      "g": 214,
-      "b": 214,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_N$disabledColor": {
       "__type__": "cc.Color",
-      "r": 124,
-      "g": 124,
-      "b": 124,
+      "r": 133,
+      "g": 133,
+      "b": 133,
       "a": 255
     },
     "_N$normalSprite": null,
@@ -12063,7 +12061,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 219,
+      "width": 453,
       "height": 200
     },
     "_resize": 1,
@@ -12079,7 +12077,7 @@
     "_N$paddingRight": 0,
     "_N$paddingTop": 0,
     "_N$paddingBottom": 0,
-    "_N$spacingX": 0,
+    "_N$spacingX": 15,
     "_N$spacingY": 0,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0
@@ -13470,6 +13468,9 @@
     },
     "btn_threeBodyPlay": {
       "__id__": 384
+    },
+    "lab_threeBodyPlay": {
+      "__id__": 380
     },
     "group_other": {
       "__id__": 407

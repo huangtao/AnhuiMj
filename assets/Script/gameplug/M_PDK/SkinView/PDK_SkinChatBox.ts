@@ -33,7 +33,7 @@ export default class SkinChatBox extends cc.Component {
             }
             case 2: {
                 this.node.x = 45;
-                this.node.y = 195;
+                this.node.y = 260;
                 break;
             }
             case 3: {

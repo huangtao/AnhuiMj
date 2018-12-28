@@ -47,7 +47,7 @@ export class SelectGame extends TopFormBase {
      * 当前已添加的游戏
      */
     private _curAddGameItem: GameItem = null;
-
+    
     public InitShow() {
         super.InitShow();
         this.initCityListUI();
@@ -65,7 +65,7 @@ export class SelectGame extends TopFormBase {
 
         if (this.ShowParam) {
             // 如果不是从亲友圈过来的则过滤掉亲友圈授权的特殊游戏列表
-            if (this.ShowParam.isFriendCircle) {
+            if (this.ShowParam.friendCircle) {
                 // 如果是从亲友圈进来的则判断并获取指定授权的游戏列表
                 let curFriendInfo = FriendCircleDataCache.Instance.CurEnterFriendCircle;
                 let gameIdArry = [];
@@ -150,12 +150,9 @@ export class SelectGame extends TopFormBase {
 
             let act = new Action(this, this.addGameToHall);
             item.action = act;
-
-            if (!this.ShowParam) {
-               item.isFriendCircle = false;
-            } else {
-                item.isFriendCircle = this.ShowParam.isFriendCircle;
-                item.isAddRule = this.ShowParam.isAddRule;
+            
+            if (this.ShowParam.friendCircle) {
+                item.friendCircle = this.ShowParam.friendCircle;
             }
 
             item.initUI(gameList[idx]);

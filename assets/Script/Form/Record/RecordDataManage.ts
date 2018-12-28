@@ -297,6 +297,11 @@ export class RecordDataManage {
             for (var idx = 0; idx < detailList.length; ++idx) {
                 let detailItemInfo: RoundDetailInfoItem = new RoundDetailInfoItem();
                 let detailItem = item.data[indexArray[idx]];
+
+                if (!detailItem) {
+                    continue;
+                }
+                
                 detailItem.recordid = detailItem.recordid;
                 detailItem.userid = detailItem.userid;
                 detailItem.moneynum = detailItem.moneynum;

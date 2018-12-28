@@ -34,6 +34,7 @@ export interface IUiManager {
     ShowMsgBox(msg: string, thisobj?: any, okAction?: Function, cancleAction?: Function, closeAction?: Function, okArgs?: any, cancleArgs?: any, closeArgs?: any, align?: cc.Label.HorizontalAlign): void;
     ShowTip(msg: string);
     ShowTip(msg: string, time: number);
+    ShowHorn(HornEntity: QL_Common.SystemHornEntity, pos_x: number, pos_y: number);
 
     PlayHallRoolNotice(notice:any);
 

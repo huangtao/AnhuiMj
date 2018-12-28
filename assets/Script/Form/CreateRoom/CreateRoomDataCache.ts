@@ -239,14 +239,14 @@ export default class CreateRoomDataCache {
 			let gameId = gameList[idx];
 
 			if (0 == this.OftenPlayGameList.Count) {
-				this.OftenPlayGameList.Add(gameId + '', times);
+				this.OftenPlayGameList.AddOrUpdate(gameId + '', times);
 			} else {
 				times = this.OftenPlayGameList.GetValue(gameId + '');
 
 				if (times && times > 0) {
 					this.OftenPlayGameList.AddOrUpdate(gameId + '', times + 1);
 				} else {
-					this.OftenPlayGameList.Add(gameId + '', 1);
+					this.OftenPlayGameList.AddOrUpdate(gameId + '', 1);
 				}
 			}
 		}
@@ -439,14 +439,20 @@ export default class CreateRoomDataCache {
 						itemInfo = data.list[row].itemList[idx];
 						for (var index = 0; index < itemInfo.list.length; ++index) {
 							let obj = {};
+							obj["desc"] = "";
+
+							if (itemInfo.desc) {
+								obj["desc"] += itemInfo.desc + ":";
+							}
 
 							if (ToggleType.CHECKBOX_LEFTRIGHT == itemInfo.nodeType
-								|| ToggleType.SINGLE_LEFTRIGHT == itemInfo.nodeType) {
+								|| ToggleType.SINGLE_LEFTRIGHT == itemInfo.nodeType
+								|| ToggleType.TOGGLE_CHECKBOX_DROPDOWN == itemInfo.nodeType) {
 								obj[itemInfo.attr] = itemInfo.list[index].value;
-								obj["desc"] = itemInfo.list[index].desc;
+								obj["desc"] += itemInfo.list[index].desc;
 							} else {
 								obj[itemInfo.list[index].attr] = itemInfo.list[index].value;
-								obj["desc"] = itemInfo.list[index].desc;
+								obj["desc"] += itemInfo.list[index].desc;
 							}
 
 							attrArray.push(obj);

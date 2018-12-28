@@ -75,7 +75,7 @@ export default class JZMJ_ReadyStatusUserInfo extends cc.Component {
     btn_copy: cc.Button = null;
 
     @property(cc.Sprite)
-    btn_warming: cc.Button = null;
+    btn_warming: cc.Sprite = null;
 
     private _JZMJClass: any = null;
 

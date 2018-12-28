@@ -1,14 +1,15 @@
 
-export namespace ConstValues{
+export namespace ConstValues {
 
-    export const DefaultRegion ="ceshi";
+    export const DefaultRegion = "ceshi";
     export const DefaultPkgVersion = 100;
     export const DefaultNativeVersion = 1;
+    export const MaxUserPhotoCount = 3;
 
     /**
      * 公钥Key
      */
-    export const RSA_SecretKey ="rsa_gblxx574o76d";
+    export const RSA_SecretKey = "rsa_gblxx574o76d";
     /**
      * 公钥
      */

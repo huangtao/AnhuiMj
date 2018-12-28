@@ -112,6 +112,8 @@ export default class LHZMJ_GameStatusUserInfo extends cc.Component {
                // console.log("玩家昵称"+LHZMJ.ins.iclass.getTablePlayerAry()[LHZMJ.ins.iclass.logic2physicalChair(i)].NickName);
                if(LHZMJ.ins.iclass.getTablePlayerAry()[LHZMJ.ins.iclass.logic2physicalChair(i)] != null){
                    this.userAry[i].SetPlayer(LHZMJ.ins.iclass.getTablePlayerAry()[LHZMJ.ins.iclass.logic2physicalChair(i)]);
+               }else{
+                   this.userAry[i].node.active = false;
                }
                 
                 

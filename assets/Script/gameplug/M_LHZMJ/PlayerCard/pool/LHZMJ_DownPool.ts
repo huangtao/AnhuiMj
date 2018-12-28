@@ -48,12 +48,11 @@ export default class LHZMJ_DownPool extends LHZMJ_PoolBase {
                 }
             }
         }else{
-            let columnNum = Math.ceil((this._poolCard.length - 1) / 9) + 1;
-            this.resetZ();
+            let columnNum = Math.ceil((this._poolCard.length - 1) / 10) + 1;
             for(let i: number = 0;i < columnNum;i++) {
-                for(let j: number = 0;j < 9;j++) {
-                    if((i * 9 + j) < this._poolCard.length) {
-                        this._poolCard[i * 9 + j].showCard(this._cardAry[i * 9 + j],i * 10 + j+1);
+                for(let j: number = 0;j < 10;j++) {
+                    if((i * 10 + j) < this._poolCard.length) {
+                        this._poolCard[i * 10 + j].showCard(this._cardAry[i * 10 + j],i * 10 + j+1);
 
                     } else {
                         break;

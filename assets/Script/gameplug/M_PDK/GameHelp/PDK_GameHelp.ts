@@ -39,7 +39,7 @@ export const StageHeight: number = 720;
 /**
  * 资源路径
  */
-export const TexturePath: string = "gameres/M_BiJi/Textrue/";
+export const TexturePath: string = "effect/gameres/M_PDK/Textrue";
 /**
  * 公共资源路径
  */
@@ -204,7 +204,12 @@ export enum CardType {
     /**
      * 春天
      */
-    chuantian = 20
+    chuantian = 20,
+    /**
+     * 包赔
+     */
+    baopei = 30
+
 
 }
 /**
@@ -267,9 +272,12 @@ export class GameRule{
     public bomb:boolean;
     public FZBP:boolean;
     public SZTW:boolean;
+    public firstSpades3Out:boolean;
+    public threeAIsBomb:boolean;
     public showRemainNum:boolean;
     public ifcansameip:boolean;
     public checkGps:boolean;
+    public PeopleNum:number;
 
     
     public extendBet:number;
@@ -436,6 +444,10 @@ export class GameInfo {
      * 最后出牌的玩家打出的牌型
      */
     public lastOutCardType:CardType = CardType.Error;
+     /**
+     * 下一个出牌的玩家
+     */
+    public nextOutCardChair:number = -1;
     /**
      * 先出的牌的牌值
      */
@@ -466,6 +478,7 @@ export class GameInfo {
         this.lastOutCards = [];
         this.hasForceLeft = false;
         this.lastOutCardChair = -1;
+        this.nextOutCardChair = -1;
         this.rubCardValue = 0;
         this.firstOutValue = 0;
     }

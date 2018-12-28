@@ -7,7 +7,10 @@ export const GameID: number = 52;
 
 export enum CMD_Static {
     /////////////////////////////////////////////////////////////////////服务端
-
+    /**
+     * 房间人数
+     */
+    SUB_S_PeopleNum = 10,
     /**
      * 特殊属性
      */
@@ -69,6 +72,11 @@ export enum CMD_Static {
      * 提示消息
      */
     SUB_S_ShowMsg = 50,
+
+    /**
+     * 发送SetId
+     */
+    SUB_S_SendSetid = 51,
     /**
      * 玩家准备
      */

@@ -996,7 +996,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "MGMJ_SelfPool",
+    "_name": "MGMJ_OppoPool",
     "_objFlags": 0,
     "_parent": {
       "__id__": 27
@@ -1049,7 +1049,7 @@
     "groupIndex": 0
   },
   {
-    "__type__": "a8a0bGfyctH9ouAkZMtBttm",
+    "__type__": "0108aS09LNHGqKbHl8oem5B",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1057,7 +1057,7 @@
     },
     "_enabled": true,
     "PoolType": {
-      "__uuid__": "3e75002d-37e8-47b4-bc29-84aba3288430"
+      "__uuid__": "8e4e0d95-7cf9-46f4-9891-435101b60f9e"
     }
   },
   {
@@ -1068,12 +1068,12 @@
     "asset": {
       "__uuid__": "22ddadf1-2f4e-471e-ac80-edd56f2e0212"
     },
-    "fileId": "10845wwEytFYajQde+jF4PK",
+    "fileId": "ee6a7H4pNtMg4qbjE2XBAfE",
     "sync": false
   },
   {
     "__type__": "cc.Node",
-    "_name": "MGMJ_DownPool",
+    "_name": "MGMJ_UpPool",
     "_objFlags": 0,
     "_parent": {
       "__id__": 27
@@ -1126,7 +1126,7 @@
     "groupIndex": 0
   },
   {
-    "__type__": "8f433ejJidOiIkMnHUTuBm6",
+    "__type__": "9c32e/AlzdDULfDu5LaWAfs",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1134,7 +1134,7 @@
     },
     "_enabled": true,
     "PoolType": {
-      "__uuid__": "a75608e6-a041-4ceb-a2bb-a9e210eb1745"
+      "__uuid__": "221bde2e-8358-4459-b6e3-068ff9e937be"
     }
   },
   {
@@ -1145,12 +1145,12 @@
     "asset": {
       "__uuid__": "22ddadf1-2f4e-471e-ac80-edd56f2e0212"
     },
-    "fileId": "c3b52b9RDlIf6fXSag7q6zh",
+    "fileId": "78c2fzA/2tGGZWc2H71Cl7j",
     "sync": false
   },
   {
     "__type__": "cc.Node",
-    "_name": "MGMJ_OppoPool",
+    "_name": "MGMJ_DownPool",
     "_objFlags": 0,
     "_parent": {
       "__id__": 27
@@ -1203,7 +1203,7 @@
     "groupIndex": 0
   },
   {
-    "__type__": "0108aS09LNHGqKbHl8oem5B",
+    "__type__": "8f433ejJidOiIkMnHUTuBm6",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1211,7 +1211,7 @@
     },
     "_enabled": true,
     "PoolType": {
-      "__uuid__": "8e4e0d95-7cf9-46f4-9891-435101b60f9e"
+      "__uuid__": "a75608e6-a041-4ceb-a2bb-a9e210eb1745"
     }
   },
   {
@@ -1222,12 +1222,12 @@
     "asset": {
       "__uuid__": "22ddadf1-2f4e-471e-ac80-edd56f2e0212"
     },
-    "fileId": "ee6a7H4pNtMg4qbjE2XBAfE",
+    "fileId": "c3b52b9RDlIf6fXSag7q6zh",
     "sync": false
   },
   {
     "__type__": "cc.Node",
-    "_name": "MGMJ_UpPool",
+    "_name": "MGMJ_SelfPool",
     "_objFlags": 0,
     "_parent": {
       "__id__": 27
@@ -1280,7 +1280,7 @@
     "groupIndex": 0
   },
   {
-    "__type__": "9c32e/AlzdDULfDu5LaWAfs",
+    "__type__": "a8a0bGfyctH9ouAkZMtBttm",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1288,7 +1288,7 @@
     },
     "_enabled": true,
     "PoolType": {
-      "__uuid__": "221bde2e-8358-4459-b6e3-068ff9e937be"
+      "__uuid__": "3e75002d-37e8-47b4-bc29-84aba3288430"
     }
   },
   {
@@ -1299,7 +1299,7 @@
     "asset": {
       "__uuid__": "22ddadf1-2f4e-471e-ac80-edd56f2e0212"
     },
-    "fileId": "78c2fzA/2tGGZWc2H71Cl7j",
+    "fileId": "10845wwEytFYajQde+jF4PK",
     "sync": false
   },
   {
@@ -2751,16 +2751,16 @@
     ],
     "poolCard": [
       {
-        "__id__": 29
-      },
-      {
-        "__id__": 32
+        "__id__": 38
       },
       {
         "__id__": 35
       },
       {
-        "__id__": 38
+        "__id__": 29
+      },
+      {
+        "__id__": 32
       }
     ],
     "moreNode": {
@@ -2801,7 +2801,7 @@
       "__id__": 10
     },
     "GameInfoView": {
-      "__uuid__": "7dc07c83-e8e1-4200-8529-2d37e30dba2b"
+      "__uuid__": "c5a8de8c-e25c-48f0-9219-d6d480b522ed"
     },
     "MGMJ_Card_View": {
       "__id__": 26
@@ -2810,7 +2810,7 @@
       "__id__": 24
     },
     "Time_View": {
-      "__uuid__": "f0562b5e-dfdf-465b-a8c2-ee49b25df99f"
+      "__uuid__": "c65166b6-9ee0-48d1-a44c-5072d9d9d9b8"
     },
     "SZAni_View": {
       "__uuid__": "9840e826-256d-43bd-84cb-068d4cc0d761"

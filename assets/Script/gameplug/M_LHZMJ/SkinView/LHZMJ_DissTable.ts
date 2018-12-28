@@ -125,8 +125,19 @@ export default class LHZMJ_DissTable extends cc.Component {
         
         var idx:number=0;
         for(var i: number = 0;i < LHZMJMahjongDef.gPlayerNum;i++) {
+            cc.log(M_LHZMJClass.ins.TablePlayer[i]);
             if(M_LHZMJClass.ins.TablePlayer[i] != null){
-                if(i != this._sponsor) {
+                if(i != this._sponsor && M_LHZMJClass.ins.getRealUserNum() == 4) {
+                    if(M_LHZMJClass.ins.TablePlayer[i].NickName.length > 4)
+                        M_LHZMJClass.ins.TablePlayer[i].NickName = M_LHZMJClass.ins.TablePlayer[i].NickName.substr(0,4);
+                    idx++;
+                    this.lbl_playerStatusAry[idx-1].string = M_LHZMJClass.ins.TablePlayer[i].NickName;
+                    this.lbl_playervote[idx-1].node.active =true;
+                    this.lbl_playervote[idx-1].string = "投票中";
+                    LoadHeader(M_LHZMJClass.ins.TablePlayer[i].FaceID, this.img_headPhoto[idx-1]);
+
+                }else if( M_LHZMJClass.ins.getRealUserNum() == 3){
+                    
                     if(M_LHZMJClass.ins.TablePlayer[i].NickName.length > 4)
                         M_LHZMJClass.ins.TablePlayer[i].NickName = M_LHZMJClass.ins.TablePlayer[i].NickName.substr(0,4);
                     idx++;

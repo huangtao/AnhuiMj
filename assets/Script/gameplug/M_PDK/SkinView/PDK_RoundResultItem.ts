@@ -22,13 +22,17 @@ export default class PDK_RoundResultItem extends cc.Component {
     //详细描述
     @property(cc.RichText)
     private RichText_info:cc.RichText = null;
+    //胜利
+    @property(cc.Sprite)
+    private sprite_win:cc.Sprite = null;
 
     onLoad () {
         this.sprite_baopei.node.active = false;
         this.Label_score_add.node.active = false;
         this.Label_score_left.node.active = false;
+        this.sprite_win.node.active = false;
     }
-    public show(_index:number,faceID: string, name: string,data:number,roundScoreStr:string,isBaoPei:boolean,dataStr:string){
+    public show(_index:number,faceID: string, name: string,data:number,roundScoreStr:string,isBaoPei:boolean,dataStr:string,isWin:number){
         this.sprite_head.spriteFrame = null;
         LoadHeader(faceID, this.sprite_head);
         this.sprite_head.node.width = 68;
@@ -52,6 +56,11 @@ export default class PDK_RoundResultItem extends cc.Component {
             this.sprite_baopei.node.active = true;
         }else{
             this.sprite_baopei.node.active = false;
+        }
+        if(isWin == 1){
+            this.sprite_win.node.active = true;
+        }else{
+            this.sprite_win.node.active = false;
         }
         this.RichText_info.string = dataStr;
 

@@ -12,6 +12,7 @@ export default class DropDownBoxItem extends cc.Component {
     private _clickEventAct: Action = null;
     private _showData: any;
     private _index: number = 0;
+    
     set ClickEventAct(act: Action) {
 		this._clickEventAct = act;
     }
@@ -34,7 +35,7 @@ export default class DropDownBoxItem extends cc.Component {
 	 */
 	protected clickEventHandle(): void{
 		if (this._clickEventAct) {
-			this._clickEventAct.Run([this._showData]);
+			this._clickEventAct.Run([this._index]);
 		}
 	}
 }

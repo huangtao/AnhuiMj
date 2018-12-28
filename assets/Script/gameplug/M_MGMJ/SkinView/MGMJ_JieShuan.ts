@@ -12,11 +12,6 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class MGMJ_JieShuan extends cc.Component {
 
-
-    @property(cc.Label)
-    lbl_gameid: cc.Label=null;
-    @property(cc.Label)
-    lbl_tableRule: cc.Label=null;
     //牌型分
      @property([cc.Label])
     lbl_HuCardType: cc.Label[] = [];
@@ -37,26 +32,11 @@ export default class MGMJ_JieShuan extends cc.Component {
     img_hu: cc.Sprite[]=[];
 
     @property(cc.Button)
-    btn_yinCang: cc.Button=null;
-
-    @property(cc.Button)
-    btn_open: cc.Button=null;
-
-    @property(cc.Button)
-    btn_exit: cc.Button=null;
-
-    @property(cc.Button)
     btn_goon: cc.Button=null;
     //局数打完返回总结算
     @property(cc.Button)
     btn_LookZongJieSuan: cc.Button=null;
 
-    @property(cc.Button)
-    btn_share: cc.Button=null;
-
-    @property(cc.Button)
-    btn_close: cc.Button=null;
-  
     //中码图标
      @property([cc.Sprite])
     img_zhongma: cc.Sprite[]=[];
@@ -234,12 +214,7 @@ export default class MGMJ_JieShuan extends cc.Component {
         this.img_hu[2].node.active=false;
         this.img_hu[3].node.active=false;
 
-        this.lbl_gameid.string = MGMJ.ins.iclass.getGameID();
         let msg=`底分${MGMJ.ins.iclass.getTableConfig().cellScore}|`;
-      //  msg+=MGMJ.ins.iclass.getTableConfig().IsGangKai?"杠后开花加番|":"";
-      //  msg+=MGMJ.ins.iclass.getTableConfig().IsQiDui?"七对加番|":"";
-      //  msg+=MGMJ.ins.iclass.getTableConfig().IsBuKao?"无风牌|":"";
-        this.lbl_tableRule.string=msg; 
         //显示庄家位置,相对于自己
         var bankerpos=(M_MGMJClass.ins.BankerChair-M_MGMJClass.ins.SelfChair+4)%4;
         this.img_banker.node.y = MGMJ_JieShuan.BankerPos[bankerpos].y + 65;
@@ -399,8 +374,6 @@ export default class MGMJ_JieShuan extends cc.Component {
         if(M_MGMJClass.ins.isSelfCreateRoom && this._isPlayEnoughGameNum) {
             M_MGMJClass.ins.ignoreForceLeft = true;
         }
-        this.btn_exit.node.active = !MGMJ.ins.iclass.isCreateRoom();
-        this.btn_share.node.active = MGMJ.ins.iclass.isCreateRoom();
         //egret.setTimeout(()=>{
         console.log("jiesuan");
         

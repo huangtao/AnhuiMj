@@ -406,7 +406,9 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
             tableConfig.daiDaPai>0,
             tableConfig.whoLose>0,
 
-            tableConfig.tableWhere
+            tableConfig.tableWhere,
+            tableConfig.ftbz,
+            tableConfig.ifShiSanYao
         );
         //this.gameView.GameInfo.init();
         this.gameView.GameInfo.tableCode = tableConfig.TableCode;
@@ -858,7 +860,7 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
         
         M_MGMJVideoView.ins.TimerView.node.active=true;
         // M_MGMJVideoView.ins.TimerView.showArrow = chair;
-        M_MGMJVideoView.ins.TimerView.showArr(chair,this.SelfChair);// = chair;
+        M_MGMJVideoView.ins.TimerView.showArr(chair,this.SelfChair,true);// = chair;
         M_MGMJVideoView.ins.TimerView.timerNum = timerLen;
         
         this._timer.start();
@@ -985,6 +987,10 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
     public getMahjongPaiBeiRes(cardtype: string): cc.SpriteFrame {
         return this.paibei.getSpriteFrame(cardtype);
         //return `gameres/gameCommonRes/Texture/Mahjong/PaiHua/mahjong_${WHMJMahjongAlgorithm.GetMahjongColor(card)}_${WHMJMahjongAlgorithm.GetMahjongValue(card)}`;
+    }
+    //3D麻将牌花获取
+    public getMahjongPaiHuaResOut(card: number): cc.SpriteFrame {
+        return this.paihua.getSpriteFrame(`mahjong_${MGMJMahjongAlgorithm.GetMahjongColor(card)}_${MGMJMahjongAlgorithm.GetMahjongValue(card)}`);
     }
      /**
      * 获取麻将牌背资源

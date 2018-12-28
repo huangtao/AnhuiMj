@@ -634,10 +634,10 @@ export default class M_BBMJVideoClass extends GameVideoBase implements IBBMJClas
             var voteRight: M_BBMJ_GameMessage.CMD_S_VoteRight = <M_BBMJ_GameMessage.CMD_S_VoteRight>msg;
         this._gamePhase = enGamePhase.GamePhase_Vote;
         this._voteRight = voteRight.voteRight;
-        if(this._voteRight==BBMJMahjongDef.gVoteRightMask_Ting){
-            console.log("我的投票权限里  条件true  有听权限");
-            M_BBMJVideoView.ins.OperatorView.showOP(false,0,false,true,true,false)
-        }else{
+        // if(this._voteRight==BBMJMahjongDef.gVoteRightMask_Ting){
+        //     console.log("我的投票权限里  条件true  有听权限");
+        //     M_BBMJVideoView.ins.OperatorView.showOP(false,0,false,true,true,false)
+        // }else{
             console.log("我的投票权限里  条件false  无听权限");
             this._canVote= true;
             this.scheduleOnce(function () {
@@ -650,7 +650,7 @@ export default class M_BBMJVideoClass extends GameVideoBase implements IBBMJClas
                                             false,
                                             true,false);
                                             
-        }
+     //   }
        
             //注册计时器
 

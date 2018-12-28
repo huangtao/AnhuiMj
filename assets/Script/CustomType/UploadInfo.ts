@@ -1,4 +1,4 @@
-import Dictionary from "./Dictionary"; 
+import Dictionary from "./Dictionary";
 import { deepCopy } from "../Tools/Function";
 import { UyiObject } from "../Serializer/UyiObject";
 
@@ -15,24 +15,26 @@ import { UyiObject } from "../Serializer/UyiObject";
 export class UploadInfo {
     public url: string;
     public fileName: string = "file";
-    public filePath:string;
+    public filePath: string;
     public attachParam = {};
-    public type:string;
-    public callBack:string;
-    public baseUrl:string;
+    public type: string;
+    public callBack: string;
+    public baseUrl: string;
+    public index: number = 0;
 }
 
 
 
 export const UploadInfo_Type_Voice = "voices";
 export const UploadInfo_Type_Header = "header";
+export const UploadInfo_Type_Userphoto = "userphoto";
 
 
 
 export class UploadInfos {
     private _dic = new Dictionary<string, UploadInfo>();
-    public GetUploadInfo(types: string) {
-        return this._dic.GetValue(types);
+    public GetUploadInfo(types: string): UploadInfo {
+        return deepCopy(this._dic.GetValue(types));
     }
     public AddRange(list: UploadInfo[]) {
         if (!list) return;
@@ -42,7 +44,7 @@ export class UploadInfos {
 
         cc.log("成功的获取文件的上传策略");
         cc.log(this._dic);
-        
+
     }
 
 }

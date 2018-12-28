@@ -27,9 +27,14 @@ export default class SkinLabelView extends cc.Component {
     @property(cc.Label)
     private label_tablenum: cc.Label = null;
     @property(cc.Label)
-    private label_Tips: cc.Label = null;
-
-    private TipsAni:cc.Animation = null; 
+    private label_playerNum: cc.Label = null;
+    @property(cc.Label)
+    private label_gameRule: cc.Label = null;
+    //牌堆
+    @property(cc.Label)
+    private label_leftCardCount: cc.Label = null;
+    @property(cc.Sprite)
+    private icon_paihe: cc.Sprite = null;
     private gamenum:number;
     private allnum:number;
 
@@ -47,10 +52,11 @@ export default class SkinLabelView extends cc.Component {
         this.gamenum = 0;
         this.allnum = 0;
         this.label_gameCount.string = "";
+        this.label_playerNum.string = "";
         this.group_tablenum.active = false;
         this.group_money.active = false;
-        this.label_Tips.node.active = false;
-        this.TipsAni = this.label_Tips.node.getComponent(cc.Animation);
+        this.label_gameRule.node.active = false;
+        this.icon_paihe.node.active = false;
     }
     public Destroy() {
 
@@ -72,7 +78,7 @@ export default class SkinLabelView extends cc.Component {
      * 设置局数
      */
     public SetGameCount(value: number[]) {
-        this.label_gameCount.string = "局数：" + (value[0]) + "/" + value[1];
+        this.label_gameCount.string = "第" + (value[0]) + "/" + value[1] + "局";
         this.gamenum = value[0];
         this.allnum = value[1];
     }
@@ -94,10 +100,9 @@ export default class SkinLabelView extends cc.Component {
         
     }
  
-    public showTipsAni(str:string){
-        this.label_Tips.string = str;
-        this.TipsAni.play("Ani_Tips");
-
+    public showGameRule(str:string){
+        this.label_gameRule.string = str;
+        this.label_gameRule.node.active = true;
     }
     /**
      * 设置币种类型
@@ -127,6 +132,15 @@ export default class SkinLabelView extends cc.Component {
             this.label_money.string = value.toString();
     }
     public SetGameCountForNext(value:number){
-        this.label_gameCount.string = "局数："+(this.allnum-this.allgamenum)+"/" + (this.allnum-this.allgamenum);
+        this.label_gameCount.string = "第"+(this.allnum-this.allgamenum)+"/" + (this.allnum-this.allgamenum) + "局";
+    }
+    //游戏人数
+    public setPlayerNum(playerNum:number){
+        this.label_playerNum.string = "跑得快"+playerNum+"人";
+    }
+    //牌堆剩余牌数
+    public showPaihe(leftCardCount:number){
+        this.icon_paihe.node.active = true;
+        this.label_leftCardCount.string = "剩余" + leftCardCount + "张";
     }
 }

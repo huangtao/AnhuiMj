@@ -59,6 +59,12 @@ export default class PDK_RoundResult extends cc.Component {
     //显示结算信息
     public Show(scoreView:ScoreView) {
         let gameCount = scoreView.datalist.length - 1;
+        if(PDK.ins.iview.GetGameInfo().GetLastGameCount() == 0){
+            this.btn_ready.node.getComponent(cc.Sprite).spriteFrame = this.res_view[7];
+        }else{
+            this.btn_ready.node.getComponent(cc.Sprite).spriteFrame = this.res_view[6];
+        }
+        
         if(this.PlayerItem.length == 0){
             for(let i = 0;i<scoreView.datalist[gameCount].data.length;i++){
                 this.PlayerItem[i] = cc.instantiate(this.prefab_PlayerItem).getComponent<PDK_RoundResultItem>(PDK_RoundResultItem);
@@ -67,7 +73,7 @@ export default class PDK_RoundResult extends cc.Component {
             }
         }
         for(let i = 0;i<this.PlayerItem.length;i++){
-            this.PlayerItem[i].show(i,scoreView.facelist[i],scoreView.namelist[i],scoreView.datalist[gameCount].data[i],scoreView.RoundScoreInfolist[gameCount].data[i],scoreView.baoPeilist[gameCount].data[i],scoreView.RoundScoreInfolist[gameCount].data[i]);
+            this.PlayerItem[i].show(i,scoreView.facelist[i],scoreView.namelist[i],scoreView.datalist[gameCount].data[i],scoreView.RoundScoreInfolist[gameCount].data[i],scoreView.baoPeilist[gameCount].data[i],scoreView.RoundScoreInfolist[gameCount].data[i],scoreView.isWinList[gameCount].data[i]);
         }
         this.node_bg.active = true;
         this.backGround.active = true;
@@ -76,5 +82,12 @@ export default class PDK_RoundResult extends cc.Component {
     }
     public OnClose() {
         this.node.active = false;
+    }
+    public changeBtnReadyImage(isReady:boolean){
+        if(isReady){
+            this.btn_ready.node.getComponent(cc.Sprite).spriteFrame = this.res_view[6];
+        }else{
+            this.btn_ready.node.getComponent(cc.Sprite).spriteFrame = this.res_view[7]; 
+        }
     }
 }

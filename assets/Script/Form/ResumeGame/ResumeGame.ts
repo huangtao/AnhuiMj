@@ -67,6 +67,24 @@ export class ResumeGame extends UIBase<ResumeGameParam> {
     labeltips: cc.Label = null;
 
     /**
+     * 同意按钮文本 
+     */
+    @property(cc.Label)
+    lab_btn_agree: cc.Label = null;
+
+    /**
+     * 拒绝按钮文本 
+     */
+    @property(cc.Label)
+    lab_btn_refuse: cc.Label = null;
+
+    /**
+     * 续局文本提示文字 
+     */
+    @property(cc.Node)
+    node_resumeGameTip: cc.Node = null;
+
+    /**
      * 玩家信息预制体列表
      */
     private _playerList: ResumeGamePlayerItem[] = [];
@@ -103,12 +121,19 @@ export class ResumeGame extends UIBase<ResumeGameParam> {
                 case 1:
                     labelTipsStr = "续局提示";
                     this._currentGameVoteType = 1;
+                    this.lab_btn_agree.string = '同意续局';
+                    this.lab_btn_refuse.string = '结束游戏';
+                    this.node_resumeGameTip.active = true;
                     break;
                 default:
-                    labelTipsStr = "三人投票";
+                    labelTipsStr = "3人游戏投票";
+                    this.lab_btn_agree.string = '同意';
+                    this.lab_btn_refuse.string = '拒绝';
+                    this.node_resumeGameTip.active = false;
                     this._currentGameVoteType = this.ShowParam.gameVoteType;
                     break;
             }
+
             this.labeltips.string = labelTipsStr;
             this._gameEndAct = this.ShowParam.gameEndEventHandle;
             this._agreeResumeGameAct = this.ShowParam.agreeEventHandle;
@@ -153,7 +178,7 @@ export class ResumeGame extends UIBase<ResumeGameParam> {
             let node_player: cc.Node = cc.instantiate(this.prefab_playerItem);
             let comp_player: ResumeGamePlayerItem = node_player.getComponent("ResumeGamePlayerItem");
             playerList[idx].score = this.ShowParam.scoreList[idx];
-            comp_player.initUI(playerList[idx]);
+            comp_player.initUI(playerList[idx], this.ShowParam.gameVoteType);
             this._playerList.push(comp_player);
             this.layout_playerList.node.addChild(node_player);
             this.btn_agreeResum.interactable = true;
@@ -179,11 +204,27 @@ export class ResumeGame extends UIBase<ResumeGameParam> {
         }
 
         if (comp_player) {
-            comp_player.updateVoteStatusShow(status);
+            comp_player.updateVoteStatusShow(status, this.ShowParam.gameVoteType);
         }
+
+        let labelTipsStr: string = "";
+        switch (this.ShowParam.gameVoteType) {
+            case 0:
+            case 1:
+                {
+                  labelTipsStr = "同意续局...";  
+                }
+                break;
+            default:
+                {
+                  labelTipsStr = "同意...";  
+                }
+                break;
+        }
+
         //判断所有玩家是否都同意续局
         for (var k = 0, x = 0; k < this._playerList.length; k++) {
-            if (this._playerList[k] != null && this._playerList[k].lab_status.string == '同意续局') {
+            if (this._playerList[k] != null && this._playerList[k].lab_status.string == labelTipsStr) {
                 x++;
             }
             if (x == this._playerList.length) {

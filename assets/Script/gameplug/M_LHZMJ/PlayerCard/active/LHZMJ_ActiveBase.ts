@@ -41,6 +41,7 @@ export default class LHZMJ_ActiveBase extends LHZMJ_CardBase {
 
     onLoad() {
         // init logic
+        cc.log("--- LHZMJ_ActiveBase onlod");
         
     }
     public standPai():void{
@@ -335,10 +336,13 @@ export default class LHZMJ_ActiveBase extends LHZMJ_CardBase {
             for(var i: number = 0;i < newNum;i++) {
                // var newnode=cc.instantiate(this.CardType);
                let newnode = LHZMJ.ins.iclass.getFreeActive(this._logicChair).get();
-               if (!cc.isValid(newnode)) {
+               if (!cc.isValid(newnode) && this.CardType) {
                     newnode = cc.instantiate(this.CardType);
                 }
                 
+                if (!newnode) {
+                    return;
+                }
                 // this.createSingleActiveCard(newnode);
                 var active = newnode.getComponent<LHZMJ_SingleActiveBase>(LHZMJ_SingleActiveBase);
                 active.init();

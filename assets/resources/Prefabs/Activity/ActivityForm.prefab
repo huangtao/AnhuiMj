@@ -2112,9 +2112,7 @@
       "__id__": 63
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "46c9bc7c-46c5-41bb-8087-b07c56d12cc7"
-    },
+    "_spriteFrame": null,
     "_type": 1,
     "_sizeMode": 2,
     "_fillType": 0,
@@ -2176,9 +2174,7 @@
       "b": 255,
       "a": 255
     },
-    "_N$normalSprite": {
-      "__uuid__": "46c9bc7c-46c5-41bb-8087-b07c56d12cc7"
-    },
+    "_N$normalSprite": null,
     "_N$pressedSprite": {
       "__uuid__": "e9ec654c-97a2-4787-9325-e6a10375219a"
     },
@@ -2384,6 +2380,12 @@
     },
     "jump": {
       "__id__": 65
+    },
+    "TurntablePanel": {
+      "__uuid__": "67502b13-c11c-4376-98f6-90f7abd664de"
+    },
+    "ParentNode": {
+      "__id__": 8
     }
   },
   {

@@ -70,6 +70,9 @@ export default class SkinPlayer extends cc.Component {
     //庄标识
     @property(cc.Sprite)
     private img_master: cc.Sprite = null;
+    //先出标识
+    @property(cc.Sprite)
+    private Sprite_first: cc.Sprite = null;
     //准备跟观战标识
     @property(cc.Sprite)
     private img_view: cc.Sprite = null;
@@ -205,6 +208,7 @@ export default class SkinPlayer extends cc.Component {
         this.node_OutCard.active = false;
         this.node_touxiang_zhishi.active = false;
         this.node_warningEffect.active = false;
+        this.Sprite_first.node.active = false;
        
         this.btn_tiRen.node.active = false;
         this.SelfReadyClear();
@@ -246,12 +250,13 @@ export default class SkinPlayer extends cc.Component {
         if (this.node.active && this.userState != UserState.None) {
             let upMoney = value - this.money;
             if(upMoney != 0 && isRefresh){
-                if(value > 0){
+                if(upMoney > 0){
                     this.label_scoreAni.font = this.bitmapFont[0];
+                    this.label_scoreAni.string = "+" + upMoney.toString();
                 }else{
                     this.label_scoreAni.font = this.bitmapFont[1];
+                    this.label_scoreAni.string = upMoney.toString();
                 }
-                this.label_scoreAni.string = upMoney.toString();
                 this.label_scoreAni.node.active = true;
                 this.label_scoreAni.node.getComponent(cc.Animation).play();
             }
@@ -375,6 +380,7 @@ export default class SkinPlayer extends cc.Component {
         this.sprite_zhaNiao.node.active = false;
         this.node_handCard.active = false;
         this.node_OutCard.active = false;
+        this.Sprite_first.node.active = false;
         this.stopWarningEffect();
     }
 
@@ -440,24 +446,38 @@ export default class SkinPlayer extends cc.Component {
         this.Ani_cardType.node.getComponent(cc.Animation).play();
 
     }
-    //显示玩家打出的牌
-    public showOutCard(cards:number[],cardType:CardType = CardType.Error){
+    //清空打出的牌
+    public clearOutCardsNode(){
         for(let i = 0;i < this.node_OutCard.childrenCount;i++) {
             this.node_OutCard.children[i].destroy();
         }
+        this.node_OutCard.removeAllChildren();
+    }
+    //显示玩家打出的牌
+    public showOutCard(cards:number[],cardType:CardType = CardType.Error,isRoundEnd:boolean = false,isNeedSound:boolean = true){
+        this.clearOutCardsNode();
         cards = GameLogic.SortCardToSmall(cards,cards.length,true);
-        let maxOutCardWidth = (cards.length - 1)*30 + SelfCardWidth*0.65;
+        let maxOutCardWidth = 0;
+        let offsetY = 0;
+        if(cards.length > 10){
+            maxOutCardWidth = (10 - 1)*30 + SelfCardWidth*0.65;
+        }else{
+            maxOutCardWidth = (cards.length - 1)*30 + SelfCardWidth*0.65;
+        }
         for(let i= 0;i<cards.length;i++){
+            if(i > 9){
+                offsetY = -38;
+            }
             let cardObj = cc.instantiate(this.prefab_card).getComponent<PDK_skinCards>(PDK_skinCards);
             cardObj.createCard(cards[i]);
             cardObj.setScale(0.65);
             this.node_OutCard.addChild(cardObj.node);
             if(this._chair == 0 || this._chair == 2){
-                cardObj.node.setPosition(0 - maxOutCardWidth/2 + i*30,0);
+                cardObj.node.setPosition(0 - maxOutCardWidth/2 + i%10*30,offsetY);
             }else if(this._chair == 1){
-                cardObj.node.setPosition(0- maxOutCardWidth + i*30,0);
+                cardObj.node.setPosition(0- maxOutCardWidth + i%10*30,offsetY);
             }else{
-                cardObj.node.setPosition(i*30,0);
+                cardObj.node.setPosition(i%10*30,offsetY);
             }
         }
         this.node_OutCard.active = true;
@@ -469,7 +489,9 @@ export default class SkinPlayer extends cc.Component {
                 this.showPlayerTips(2);
                 cardLogicValue = null;
             }else{
-                PDK.ins.iview.playCardTypeAni(cardType,this._chair,this.node.getPosition(),cards.length);
+                if(isRoundEnd == false){
+                    PDK.ins.iview.playCardTypeAni(cardType,this._chair,this.node.getPosition(),cards.length);
+                }
                 if(cardType == CardType.Plane){
                     if(cards.length == 10 || cards.length == 15 ){
                         cardLogicValue = 1;
@@ -489,9 +511,11 @@ export default class SkinPlayer extends cc.Component {
                 this.node_warningEffect.active = true;
             }
             //音效
-            VoicePlayer.PlayCardType(cardType,cardLogicValue,VoiceType.Mandarin,this.userGender);
-            if(cardType == CardType.Plane){
-                VoicePlayer.PlayCardType(cardType,3,VoiceType.Mandarin,this.userGender);
+            if(isNeedSound){
+                VoicePlayer.PlayCardType(cardType,cardLogicValue,VoiceType.Mandarin,this.userGender);
+                if(cardType == CardType.Plane){
+                    VoicePlayer.PlayCardType(cardType,3,VoiceType.Mandarin,this.userGender);
+                } 
             }
         }
     }
@@ -555,14 +579,28 @@ export default class SkinPlayer extends cc.Component {
         this.node_touxiang_zhishi.active = true;
         var aniState = this.touxiang_zhishi.play();
         aniState.wrapMode = cc.WrapMode.Loop;
+        this.clearOutCardsNode();
     }
     public HideZhishi(){
         this.touxiang_zhishi.stop();
         this.node_touxiang_zhishi.active = false;
     }
+    //获取抓鸟图标坐标
+    public getZhuaNiaoIconPos():cc.Vec2{
+        let pos = new cc.Vec2();
+        pos.x = this.node.getPositionX() +this.sprite_zhaNiao.node.getPositionX();
+        pos.y = this.node.getPositionY() +this.sprite_zhaNiao.node.getPositionY();
+
+       return pos;
+    }
     //显示抓鸟图标
     public showZhuaNiaoIcon(){
+        this.node_handCard.active = true;
         this.sprite_zhaNiao.node.active = true;
+    }
+     //显示先出标签
+     public showFirstIcon(){
+        this.Sprite_first.node.active = true;
     }
     //==================================== 设置 结束 =======================================
     public OnImgClick() {

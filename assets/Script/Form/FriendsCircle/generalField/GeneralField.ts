@@ -8,8 +8,6 @@ import RoomRuleItem from "./RoomRuleItem";
 import Dictionary from "../../../CustomType/Dictionary";
 import { FriendCircleRule } from "../../../CustomType/FriendCircleInfo";
 import SendMessage from "../../../Global/SendMessage";
-import { PlayEffect } from "../../../Tools/Function";
-
 
 const { ccclass, property } = cc._decorator;
 
@@ -262,8 +260,6 @@ export default class GeneralField extends cc.Component {
             // 请求亲友圈信息
             FriendCircleWebHandle.requestFriendCircleList();
         }));
-
-        PlayEffect(cc.url.raw("resources/Sound/close_panel.mp3"));
     }
 
     /**

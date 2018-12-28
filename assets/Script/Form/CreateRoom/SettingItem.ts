@@ -7,6 +7,7 @@ import RuleItemPool from "./RuleItemType/RuleItemPool";
 import RuleItemToggleBase from "./RuleItemType/RuleItemToggleBase";
 import Dictionary from '../../CustomType/Dictionary';
 import { Action } from "../../CustomType/Action";
+import QLToggleContainer from "./RuleItemType/QLToggleContainer";
 
 const { ccclass, property } = cc._decorator;
 
@@ -237,6 +238,12 @@ export default class SettingItem extends cc.Component {
         // 创建单选按钮
         let createToggle = (container: cc.Prefab) => {
             let toggleContainer = cc.instantiate(container);
+            let layout = toggleContainer.getComponent(cc.Layout);
+
+            if (data.list.length < QLToggleContainer.MAX_ROW_CHILDREN_NUM) {
+                layout.type = cc.Layout.Type.HORIZONTAL;
+            }
+
             this.layout_item.node.addChild(toggleContainer);
             this.layout_item.updateLayout();
 

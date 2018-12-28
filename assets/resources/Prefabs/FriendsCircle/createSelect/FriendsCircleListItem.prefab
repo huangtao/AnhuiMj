@@ -779,7 +779,7 @@
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "我是八个字的圈名",
-    "_N$horizontalAlign": 1,
+    "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0
@@ -888,7 +888,7 @@
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "圈号:10021",
-    "_N$horizontalAlign": 1,
+    "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0
@@ -997,7 +997,7 @@
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "(130人)",
-    "_N$horizontalAlign": 1,
+    "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0

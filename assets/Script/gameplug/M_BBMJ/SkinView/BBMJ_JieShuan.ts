@@ -235,7 +235,7 @@ export default class BBMJ_JieShuan extends cc.Component {
        
           this.img_banker.node.y = BBMJ_JieShuan.BankerPos[bankerpos].y + 65;
            let creatorPos = (M_BBMJClass.ins.getTableConfig().tableCreatorChair - M_BBMJClass.ins.SelfChair + 4)%4;
-            this.img_creator.node.y = BBMJ_JieShuan.BankerPos[bankerpos].y + 25;
+            this.img_creator.node.y = BBMJ_JieShuan.BankerPos[creatorPos].y + 25;
 
         //显示玩家结算数据,本家，对家,上家，下家
         var me=M_BBMJClass.ins.SelfChair;
@@ -260,7 +260,7 @@ export default class BBMJ_JieShuan extends cc.Component {
         if(balanceData.playerBalance[me].HuType>0){
         if(balanceData.playerBalance[me].HuType==1){
             this.huType = "自摸+2 ";
-             }else if(balanceData.playerBalance[me].HuType==1){
+             }else if(balanceData.playerBalance[me].HuType==5){
             this.huType = "抢杠胡 ";
              }else{
                  this.huType = "胡牌+1 ";
@@ -297,7 +297,7 @@ export default class BBMJ_JieShuan extends cc.Component {
         if(balanceData.playerBalance[dui].HuType>0){
         if(balanceData.playerBalance[dui].HuType==1){
             this.huType = "自摸+2 ";
-             }else if(balanceData.playerBalance[dui].HuType==1){
+             }else if(balanceData.playerBalance[dui].HuType==5){
             this.huType = "抢杠胡 ";
              }else{
                  this.huType = "胡牌+1 ";
@@ -334,7 +334,7 @@ export default class BBMJ_JieShuan extends cc.Component {
          if(balanceData.playerBalance[shang].HuType>0){
         if(balanceData.playerBalance[shang].HuType==1){
             this.huType = "自摸+2 ";
-             }else if(balanceData.playerBalance[shang].HuType==1){
+             }else if(balanceData.playerBalance[shang].HuType==5){
             this.huType = "抢杠胡 ";
              }else{
                  this.huType = "胡牌+1 ";
@@ -370,7 +370,7 @@ export default class BBMJ_JieShuan extends cc.Component {
          if(balanceData.playerBalance[xia].HuType>0){
              if(balanceData.playerBalance[xia].HuType==1){
             this.huType = "自摸+2 ";
-             }else if(balanceData.playerBalance[xia].HuType==1){
+             }else if(balanceData.playerBalance[xia].HuType==5){
             this.huType = "抢杠胡 ";
              }else{
                  this.huType = "胡牌+1 ";
@@ -477,7 +477,7 @@ export default class BBMJ_JieShuan extends cc.Component {
             lbl+="抢杠+5 "
         }    
         if(balanceData.JieSuan[11]>0){
-            lbl+="打中+5 "
+            lbl+="杠后炮 "
         }
         if(balanceData.JieSuan[12]>0){
             lbl+="跑中+2 "

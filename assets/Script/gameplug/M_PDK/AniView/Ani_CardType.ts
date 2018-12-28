@@ -30,7 +30,7 @@ export default class Ani_CardType extends cc.Component {
                 }
             break;
 //            case CardType.ThreeAndTwo:
-//                AniItem = this.Animation[1];
+//                AniItem = this.Animation[1];+
 //            break;
             case CardType.FourAndTwo:
                 AniItem = this.Animation[2];
@@ -47,19 +47,24 @@ export default class Ani_CardType extends cc.Component {
             case CardType.chuantian:
                 AniItem = this.Animation[7];
             break;
+            case CardType.baopei:
+                AniItem = this.Animation[9];
+            break;
         }
         if(AniItem){
             this.HideAllAni();
             let position = Pos;
-            if(type == CardType.chuantian || type == CardType.Plane){
+            if(type == CardType.chuantian || type == CardType.Plane || type == CardType.Bomb){
                 position = new cc.Vec2(0,0);
+            }else if(type == CardType.baopei){
+                position = new cc.Vec2(0,-180);
             }else{
                 if(chair == 0){
-                    position = new cc.Vec2(Pos.x + 535,Pos.y + 320);
+                    position = new cc.Vec2(Pos.x + 535,Pos.y + 300);
                 }else if(chair == 1){
-                    position = new cc.Vec2(Pos.x + -372,Pos.y + 0);
+                    position = new cc.Vec2(Pos.x + -258,Pos.y + 0);
                 }else if(chair == 2){
-                    position = new cc.Vec2(Pos.x + 0,Pos.y - 166);
+                    position = new cc.Vec2(Pos.x + 0,Pos.y - 140);
                 }else{
                     position = new cc.Vec2(Pos.x + 258,Pos.y + 0);
                 }

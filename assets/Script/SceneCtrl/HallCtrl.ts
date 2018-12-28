@@ -119,7 +119,7 @@ export default class HallCtrl extends ReConnectBase {
         this.DoShareParamHandle();
 
         if (HornPanel.HornHallList.length > 0) {
-            this.UiManager.ShowHorn(HornPanel.HornHallList[HornPanel.HornHallList.length - 1]);
+            this.UiManager.ShowHorn(HornPanel.HornHallList[HornPanel.HornHallList.length - 1], null, null);
         }
     }
 
@@ -377,7 +377,6 @@ export default class HallCtrl extends ReConnectBase {
      */
     private authClick() {
         this.ShowUi(UIName.Auth, this.realName.node);
-
     }
 
     /**
@@ -402,13 +401,6 @@ export default class HallCtrl extends ReConnectBase {
     }
 
     /**
-     * 邮件
-     */
-    private emailClick() {
-        this.ShowUi(UIName.Email);
-    }
-
-    /**
      * 头像
      */
     private headClick() {
@@ -421,6 +413,10 @@ export default class HallCtrl extends ReConnectBase {
     private giftClick() {
         this.ShowUi(UIName.Gift);
 
+    }
+
+    private clickTurntable(){
+        this.ShowUi(UIName.TurntablePanel);
     }
 
     private kefuClick(e, type: string) {
@@ -586,7 +582,7 @@ export default class HallCtrl extends ReConnectBase {
                 return true;
             case EventCode.HornHallStart:
                 if (HornPanel.HornHallList.length > 0) {
-                    this.UiManager.ShowHorn(HornPanel.HornHallList[HornPanel.HornHallList.length - 1]);
+                    this.UiManager.ShowHorn(HornPanel.HornHallList[HornPanel.HornHallList.length - 1], null, null);
                 }
                 return true;
             case EventCode.TaskNumPush:

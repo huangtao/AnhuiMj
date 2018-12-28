@@ -92,11 +92,6 @@ export default class RoomRuleItem extends cc.Component {
     isRuleModel: boolean = false;
 
     /**
-     * 桌子最大玩家数
-     */
-    private _maxUserCount = 4;
-
-    /**
      * 桌子信息
      */
     private _talbleInfo: QL_Common.UserCreateTableInfo = null;
@@ -175,7 +170,7 @@ export default class RoomRuleItem extends cc.Component {
         let curFriendCircle = FriendCircleDataCache.Instance.CurEnterFriendCircle;
         let ruleInfo = FriendCircleDataCache.Instance.CurSelectedRule;
         let userId = Global.Instance.DataCache.UserInfo.userData.UserID;
-        
+
         SendMessage.Instance.QueryGroupTableList(parseInt(curFriendCircle.ID), ruleInfo.Id);
 
         // 判断是否游戏已经开始
@@ -230,7 +225,6 @@ export default class RoomRuleItem extends cc.Component {
             Global.Instance.DataCache.GroupId = parseInt(curFriendCircle.ID);
 
             if (this._talbleInfo) {
-                Global.Instance.UiManager.ShowLoading("正在进入房间...");
                 Global.Instance.GameHost.TryEnterRoom(this._talbleInfo.TableId, QL_Common.EnterRoomMethod.TableID, rule.RoomData, null);
             } else {
                 const room = Global.Instance.DataCache.RoomList.GetCreateRoom(ruleInfo.gameId);
@@ -243,7 +237,7 @@ export default class RoomRuleItem extends cc.Component {
             }
         }.bind(this)
 
-        Global.Instance.UiManager.ShowLoading("正在请求数据...");
+        Global.Instance.UiManager.ShowLoading("正在进入房间...");
         // 判断是否玩家被禁玩
         FriendCircleWebHandle.GroupUserGameBan(parseInt(curFriendCircle.ID), 2, 0, ruleInfo.gameId, "Q", userId, new Action(this, (res) => {
             if ("success" != res.status) {
@@ -253,6 +247,7 @@ export default class RoomRuleItem extends cc.Component {
             }
 
             if (res.isBan) {
+                Global.Instance.UiManager.CloseLoading();
                 Global.Instance.UiManager.ShowTip("您没有权限进入该玩法,请联系圈主!");
                 return;
             }
@@ -315,12 +310,17 @@ export default class RoomRuleItem extends cc.Component {
             }
         }
 
-        // 获取游戏信息
-        let roomList: QL_Common.RoomClient[] = Global.Instance.DataCache.RoomList.GetRoomByGameID(ruleInfo.gameId);
         let maxUserCount = 0;
+        let ruleObj = StrToObject(ruleInfo.ruleStr);
 
-        if (roomList && roomList[0]) {
-            maxUserCount = roomList[0].MaxCount;
+        if (ruleObj.PeopleNum) {
+            maxUserCount = parseInt(ruleObj.PeopleNum);
+        } else {
+            // 获取游戏信息
+            let roomList: QL_Common.RoomClient[] = Global.Instance.DataCache.RoomList.GetRoomByGameID(ruleInfo.gameId);
+            if (roomList && roomList[0]) {
+                maxUserCount = roomList[0].MaxCount;
+            }
         }
 
         // 更新桌子状态和人数显示
@@ -330,12 +330,13 @@ export default class RoomRuleItem extends cc.Component {
                 case QL_Common.UserCreateTableNoticeStatus.CreateTable:
                     {
                         // 创建桌子
-                        status = '准备中';
                         this.lab_gameStatus.node.active = true;
 
                         // 显示"几缺几"
-                        if (maxUserCount > 0) {
-                            this.lab_gameStatus.string = "\n" + maxUserCount + "缺" + (maxUserCount - table.PlayerCount);
+                        if (maxUserCount > 0 && maxUserCount - table.PlayerCount > 0) {
+                            this.lab_gameStatus.string = "\n" + table.PlayerCount + "缺" + (maxUserCount - table.PlayerCount);
+                        } else {
+                            this.lab_gameStatus.string = '准备中';
                         }
 
                         if (isAdmin) {
@@ -352,7 +353,7 @@ export default class RoomRuleItem extends cc.Component {
                         this.lab_gameStatus.node.active = true;
                         // 获取局数进度
                         let round = ruleInfo.ruleDesc.replace(/[^0-9]/ig, "");
-                        this.lab_gameRound.string = '(' + table.GameNum + '/' + round + '局)';
+                        this.lab_gameRound.string = '(' + (table.GameNum + 1) + '/' + round + '局)';
                         this.lab_gameStatus.string = '游戏中';
                     }
                     break;

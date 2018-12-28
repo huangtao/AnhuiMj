@@ -282,6 +282,8 @@ export default class M_MGMJVideoView extends cc.Component {
         this._gameStatus_userInfo.HideLaPao();
         this._gameStatus_userInfo.tableOwener = MGMJ.ins.iclass.getTableConfig().tableCreatorChair;
         this._timerView.timerNum = 0;
+        this._timerView.showArrow = M_MGMJVideoClass.ins.getSelfChair();
+        this._timerView.showArr(255,M_MGMJVideoClass.ins.getSelfChair(),true);
         this._timerView.showArrow = MGMJMahjongDef.gInvalidChar;
         this._timerView.node.active=false;
         this._cardView.node.active = true;

@@ -57,7 +57,7 @@ export default class FriendCircleDataCache {
 
 		for (var idx = 0; idx < data.length; ++idx) {
 			let friendId = data[idx].ID;
-			this.FriendCircleList.Add(friendId + '', data[idx]);
+			this.FriendCircleList.AddOrUpdate(friendId + '', data[idx]);
 		}
 
 		// 更新当前进入的亲友圈信息
@@ -115,13 +115,6 @@ export default class FriendCircleDataCache {
 			return;
 		}
 
-		/**
-         * 进行玩法排序
-         */
-		ruleList.sort((a, b) => {
-			return b.gameId - a.gameId;
-		})
-
 		this.FriendCircleRuleList.AddOrUpdate(groupId, ruleList);
 
 		if (this.CurSelectedRule) {
@@ -148,7 +141,6 @@ export default class FriendCircleDataCache {
 			//否则默认更新成当前玩法列表第一个
 			this.CurSelectedRule = ruleList[0];
 		}
-
 	}
 
 	/**
@@ -433,6 +425,17 @@ export default class FriendCircleDataCache {
 	}
 
 	/**
+	 * 处理消息更新消息状态
+	 */
+	public dealMessage(id: string) {
+		if (!id) {
+			return;
+		}
+
+		this.UnDealMessageList.Remove(id);
+	}
+
+	/**
 	 * 添加消息
 	 */
 	public addMessage(data) {
@@ -441,21 +444,20 @@ export default class FriendCircleDataCache {
 		}
 
 		this.MessageList.Clear();
-		// 降序排序
-		data.sort((param1, param2) => {
-			return param2[4] - param1[4];
-		});
+		this.UnDealMessageList.Clear();
 
 		for (let idx = 0; idx < data.length; ++idx) {
 			let info = data[idx];
-			// if (1 == info[5]) {
-			// 	this.UnDealMessageList.AddOrUpdate(info[0].toString(),info);
-			// }
 
-			this.MessageList.Add(info[0].toString(), info);
+			if (0 == info[5]) {
+				this.UnDealMessageList.AddOrUpdate(info[0].toString(),info);
+			}
+
+			this.MessageList.AddOrUpdate(info[0].toString(), info);
 		}
 
-		cc.info('-- messagelist ', this.MessageList);
+		cc.log('-- messagelist ', this.MessageList);
+		cc.log('-- UnDealMessageList ', this.UnDealMessageList);
 	}
 
 	/************************************************** 战绩数据 ***********************************************/

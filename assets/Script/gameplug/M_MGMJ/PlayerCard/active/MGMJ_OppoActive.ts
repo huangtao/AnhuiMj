@@ -47,8 +47,8 @@ export default class MGMJ_OppoActive extends MGMJ_OtherActive {
                 //开始排版
                 for(var i: number = 0;i < this._cardData.length;i++) {
                     //this._cardData[i].node.setLocalZOrder(i+1);
-                    this._cardData[i].node.x = startPos - i * 37-640-18;
-                    this._cardData[i].node.y = 284;
+                    this._cardData[i].node.x = startPos - i * 42-640-18;
+                    this._cardData[i].node.y = 309;
                     this._cardData[i].showCard(this._handCard[i],this.isLie,0);
 
                     if(this.isHoldAfter && (i == (this._cardData.length - 1))) {
@@ -63,7 +63,7 @@ export default class MGMJ_OppoActive extends MGMJ_OtherActive {
                 for(var i: number = 0;i < this._cardData.length;i++) {
                     //this._cardData[i].node.setLocalZOrder(i+1);
                     this._cardData[i].node.x = startPos - i * 37-640-18;
-                    this._cardData[i].node.y = 284;
+                    this._cardData[i].node.y = 309;
                     this._cardData[i].showCard(this._handCard[i],this.isLie,0);
 
                     if(this.isHoldAfter && (i == (this._cardData.length - 1))) {
@@ -114,6 +114,13 @@ export default class MGMJ_OppoActive extends MGMJ_OtherActive {
                     }
                      if(!this.isHoldAfter && this._cardData.length%3==2 && (i == (this._cardData.length - 1))){//碰过之后会右移第一张牌
                         this._cardData[i].node.x -= 15;
+                    }
+                    if(this._cardData.length == 2){
+                        this._cardData[0].node.x -= 10;
+                        this._cardData[1].node.x -= 10;
+                    }
+                    if(this._cardData.length == 1){
+                        this._cardData[0].node.x -= 20;
                     }
                 }
             }

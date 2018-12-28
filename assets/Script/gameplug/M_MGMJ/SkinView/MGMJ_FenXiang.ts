@@ -239,9 +239,9 @@ export default class MGMJ_FenXiang extends cc.Component {
         var rule = M_MGMJClass.ins.GameRule;
         var rule0 = "";
         var rule1 = "";
-        if(rule.GameData.SetGameNum == 8)
+        if(rule.GameData.SetGameNum == 0)
             rule0 += "8局 ";
-        if(rule.GameData.SetGameNum == 16)
+        if(rule.GameData.SetGameNum == 1)
             rule0 += "16局 ";
         if(rule.GameData.tableCreatorPay == 1)
             rule0 += "AA支付 ";
@@ -249,17 +249,19 @@ export default class MGMJ_FenXiang extends cc.Component {
             rule0 += "房主支付 ";
         if(rule.GameData.tableCreatorPay == 3)
             rule0 += "圈主支付 ";
-        
         if(rule.GameData.PeiZi==55)
-            rule1 += "白皮配子 ";
+            rule0 += "白皮配子 ";
         if(rule.GameData.PeiZi!=55)
-            rule1 += "随机配子 ";
-        if(rule.GameData.zhanZhuang)
-            rule1 += "占庄 ";
-        if(rule.GameData.DianPao)
-            rule1 += "点炮 ";
+            rule0 += "随机配子 ";
         if(rule.GameData.QiangGangHu)
-            rule1 += "抢杠胡 ";
+            rule0 += "抢杠胡 ";
+
+        if(rule.GameData.DianPao)
+            rule1 += "点炮三家付 ";
+        if(rule.GameData.ftbz)
+            rule1 += "逢头必战 ";
+        if(rule.GameData.ifShiSanYao)
+            rule1 += "带十三幺 ";
             
         //显示玩法
         this.rule0.string = rule0;

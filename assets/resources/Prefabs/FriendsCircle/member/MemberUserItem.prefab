@@ -138,7 +138,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 88,
+      "width": 76,
       "height": 76
     },
     "_rotationX": 0,
@@ -194,7 +194,7 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 8,
-    "_left": 0.013806818203125005,
+    "_left": 0.018494318203125006,
     "_right": 0.9221306818181818,
     "_top": 0,
     "_bottom": 0,
@@ -378,7 +378,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 139,
+      "width": 150,
       "height": 30
     },
     "_rotationX": 0,
@@ -415,7 +415,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "默认默认",
+    "_N$string": "默认默认认",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -496,7 +496,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 97,
+      "width": 114,
       "height": 30
     },
     "_rotationX": 0,
@@ -527,17 +527,17 @@
     "_actualFontSize": 30,
     "_fontSize": 30,
     "_lineHeight": 30,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_N$file": {
       "__uuid__": "b163d019-579c-428e-b155-062ab4c90274"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "200102",
+    "_N$string": "2001022",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0
+    "_N$overflow": 1
   },
   {
     "__type__": "cc.Widget",
@@ -550,7 +550,7 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 8,
-    "_left": 0.239453125,
+    "_left": 0.23281249999999998,
     "_right": 0.22272727272727272,
     "_top": 0,
     "_bottom": 0,
@@ -614,7 +614,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
+      "width": 51,
       "height": 30
     },
     "_rotationX": 0,
@@ -645,17 +645,17 @@
     "_actualFontSize": 30,
     "_fontSize": 30,
     "_lineHeight": 30,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_N$file": {
       "__uuid__": "b163d019-579c-428e-b155-062ab4c90274"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "默认",
+    "_N$string": "000",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0
+    "_N$overflow": 1
   },
   {
     "__type__": "cc.Widget",
@@ -668,7 +668,7 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 8,
-    "_left": 0.35703125,
+    "_left": 0.360546875,
     "_right": 0.12,
     "_top": 0,
     "_bottom": 0,
@@ -732,7 +732,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
+      "width": 120,
       "height": 30
     },
     "_rotationX": 0,
@@ -763,17 +763,17 @@
     "_actualFontSize": 30,
     "_fontSize": 30,
     "_lineHeight": 30,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_N$file": {
       "__uuid__": "b163d019-579c-428e-b155-062ab4c90274"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "默认",
+    "_N$string": "0000000",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0
+    "_N$overflow": 1
   },
   {
     "__type__": "cc.Widget",
@@ -786,7 +786,7 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 8,
-    "_left": 0.47421875,
+    "_left": 0.45078124999999997,
     "_right": 0.0027272727272727275,
     "_top": 0,
     "_bottom": 0,
@@ -850,7 +850,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
+      "width": 115,
       "height": 30
     },
     "_rotationX": 0,
@@ -859,7 +859,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 148,
+      "x": 148.00000000000023,
       "y": -4
     },
     "_skewX": 0,
@@ -881,17 +881,17 @@
     "_actualFontSize": 30,
     "_fontSize": 30,
     "_lineHeight": 30,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_N$file": {
       "__uuid__": "b163d019-579c-428e-b155-062ab4c90274"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "默认",
+    "_N$string": "000/000",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0
+    "_N$overflow": 1
   },
   {
     "__type__": "cc.Widget",
@@ -904,7 +904,7 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 8,
-    "_left": 0.5921875,
+    "_left": 0.5707031250000002,
     "_right": -0.11636363636363636,
     "_top": 0,
     "_bottom": 0,
@@ -968,7 +968,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
+      "width": 86,
       "height": 30
     },
     "_rotationX": 0,
@@ -977,7 +977,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 294,
+      "x": 294.0000000000001,
       "y": -4
     },
     "_skewX": 0,
@@ -999,17 +999,17 @@
     "_actualFontSize": 30,
     "_fontSize": 30,
     "_lineHeight": 30,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_N$file": {
       "__uuid__": "b163d019-579c-428e-b155-062ab4c90274"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "默认",
+    "_N$string": "00000",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0
+    "_N$overflow": 1
   },
   {
     "__type__": "cc.Widget",
@@ -1022,7 +1022,7 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 8,
-    "_left": 0.70625,
+    "_left": 0.6960937500000001,
     "_right": -0.23,
     "_top": 0,
     "_bottom": 0,
@@ -1722,9 +1722,7 @@
       {
         "__uuid__": "cb31e999-7558-4da1-98b7-b8bb41a26556"
       },
-      {
-        "__uuid__": "80a289dc-89db-4be6-bf75-efc6d8cb56f1"
-      },
+      null,
       {
         "__uuid__": "c4e81519-6dad-4e17-a2af-c6a1ec728ce9"
       }

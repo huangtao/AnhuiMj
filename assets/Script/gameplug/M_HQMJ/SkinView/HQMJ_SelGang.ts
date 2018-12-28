@@ -92,8 +92,8 @@ export default class HQMJ_SelGang extends cc.Component {
             this.img_kuang[2].node.active = false;
             this.btn_gang_2.node.active = false;
             for(var i:number = 0;i<4;i++){
-                this.img_0[i].spriteFrame = HQMJ.ins.iclass.getMahjongPaiHuaRes(this._gangCard[0]);
-                this.img_1[i].spriteFrame = HQMJ.ins.iclass.getMahjongPaiHuaRes(this._gangCard[1]);
+                this.img_0[i].spriteFrame = HQMJ.ins.iclass.getMahjongPaiHuaResOut(this._gangCard[0]);
+                this.img_1[i].spriteFrame = HQMJ.ins.iclass.getMahjongPaiHuaResOut(this._gangCard[1]);
             }                  
         }
         if(3 == this._gangCard.length){
@@ -102,9 +102,9 @@ export default class HQMJ_SelGang extends cc.Component {
             this.img_kuang[1].node.active = true;
             this.img_kuang[2].node.active = true;
             for(var i:number = 0;i<4;i++){
-                this.img_0[i].spriteFrame = HQMJ.ins.iclass.getMahjongPaiHuaRes(this._gangCard[0]);
-                this.img_1[i].spriteFrame = HQMJ.ins.iclass.getMahjongPaiHuaRes(this._gangCard[1]);
-                this.img_2[i].spriteFrame = HQMJ.ins.iclass.getMahjongPaiHuaRes(this._gangCard[2]);
+                this.img_0[i].spriteFrame = HQMJ.ins.iclass.getMahjongPaiHuaResOut(this._gangCard[0]);
+                this.img_1[i].spriteFrame = HQMJ.ins.iclass.getMahjongPaiHuaResOut(this._gangCard[1]);
+                this.img_2[i].spriteFrame = HQMJ.ins.iclass.getMahjongPaiHuaResOut(this._gangCard[2]);
             }
         }
         this.node.active = true;
@@ -118,11 +118,11 @@ export default class HQMJ_SelGang extends cc.Component {
         //     if(3 == this._gangCard.length){
         //         // url=HQMJ.ins.iclass.getMahjongResName(this._gangCard[2]);
         //         // SetTextureRes(url,this.img_2);
-        //    //     this.img_2.spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this._gangCard[2]);
+        //    //     this.img_2.spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this._gangCard[2]);
         //     }
-        //    // this.img_0.spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this._gangCard[0]);
+        //    // this.img_0.spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this._gangCard[0]);
 
-        //    // this.img_1.spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this._gangCard[1]);
+        //    // this.img_1.spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this._gangCard[1]);
         //     this.node.active = true;
         // }
     }

@@ -29,4 +29,16 @@ export default class MGMJ_SingleActive extends MGMJ_SingleActiveBase {
         this.bmp_cardcolor.node.scaleY=0.6;
                   
     }
+
+    public showCardJieSuan(card: number,isLie: boolean): void {
+        let hunpai = MGMJ.ins.iclass.getTableConfig().SetPeiZi;
+        super.showCard(card,isLie,0);
+        
+        this.bmp_cardcolor.node.active = true;
+        this.bmp_cardback.node.active = true;
+        this.bmp_huipai.node.active = hunpai == card;
+        this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("hand_self_1");
+        this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaResOut(card);
+    }
+
 }

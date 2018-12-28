@@ -486,6 +486,7 @@ export default class LHZMJ_CardView extends cc.Component {
 
         for (var i = 0; i < mapai.length; i++) {
             this.fanma_cardback[i].node.active = true;
+            this.img_zhongma[i].node.active = false;
         }
         this.fama_view.active = true;
         this.schedule(() => {
@@ -503,8 +504,8 @@ export default class LHZMJ_CardView extends cc.Component {
 
                     if(this.ZhongMa(mapai[q])){
                         this.img_zhongma[q].node.active = true;
-                    }else{                        
-                        this.img_zhongma[q].node.active = false;
+                    // }else{                        
+                    //     this.img_zhongma[q].node.active = false;
                     }
                 }
             } 

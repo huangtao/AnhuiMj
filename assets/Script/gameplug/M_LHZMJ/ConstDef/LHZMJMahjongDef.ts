@@ -34,7 +34,8 @@ const { ccclass, property } = cc._decorator;
         getMahjongResName(card: number): string;
         getMahjongPaiHuaRes(card: number): cc.SpriteFrame;
         getMahjongPaiBeiRes(cardtype:string): cc.SpriteFrame;
-         getMahjong3DPaiBeiRes(cardtype:string): cc.SpriteFrame;
+        getMahjongPaiHua2D(card: number): cc.SpriteFrame;
+        getMahjong3DPaiBeiRes(cardtype:string): cc.SpriteFrame;
         getGamePhase():enGamePhase;
         getTableStauts(): QL_Common.TableStatus;
         

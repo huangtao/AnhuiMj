@@ -200,6 +200,11 @@ export default class M_LHZMJVideoClass extends GameVideoBase implements ILHZMJCl
         return this.paibei3d.getSpriteFrame(cardtype);
     }
 
+    public getMahjongPaiHuaResOut(card: number): cc.SpriteFrame {
+        
+        return this.paihua.getSpriteFrame(`mahjong_${LHZMJMahjongAlgorithm1.GetMahjongColor(card)}_${LHZMJMahjongAlgorithm1.GetMahjongValue(card)}`);
+    }
+
     /**
     * 预备开始
     * */
@@ -664,9 +669,10 @@ export default class M_LHZMJVideoClass extends GameVideoBase implements ILHZMJCl
         this.oncebuhua=true;
         this.gameView.CardView.hideOutCardArrow();
         this.handleOPAfter();
-        //this.gameView.OutCardView.showCard(playerOutCard.chair,playerOutCard.card);
+        // this.gameView.OutCardView.showCard(playerOutCard.chair,playerOutCard.card);
         this._outCardPlayer.playerOutCard(playerOutCard.chair,playerOutCard.card);
-        
+        this.splashUserOutMj(playerOutCard.chair,playerOutCard.card);
+
         if(playerOutCard.chair == this.SelfChair){
             this.gameView.CardView.selfActive.activeEnable(false);
         }
@@ -687,6 +693,14 @@ export default class M_LHZMJVideoClass extends GameVideoBase implements ILHZMJCl
         LHZMJMahjongAlgorithm1.sortCardAry(this._handCard[playerOutCard.chair]);
          this._handCard[playerOutCard.chair]=LHZMJMahjongAlgorithm1.sortCardAry1(this._handCard[playerOutCard.chair],this.GetHunCardAry());
     }
+
+     private splashUserOutMj(chair,outPai){
+        // var action = cc.moveTo(0.1, 0, 120);
+        // this.node.runAction(action);
+        if(chair != this.SelfChair)
+            M_LHZMJVideoView.ins.mg_out.showOutPai(chair,outPai,M_LHZMJVideoClass.ins);
+    }
+
     /**
      * 删除玩家牌池牌
      * */

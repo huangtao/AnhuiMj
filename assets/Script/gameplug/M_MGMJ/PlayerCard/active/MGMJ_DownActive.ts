@@ -41,8 +41,8 @@ export default class MGMJ_DownActive extends MGMJ_OtherActive {
 
                 for(var i: number = this._cardData.length; i>0; i--){
                     this._cardData[i-1].node.setLocalZOrder(i);
-                    this._cardData[i - 1].node.x = 490;
-                    this._cardData[i - 1].node.y = 360-(startPos - idx * 32)-45;
+                    this._cardData[i - 1].node.x = 478;
+                    this._cardData[i - 1].node.y = 360-(startPos - idx * 33);
                     this._cardData[i - 1].showCard(this._handCard[idx],this.isLie,0);
 
                     if(this.isHoldAfter && (i == 1)) {
@@ -57,8 +57,8 @@ export default class MGMJ_DownActive extends MGMJ_OtherActive {
 
                 for(var i: number = this._cardData.length;i > 0;i--) {
                     this._cardData[i-1].node.setLocalZOrder(i);
-                    this._cardData[i - 1].node.x = 290;
-                    this._cardData[i - 1].node.y = 360-(startPos - idx * 29)-45;
+                    this._cardData[i - 1].node.x = 510;
+                    this._cardData[i - 1].node.y = 360-(startPos - idx * 25);
                     this._cardData[i - 1].showCard(this._handCard[idx],this.isLie,0);
 
                     if(this.isHoldAfter && (i == 1)) {

@@ -1,0 +1,258 @@
+{
+    "gameName": "M_DDZ",
+    "list": [
+        {
+            "attrIcon": "cjfj_41.png",
+            "desc": "局数",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "SetGameNum",
+                            "value": 0,
+                            "desc": "6局",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "SetGameNum",
+                            "value": 1,
+                            "desc": "12局",
+                            "enabled": true,
+                            "defaultSelected": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_76.png",
+            "desc": "模式",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": [
+                                {
+                                    "key": "ZHAFENGDING:-1",
+                                    "contrary": false
+                                },
+                                {
+                                    "key": "FENFENGDIGN:-1",
+                                    "contrary": true
+                                }
+                            ],
+                            "attr": "JIAOFEN",
+                            "value": 0,
+                            "desc": "经典叫分",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": [
+                                {
+                                    "key": "ZHAFENGDING:-1",
+                                    "contrary": true
+                                },
+                                {
+                                    "key": "FENFENGDIGN:-1",
+                                    "contrary": false
+                                }
+                            ],
+                            "attr": "JIAOFEN",
+                            "value": 1,
+                            "desc": "欢乐抢地主",
+                            "enabled": true,
+                            "defaultSelected": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_46.png",
+            "desc": "玩法",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "BIJIAO1",
+                            "value": true,
+                            "desc": "王炸必叫",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "BIJIAO2",
+                            "value": true,
+                            "desc": "2222必叫",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                },
+                {
+                    "nodeType": "TOGGLE_CHECKBOX_DROPDOWN",
+                    "defaultSelected": true,
+                    "defaultShowIdx": 0,
+                    "defaultValue": -1,
+                    "attr": "ZHAFENGDING",
+                    "desc": "",
+                    "dropDownWidth": 144,
+                    "enabled": true,
+                    "list": [
+                        {
+                            "value": 3,
+                            "desc": "3炸封顶"
+                        },
+                        {
+                            "value": 4,
+                            "desc": "4炸封顶"
+                        },
+                        {
+                            "value": 5,
+                            "desc": "5炸封顶"
+                        }
+                    ]
+                },
+                {
+                    "nodeType": "TOGGLE_CHECKBOX_DROPDOWN",
+                    "defaultSelected": true,
+                    "defaultShowIdx": 0,
+                    "defaultValue": -1,
+                    "attr": "FENFENGDIGN",
+                    "desc": "",
+                    "dropDownWidth": 144,
+                    "enabled": true,
+                    "list": [
+                        {
+                            "value": 80,
+                            "desc": "80分封顶"
+                        },
+                        {
+                            "value": 100,
+                            "desc": "100分封顶"
+                        },
+                        {
+                            "value": 120,
+                            "desc": "120分封顶"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_46.png",
+            "desc": "张数",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "showRemainNum",
+                            "value": true,
+                            "desc": "显示剩余张数",
+                            "enabled": true,
+                            "defaultSelected": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "attrIcon": "cjfj_38.png",
+            "desc": "房费",
+            "enabled": true,
+            "parentAttr": null,
+            "childrenAttr": null,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "tableCreatorPay",
+                            "value": 1,
+                            "desc": "AA支付",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "tableCreatorPay",
+                            "value": 2,
+                            "desc": "房主支付",
+                            "enabled": true,
+                            "defaultSelected": false
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "tableCreatorPay",
+                            "value": 3,
+                            "desc": "圈主支付",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "defaultAttr": [
+        {
+            "attrName": "cellScore",
+            "value": 1,
+            "desc": ""
+        },
+        {
+            "attrName": "checkIP",
+            "value": false,
+            "desc": ""
+        },
+        {
+            "attrName": "extendBet",
+            "value": 0,
+            "desc": ""
+        },
+        {
+            "attrName": "isValid",
+            "value": true,
+            "desc": ""
+        },
+        {
+            "attrName": "rubCard",
+            "value": false,
+            "desc": ""
+        }
+    ]
+}

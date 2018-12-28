@@ -26,13 +26,10 @@
     "_components": [
       {
         "__id__": 10
-      },
-      {
-        "__id__": 11
       }
     ],
     "_prefab": {
-      "__id__": 12
+      "__id__": 11
     },
     "_id": "",
     "_opacity": 255,
@@ -52,7 +49,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 190,
-      "height": 22
+      "height": 23
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -95,9 +92,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 210,
-      "g": 167,
-      "b": 110,
+      "r": 245,
+      "g": 120,
+      "b": 37,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -108,8 +105,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 110,
-      "height": 22
+      "width": 95,
+      "height": 23
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -117,8 +114,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -83,
-      "y": -1
+      "x": -90,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -136,16 +133,16 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 22,
-    "_fontSize": 22,
-    "_lineHeight": 22,
+    "_actualFontSize": 23,
+    "_fontSize": 23,
+    "_lineHeight": 23,
     "_enableWrapText": false,
     "_N$file": {
       "__uuid__": "b163d019-579c-428e-b155-062ab4c90274"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "默认默认认",
+    "_N$string": "默认默...",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -162,13 +159,13 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 8,
-    "_left": 0.06315789473684211,
+    "_left": 5,
     "_right": 68,
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
-    "_isAbsLeft": false,
+    "_isAbsLeft": true,
     "_isAbsRight": true,
     "_isAbsTop": true,
     "_isAbsBottom": true,
@@ -213,9 +210,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 234,
-      "g": 135,
-      "b": 19,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -226,7 +223,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 34,
+      "width": 85,
       "height": 22
     },
     "_rotationX": 0,
@@ -235,8 +232,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 60,
-      "y": -1
+      "x": 47.5,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -254,20 +251,20 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 22,
-    "_fontSize": 22,
-    "_lineHeight": 22,
-    "_enableWrapText": true,
+    "_actualFontSize": 14,
+    "_fontSize": 14,
+    "_lineHeight": 10,
+    "_enableWrapText": false,
     "_N$file": {
-      "__uuid__": "b163d019-579c-428e-b155-062ab4c90274"
+      "__uuid__": "d0106fd5-47e4-4ad0-97bf-1ca54db750cb"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "+10",
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
+    "_N$string": "-9999",
+    "_N$horizontalAlign": 2,
+    "_N$verticalAlign": 0,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0
+    "_N$overflow": 2
   },
   {
     "__type__": "cc.Widget",
@@ -279,11 +276,11 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 8,
+    "_alignFlags": 32,
     "_left": 0.7263157894736842,
-    "_right": 0,
+    "_right": 5,
     "_top": 0,
-    "_bottom": 0,
+    "_bottom": -1,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": false,
@@ -319,33 +316,15 @@
     },
     "lab_score": {
       "__id__": 7
-    }
-  },
-  {
-    "__type__": "cc.Widget",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
     },
-    "_enabled": false,
-    "isAlignOnce": true,
-    "_target": null,
-    "_alignFlags": 40,
-    "_left": 0.42578125,
-    "_right": 0.42578125,
-    "_top": 645.6,
-    "_bottom": 52.39999999999998,
-    "_verticalCenter": 0,
-    "_horizontalCenter": 0,
-    "_isAbsLeft": false,
-    "_isAbsRight": false,
-    "_isAbsTop": true,
-    "_isAbsBottom": true,
-    "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
-    "_originalWidth": 190,
-    "_originalHeight": 22
+    "jiaFont": [
+      {
+        "__uuid__": "b3c6caa7-8196-4420-88ba-271a47d87f5f"
+      },
+      {
+        "__uuid__": "d0106fd5-47e4-4ad0-97bf-1ca54db750cb"
+      }
+    ]
   },
   {
     "__type__": "cc.PrefabInfo",

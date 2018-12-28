@@ -72,7 +72,7 @@ export default class LoginCtrl extends ReConnectBase {
     start() {
         super.start();
 
-        
+
         if (!ConfigData.SystemInited) {
             InitKeyListener();
             ConfigData.SystemInited = true;
@@ -82,8 +82,8 @@ export default class LoginCtrl extends ReConnectBase {
         if (cc.director.isDisplayStats()) {
             cc.director.setDisplayStats(false);
         }
- 
-        this.str_password = LocalStorage.LastUserLoginCache; 
+
+        this.str_password = LocalStorage.LastUserLoginCache;
 
         // if (!cc.sys.isNative) return; 
         switch (CurrentPackageType()) {
@@ -260,7 +260,7 @@ export default class LoginCtrl extends ReConnectBase {
             this.OneKeyLogin();
             return;
         }
-        
+
         LocalStorage.LastUserLoginCache = '';
         this.AccountLogin();
     }
@@ -271,7 +271,7 @@ export default class LoginCtrl extends ReConnectBase {
             this.UiManager.ShowTip("请输入密码");
             return;
         }
-        
+
         //构建账号登录网站接口信息缓存
         let data = WebRequest.DefaultData(false);
 
@@ -293,7 +293,7 @@ export default class LoginCtrl extends ReConnectBase {
             data.AddOrUpdate("js_version", LocalStorage.LocalHotVersion);
             data.AddOrUpdate("device_type", device_type);
         }
- 
+
         let action = new ActionNet(this, this.OnSuccess, this.OnError);
         SafeWebRequest.GameHall.LoginCacheApp(action, data);
 
@@ -477,7 +477,7 @@ export default class LoginCtrl extends ReConnectBase {
             this.noOffline();
             return;
         }
-        
+
         //如果包括了这个游戏，则直接创建游戏
         if (this.DataCache.GameList.Contains(this.DataCache.OfflineRoom.GameID)) {
             Global.Instance.UiManager.ShowLoading(`正在为你恢复游戏`);
@@ -523,7 +523,13 @@ export default class LoginCtrl extends ReConnectBase {
     }
 
     OnShowUrl() {
-        this.ShowUi(UIName.WebForm, "https://cli.im/DAtewT?iframe=1");
+
+        // NativeAPI必须大于等于2
+        Global.Instance.UiManager.ShowMsgBox("需要下载最新的游戏包才可以使用该功能", this, () => {
+            cc.sys.openURL(ConfigData.PkgDownloadURI);
+        });
+
+        // this.ShowUi(UIName.WebForm, "https://cli.im/DAtewT?iframe=1");
     }
 
     private ClickPhoneLogin() {

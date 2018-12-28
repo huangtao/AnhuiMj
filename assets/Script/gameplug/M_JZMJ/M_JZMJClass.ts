@@ -1118,8 +1118,8 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
     protected OnPlayerSitDown(chairID: number, player: QL_Common.TablePlayer): void {
         //cc.log("OnPlayerSitDown:" + chairID.toString() + "," + player.FaceID + "," + player.NickName + "," + player.PlayerState);
         //var a  = this.TablePlayer;
-        if(this.TablePlayer[chairID].PlayerState != QL_Common.GState.Gaming)
-            this.showCheckIP();
+        // if(this.TablePlayer[chairID].PlayerState != QL_Common.GState.Gaming)
+        //     this.showCheckIP();
         this.gameView.ReadyStatusUserInfo.OnPlayerSitDown(chairID,player);
         this.gameView.GameStatusUserInfo.OnPlayerSitDown(chairID,player);
         //踢人按钮
@@ -1161,66 +1161,66 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
                     }
                 }
             }        
-            if(this._tableConfig.alreadyGameNum == 0 && sameIPPlayer.length > 0){           
-                var tipMsg:string[] = [];       
-                // for(var n:number=0; n<sameIPPlayer.length; n++){
-                //     var chairAry: Array<string> = sameIPPlayer[n].split(",");
-                //     if(chairAry.length > 1){
-                //         for(var x:number=0; x<chairAry.length; x++){
-                //             if(this.TablePlayer[parseInt(chairAry[x])].NickName.length > 6)
-                //                 tipMsg += this.TablePlayer[parseInt(chairAry[x])].NickName.substr(0,6)+" ";
-                //             else
-                //                 tipMsg += this.TablePlayer[parseInt(chairAry[x])].NickName+" ";
-                //             tipMsg += x == (chairAry.length - 1) ? "":",";
-                //             //tipMsg += `玩家:${this.TablePlayer[parseInt(chairAry[x])].NickName}${x == (chairAry.length - 1) ? "":","}`;
-                //         }
-                //         // tipMsg+="  IP相同"+"\n"; 
-                //     }
-                //     if(n != (sameIPPlayer.length - 1)){
-                //         tipMsg+=" | ";
-                //     }
-                // }
-                let playerCount:number = 0;
-                for(var i=0;i<4;i++) {
-                    if(null != this.TablePlayer[i])
-                        playerCount++;
-                }
-                if(playerCount == 4){
-                    var sameIps = sameIPPlayer[0].split(",");
-                    if(sameIps.length == 2){
-                        if(this.TablePlayer[parseInt(sameIps[0])].NickName.length > 4){
-                            this.TablePlayer[parseInt(sameIps[0])].NickName = this.TablePlayer[parseInt(sameIps[0])].NickName.substr(0,4);
-                        }
-                        if(this.TablePlayer[parseInt(sameIps[1])].NickName.length > 4){
-                            this.TablePlayer[parseInt(sameIps[1])].NickName = this.TablePlayer[parseInt(sameIps[1])].NickName.substr(0,4);
-                        }
-                        tipMsg[0] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName
-                    }
-                    if(sameIps.length == 3){
-                        if(this.TablePlayer[parseInt(sameIps[0])].NickName.length > 4){
-                            this.TablePlayer[parseInt(sameIps[0])].NickName = this.TablePlayer[parseInt(sameIps[0])].NickName.substr(0,4);
-                        }
-                        if(this.TablePlayer[parseInt(sameIps[1])].NickName.length > 4){
-                            this.TablePlayer[parseInt(sameIps[1])].NickName = this.TablePlayer[parseInt(sameIps[1])].NickName.substr(0,4);
-                        }
-                        if(this.TablePlayer[parseInt(sameIps[2])].NickName.length > 4){
-                            this.TablePlayer[parseInt(sameIps[2])].NickName = this.TablePlayer[parseInt(sameIps[2])].NickName.substr(0,4);
-                        }
-                        tipMsg[0] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName
-                        tipMsg[1] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[2])].NickName
-                        tipMsg[2] = "玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[2])].NickName
-                    }
-                    M_JZMJView.ins.cheatBox.showCheatBox(tipMsg,()=>{M_JZMJView.ins._setting.onExit();},this);
-                }   
-            }
+            // if(this._tableConfig.alreadyGameNum == 0 && sameIPPlayer.length > 0){           
+            //     var tipMsg:string[] = [];       
+            //     // for(var n:number=0; n<sameIPPlayer.length; n++){
+            //     //     var chairAry: Array<string> = sameIPPlayer[n].split(",");
+            //     //     if(chairAry.length > 1){
+            //     //         for(var x:number=0; x<chairAry.length; x++){
+            //     //             if(this.TablePlayer[parseInt(chairAry[x])].NickName.length > 6)
+            //     //                 tipMsg += this.TablePlayer[parseInt(chairAry[x])].NickName.substr(0,6)+" ";
+            //     //             else
+            //     //                 tipMsg += this.TablePlayer[parseInt(chairAry[x])].NickName+" ";
+            //     //             tipMsg += x == (chairAry.length - 1) ? "":",";
+            //     //             //tipMsg += `玩家:${this.TablePlayer[parseInt(chairAry[x])].NickName}${x == (chairAry.length - 1) ? "":","}`;
+            //     //         }
+            //     //         // tipMsg+="  IP相同"+"\n"; 
+            //     //     }
+            //     //     if(n != (sameIPPlayer.length - 1)){
+            //     //         tipMsg+=" | ";
+            //     //     }
+            //     // }
+            //     let playerCount:number = 0;
+            //     for(var i=0;i<4;i++) {
+            //         if(null != this.TablePlayer[i])
+            //             playerCount++;
+            //     }
+            //     if(playerCount == 4){
+            //         var sameIps = sameIPPlayer[0].split(",");
+            //         if(sameIps.length == 2){
+            //             if(this.TablePlayer[parseInt(sameIps[0])].NickName.length > 4){
+            //                 this.TablePlayer[parseInt(sameIps[0])].NickName = this.TablePlayer[parseInt(sameIps[0])].NickName.substr(0,4);
+            //             }
+            //             if(this.TablePlayer[parseInt(sameIps[1])].NickName.length > 4){
+            //                 this.TablePlayer[parseInt(sameIps[1])].NickName = this.TablePlayer[parseInt(sameIps[1])].NickName.substr(0,4);
+            //             }
+            //             tipMsg[0] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName
+            //         }
+            //         if(sameIps.length == 3){
+            //             if(this.TablePlayer[parseInt(sameIps[0])].NickName.length > 4){
+            //                 this.TablePlayer[parseInt(sameIps[0])].NickName = this.TablePlayer[parseInt(sameIps[0])].NickName.substr(0,4);
+            //             }
+            //             if(this.TablePlayer[parseInt(sameIps[1])].NickName.length > 4){
+            //                 this.TablePlayer[parseInt(sameIps[1])].NickName = this.TablePlayer[parseInt(sameIps[1])].NickName.substr(0,4);
+            //             }
+            //             if(this.TablePlayer[parseInt(sameIps[2])].NickName.length > 4){
+            //                 this.TablePlayer[parseInt(sameIps[2])].NickName = this.TablePlayer[parseInt(sameIps[2])].NickName.substr(0,4);
+            //             }
+            //             tipMsg[0] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName
+            //             tipMsg[1] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[2])].NickName
+            //             tipMsg[2] = "玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[2])].NickName
+            //         }
+            //         M_JZMJView.ins.cheatBox.showCheatBox(tipMsg,()=>{M_JZMJView.ins._setting.onExit();},this);
+            //     }   
+            // }
     }
     /**
      * 玩家坐下后告诉坐下的玩家,这个桌子上之前已经有哪些玩家了,这个函数需要同时处理玩家的状态显示
      * */
     protected OnTablePlayer(chairID: number, player: QL_Common.TablePlayer): void {
         //cc.log("OnPlayerSitDown:" + chairID.toString() + "," + player.FaceID + "," + player.NickName + "," + player.PlayerState);
-        if(this.TablePlayer[chairID].PlayerState != QL_Common.GState.Gaming)
-            this.showCheckIP();
+        // if(this.TablePlayer[chairID].PlayerState != QL_Common.GState.Gaming)
+        //     this.showCheckIP();
         this.gameView.ReadyStatusUserInfo.OnTablePlayer(chairID,player);
         //踢人按钮
         if(M_JZMJClass.ins.SelfIsTableOwener){
@@ -1690,6 +1690,13 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
         }else{
             this.gameView.CardView.PaiWallView.node.active = false;
         }
+        //游戏开始 exit按钮隐藏 23D切花按钮 局数 剩余牌 左移
+        M_JZMJView.ins.btn_exit.node.active = false;
+        M_JZMJView.ins.btn_2d.node.x = -589;
+        M_JZMJView.ins.btn_3d.node.x = -589;
+        M_JZMJView.ins.GameInfo.leftPaiBei.node.x = -189;
+        M_JZMJView.ins.GameInfo.js_bg.x = -559;
+
         //设置分享玩家信息
         this.gameView.GameJiFenBan.SetPlayerData();
         this.gameView.PlayFenXiang.SetPlayerData(gameStart.gameNum);
@@ -2494,6 +2501,13 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
         if(!gameInfo.isPaoing && gameInfo.paoType > 0){
             M_JZMJView.ins.GameStatusUserInfo.SetPao(gameInfo.paoScore);
         }
+
+        //游戏开始 exit按钮隐藏 23D切花按钮 局数 剩余牌 左移
+        M_JZMJView.ins.btn_exit.node.active = false;
+        M_JZMJView.ins.btn_2d.node.x = -589;
+        M_JZMJView.ins.btn_3d.node.x = -589;
+        M_JZMJView.ins.GameInfo.leftPaiBei.node.x = -189;
+        M_JZMJView.ins.GameInfo.js_bg.x = -559;
         //通知游戏开始开始
         this.gameView.GameStart();//(new JZMJEvent(JZMJEvent.msg_gameStart));
 

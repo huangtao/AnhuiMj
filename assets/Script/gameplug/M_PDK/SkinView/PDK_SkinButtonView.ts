@@ -116,7 +116,7 @@ export default class SkinButtonView extends cc.Component {
     /**
      * 显示准备相关按钮
      */
-    public ShowReady() {
+    public ShowReady(isRoundEnd:boolean = false) {
         if(this.btn_totalscore.node.active){
             cc.log("此时已经解散房间，所以不会在去显示准备按钮");
             return;
@@ -138,7 +138,11 @@ export default class SkinButtonView extends cc.Component {
                 this.btn_ready.node.active = false;
             }
             else {
-                this.btn_ready.node.active = false;
+                if(isRoundEnd == false){
+                    this.btn_ready.node.active = true;
+                }else{
+                    this.btn_ready.node.active = false;
+                }
                 this.btn_ready.node.x = 0;
                 this.btn_ready.node.y = -320;
                 this.btn_invitation.node.active = false;
@@ -170,6 +174,11 @@ export default class SkinButtonView extends cc.Component {
      */
     public HideReady() {
         this.btn_ready.node.active = false;
+    }
+    /**
+     * 隐藏分享
+     */
+    public HideShare(){
         this.btn_invitation.node.active = false;
         this.btn_copyroom.node.active = false;
     }
@@ -302,18 +311,6 @@ export default class SkinButtonView extends cc.Component {
             this.label_rule.string += tableCostNum > 0 ? `桌费：${tableCostNum}${tableCostName}` : ``;
             if (cardTypeModel.length > 0)
                 this.label_rule.string += `\n游戏玩法：(${cardTypeModel})`;
-                if(havexiscore){
-                    this.label_rule.string+=`\n带喜分`
-                }else{
-                    this.label_rule.string+=`\n不带喜分`
-                }
-                if(havedropcard){
-                    this.label_rule.string+=`\n允许弃牌`
-                }else{
-                    this.label_rule.string+=`\n不允许弃牌`
-                }
-
-            this.label_rule.string += checkIP ? "\n同IP不许同桌" : "\n同IP允许同桌";
         }
         else {
             this.label_rule.string = `底分：${cell}\n`;

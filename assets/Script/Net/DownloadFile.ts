@@ -7,7 +7,7 @@
 import { UploadInfo } from "../CustomType/UploadInfo";
 import { UuidHelper } from "../Tools/UuidHelper";
 import { deepCopy } from "../Tools/Function";
-import {  ActionNet } from "../CustomType/Action";
+import { ActionNet } from "../CustomType/Action";
 import { FileUploadTask } from "./FileUploadTask";
 import { error } from "util";
 
@@ -126,7 +126,7 @@ export class DownloadFile {
 
 
 
-    public static UploadAliOssFile(filepath: string, param: UploadInfo,action: ActionNet) {
+    public static UploadAliOssFile(filepath: string, param: UploadInfo, action: ActionNet) {
         if (cc.sys.isBrowser) {
             error("浏览器中不支持上传文件");
             return;
@@ -139,11 +139,12 @@ export class DownloadFile {
             let paramVal: string = param.attachParam[i];
             if (paramVal && typeof paramVal === "string") {
                 paramVal = paramVal.replace('$(uuid)', UuidHelper.getShortUuid());
+                paramVal = paramVal.replace('$(index)', param.index + "");
             }
             param.attachParam[i] = paramVal;
         }
 
-        let task:FileUploadTask = new FileUploadTask(param);
+        let task: FileUploadTask = new FileUploadTask(param);
         task.execute(action);
 
         // DownloadFile.UploadFile(filepath, param, (str: string) => {

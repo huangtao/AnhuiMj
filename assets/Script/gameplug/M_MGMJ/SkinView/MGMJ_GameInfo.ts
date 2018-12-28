@@ -16,8 +16,8 @@ export default class MGMJ_GameInfo extends cc.Component {
     @property(cc.Node)
     GroupRoomInfo: cc.Node=null;
 
-    // @property(cc.Node)
-    // GroupLeftCard: cc.Node=null;
+    @property(cc.Node)
+    js_bg: cc.Node=null;
 
     @property(cc.Label)
     lbl_RoomInfo: cc.Label=null;

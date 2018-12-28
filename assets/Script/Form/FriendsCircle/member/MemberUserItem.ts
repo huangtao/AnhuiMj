@@ -164,7 +164,7 @@ export class MemberUserItem extends ScrollHelperItem {
             }
         }
 
-        if (this.sp_adminIcon.node.active) {
+        if (this.sp_adminIcon.node.active && frameStatus) {
             this.sp_adminIcon.spriteFrame = frameStatus;
         }
 

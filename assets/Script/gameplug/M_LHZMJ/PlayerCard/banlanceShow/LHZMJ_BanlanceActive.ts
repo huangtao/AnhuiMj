@@ -28,7 +28,7 @@ export default class LHZMJ_BanlanceActive extends LHZMJ_CardBase {
      * 活动牌起点:y=595
      * 活动牌起点:x:159,270,381,492,603
      * */
-    private _arrangeStartPos: Array<number> = [-45,117,262,413,565];
+    private _arrangeStartPos: Array<number> = [-45,117,270,420,565];
     /**
      * 显示牌
      * */
@@ -91,12 +91,12 @@ export default class LHZMJ_BanlanceActive extends LHZMJ_CardBase {
         
         //开始排版
         for(var i: number = 0;i < this._cardData.length;i++) {
-            this._cardData[i].node.x = startPos + i * 44.5-350+22.5+10;
+            this._cardData[i].node.x = startPos + i * 44-350+22.5+50;
             this._cardData[i].node.y = -5;
             this._cardData[i].showCard(this._handCard[i],true);
             
             if(this._holdCard != LHZMJMahjongDef.gInvalidMahjongValue && (i == (this._cardData.length - 1))) {
-                this._cardData[i].node.x += 15;
+                this._cardData[i].node.x += 10;//控制间隔
             }
         }
     }
@@ -107,8 +107,6 @@ export default class LHZMJ_BanlanceActive extends LHZMJ_CardBase {
      * 牌阵变化
      * */
     protected handCardChange(): void {
-
-        
 
         if(this._handCard.length > this._cardData.length) {//需要增加活动牌
 

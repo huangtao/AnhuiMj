@@ -104,60 +104,7 @@ export default class LHZMJ_SinglePlayerBalance extends cc.Component {
         //结算部分，赢钱才显示详细信息
         if(balance.TotalScore>0 || balance.HuType>0)
         {
-            // //明杠
-            // if(balance.JieSuan[3]>0 && this._usefulinfo<8)
-            // {
-            //     this.lbl_playBanlance[this._usefulinfo].string="明杠X"+balance.JieSuan[3];
-            //     this.lbl_playBanlance[this._usefulinfo++].node.active=true;
-            // }
-
-            // //放杠
-            // if(balance.JieSuan[4]>0 && this._usefulinfo<8 )
-            // {
-            //     this.lbl_playBanlance[this._usefulinfo].string="放杠X"+balance.JieSuan[4];
-            //     this.lbl_playBanlance[this._usefulinfo++].node.active=true;
-            // }
-            // //补杠
-            // if(balance.JieSuan[5]>0 && this._usefulinfo<8 )
-            // {
-            //     this.lbl_playBanlance[this._usefulinfo].string="补杠X"+balance.JieSuan[5];
-            //     this.lbl_playBanlance[this._usefulinfo++].node.active=true;
-            // }
-            // //暗杠
-            // if(balance.JieSuan[6]>0 && this._usefulinfo<8 )
-            // {
-            //     this.lbl_playBanlance[this._usefulinfo].string="暗杠X"+balance.JieSuan[6];
-            //     this.lbl_playBanlance[this._usefulinfo++].node.active=true;
-            // }
-            // //杠后开花
-            // if(balance.JieSuan[7]>0 && this._usefulinfo<8)
-            // {
-            //     this.lbl_playBanlance[this._usefulinfo].string="杠后开花";
-            //     this.lbl_playBanlance[this._usefulinfo++].node.active=true;
-            // }
-            // //天胡
-            // if(balance.JieSuan[8]>0 && this._usefulinfo<8)
-            // {
-            //     this.lbl_playBanlance[this._usefulinfo].string="天胡";
-            //     this.lbl_playBanlance[this._usefulinfo++].node.active=true;
-            // }
-               
            
-            //  //报听
-            // if(balance.JieSuan[9]>0 && this._usefulinfo<8)
-            // {
-            //     this.lbl_playBanlance[this._usefulinfo].string="报听";
-            //     this.lbl_playBanlance[this._usefulinfo++].node.active=true;
-            // }
-            // //出会
-            // if(balance.JieSuan[10]>0 && this._usefulinfo<8)
-            // {
-            //     this.lbl_playBanlance[this._usefulinfo].string="出会"+balance.JieSuan[10];
-            //     this.lbl_playBanlance[this._usefulinfo++].node.active=true;
-            // }
-                // this.lbl_playBanlance[this._usefulinfo].string="庄分："+M_LHZMJClass.ins._lianBanker+1;
-                // this.lbl_playBanlance[this._usefulinfo++].node.active=true;
-            
         }
 
     }

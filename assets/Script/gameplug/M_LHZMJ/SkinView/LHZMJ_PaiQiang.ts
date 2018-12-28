@@ -36,7 +36,12 @@ export default class LHZMJ_PaiQiang extends cc.Component {
 
     onLoad() {
         this.idx = 0;
-        this.holdidx = 52;
+        if(LHZMJ.ins.iclass.getRealUserNum() == 4){
+            this.holdidx = 52;
+        }else{
+            this.holdidx = 39;
+        }
+        
         this.bankchair = -1;
         cc.log("牌墙实例化完成");
 
@@ -58,7 +63,12 @@ export default class LHZMJ_PaiQiang extends cc.Component {
         this.node.active = false;
         this.idx = 0;
         this.bankchair = -1;
-        this.prepareHoldIdx(52);
+        if(LHZMJ.ins.iclass.getRealUserNum() == 4){
+            this.prepareHoldIdx(52);
+        }else{
+            this.prepareHoldIdx(39);    
+        }
+        
 
         if (!this.paiWall_0 && !this.paiWall_1 && !this.paiWall_2 && !this.paiWall_3) {
             this.paiWall_1 = new Array(LHZMJMahjongDef.gCardWalls_number);
@@ -102,14 +112,16 @@ export default class LHZMJ_PaiQiang extends cc.Component {
         }
 
     }
-    public prepareHoldIdx(idx: number = 52) {
+    public prepareHoldIdx(idx: number) {
         this.holdidx = idx;
     }
     public showPaiQiang(cardidx: number) {
         cc.log(this.holdidx+";"+cardidx);
-        if (this.holdidx == 53) {
+        if (this.holdidx == 53 && M_LHZMJClass.ins.getRealUserNum() == 4) {
             cc.error("showpaiqiang():参数错误！！！");
             this.holdidx = 52;
+        }else if(this.holdidx == 40 && M_LHZMJClass.ins.getRealUserNum() == 3){
+            this.holdidx = 39;
         }
 
         this.node.active = true;
@@ -130,15 +142,20 @@ export default class LHZMJ_PaiQiang extends cc.Component {
                     this.paiWall_0[4 * this.idx + 2].node.active = false;
                     this.paiWall_0[4 * this.idx + 3].node.active = false;
                 } else {
-                    this.paiWall_1[4 * (this.idx - 7)].node.active = false;
-                    this.paiWall_1[4 * (this.idx - 7) + 1].node.active = false;
-                    this.paiWall_1[4 * (this.idx - 7) + 2].node.active = false;
-                    this.paiWall_1[4 * (this.idx - 7) + 3].node.active = false;
-                    cc.log("---------------------------------------------------");
-                    cc.log("--- 0 paiWall_1: false",4 * (this.idx - 7));
-                    cc.log("--- 0 paiWall_1: false",4 * (this.idx - 7) + 1);
-                    cc.log("--- 0 paiWall_1: false",4 * (this.idx - 7) + 2);
-                    cc.log("--- 0 paiWall_1: false",4 * (this.idx - 7) + 3);
+                    if(LHZMJ.ins.iclass.getRealUserNum() == 4){
+                        this.paiWall_1[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_1[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_1[4 * (this.idx - 7) + 2].node.active = false;
+                        this.paiWall_1[4 * (this.idx - 7) + 3].node.active = false;
+                    }else if(LHZMJ.ins.iclass.getRealUserNum() == 3 && this.idx < 10){
+                        this.paiWall_1[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_1[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_1[4 * (this.idx - 7) + 2].node.active = false;
+                        if(this.idx < 9){
+                            this.paiWall_1[4 * (this.idx - 7) + 3].node.active = false;
+                        }
+                    }
+                  
                 }
                     break;
 
@@ -147,21 +164,22 @@ export default class LHZMJ_PaiQiang extends cc.Component {
                     this.paiWall_1[4 * this.idx + 1].node.active = false;
                     this.paiWall_1[4 * this.idx + 2].node.active = false;
                     this.paiWall_1[4 * this.idx + 3].node.active = false;
-                    cc.log("---------------------------------------------------");
-                    cc.log("--- 1 paiWall_1: false",4 * this.idx);
-                    cc.log("--- 1 paiWall_1: false",4 * this.idx + 1);
-                    cc.log("--- 1 paiWall_1: false",4 * this.idx + 2);
-                    cc.log("--- 1 paiWall_1: false",4 * this.idx + 3);
+                   
                 } else {
-                    this.paiWall_2[4 * (this.idx - 7)].node.active = false;
-                    this.paiWall_2[4 * (this.idx - 7) + 1].node.active = false;
-                    this.paiWall_2[4 * (this.idx - 7) + 2].node.active = false;
-                    this.paiWall_2[4 * (this.idx - 7) + 3].node.active = false;
-                    cc.log("---------------------------------------------------");
-                    cc.log("--- 1 paiWall_2: false",4 * (this.idx - 7));
-                    cc.log("--- 1 paiWall_2: false",4 * (this.idx - 7) + 1);
-                    cc.log("--- 1 paiWall_2: false",4 * (this.idx - 7) + 2);
-                    cc.log("--- 1 paiWall_2: false",4 * (this.idx - 7) + 3);
+                     if(LHZMJ.ins.iclass.getRealUserNum() == 4){
+                        this.paiWall_2[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_2[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_2[4 * (this.idx - 7) + 2].node.active = false;
+                        this.paiWall_2[4 * (this.idx - 7) + 3].node.active = false;
+                    }else if(LHZMJ.ins.iclass.getRealUserNum() == 3 && this.idx < 10){
+                        this.paiWall_2[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_2[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_2[4 * (this.idx - 7) + 2].node.active = false;
+                        if(this.idx < 9){
+                            this.paiWall_2[4 * (this.idx - 7) + 3].node.active = false;    
+                        }
+                    }
+                  
                 }
                     break;
                 case 2: if (this.idx < 7) {
@@ -169,16 +187,21 @@ export default class LHZMJ_PaiQiang extends cc.Component {
                     this.paiWall_2[4 * this.idx + 1].node.active = false;
                     this.paiWall_2[4 * this.idx + 2].node.active = false;
                     this.paiWall_2[4 * this.idx + 3].node.active = false;
-                    cc.log("---------------------------------------------------");
-                    cc.log("--- 2 paiWall_2: false",4 * this.idx);
-                    cc.log("--- 2 paiWall_2: false",4 * this.idx + 1);
-                    cc.log("--- 2 paiWall_2: false",4 * this.idx + 2);
-                    cc.log("--- 2 paiWall_2: false",4 * this.idx + 3);
+                   
                 } else {
-                    this.paiWall_3[4 * (this.idx - 7)].node.active = false;
-                    this.paiWall_3[4 * (this.idx - 7) + 1].node.active = false;
-                    this.paiWall_3[4 * (this.idx - 7) + 2].node.active = false;
-                    this.paiWall_3[4 * (this.idx - 7) + 3].node.active = false;
+                   if(LHZMJ.ins.iclass.getRealUserNum() == 4){
+                        this.paiWall_3[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_3[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_3[4 * (this.idx - 7) + 2].node.active = false;
+                        this.paiWall_3[4 * (this.idx - 7) + 3].node.active = false;
+                    }else if(LHZMJ.ins.iclass.getRealUserNum() == 3 && this.idx < 10){
+                        this.paiWall_3[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_3[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_3[4 * (this.idx - 7) + 2].node.active = false;
+                        if(this.idx < 9){
+                            this.paiWall_3[4 * (this.idx - 7) + 3].node.active = false;
+                        }
+                    }
                 }
                     break;
                 case 3: if (this.idx < 7) {
@@ -187,17 +210,32 @@ export default class LHZMJ_PaiQiang extends cc.Component {
                     this.paiWall_3[4 * this.idx + 2].node.active = false;
                     this.paiWall_3[4 * this.idx + 3].node.active = false;
                 } else {
-                    this.paiWall_0[4 * (this.idx - 7)].node.active = false;
-                    this.paiWall_0[4 * (this.idx - 7) + 1].node.active = false;
-                    this.paiWall_0[4 * (this.idx - 7) + 2].node.active = false;
-                    this.paiWall_0[4 * (this.idx - 7) + 3].node.active = false;
+                    if(LHZMJ.ins.iclass.getRealUserNum() == 4){
+                        this.paiWall_0[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_0[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_0[4 * (this.idx - 7) + 2].node.active = false;
+                        this.paiWall_0[4 * (this.idx - 7) + 3].node.active = false;
+                    }else if(LHZMJ.ins.iclass.getRealUserNum() == 3 && this.idx < 10){
+                        this.paiWall_0[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_0[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_0[4 * (this.idx - 7) + 2].node.active = false;
+                        if(this.idx < 9){
+                            this.paiWall_0[4 * (this.idx - 7) + 3].node.active = false;
+                        }
+                    }
                 }
                     break;
             }
             this.idx++;
         }
-        for (var k = 52; k + cardidx < 112; k++) {
-            this.holdACard();
+        if(LHZMJ.ins.iclass.getRealUserNum() == 4){
+            for (var k = 52; k + cardidx < 112; k++) {
+                this.holdACard();
+            }
+        }else{
+            for (var k = 39; k + cardidx < 112; k++) {
+                this.holdACard();
+            }
         }
 
 
@@ -228,11 +266,20 @@ export default class LHZMJ_PaiQiang extends cc.Component {
                     this.paiWall_0[4 * this.idx + 1].node.active = false;
                     this.paiWall_0[4 * this.idx + 2].node.active = false;
                     this.paiWall_0[4 * this.idx + 3].node.active = false;
-                } else {
-                    this.paiWall_1[4 * (this.idx - 7)].node.active = false;
-                    this.paiWall_1[4 * (this.idx - 7) + 1].node.active = false;
-                    this.paiWall_1[4 * (this.idx - 7) + 2].node.active = false;
-                    this.paiWall_1[4 * (this.idx - 7) + 3].node.active = false;
+                } else{
+                    if(LHZMJ.ins.iclass.getRealUserNum() == 4){
+                        this.paiWall_1[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_1[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_1[4 * (this.idx - 7) + 2].node.active = false;
+                        this.paiWall_1[4 * (this.idx - 7) + 3].node.active = false;
+                    }else if(LHZMJ.ins.iclass.getRealUserNum() == 3 && this.idx < 10){
+                        this.paiWall_1[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_1[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_1[4 * (this.idx - 7) + 2].node.active = false;
+                        if(this.idx < 9){
+                            this.paiWall_1[4 * (this.idx - 7) + 3].node.active = false;
+                        }
+                    }
                 }
                     break;
 
@@ -242,34 +289,63 @@ export default class LHZMJ_PaiQiang extends cc.Component {
                     this.paiWall_1[4 * this.idx + 2].node.active = false;
                     this.paiWall_1[4 * this.idx + 3].node.active = false;
                 } else {
-                    this.paiWall_2[4 * (this.idx - 7)].node.active = false;
-                    this.paiWall_2[4 * (this.idx - 7) + 1].node.active = false;
-                    this.paiWall_2[4 * (this.idx - 7) + 2].node.active = false;
-                    this.paiWall_2[4 * (this.idx - 7) + 3].node.active = false;
+                    if(LHZMJ.ins.iclass.getRealUserNum() == 4){
+                        this.paiWall_2[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_2[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_2[4 * (this.idx - 7) + 2].node.active = false;
+                        this.paiWall_2[4 * (this.idx - 7) + 3].node.active = false;
+                    }else if(LHZMJ.ins.iclass.getRealUserNum() == 3 && this.idx < 10){
+                        this.paiWall_2[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_2[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_2[4 * (this.idx - 7) + 2].node.active = false;
+                        if(this.idx < 9){
+                            this.paiWall_2[4 * (this.idx - 7) + 3].node.active = false;    
+                        }
+                    }
                 }
                     break;
+
                 case 2: if (this.idx < 7) {
                     this.paiWall_2[4 * this.idx].node.active = false;
                     this.paiWall_2[4 * this.idx + 1].node.active = false;
                     this.paiWall_2[4 * this.idx + 2].node.active = false;
                     this.paiWall_2[4 * this.idx + 3].node.active = false;
                 } else {
-                    this.paiWall_3[4 * (this.idx - 7)].node.active = false;
-                    this.paiWall_3[4 * (this.idx - 7) + 1].node.active = false;
-                    this.paiWall_3[4 * (this.idx - 7) + 2].node.active = false;
-                    this.paiWall_3[4 * (this.idx - 7) + 3].node.active = false;
+                    if(LHZMJ.ins.iclass.getRealUserNum() == 4){
+                        this.paiWall_3[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_3[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_3[4 * (this.idx - 7) + 2].node.active = false;
+                        this.paiWall_3[4 * (this.idx - 7) + 3].node.active = false;
+                    }else if(LHZMJ.ins.iclass.getRealUserNum() == 3 && this.idx < 10){
+                        this.paiWall_3[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_3[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_3[4 * (this.idx - 7) + 2].node.active = false;
+                        if(this.idx < 9){
+                            this.paiWall_3[4 * (this.idx - 7) + 3].node.active = false;
+                        }
+                    }
                 }
                     break;
+
                 case 3: if (this.idx < 7) {
                     this.paiWall_3[4 * this.idx].node.active = false;
                     this.paiWall_3[4 * this.idx + 1].node.active = false;
                     this.paiWall_3[4 * this.idx + 2].node.active = false;
                     this.paiWall_3[4 * this.idx + 3].node.active = false;
                 } else {
-                    this.paiWall_0[4 * (this.idx - 7)].node.active = false;
-                    this.paiWall_0[4 * (this.idx - 7) + 1].node.active = false;
-                    this.paiWall_0[4 * (this.idx - 7) + 2].node.active = false;
-                    this.paiWall_0[4 * (this.idx - 7) + 3].node.active = false;
+                    if(LHZMJ.ins.iclass.getRealUserNum() == 4){
+                        this.paiWall_0[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_0[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_0[4 * (this.idx - 7) + 2].node.active = false;
+                        this.paiWall_0[4 * (this.idx - 7) + 3].node.active = false;
+                    }else if(LHZMJ.ins.iclass.getRealUserNum() == 3 && this.idx < 10){
+                        this.paiWall_0[4 * (this.idx - 7)].node.active = false;
+                        this.paiWall_0[4 * (this.idx - 7) + 1].node.active = false;
+                        this.paiWall_0[4 * (this.idx - 7) + 2].node.active = false;
+                        if(this.idx < 9){
+                            this.paiWall_0[4 * (this.idx - 7) + 3].node.active = false;
+                        }
+                    }
                 }
                     break;
             }

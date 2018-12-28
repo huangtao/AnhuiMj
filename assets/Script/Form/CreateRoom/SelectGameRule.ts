@@ -138,6 +138,11 @@ export class SelectGameRule extends UIBase<any>{
     private payConfig: any = {};
 
     /**
+     * 当前选择的人数
+     */
+    private _curPeopleNum: number = 0;
+
+    /**
      * 规则面板节点数组
      */
     private _ruleNodeDict: Dictionary<string, SettingItem>;
@@ -158,7 +163,7 @@ export class SelectGameRule extends UIBase<any>{
     public IsKeyHandler: boolean = true;
 
     private nowGameInfo: QL_Common.GameInfo;
-    private isFriendCircle: boolean = false; // 是否是从亲友圈进来的
+    private friendCircle: any = null; // 是否是从亲友圈进来的
 
     /**
      * 游戏规则数据结构
@@ -176,9 +181,10 @@ export class SelectGameRule extends UIBase<any>{
         this._gameRuleData = new GameRuleData();
         this._gameRuleData.TableCost = 0;
         this._gameRuleData.GameData = {};
+        this._curPeopleNum = 0;
 
         this.nowGameInfo = this.ShowParam.gameInfo;
-        this.isFriendCircle = this.ShowParam.isFriendCircle;
+        this.friendCircle = this.ShowParam.friendCircle;
 
         this.initPayConfig();
 
@@ -213,7 +219,7 @@ export class SelectGameRule extends UIBase<any>{
                 this.createRuleItemByConfig(res);
 
                 // 加载本地保存的玩法 亲友圈进来的不做记忆功能
-                if (!this.isFriendCircle) {
+                if (!this.friendCircle) {
                     if (!this.loadLocalSettingConfig()) {
                         this.initSelectedStatusFromJson();
                     }
@@ -248,7 +254,7 @@ export class SelectGameRule extends UIBase<any>{
                 let fzPayNode: cc.Node = itemDict.GetValue('tableCreatorPay:2');
 
                 if (fzPayNode && circleOwnerPayNode) {
-                    if (this.isFriendCircle) {
+                    if (this.friendCircle) {
                         fzPayNode.removeFromParent();
                     } else {
                         circleOwnerPayNode.removeFromParent();
@@ -401,18 +407,33 @@ export class SelectGameRule extends UIBase<any>{
      * 显示房费 
      */
     public updateRoomPayShow(roundIdx: number, payWay: number) {
+        if (!payWay) {
+            return;
+        }
+
         // 显示房费币种图标
         // let roomInfo = this.DataCache.RoomList.GetCreateRoom(this.nowGameInfo.GameID);
         let costNum = 0;
+        let AACost = this.payConfig.AAPay[roundIdx + ''];
+
         if (1 == payWay) {
             // AA 支付
-            costNum = this.payConfig.AAPay[roundIdx + ''];
+            costNum = AACost;
         } else if (2 == payWay) {
             // 房主支付
-            costNum = this.payConfig.FZPay[roundIdx + ''];
+            if (!!this._curPeopleNum) {
+                costNum = AACost * this._curPeopleNum;
+            } else {
+                costNum = this.payConfig.FZPay[roundIdx + ''];
+            }
         } else if (3 == payWay) {
             // 圈主支付
-            costNum = this.payConfig.GroupPay[roundIdx + ''];
+            if (!!this._curPeopleNum) {
+                costNum = AACost * this._curPeopleNum;
+            } else {
+                costNum = this.payConfig.GroupPay[roundIdx + ''];
+            }
+
         }
 
         if (this.lab_diamond) {
@@ -526,46 +547,18 @@ export class SelectGameRule extends UIBase<any>{
             }
         }
 
-        /**
-         * 如果父类隐藏则整个横条也隐藏
-         */
-        /*if (parentAttr) {
-            let tmp = parentAttr.split("|");
-            parentAttr = tmp[0];
-            let contrary = tmp[1];
-
-            for (let idx = 0; idx < this.RuleNodeDict.Count; ++idx) {
-                let settingItem = this.RuleNodeDict.Values[idx];
-                let nodeArray = settingItem.ItemNodeArray;
-                for (let nodeIdx = 0; nodeIdx < nodeArray.Count; ++nodeIdx) {
-                    if (parentAttr == nodeArray.Keys[nodeIdx]) {
-                        let node = nodeArray.GetValue(nodeArray.Keys[nodeIdx]);
-                        let componet: RuleItemToggleBase = node.getComponent("RuleItemToggleBase");
-
-                        if (!contrary) {
-                            cc.warn("childrenAttr is error!");
-                            continue;
-                        }
-
-                        if ("noContrary" == contrary) {
-                            param.attrParam.node.active = componet.isChecked;
-                        } else {
-                            param.attrParam.node.active = !componet.isChecked;
-                        }
-
-                        return;
-                    }
-                }
-            }
-        }*/
-
         // 记录当前的选择
         this._gameRuleData.GameData[param.attrParam.attrName] = param.attrParam.value;
         cc.info("-- gameRule: ", this._gameRuleData.GameData);
 
+        if ('PeopleNum' == param.attrParam.attrName && param.attrParam.isChecked) {
+            this._curPeopleNum = parseInt(param.attrParam.valueDesc);
+        } 
+
         // 更新扣钻显示
         if ('tableCreatorPay' == param.attrParam.attrName
-            || 'SetGameNum' == param.attrParam.attrName) {
+            || 'SetGameNum' == param.attrParam.attrName
+            || 'PeopleNum' == param.attrParam.attrName) {
             this.updateRoomPayShow(this._gameRuleData.GameData.SetGameNum, this._gameRuleData.GameData.tableCreatorPay);
         }
     }
@@ -594,7 +587,7 @@ export class SelectGameRule extends UIBase<any>{
     private ClickStart() {
         if (!this.nowGameInfo) return;
 
-        if (this.isFriendCircle) {
+        if (this.friendCircle) {
             let curFriendCircle = FriendCircleDataCache.Instance.CurEnterFriendCircle;
             let curRule = FriendCircleDataCache.Instance.CurSelectedRule;
 
@@ -625,6 +618,7 @@ export class SelectGameRule extends UIBase<any>{
                 info.gameId = this.nowGameInfo.GameID;
                 this._gameRuleData.GameData["TableCost"] = this._gameRuleData.TableCost;
                 info.ruleStr = ObjectToString(this._gameRuleData.GameData);
+                info.sortId = this.friendCircle.modifyRuleSortId;
                 let gameRule = this._gameRuleData.GameData;
                 let param = {};
                 param['SetGameNum'] = gameRule['SetGameNum'];
@@ -641,7 +635,7 @@ export class SelectGameRule extends UIBase<any>{
                 }));
             }
 
-            if (this.ShowParam.isAddRule) {
+            if (this.friendCircle.isAddRule) {
                 // 没有玩法
                 addRule();
             } else {

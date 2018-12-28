@@ -23,6 +23,10 @@ export default abstract class UIBase<T> extends cc.Component implements IEventHa
     public get isOneInstance(): boolean { return true; }
     public get isPersistRootFrom(): boolean { return false; }
     public get isPlayPopAction(): boolean { return true; }
+    /**
+     * 是否播放弹出关闭音效
+     */
+    public get isPopCloseEffect() { return true; }
     public get canReUse(): boolean { return true }
 
     protected get needPlayPopAction(): boolean { return this.isPlayPopAction; }
@@ -216,7 +220,10 @@ export default abstract class UIBase<T> extends cc.Component implements IEventHa
         });
     }
     protected CloseUI(action?: Action, param?: any) {
-        PlayEffect(cc.url.raw("resources/Sound/close_panel.mp3"));
+        if (this.isPopCloseEffect) {
+            PlayEffect(cc.url.raw("resources/Sound/close_panel.mp3"));
+        }
+        
         if (this.IsEventHandler) {
             Global.Instance.EventManager.UnRegisterEventHadnle(this);
         }

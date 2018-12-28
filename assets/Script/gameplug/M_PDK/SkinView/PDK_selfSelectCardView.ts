@@ -1,5 +1,5 @@
 import PDK_skinCards from "../SkinView/PDK_skinCards";
-import {SelfCardWidth,SelfCardHeight, CardWidth,CardType,GameInfo} from "../GameHelp/PDK_GameHelp";
+import {SelfCardWidth,SelfCardHeight, TexturePath,CardType,GameInfo} from "../GameHelp/PDK_GameHelp";
 import GameLogic from "../GameHelp/PDK_GameLogic";
 import { PDK } from "../GameHelp/PDK_IClass";
 import { M_PDK_GameMessage } from "../../../CommonSrc/M_PDK_GameMessage";
@@ -27,11 +27,30 @@ export default class SelfSelectCardView extends cc.Component {
     private btn_prompt:cc.Button = null;
     @property(cc.Button)
     private btn_out:cc.Button = null;  
+   // @property(cc.Button)
+    //private btn_cantOut:cc.Button = null;
     //按钮父节点
     @property(cc.Node)
     private node_btn:cc.Node = null;
     @property(cc.Sprite)
-    Sprite_zhuaNiao: cc.Sprite = null;
+    private Sprite_zhuaNiao: cc.Sprite = null;
+    @property(cc.Sprite)
+    private Sprite_firstCard: cc.Sprite = null;
+    //要不起遮罩
+    @property(cc.Layout)
+    private layout_mark:cc.Layout = null;
+    @property(cc.Sprite)
+    private Sprite_sysOut: cc.Label = null;
+    @property(cc.Sprite)
+    private Sprite_cantOut: cc.Sprite = null;
+
+    //一局输赢提示
+    @property(cc.Node)
+    private node_roundTips:cc.Node = null;
+    @property(cc.Sprite)
+    private sprite_roundTips: cc.Sprite = null;
+    @property([cc.SpriteFrame])
+    private res_view: cc.SpriteFrame[] = [];
 
 
     //玩家自己手牌对象
@@ -39,17 +58,17 @@ export default class SelfSelectCardView extends cc.Component {
 
     //开始点击的位置
     private startPosX:number = 0;
-   
-    //滑动选中的牌
-    private slideSelectedCard:PDK_skinCards[] = [];
 
     //牌间距
-    private cardSpacing:number = 75;
+    private cardSpacing:number = 60;
 
     //是否轮到我出牌
     private canSelectCard:boolean = false;
     //最后一次提示的牌的最小值
     private promptValue:number = 0;
+
+    //发牌动画是否播放中
+    private isAniIng:boolean = false;
 
 
     onLoad () {
@@ -62,7 +81,13 @@ export default class SelfSelectCardView extends cc.Component {
         this.btn_out.node.on("click",this.outCard,this);
         this.btn_prompt.node.on("click",this.promptCard,this);
         this.btn_pass.node.on("click",this.PassOpration,this);
+        //this.btn_cantOut.node.on("click",this.cantOut,this);
+        //this.btn_cantOut.node.active = false;
         this.Sprite_zhuaNiao.node.active = false;
+        this.layout_mark.node.active = false;
+        this.Sprite_sysOut.node.active = false;
+        this.Sprite_cantOut.node.active = false;
+        this.node_roundTips.active = false;
 
     }
 
@@ -97,6 +122,7 @@ export default class SelfSelectCardView extends cc.Component {
         }
         this.cardsNode.removeAllChildren();
         this.node_btn.active = false;
+        this.node_roundTips.active = false;
     }
 
     //创建手牌和设置手牌点击区域
@@ -135,9 +161,8 @@ export default class SelfSelectCardView extends cc.Component {
     //开始触摸
     private touchBegin(e:cc.Event.EventTouch){
         e.stopPropagation();
-        if(this.canSelectCard){
+        if(this.canSelectCard && this.isAniIng == false){
             cc.log("开始触摸");
-            this.slideSelectedCard = [];
             this.startPosX = GameLogic.worldConvertLocalPoint(this.cardsNode,e.getLocation()).x;
             this.touchFristCard();
         }
@@ -145,7 +170,7 @@ export default class SelfSelectCardView extends cc.Component {
     //触摸中移动
     private touchMove(e:cc.Event.EventTouch){ 
         e.stopPropagation();
-        if(this.canSelectCard){
+        if(this.canSelectCard && this.isAniIng == false){
             let nowTouchPosX = GameLogic.worldConvertLocalPoint(this.cardsNode,e.getLocation()).x; 
             this.changeCardSelected(nowTouchPosX);
             
@@ -290,9 +315,11 @@ export default class SelfSelectCardView extends cc.Component {
             console.log("未选中任何牌");
             return;
         }
+        //选中的牌的牌组类型
+        let cardType = GameLogic.getCardType(outCardList);
         //有2必打A
-        if(PDK.ins.iview.GetGameRule().have2OutA && lastCards.length == 1 && GameLogic.GetCardLogicValue(lastCards[0]) == 14){
-            if(outCardList.length != 1 ||(outCardList.length == 1 && GameLogic.GetCardLogicValue(outCardList[0]) != 15 && this.isHaveCardByLogic(15))){
+        if(PDK.ins.iview.GetGameRule().have2OutA && lastCards.length == 1 && GameLogic.GetCardLogicValue(lastCards[0]) == 14 && PDK.ins.iview.GetGameInfo().lastOutCardChair != 0){
+            if((outCardList.length != 1 || (outCardList.length == 1 && GameLogic.GetCardLogicValue(outCardList[0]) != 15)) && this.isHaveCardByLogic(15)){
                 for(let card of this.handCard){
                     card.setSelected(false);
                 }
@@ -300,8 +327,6 @@ export default class SelfSelectCardView extends cc.Component {
             }
         }
 
-       //选中的牌的牌组类型
-       let cardType = GameLogic.getCardType(outCardList);
        //类型错误，取消选中
        if(cardType == CardType.Error){
             this.cancelSelected();
@@ -331,10 +356,18 @@ export default class SelfSelectCardView extends cc.Component {
                 }
             //自己出的牌没人要
             }else if(PDK.ins.iview.GetGameInfo().lastOutCardChair == 0){
-                this.sendOutCardMessage(outCardList);
+                if(PDK.ins.iview.GetGameInfo().nextOutCardChair == 0){
+                    this.sendOutCardMessage(outCardList);
+                }else{
+                    this.cancelSelected();
+                }
             //选中的牌大于最后的出牌
             }else if(this.isBiggerThanLast(outCardList,cardType,outCardList.length)){
-                this.sendOutCardMessage(outCardList);
+                if(PDK.ins.iview.GetGameInfo().nextOutCardChair == 0){
+                    this.sendOutCardMessage(outCardList);
+                }else{
+                    this.cancelSelected();
+                }
             }else{
                 this.cancelSelected();
             }
@@ -343,6 +376,9 @@ export default class SelfSelectCardView extends cc.Component {
     }
     //取消选中牌
     public cancelSelected(){
+        if(this.canSelectCard == false || this.isAniIng == true){
+            return;
+        }
         for(let card of this.handCard){
             card.setSelected(false);
         }
@@ -368,6 +404,7 @@ export default class SelfSelectCardView extends cc.Component {
     }
     //判断玩家选中的牌是否大于上家出的牌
     private isBiggerThanLast(selfCards:number[],selfCardType:CardType,selfOutCardCount:number){
+        let threeAIsBomb = PDK.ins.iview.GetGameRule().threeAIsBomb;
          //自己选中的牌的值数组和数量数组
          let selfCardHashObj = GameLogic.getCardHashObj(selfCards);
          let selfCardHashObjNum = Object.getOwnPropertyNames(selfCardHashObj).length;
@@ -383,7 +420,10 @@ export default class SelfSelectCardView extends cc.Component {
         //自己的牌型是炸弹
         if(selfCardType == CardType.Bomb){
             if(lastCardType == CardType.Bomb){
-                if(selfCardHashObjNum == 2){
+                if(threeAIsBomb && selfCardHashObjNum == 2){
+                    if(lastCardHashObjNum == 2 || (lastCardHashObjNum == 1 && lastCardValueArray[0] >= 14)){
+                        return false;
+                    }
                     return true;
                 }else if(selfCardValueArray[0]>lastCardValueArray[0]){
                     return true;
@@ -407,6 +447,19 @@ export default class SelfSelectCardView extends cc.Component {
                 }
                 else if (selfCardType == CardType.FourAndTwo)
                 {
+                    if(threeAIsBomb){
+                        for(let i = 0;i < selfCardValueArray.length;i++){
+                            if(selfCardValueArray[i] == 14 && selfCardCountArray[i] == 3){
+                                return 14 > this.getCardValueByCount(lastCardValueArray, lastCardCountArray, 4);
+                            }
+                        }
+                        for(let i = 0;i < lastCardValueArray.length;i++){
+                            if(lastCardValueArray[i] == 14 && lastCardCountArray[i] == 3){
+                                return this.getCardValueByCount(selfCardValueArray, selfCardCountArray, 4) > 14;
+                            }
+                        }
+                    }
+                    
                     return this.getCardValueByCount(selfCardValueArray, selfCardCountArray, 4) > this.getCardValueByCount(lastCardValueArray, lastCardCountArray, 4);
                 }
                 else if (selfCardType == CardType.Plane)
@@ -414,7 +467,7 @@ export default class SelfSelectCardView extends cc.Component {
                     return this.ComprePlane(selfCardValueArray, selfCardCountArray, lastCardValueArray, lastCardCountArray);
                 }
             }
-        }else if(PDK.ins.iview.GetGameRule().SZTW && (lastCardType == CardType.ThreeAndOne ||  lastCardType == CardType.ThreeAndTwo) && selfCardType == CardType.Three && selfCards.length == 3){
+        }else if(PDK.ins.iview.GetGameRule().SZTW && (lastCardType == CardType.ThreeAndOne ||  lastCardType == CardType.ThreeAndTwo) && selfCardType == CardType.Three && this.handCard.length == 3){
             return this.getCardValueByCount(selfCardValueArray, selfCardCountArray, 3) > this.getCardValueByCount(lastCardValueArray, lastCardCountArray, 3);
         }
         return false;
@@ -469,11 +522,13 @@ export default class SelfSelectCardView extends cc.Component {
 
     //删除选中的手牌对象，往服务器发送出牌协议
     private sendOutCardMessage(outCardList:number[]){
-        for(let i = this.handCard.length -1;i>=0;i--){
-            if(this.handCard[i].isSelected){
-                this.handCard[i].node.destroy();
-                let index = this.handCard.indexOf(this.handCard[i]);
-                this.handCard.splice(index,1);
+        if(outCardList.length != 0){
+            for(let i = this.handCard.length -1;i>=0;i--){
+                if(this.handCard[i].isSelected){
+                    this.handCard[i].node.destroy();
+                    let index = this.handCard.indexOf(this.handCard[i]);
+                    this.handCard.splice(index,1);
+                }
             }
         }
         this.refreshHandCardView();
@@ -482,6 +537,11 @@ export default class SelfSelectCardView extends cc.Component {
         var data = new M_PDK_GameMessage.CMD_C_OutCard();
         data.cards = outCardList;
         PDK.ins.iclass.SendData(data);
+        if(this.handCard.length == 1){
+            this.showAuto();
+        }else if(this.handCard.length == 0){
+            this.clearTips();
+        }
     }
 
     private promptCard(){
@@ -492,6 +552,7 @@ export default class SelfSelectCardView extends cc.Component {
     
     //提示出牌
     private promptSelectedCard(){
+        let threeAIsBomb = PDK.ins.iview.GetGameRule().threeAIsBomb;
         //先取消选中的牌
         for(let card of this.handCard){
             if(card.isSelected == true){
@@ -559,7 +620,7 @@ export default class SelfSelectCardView extends cc.Component {
 
             //如果手牌数量小于打出的牌数量
             if(this.handCard.length < lastCards.length && this.handCard.length>=4){
-                if(cardsObj.hasOwnProperty(14)&& cardsObj[14].length == 3){
+                if(threeAIsBomb && cardsObj.hasOwnProperty(14)&& cardsObj[14].length == 3){
                     for(let card of cardsObj[14]){
                         card.changeSelected(true);
                     }
@@ -682,7 +743,7 @@ export default class SelfSelectCardView extends cc.Component {
                     for(let i in cardsObj){
                         //小于顺子最后一张牌的就不用判断了
                         if(parseInt(i) > this.promptValue){
-                            if(cardsObj.hasOwnProperty(parseInt(i)+1) && cardsObj[i].length >=count && cardsObj[parseInt(i)+1].length >=count){
+                            if(cardsObj.hasOwnProperty(parseInt(i)+1) && cardsObj[i].length >=count && cardsObj[parseInt(i)+1].length >=count && parseInt(i) != 15 && parseInt(i)+1 != 15){
                                 if(temp.length == 0){
                                     temp.push(parseInt(i));
                                     temp.push(parseInt(i)+1); 
@@ -723,15 +784,15 @@ export default class SelfSelectCardView extends cc.Component {
                     let tempCard = 0;
                     let isHaveBigger = false;
                     for(let i = 0;i<lastCardCountArray.length;i++){
-                        if(lastCardCountArray[i] == 4){
-                            tempCard == lastCardValueArray[i];
+                        if(lastCardCountArray[i] == 4 || (threeAIsBomb && lastCardCountArray[i] == 3 && lastCardValueArray[i] == 14)){
+                            tempCard = lastCardValueArray[i];
                         }
                     }
                     if(this.promptValue == 0){
                         this.promptValue = tempCard;
                     }
                     for(let i in cardsObj){
-                        if(cardsObj[i].length == 4 && parseInt(i) > this.promptValue){
+                        if((cardsObj[i].length == 4 ||( threeAIsBomb && cardsObj[i].length == 3 && cardsObj[i][0] == 14 ))&& parseInt(i) > this.promptValue){
                             isHaveBigger = true;
                             for(let card of cardsObj[i]){
                                 this.promptValue = card.cValue;
@@ -741,7 +802,12 @@ export default class SelfSelectCardView extends cc.Component {
                         }
                     }
                     if(isHaveBigger){
-                        this.setCardSelected(2,cardsObj); 
+                        //3个A带三张其他任意牌也为4带2
+                        if(threeAIsBomb && tempCard == 14){
+                            this.setCardSelected(3,cardsObj); 
+                        }else{
+                            this.setCardSelected(2,cardsObj); 
+                        }
                         return;
                     }
                     this.promptValue = tempCard;
@@ -749,6 +815,9 @@ export default class SelfSelectCardView extends cc.Component {
                 }else if(cardType == CardType.Bomb){
                     if(this.promptValue == 0){
                         this.promptValue = lastCardValueArray[0];
+                        if(lastCardValueArray.length == 2){
+                            this.promptValue = 14;
+                        }
                     }
                     for(let i in cardsObj){
                         if(cardsObj[i].length == 4 && parseInt(i) > this.promptValue){
@@ -759,13 +828,19 @@ export default class SelfSelectCardView extends cc.Component {
                             return;
                         }
                     }
-
-                    if(cardsObj.hasOwnProperty(14)&& cardsObj[14].length == 3 && this.handCard.length >= 4 && 14 > this.promptValue){
+                    //3个A或3A带1为炸弹
+                    if(threeAIsBomb && cardsObj.hasOwnProperty(14)&& cardsObj[14].length >= 3 && 14 > this.promptValue){
+                        let count = 0;
                         for(let card of cardsObj[14]){
-                            this.promptValue = card.cValue;
-                            card.changeSelected(true);
+                            if(count < 3){
+                                this.promptValue = card.cValue;
+                                card.changeSelected(true);
+                                count += 1;
+                            }
                         }
-                        this.setCardSelected(1,cardsObj);
+                        if(this.handCard.length >= 4){
+                            this.setCardSelected(1,cardsObj);
+                        }
                         return;
                     }
                     this.promptValue = 0;
@@ -776,7 +851,7 @@ export default class SelfSelectCardView extends cc.Component {
                         isHasSelectCard = true;
                     }
                 }
-                if(isHasSelectCard == false){
+                if(isHasSelectCard == false && cardType != CardType.Bomb){
                     for(let i in cardsObj){
                         if(cardsObj[i].length == 4){
                             for(let card of cardsObj[i]){
@@ -785,14 +860,22 @@ export default class SelfSelectCardView extends cc.Component {
                             return;
                         }
                     }
-                    if(cardsObj.hasOwnProperty(14)&& cardsObj[14].length == 3){
+                    if(threeAIsBomb && cardsObj.hasOwnProperty(14)&& cardsObj[14].length >= 3){
+                        let count = 0;
                         for(let card of cardsObj[14]){
-                            card.changeSelected(true);
+                            if(count < 3){
+                                this.promptValue = card.cValue;
+                                card.changeSelected(true);
+                                count += 1;
+                            }
                         }
-                        this.setCardSelected(1,cardsObj);
+                        if(this.handCard.length >= 4){
+                            this.setCardSelected(1,cardsObj);
+                        }
                         return;
                     }
                 }
+                this.promptValue = 0;
                 this.promptSelectedCard();
 
             }
@@ -845,13 +928,27 @@ export default class SelfSelectCardView extends cc.Component {
             M_PDKClass.Instance.UiManager.ShowTip("必须出牌");
         }
     }
-    //设置不出按钮的状态
+    //要不起
+    private cantOut(){
+        this.sendOutCardMessage([]);
+    }
+
+    //设置不出按钮的显示/不显示
     public setPassBtnState(state:boolean){
-        this.btn_pass.interactable = state;
+        this.btn_pass.node.active = state;
     }
     //设置出牌按钮的状态
     public setOutBtnState(state:boolean){
         this.btn_out.interactable = state;
+    }
+    //设置提示按钮的显示/不显示
+    public setPromptBtnState(state:boolean){
+        this.btn_prompt.node.active = state;
+        if(state){
+            this.btn_out.node.setPosition(302,0);
+        }else{
+            this.btn_out.node.setPosition(83,0);
+        }
     }
 
     /**
@@ -866,12 +963,105 @@ export default class SelfSelectCardView extends cc.Component {
         this.Sprite_zhuaNiao.node.setPosition(0,0);
         this.Sprite_zhuaNiao.node.active = true;
         let movePos = pos;
-        let ani = cc.sequence(cc.moveTo(0.4,movePos),cc.callFunc(function(){
-            if(cChair != 0){
-                PDK.ins.iview.ShowZhuaNiaoIcon(cChair);
-            }
+        let ani = cc.sequence(cc.moveTo(0.6,movePos),cc.callFunc(function(){
+            PDK.ins.iview.ShowZhuaNiaoIcon(cChair);
             this.Sprite_zhuaNiao.node.active = false;
         },this));
         this.Sprite_zhuaNiao.node.runAction(ani);
+    }
+
+    //显示先出牌的飞牌动画
+    public showFristCardAni(value:number,Pos:cc.Vec2,cChair:number){
+        this.Sprite_firstCard.node.active = true;
+        this.Sprite_firstCard.node.opacity = 255;
+        this.Sprite_firstCard.node.setScale(1,1);
+        this.Sprite_firstCard.node.rotation = 0;
+        this.Sprite_firstCard.node.setPosition(0,0);
+        if(value == 0 ){
+            this.Sprite_firstCard.spriteFrame = this.res_view[0];
+        }else{
+            this.Sprite_firstCard.spriteFrame = PDK.ins.iview.GetCardsRes(value);
+        }
+        var bezier = [new cc.Vec2(Pos.x/2-100, 50), new cc.Vec2(Pos.x/2+100, 150), Pos];
+        var bezierTo = cc.bezierTo(0.25, bezier);
+        let action = cc.spawn(bezierTo, cc.scaleTo(0.25, 0.3),cc.fadeOut(0.3),cc.rotateBy(0.3,1200));
+        let callback = cc.callFunc(function(){
+            this.Sprite_firstCard.node.active = false;
+            PDK.ins.iview.showFirstIcon(cChair);
+            PDK.ins.iview.changeOperationPlayer(cChair,true);
+        },this)
+        let  actionsequence = cc.sequence(cc.delayTime(0.8),action,callback);
+        this.Sprite_firstCard.node.runAction(actionsequence);
+
+    }
+
+    //手牌发牌动画
+    public showGetCardAni(data: M_PDK_GameMessage.CMD_S_GameStart){
+        this.isAniIng = true;
+        let delayTimes = 0.15;
+        for(let i = 0;i<this.handCard.length;i++){
+            let card = this.handCard[i].node;
+            card.opacity = 0;
+            let toPos = card.getPosition();
+            card.setPositionY(card.getPositionY() + 20);
+            let action = cc.spawn(cc.moveTo(0.3,toPos),cc.fadeIn(0.3));
+            let actionSequence = cc.sequence(cc.delayTime(i*delayTimes),action);
+            card.runAction(actionSequence);
+        } 
+        this.node.runAction(cc.sequence(cc.delayTime(this.handCard.length*delayTimes + 0.2),cc.callFunc(
+            function(){
+                this.canSelectCard = true;
+                this.isAniIng = false;
+                PDK.ins.iview.Rec_GameStart(data,true);
+            },this)
+        ));
+    }
+    //要不起按钮显示/不显示
+    public showBtnCantOut(state:boolean){
+        this.Sprite_cantOut.node.active = false;
+        if(state){
+            this.cancelSelected();
+            this.canSelectCard = false;
+            this.layout_mark.node.active = true;
+            this.layout_mark.node.setContentSize(this.cardsNode.getContentSize().width - 12,this.cardsNode.getContentSize().height - 10);
+            this.layout_mark.node.setPositionX(this.cardsNode.getPositionX()+5);
+            if(this.Sprite_sysOut.node.active){
+                this.Sprite_sysOut.node.active = false;
+            }
+            this.Sprite_cantOut.node.active = true;
+        }else if(this.handCard.length != 1){
+            this.canSelectCard = true;
+            this.layout_mark.node.active = false;
+            this.Sprite_cantOut.node.active = false;
+            this.Sprite_sysOut.node.active = false;
+        }
+    }
+    //剩余1张，系统出牌
+    public showAuto(){
+        if(this.handCard.length != 1){
+            return;
+        }
+        this.cancelSelected();
+        this.canSelectCard = false;
+        this.layout_mark.node.active = true;
+        this.layout_mark.node.setContentSize(this.cardsNode.getContentSize().width - 12,this.cardsNode.getContentSize().height - 10);
+        this.layout_mark.node.setPositionX(this.cardsNode.getPositionX()+5);
+        this.Sprite_sysOut.node.active = true;
+    }
+    //清理系统提示
+    public clearTips(){
+        this.layout_mark.node.active = false;
+        this.Sprite_sysOut.node.active = false;
+        this.Sprite_cantOut.node.active = false;
+    }
+
+    //每局输赢提示
+    public showRoundResultTip(state:number){
+        if(state == 0){
+            this.node_roundTips.active = false;
+        }else{
+            this.sprite_roundTips.spriteFrame = this.res_view[state];
+            this.node_roundTips.active = true;
+        }
     }
 }

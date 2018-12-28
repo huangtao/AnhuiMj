@@ -14,16 +14,31 @@ export default class PlayerRecordDetailItem extends cc.Component {
     */
     @property(cc.Label)
     lab_score: cc.Label = null;
+    /**
+    * 字体
+    */
+    @property([cc.Font])
+    jiaFont: cc.Font[] = [];
 
     public initUI(data: PlayerFightScore): void {
         if (!data) {
             return;
         }
+        let maxsize = 3;
+        let nickName = data.nickName;
+        // 昵称
+        this.lab_nickName.string = nickName.length > maxsize ? nickName.substr(0, maxsize) + "..." : nickName;
 
-        // 游戏名称
-        this.lab_nickName.string = data.nickName;
+        let moneyNum = data.moneyNum;
+        if (moneyNum < 0) {
+            this.lab_score.font = this.jiaFont[1];
+            // 分数
+            this.lab_score.string = data.moneyNum + "";
+        } else {
 
-        // 结束时间日期
-        this.lab_score.string = data.moneyNum + "";
+            this.lab_score.font = this.jiaFont[0];
+            // 分数
+            this.lab_score.string = "+" + data.moneyNum + "";
+        }
     }
 }

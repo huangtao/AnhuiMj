@@ -19,6 +19,8 @@ import { HeartMessageManager } from "../Manager/HeartMessageManager";
 import { SystmPushMsgHandler } from "../MainHandler/SystmPushMsgHandler";
 import { IActionManager } from "../Interface/IActionManager";
 import { ActionManager } from "../Manager/ActionManager";
+import { IPanelManager } from "../Interface/IPanelManager";
+import { PanelManager } from "../Manager/PanelManager";
 
 export default class Global {
 
@@ -178,6 +180,13 @@ export default class Global {
 		return this._actionManager;
 	}
 
+    private _panelManager:IPanelManager;
+	public get PanelManager(): IPanelManager {
+        if(!this._actionManager){
+            this._panelManager=new PanelManager();
+        }
+		return this._panelManager;
+	}
 
 
     public get NowCanves() {

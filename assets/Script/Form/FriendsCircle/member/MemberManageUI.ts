@@ -128,6 +128,12 @@ export default class FightRecordUI extends UIBase<any> {
     @property(cc.Node)
     node_searchNick: cc.Node = null;
 
+    /**
+     * 成员列表标题
+     */
+    @property(cc.Node)
+    node_member: cc.Node = null;
+
     // 是否正在请求
     private _requestIng: boolean = false;
 
@@ -171,6 +177,16 @@ export default class FightRecordUI extends UIBase<any> {
      * 当前点击查看战绩详情或查看用户信息的成员Item
      */
     private _curSelectUserItem: MemberUserItem = null;
+
+    /**
+     * 当前成员排序顺序默认升序
+     */
+    private _sortMemberOder = {
+        cnt: true,
+        userwin: true,
+        moneynum: true,
+    }
+
     /**
      * 当前选择的搜索日期
      */
@@ -214,8 +230,10 @@ export default class FightRecordUI extends UIBase<any> {
 
         if (isAdmin) {
             this.node_tabMember.active = true;
+            this.node_member.active = false;
         } else {
             this.node_tabMember.active = false;
+            this.node_member.active = true;
         }
 
         this.node_selectDate.active = false;
@@ -328,6 +346,7 @@ export default class FightRecordUI extends UIBase<any> {
         let curFriendCircle = FriendCircleDataCache.Instance.CurEnterFriendCircle;
 
         if (!curFriendCircle || userId < 0) {
+            this._requestIng = false;
             cc.log("--- error: requestMemberData param is error");
             return;
         }
@@ -343,6 +362,7 @@ export default class FightRecordUI extends UIBase<any> {
             _endTime = this._curSearchDate.endTime;
         }
 
+        this.UiManager.ShowLoading("正在请求数据...");
         FriendCircleWebHandle.GroupGameStat(parseInt(curFriendCircle.ID), gameId, userId, in_querytype, nickname, startId, count, _beginTime, _endTime, act);
     }
 
@@ -380,7 +400,7 @@ export default class FightRecordUI extends UIBase<any> {
             }
 
             // 默认按照局数排序
-            this.sortMemberListData("cnt");
+            // this.sortMemberListData("cnt");
 
             // 更新成员数量显示
             this.lab_memberCount.string = "成员数：" + this._memberList.length + "人";
@@ -401,6 +421,7 @@ export default class FightRecordUI extends UIBase<any> {
         let _userId = userId;
 
         if (this._userRecordStartId < 0) {
+            this._requestIng = false;
             return;
         }
 
@@ -409,6 +430,7 @@ export default class FightRecordUI extends UIBase<any> {
 
         if (!curFriendCircle || !curRuleInfo || userId < 0) {
             cc.log("--- error: requestMemberData param is error");
+            this._requestIng = false;
             return;
         }
 
@@ -424,7 +446,10 @@ export default class FightRecordUI extends UIBase<any> {
         }
 
         this._requestIng = true;
+        this.UiManager.ShowLoading("正在请求数据...");
         FriendCircleWebHandle.GroupGameStat(parseInt(curFriendCircle.ID), curRuleInfo.gameId, userId, 1, "", this._userRecordStartId, 10, _beginTime, _endTime, new Action(this, (res) => {
+            this._requestIng = false;
+
             if (!res || !res.status) {
                 return;
             }
@@ -434,12 +459,12 @@ export default class FightRecordUI extends UIBase<any> {
             }
 
             for (var idx = 0; idx < res.data.length; ++idx) {
-                let data = res.data[idx];
+                let data: FriendCircleRecord = res.data[idx];
 
                 if (!data) {
                     continue;
                 }
-
+                data.currentUserId = userId;
                 this._userRecordList.push(data);
             }
 
@@ -595,15 +620,22 @@ export default class FightRecordUI extends UIBase<any> {
 
     /**
      * 排序列表
+     * ascendingOrder: 升序
      */
-    private sortMemberListData(attr: string) {
+    private sortMemberListData(attr: string, ascendingOrder: boolean = false) {
         if (!attr) {
             return;
         }
 
-        this._memberList.sort((a, b) => {
-            return b[attr] - a[attr];
-        })
+        if (ascendingOrder) {
+            this._memberList.sort((a, b) => {
+                return b[attr] - a[attr];
+            });
+        } else {
+            this._memberList.sort((a, b) => {
+                return a[attr] - b[attr];
+            });
+        }
     }
 
     /**
@@ -744,7 +776,7 @@ export default class FightRecordUI extends UIBase<any> {
         let selfInfo: FriendCircleMember = FriendCircleDataCache.Instance.FriendCircleMemberList.GetValue(userId + "");
 
         if ((selfInfo && parseInt(selfInfo.isadmin) > parseInt(memberInfo.isadmin) && parseInt(selfInfo.isadmin) > 0)
-            || memberInfo.userid == userId) {
+            || (memberInfo.userid == userId && parseInt(selfInfo.isadmin) > 0)) {
             this._curSelectUserItem = userItem;
             this.UiManager.ShowUi(UIName.MemberPlayerInfo, userItem.ShowData);
         }
@@ -850,7 +882,18 @@ export default class FightRecordUI extends UIBase<any> {
      * 玩家战绩滚动列表监听事件
      */
     public userRecordScrollEventHandle(scrollview, eventType, customEventData) {
+        if (this._requestIng) {
+            return;
+        }
+
+        if (-1 == this._userRecordStartId) {
+            return;
+        }
+
         this._requestIng = true;
+        let userId = this._curSelectUserItem.ShowData.userid;
+        // 请求玩家战绩列表
+        this.requestUserRecordList(userId);
     }
 
     /**
@@ -958,5 +1001,19 @@ export default class FightRecordUI extends UIBase<any> {
         let selectDate: SelectDate = this.node_selectDate.getComponent("SelectDate");
         selectDate.initUI();
         selectDate.SelectTimeAct = new Action(this, this.selectDateAct);
+    }
+
+    /**
+     * 排序按钮事件处理
+     */
+    private btnSortMemberClickHandle(event, args) {
+        if (!args || !this._sortMemberOder.hasOwnProperty(args)) {
+            return;
+        }
+
+        this.sortMemberListData(args, this._sortMemberOder[args]);
+        this._scrollMember.resetList();
+        this._scrollMember.refreshData(this._memberList);
+        this._sortMemberOder[args] = !this._sortMemberOder[args];
     }
 }

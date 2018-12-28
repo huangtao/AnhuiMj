@@ -167,7 +167,24 @@ export namespace WebRequest {
         public static SetUserHeader(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
             doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/UserInfo.SetUserHeader`, action, data, method);
         }
-        //header
+        /**
+         * 
+         * @param action 设置玩家个人相册数据
+         * @param data 
+         * @param method 
+         */
+        public static SetUserPhoto(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/UserInfo.SetUserPhoto`, action, data, method);
+        }
+        /**
+         * 
+         * @param action 删除玩家个人相册数据
+         * @param data 
+         * @param method 
+         */
+        public static DeleteUserPhoto(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/UserInfo.DeleteUserPhoto`, action, data, method);
+        }
     }
 
 
@@ -333,6 +350,17 @@ export namespace WebRequest {
         public static getSubReplayList(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
             doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/Record.getSubReplayList`, action, data, method);
         }
+
+        /**
+         * 获取游戏战绩的分享连接
+         * @param action 
+         * @param data 
+         * @param method 
+         */
+        public static getRecordUrl(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/Record.getRecordUrl`, action, data, method);
+        }
+
     }
 
     export class system{
@@ -475,6 +503,23 @@ export namespace WebRequest {
 
         public static showChangeRecord(action?: ActionNet, data?: IDictionary<string, any>, method: string = "GET"){
             doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/GiftView.showChangeRecord`, action, data, method);
+        }
+    }
+
+    /**
+     * 转盘
+     */
+    export class Turntable{
+        public static GetTurntableGiftList(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST"){
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/Turntable.getPrizeList`, action, data, method);
+        }
+
+        public static LuckDrawRequest(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST"){
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/Turntable.LuckDrawRequest`, action, data, method);
+        }
+
+        public static getPrizeRecord(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST"){
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/Turntable.getPrizeRecord`, action, data, method);
         }
     }
 }

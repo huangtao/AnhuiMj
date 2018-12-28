@@ -29,6 +29,7 @@ const { ccclass, property } = cc._decorator;
         getMahjongResName(card: number): string;
         getMahjongPaiHuaRes(card: number): cc.SpriteFrame;
         getMahjongPaiBeiRes(cardtype:string): cc.SpriteFrame;
+        getMahjongPaiHuaResOut(card: number): cc.SpriteFrame;
         getMahjong3DPaiBeiRes(cardtype:string): cc.SpriteFrame;
 
         getGamePhase():enGamePhase;
@@ -854,6 +855,8 @@ const { ccclass, property } = cc._decorator;
         private _daiDaPai:boolean;
         private _whoLose:boolean;
         private _tableWhere:number;
+        private _ftbz:boolean;
+        private _ifShiSanYao:boolean;
 
         public constructor(){    
             this._cellScore=1;
@@ -883,7 +886,9 @@ const { ccclass, property } = cc._decorator;
             this._daiDaPai = true;
             this._whoLose = true;
             this._checkGPS = false;
-            
+            this._ftbz = true;
+            this._ifShiSanYao = true;
+
         }
         
         /**
@@ -927,7 +932,10 @@ const { ccclass, property } = cc._decorator;
             IfZhanZhuang:boolean,
             IfDaiDaPai:boolean,
             IfWhoLose:boolean,
-            tableWhere:number
+            tableWhere:number,
+            ftbz:boolean,
+            ifShiSanYao:boolean,
+
         ):void{      
             this._playerNum=palyerNum;
             this._waitTimeNum=waitTimeNum;
@@ -963,6 +971,8 @@ const { ccclass, property } = cc._decorator;
             this._gangFen = IfGangFen;
             this._tableWhere = tableWhere;
             this._checkGPS = checkGPS;
+            this._ftbz = ftbz;
+            this._ifShiSanYao = ifShiSanYao;
         }
         /**
          * 是否保留房间
@@ -1162,6 +1172,12 @@ const { ccclass, property } = cc._decorator;
         }
         public get tableWhere():number{
             return this._tableWhere;
+        }
+        public get ftbz():boolean{
+            return this._ftbz;
+        }
+        public get ifShiSanYao():boolean{
+            return this._ifShiSanYao;
         }
         
         /**

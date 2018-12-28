@@ -20,9 +20,9 @@ export default class LHZMJ_JieShuan extends cc.Component {
     @property([cc.Label])
     lbl_HuCardType: cc.Label[] = [];
     @property(cc.Sprite)
-    img_banker: cc.Sprite=null;
+    img_banker: cc.Sprite[]=[];
     @property(cc.Sprite)
-    img_creator: cc.Sprite=null;
+    img_creator: cc.Sprite[]=[];
 
     @property(cc.Sprite)
     img_dianpao: cc.Sprite=null;
@@ -234,15 +234,23 @@ export default class LHZMJ_JieShuan extends cc.Component {
 
    //     this.lbl_tableRule.string=msg; 
         //显示庄家位置,相对于自己
+        cc.log(M_LHZMJClass.ins.BankerChair);
+        cc.log(M_LHZMJClass.ins.SelfChair);
         var bankerpos=(M_LHZMJClass.ins.BankerChair-M_LHZMJClass.ins.SelfChair+4)%4;
-       
-          this.img_banker.node.y = LHZMJ_JieShuan.BankerPos[bankerpos].y + 65;
-           let creatorPos = (M_LHZMJClass.ins.getTableConfig().tableCreatorChair - M_LHZMJClass.ins.SelfChair + 4)%4;
-            this.img_creator.node.y = LHZMJ_JieShuan.BankerPos[bankerpos].y + 25;
+        for (var i = 0; i < this.img_banker.length; i++) {
+           if(i == bankerpos){
+              this.img_banker[i].node.active = true;     
+           }else{
+              this.img_banker[i].node.active = false;
+           }
+        }
+          
+          let creatorPos = (M_LHZMJClass.ins.getTableConfig().tableCreatorChair - M_LHZMJClass.ins.SelfChair + 4)%4;
+          this.img_creator[creatorPos].node.active = true;
 
         //显示玩家结算数据,本家，对家,上家，下家
         var me=M_LHZMJClass.ins.SelfChair;
-                if(balanceData.playerBalance[me].TotalScore>0){
+        if(balanceData.playerBalance[me].TotalScore>0){
             M_LHZMJVoice.PlayCardType(`/sound/win.mp3`);     
             this.img_ying.node.active = true;
             this.img_shu.node.active = false;
@@ -325,6 +333,8 @@ export default class LHZMJ_JieShuan extends cc.Component {
                 }
               
             }
+        }else{
+            this.balanceAry[1].node.active = false;
         }
 
         /////
@@ -360,6 +370,8 @@ export default class LHZMJ_JieShuan extends cc.Component {
                     this.img_hu[2].node.active=true;
                 }
             }
+        }else{
+            this.balanceAry[2].node.active = false;
         }
 
         //////
@@ -396,6 +408,8 @@ export default class LHZMJ_JieShuan extends cc.Component {
                 }
                 
             }
+        }else{
+            this.balanceAry[3].node.active = false;
         }
 
 
@@ -498,7 +512,11 @@ export default class LHZMJ_JieShuan extends cc.Component {
              lbl+="明杠+"+balanceData.JieSuan[3]*3+" ";
         }
         if(balanceData.JieSuan[5]>0){
-             lbl+="补杠+"+balanceData.JieSuan[5]*3+" ";
+            if(LHZMJ.ins.iclass.getRealUserNum() ==4){
+                lbl+="补杠+"+balanceData.JieSuan[5]*3+" ";
+            }else{
+                lbl+="补杠+"+balanceData.JieSuan[5]*2+" ";
+            }
         }
         if(balanceData.JieSuan[6]>0){
             if(LHZMJ.ins.iclass.getRealUserNum() ==4){

@@ -1922,7 +1922,6 @@ const { ccclass, property } = cc._decorator;
                     needCardZFB++;
                     i++;
                 }
-
                 //最后一张 或 不连张
                 else
                 {
@@ -1930,70 +1929,70 @@ const { ccclass, property } = cc._decorator;
                 }
             }
 
-            var needCard2:number = 0;
-            var isreal0:boolean = false;
-            for (var i = 0; i < vectorZFB.length; i++)//组成箭
-            {
-                if (i != vectorZFB.length - 1 && (vectorZFB[i] == 53|| vectorZFB[i] == 54|| vectorZFB[i] == 55))
-                {
-                    isreal0 = true;
-                    var zhong:number = -1;
-                    var fa:number = -1;
-                    var bai:number = -1;
+            // var needCard2:number = 0;
+            // var isreal0:boolean = false;
+            // for (var i = 0; i < vectorZFB.length; i++)//组成箭
+            // {
+            //     if (i != vectorZFB.length - 1 && (vectorZFB[i] == 53|| vectorZFB[i] == 54|| vectorZFB[i] == 55))
+            //     {
+            //         isreal0 = true;
+            //         var zhong:number = -1;
+            //         var fa:number = -1;
+            //         var bai:number = -1;
 
-                    for (var j = i; j < vectorZFB.length; j++)
-                    {
-                        if (zhong == -1 && vectorZFB[j] == 53)
-                        {
-                            zhong = j;
-                        }
-                        if (fa == -1 && vectorZFB[j] == 54)
-                        {
-                            fa = j;
-                        }
-                        if (bai == -1 && vectorZFB[j] == 55)
-                        {
-                            bai = j;
-                        }
-                    }
+            //         for (var j = i; j < vectorZFB.length; j++)
+            //         {
+            //             if (zhong == -1 && vectorZFB[j] == 53)
+            //             {
+            //                 zhong = j;
+            //             }
+            //             if (fa == -1 && vectorZFB[j] == 54)
+            //             {
+            //                 fa = j;
+            //             }
+            //             if (bai == -1 && vectorZFB[j] == 55)
+            //             {
+            //                 bai = j;
+            //             }
+            //         }
 
-                    if (zhong != -1)
-                    {
-                        i++;
-                    }
-                    if(zhong==-1)
-                    {
-                        needCard2++;
-                    }
-                    if (fa != -1)
-                    {
-                        i++;
-                    }
-                    if (fa == -1)
-                    {
-                        needCard2++;
-                    }
-                    if (bai != -1)
-                    {
-                        i++;
-                    }
-                    if (bai == -1)
-                    {
-                        needCard2++;
-                    }
-                }
-            }
-            if(isreal0)
-            {
-                needCardZFB = (needCardZFB <= needCard2) ? needCardZFB : needCard2;
-            }
-            else
-            {
-                if(needCard2!=0)
-                {
-                    needCardZFB = (needCardZFB <= needCard2) ? needCardZFB : needCard2;
-                }
-            }
+            //         if (zhong != -1)
+            //         {
+            //             i++;
+            //         }
+            //         if(zhong==-1)
+            //         {
+            //             needCard2++;
+            //         }
+            //         if (fa != -1)
+            //         {
+            //             i++;
+            //         }
+            //         if (fa == -1)
+            //         {
+            //             needCard2++;
+            //         }
+            //         if (bai != -1)
+            //         {
+            //             i++;
+            //         }
+            //         if (bai == -1)
+            //         {
+            //             needCard2++;
+            //         }
+            //     }
+            // }
+            // if(isreal0)
+            // {
+            //     needCardZFB = (needCardZFB <= needCard2) ? needCardZFB : needCard2;
+            // }
+            // else
+            // {
+            //     if(needCard2!=0)
+            //     {
+            //         needCardZFB = (needCardZFB <= needCard2) ? needCardZFB : needCard2;
+            //     }
+            // }
 
             needCard = needCardDNXB + needCardZFB;
 

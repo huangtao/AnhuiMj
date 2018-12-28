@@ -31,8 +31,6 @@ export default class SkinPlayerControl extends cc.Component {
     public skinPlayer: SkinPlayer[];
     //游戏信息
     public gameInfo:GameInfo = null;
-
-    public effectCard:PDK_skinCards = null;
    
     onLoad() {
         this.gameInfo = PDK.ins.iview.GetGameInfo()
@@ -40,20 +38,18 @@ export default class SkinPlayerControl extends cc.Component {
         this.skinPlayer = new Array(this.gameInfo.PlayerCount);
 
         this.skinPlayer[1] = cc.instantiate(this.prefab_playerRight).getComponent<SkinPlayer>(SkinPlayer);
-        this.node.addChild(this.skinPlayer[1].node);
+        this.node.addChild(this.skinPlayer[1].node,2);
         this.skinPlayer[2] = cc.instantiate(this.prefab_playerTop).getComponent<SkinPlayer>(SkinPlayer);
-        this.node.addChild(this.skinPlayer[2].node);
+        this.node.addChild(this.skinPlayer[2].node,1);
         this.skinPlayer[3] = cc.instantiate(this.prefab_playerLeft).getComponent<SkinPlayer>(SkinPlayer);
-        this.node.addChild(this.skinPlayer[3].node);
+        this.node.addChild(this.skinPlayer[3].node,3);
         // this.skinPlayer[5] = cc.instantiate(this.prefab_playerLeft).getComponent<SkinPlayer>(SkinPlayer);
         // this.node.addChild(this.skinPlayer[5].node);
         this.skinPlayer[0] = cc.instantiate(this.prefab_playerDown).getComponent<SkinPlayer>(SkinPlayer);
-        this.node.addChild(this.skinPlayer[0].node);
+        this.node.addChild(this.skinPlayer[0].node,5);
         for (var i = 0; i < this.skinPlayer.length; i++) {
             this.skinPlayer[i].SetChair(i);
         }
-        this.effectCard = cc.instantiate(this.prefab_skinCard).getComponent<PDK_skinCards>(PDK_skinCards);
-        this.node.addChild(this.effectCard.node);
 
         console.log("OnLoad");
         console.log(this.skinPlayer);
@@ -64,7 +60,6 @@ export default class SkinPlayerControl extends cc.Component {
         for (var i = 0; i < this.skinPlayer.length; i++) {
             this.skinPlayer[i].Init();
         }
-        this.effectCard.node.active = false;
     }
     public SetPlayerTransForm(isCreateTable: boolean) {
         for (var i = 0; i < this.skinPlayer.length; i++) {
@@ -75,7 +70,6 @@ export default class SkinPlayerControl extends cc.Component {
         for (var i = 0; i < this.skinPlayer.length; i++) {
             this.skinPlayer[i].Reset();
         }
-        this.effectCard.node.active = false;
     }
     public SelfReadyClear() {
         for (var i = 0; i < this.skinPlayer.length; i++) {
@@ -87,6 +81,11 @@ export default class SkinPlayerControl extends cc.Component {
             this.skinPlayer[i].HideZhishi();
         }
         this.skinPlayer[chair].ShowZhishi();
+    }
+    public clearAllOutCards() {
+        for (var i = 0; i < this.skinPlayer.length; i++) {
+            this.skinPlayer[i].clearOutCardsNode();
+        }
     }
     //==================================== 常用 结束 =======================================
     //==================================== 动画 开始 =======================================
@@ -267,8 +266,8 @@ export default class SkinPlayerControl extends cc.Component {
     /**
      * 显示玩家打出的牌
      */   
-    public showOutCard(cChair: number,cards:number[],cardType:CardType = CardType.Error){
-        this.skinPlayer[cChair].showOutCard(cards,cardType);
+    public showOutCard(cChair: number,cards:number[],cardType:CardType = CardType.Error,isRoundEnd:boolean = false,isNeedSound:boolean = true){
+        this.skinPlayer[cChair].showOutCard(cards,cardType,isRoundEnd,isNeedSound);
     }
     /**
      * 显示各玩家剩余手牌信息
@@ -277,29 +276,9 @@ export default class SkinPlayerControl extends cc.Component {
         for(let i = 0;i<chairList.length;i++){
             let cChair = PDK.ins.iclass.GetClientChair(chairList[i]);
             if(cChair != 0){
-                this.showOutCard(cChair,cardsList[i]); 
+                this.showOutCard(cChair,cardsList[i],CardType.Error,true,false); 
             }
         }
-    }
-
-
-    //显示先出牌的飞牌动画
-    public showFristCardAni(value:number,chair:number,data: M_PDK_GameMessage.CMD_S_GameStart){
-        this.effectCard.node.active = true;
-        this.effectCard.node.opacity = 255;
-        this.effectCard.node.setPosition(0,0);
-        this.effectCard.createCard(value);
-        let toPos = new cc.Vec2(this.skinPlayer[chair].node.getPositionX()-70,this.skinPlayer[chair].node.getPositionY())
-        let action = cc.spawn(cc.moveTo(0.25,toPos), cc.scaleTo(0.5, 0.5),cc.fadeOut(1));
-        let callback = cc.callFunc(function(){
-            this.effectCard.node.active = false;
-            this.skinPlayer[chair].showPlayerTips(3);
-            PDK.ins.iview.Rec_GameStart(data,true);
-        },this)
-        let  actionsequence = cc.sequence(cc.delayTime(0.5),action,callback);
-
-        this.effectCard.node.runAction(actionsequence);
-
     }
     //==================================== 辅助 开始 =======================================
     /**

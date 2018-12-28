@@ -40,7 +40,7 @@ export default class GameWanFa extends UIBase<any> {
     		return;
     	}
 
-        this.node.y = 0;
+        // this.node.y = 360;
         this.sp_bg.node.height = 360;
         this.layout.node.height = 50;
         this.sp_bg.node.setAnchorPoint(cc.p(0.5,1));
@@ -105,7 +105,12 @@ export default class GameWanFa extends UIBase<any> {
 
             for (var index = 0; index < newLineAttrList.length; ++index) {
                 let attrInfo = newLineAttrList[index];
-                attrInfo.node.removeFromParent();
+
+                if (1 == attrInfo.node.parent.childrenCount) {
+                    this._itemArray[idx].node.removeFromParent();
+                } else {
+                    attrInfo.node.removeFromParent();
+                }
 
                 let prefab = cc.instantiate(this.wanfaItemPrefab);
                 let item: GameWanFaItem = prefab.getComponent(GameWanFaItem);
@@ -114,20 +119,21 @@ export default class GameWanFa extends UIBase<any> {
             }
         }
 
-        this.autoFormSize();
+        this.layout.updateLayout();
+
+        this.scheduleOnce(()=>{
+            this.autoFormSize();
+        },0.01);
     }
 
     /**
      * 根据玩法个数自适应弹窗大小
      */
-    public autoFormSize() {
-        this.layout.updateLayout();
-        cc.info("layout的大小："+this.layout.node.getContentSize());
-        
+    public autoFormSize() {        
         if (this.layout.node.getContentSize().height >= 240) {
             let diffY = this.layout.node.getContentSize().height - 240;
             this.sp_bg.node.height += diffY;
-            this.node.setPositionY(this.node.y + diffY / 2);
+            this.node.y = (this.node.y + diffY / 2);
         }
     }
 }

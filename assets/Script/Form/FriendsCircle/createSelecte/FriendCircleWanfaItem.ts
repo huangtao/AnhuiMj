@@ -100,6 +100,7 @@ export class FriendCircleWanfaItem extends cc.Component {
      */
     private _isAdmin: boolean = false;
 
+    private _showIdx: number = 0;
     /**
      * 选择亲友圈玩法选中事件注册
      */
@@ -112,9 +113,10 @@ export class FriendCircleWanfaItem extends cc.Component {
     /**
      * 初始化界面显示
      */
-    public initShow(data: FriendCircleRule, isAdmin?: boolean) {
+    public initShow(data: FriendCircleRule, isAdmin?: boolean, idx: number = 1) {
         this._ruleInfo = data;
         this._isAdmin = isAdmin;
+        this._showIdx = idx;
 
         // 初始化默认显示
         if (this.node_unLockStatus && this.node_lockStatus && this.node_curIcon) {
@@ -216,7 +218,7 @@ export class FriendCircleWanfaItem extends cc.Component {
      */
     public addRule() {
         // 创建玩法
-        Global.Instance.UiManager.ShowUi(UIName.SelectGame, { act: null, isFriendCircle: true, isAddRule: !this._bUnlocked });
+        Global.Instance.UiManager.ShowUi(UIName.SelectGame, { act: null, friendCircle:{ isFriendCircle: true, isAddRule: !this._bUnlocked, modifyRuleSortId: this._showIdx }});
     }
 
     /**
@@ -269,7 +271,7 @@ export class FriendCircleWanfaItem extends cc.Component {
         FriendCircleDataCache.Instance.CurSelectedRule = this._ruleInfo;
 
         // 创建玩法
-        Global.Instance.UiManager.ShowUi(UIName.SelectGame,{act:null,isFriendCircle: true, isAddRule: !this._bUnlocked});
+        Global.Instance.UiManager.ShowUi(UIName.SelectGame,{act:null,friendCircle:{isFriendCircle: true, isAddRule: !this._bUnlocked,modifyRuleSortId: this._showIdx }});
     }
 
     /**

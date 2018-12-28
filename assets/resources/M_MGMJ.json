@@ -123,22 +123,13 @@
             "parentAttr": null,
             "childrenAttr": null,
             "itemList": [
-                {
-                    "nodeType": "TOGGLE_CHECKBOX",
+                 {
+                    "nodeType": "TOGGLE_SINGLE",
                     "list": [
                         {
-                            "attr": "zhanZhuang",
-                            "value": true,
-                            "desc": "占庄",
-                            "enabled": false,
-                            "defaultSelected": false,
-                            "parentAttr": null,
-                            "childrenAttr": null
-                        },
-                        {
-                            "attr": "QiangGangHu",
-                            "value": true,
-                            "desc": "抢杠胡",
+                            "attr": "DianPao",
+                            "value": 0,
+                            "desc": "自摸胡",
                             "enabled": true,
                             "defaultSelected": true,
                             "parentAttr": null,
@@ -146,8 +137,40 @@
                         },
                         {
                             "attr": "DianPao",
+                            "value": 1,
+                            "desc": "点炮三家付",
+                            "enabled": true,
+                            "defaultSelected": false,
+                            "parentAttr": null,
+                            "childrenAttr": null
+                        }
+                    ]
+                },
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "attr": "ifShiSanYao",
                             "value": true,
-                            "desc": "可点炮",
+                            "desc": "带十三幺",
+                            "enabled": true,
+                            "defaultSelected": true,
+                            "parentAttr": null,
+                            "childrenAttr": null
+                        },
+                        {
+                            "attr": "ftbz",
+                            "value": true,
+                            "desc": "逢头必战",
+                            "enabled": true,
+                            "defaultSelected": true,
+                            "parentAttr": null,
+                            "childrenAttr": null
+                        },
+                        {
+                            "attr": "QiangGangHu",
+                            "value": true,
+                            "desc": "抢杠胡",
                             "enabled": true,
                             "defaultSelected": false,
                             "parentAttr": null,
@@ -252,6 +275,11 @@
             "attrName": "IsRecordScoreRoom",
             "value": false,
             "desc":"是否是记分场"
+        },
+        {
+            "attrName": "zhanZhuang",
+            "value": true,
+            "desc": "占庄"
         }
     ]
 }

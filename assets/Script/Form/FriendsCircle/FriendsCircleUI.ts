@@ -171,19 +171,43 @@ export default class FriendsCircleUI extends UIBase<any> {
         this.lab_peopleNum.string = "";
         this.lab_myTodayScore.string = "";
         this.lab_myTodayGameNum.string = "";
-
-        this._selectedFriendCircleComp = <CreateSelecteFriendsCircle>this.node_selectFriendCircle.getComponent("CreateSelecteFriendsCircle");
-
-        // 注册监听
-        FriendCircleWebHandle.setModifyFriendCirleInfoHandle(new Action(this, this.modifyNickNoticHandle));
     }
 
     public OnShow() {
         super.OnShow();
+        this._selectedFriendCircleComp = <CreateSelecteFriendsCircle>this.node_selectFriendCircle.getComponent("CreateSelecteFriendsCircle");
+
+        // 注册监听
+        FriendCircleWebHandle.setModifyFriendCirleInfoHandle(new Action(this, this.modifyNickNoticHandle));
+        // 初始化选择亲友圈界面
+        let selectFriendForm = <CreateSelecteFriendsCircle>this.node_selectFriendCircle.getComponent("CreateSelecteFriendsCircle");
 
         // 请求亲友圈列表
+        this.UiManager.ShowLoading("正在请求数据...");
         let act = new Action(this, this.requestFriendCircleListCb);
         FriendCircleWebHandle.requestFriendCircleList(act);
+
+        // 注册选择亲友圈界面选择玩法监听回调
+        let selectFriendAct = new Action(this, (friendInfo) => {
+            this.updateFriendInfoShow();
+        });
+
+        selectFriendForm.registSelectFriendClickEvent(selectFriendAct);
+
+        // 注册创建房间面选择亲友圈玩法回调
+        let selectFriendruleAct = new Action(this, (ruleInfo) => {
+            this.node_selectFriendCircle.active = false;
+
+            // 刷新亲友积分显示
+            this.updateMyStatisticsShow();
+
+            // 显示亲友圈信息
+            this.btn_record.node.active = true;
+            this.enterTableList(ruleInfo);
+        });
+
+        selectFriendForm.registSelectFriendRuleClickEvent(selectFriendruleAct);
+        FriendCircleWebHandle.setDealApplyMsgHandle(new Action(this, this.updateMsgRedPointShow));
     }
 
     /**
@@ -221,7 +245,7 @@ export default class FriendsCircleUI extends UIBase<any> {
         if (this.sp_headImg) {
             LoadHeader(friendInfo.header, this.sp_headImg);
         }
-        
+
         // 更新亲友圈昵称
         if (friendInfo.name && this.lab_circleIName) {
             this.lab_circleIName.string = friendInfo.name;
@@ -241,6 +265,9 @@ export default class FriendsCircleUI extends UIBase<any> {
 
         // 更新我的战绩数据统计显示
         this.updateMyStatisticsShow();
+
+        // 更新亲友圈消息红点显示
+        this.updateMsgRedPointShow();
     }
 
     /**
@@ -296,7 +323,7 @@ export default class FriendsCircleUI extends UIBase<any> {
         let data = getTabBeginEndTime();
         let _beginTime = data.beginTime;
         let _endTime = data.endTime;
-
+        
         FriendCircleWebHandle.GroupGameStat(parseInt(curFriendCircle.ID), curRule.gameId, userId, 2, "", 0, 0, _beginTime, _endTime, new Action(this, (res) => {
             if ("success" == res.status) {
                 let memberInfo: FriendCircleMember = res.data[0];
@@ -318,6 +345,18 @@ export default class FriendsCircleUI extends UIBase<any> {
             }
         }));
     }
+
+    /**
+     * 更新消息红点显示
+     */
+    public updateMsgRedPointShow() {
+        if (FriendCircleDataCache.Instance.UnDealMessageList.Count > 0 && FriendCircleDataCache.Instance.selfIsAdministrator()) {
+            this.sp_msgRedPoint.active = true;
+        } else {
+            this.sp_msgRedPoint.active = false;
+        }
+    }
+
 
     /**
      * 
@@ -407,36 +446,34 @@ export default class FriendsCircleUI extends UIBase<any> {
     }
 
     /**
-     * 管理员同意加入亲友圈消息处理
-     */
+    * 玩家申请加入亲友圈消息处理
+    */
     private userReqJoinMsg(msg: SystmPushMessage) {
         // 显示消息红点
         if (this.sp_msgRedPoint) {
-            // this.sp_msgRedPoint.active = true;
+            this.sp_msgRedPoint.active = true;
         }
-
         if (this.node_selectFriendCircle.active && this._selectedFriendCircleComp) {
             this._selectedFriendCircleComp.userReqJoinMsg(msg.EventData);
         }
     }
 
+    
     /**
-    * 玩家申请加入亲友圈消息处理
-    */
+     * 管理员同意加入亲友圈消息处理
+     */
     private agreeJoinFriendCircleMsg(msg: SystmPushMessage) {
-        if(!msg.EventData || !msg.EventData.friendName) {
+        if (!msg.EventData || !msg.EventData.friendName) {
             return;
         }
         this.UiManager.ShowMsgBox("恭喜您，已加入" + msg.EventData.friendName + "的亲友圈，请文明游戏，祝您一周七天乐!");
-        
-        FriendCircleWebHandle.requestFriendCircleList(new Action(this, (res)=>{
+
+        FriendCircleWebHandle.requestFriendCircleList(new Action(this, (res) => {
             if (this.node_selectFriendCircle.active) {
                 // 亲友圈列表进行刷新
                 this._selectedFriendCircleComp.init()
             }
         }));
-
-        
     }
 
     /**
@@ -488,11 +525,11 @@ export default class FriendsCircleUI extends UIBase<any> {
 
         let gameRule = StrToObject(ruleInfo.ruleStr);
         let gameInfo = Global.Instance.DataCache.GameList.GetGame(ruleInfo.gameId);
-        
-        if(!gameInfo) {
+
+        if (!gameInfo) {
             return;
         }
-        
+
         Global.Instance.UiManager.ShowUi(UIName.GameWanFa, { rule: gameRule, modelName: gameInfo.ModuleName });
     }
 
@@ -631,7 +668,6 @@ export default class FriendsCircleUI extends UIBase<any> {
                     return;
                 }
 
-                this.UiManager.ShowLoading("正在进入房间...");
                 Global.Instance.DataCache.GroupId = parseInt(curFriendCircle.ID);
                 Global.Instance.GameHost.TryEnterRoom(room.ID, QL_Common.EnterRoomMethod.RoomID, rule, { IsFreeCreate: true });
             } else {
@@ -640,20 +676,20 @@ export default class FriendsCircleUI extends UIBase<any> {
             }
         }.bind(this)
 
-        Global.Instance.UiManager.ShowLoading("正在请求数据...");
+        this.UiManager.ShowLoading("正在进入房间...");
         // 判断是否玩家被禁玩
         FriendCircleWebHandle.GroupUserGameBan(parseInt(friendInfo.ID), 2, 0, ruleInfo.gameId, "Q", userId, new Action(this, (res) => {
-            if ("success" != res.status) {
+            if (!res.status || "success" != res.status) {
                 this.UiManager.CloseLoading();
                 this.UiManager.ShowTip("请求数据失败!");
                 return;
             }
 
             if (res.isBan) {
+                Global.Instance.UiManager.CloseLoading();
                 this.UiManager.ShowTip("您没有权限进入该玩法,请联系圈主!");
                 return;
             }
-
             createTable();
         }));
     }
@@ -669,11 +705,14 @@ export default class FriendsCircleUI extends UIBase<any> {
 
         if (localFriendCircle) {
             let localInfo = StrToObject(localFriendCircle);
+            // 请求消息列表
+            FriendCircleWebHandle.getMessageList(localInfo.groupId);
 
             // 请求玩法列表
             FriendCircleWebHandle.requestFriendCircRuleList(localInfo.groupId, new Action(this, (res) => {
                 // 请求成员列表回调
                 FriendCircleWebHandle.getMemberList(localInfo.groupId, 0, 10, new Action(this, () => {
+                    this.UiManager.CloseLoading();
                     // 判断亲友圈玩法的有效性(因为存在圈主把玩家踢出去或者玩家自动退出的情况)
                     if (FriendCircleDataCache.Instance.isFriendCircleMember(localInfo.groupId)
                         && FriendCircleDataCache.Instance.isValidRule(localInfo.ruleId, localInfo.groupId)) {
@@ -700,26 +739,10 @@ export default class FriendsCircleUI extends UIBase<any> {
                 }))
             }));
         } else {
+            this.UiManager.CloseLoading();
             selectFriendForm.init();
             this.node_selectFriendCircle.active = true;
         }
-
-        // 注册选择亲友圈界面选择玩法监听回调
-        let selectFriendAct = new Action(this, (friendInfo) => {
-            this.updateFriendInfoShow();
-        });
-
-        selectFriendForm.registSelectFriendClickEvent(selectFriendAct);
-
-        // 注册创建房间面板选择亲友圈监听回调
-        let selectFriendruleAct = new Action(this, (ruleInfo) => {
-            this.node_selectFriendCircle.active = false;
-            // 显示亲友圈信息
-            this.btn_record.node.active = true;
-            this.enterTableList(ruleInfo);
-        });
-
-        selectFriendForm.registSelectFriendRuleClickEvent(selectFriendruleAct);
     }
 
     /**

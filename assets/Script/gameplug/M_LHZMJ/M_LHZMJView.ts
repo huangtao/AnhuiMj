@@ -962,7 +962,11 @@ export default class M_LHZMJView extends cc.Component implements ILHZMJView {
         let title : string;
         let context : string;
         let tableID : number = M_LHZMJClass.ins.TableID;
-        title = "红中麻将 房间号:" + tableID + " "+curPlayerCount+"缺"+(4-curPlayerCount);
+        if(M_LHZMJClass.ins.TableConfig._groupid > 0){
+            title = "红中麻将 亲友圈房间号:" + tableID + " 圈号" + M_LHZMJClass.ins.TableConfig._groupid.toString()+" "+curPlayerCount+"缺"+(4-curPlayerCount);
+        }else{
+            title = "红中麻将 房间号:" + tableID + " "+curPlayerCount+"缺"+(4-curPlayerCount);
+        }
 
         let wanfa:string=  "";
 

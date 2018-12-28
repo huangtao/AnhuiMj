@@ -22,11 +22,12 @@ import { ReConnectBase } from "../../SceneCtrl/ReConnectBase";
 import { NativeCtrl } from "../../Native/NativeCtrl";
 import MJ_UserData from "../MJCommon/MJ_UserData";
 import { ConstValues } from "../../Global/ConstValues";
-import { Action } from "../../CustomType/Action";
+import { Action, ActionNet } from "../../CustomType/Action";
 import { LastCardIndex } from '../M_BiJi/GameHelp/BJ_GameHelp';
 import { ResumeGame } from "../../Form/ResumeGame/ResumeGame";
 import { LocalStorage } from "../../CustomType/LocalStorage";
 import { ResumeGameParam } from "../../CustomType/ResumeGameParam";
+import { WebRequest } from "../../Net/Open8hb";
 
 export abstract class GameBaseClass extends ReConnectBase {
 
@@ -293,7 +294,7 @@ export abstract class GameBaseClass extends ReConnectBase {
             const node = cc.instantiate(prefab);
             const m = node.getComponent(GameSettingForm);
             m.registerCanvasSwtichClick(new Action(this, this.canvaSwitchClickEvent));
-            m.Show(null, { canvas: this.is2D() });
+            m.Show(null, { canvas: this.getCurSceneCanvas() });
             m.setEnableChange2D(enableChange2D);
         }.bind(this));
     }
@@ -440,6 +441,36 @@ export abstract class GameBaseClass extends ReConnectBase {
     public CloseSocket() {
         Global.Instance.Socket.Close();
     }
+
+
+    /**
+     * 根据提供的setId获取我那家战绩的分享链接
+     * @param setId 游戏结算后获得的setId
+     * @param callback 获得分享链接的回调
+     */
+    public getRecordShareUrl(setId: number, callback: (url: string) => void) {
+
+        let data = WebRequest.DefaultData(true);
+        data.AddOrUpdate("setId", setId);
+        let action = new ActionNet(this, (obj) => {
+            callback(obj.url)
+        }, (o) => {
+            callback("");
+        });
+        WebRequest.replay.getRecordUrl(action, data);
+
+        // let url = `${ConfigData.webserverinterfaceUrl}/web/ShareReplay.showrec?setId=${setId}`;
+        // if (cc.isValid(callback)) {
+        //     callback.apply(this, [url]);
+        // }
+    }
+
+
+
+
+
+
+
 
 
     onLoad(): void {
@@ -797,6 +828,9 @@ export abstract class GameBaseClass extends ReConnectBase {
         cc.log("我自己的椅子号" + this._chairID);
         for (let i = 0, j = 0; i < this.TablePlayer.length; i++) {
             if (this.TablePlayer[i] != null) {
+                if (change.GamePlayerScore[j].PlayerId == 0 && change.GameVoteType == 1) {
+                    j++;
+                }
                 scoreList[i] = change.GamePlayerScore[j].GameScore;
                 j++;
             }

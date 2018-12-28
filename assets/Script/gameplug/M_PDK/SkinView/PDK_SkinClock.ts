@@ -93,13 +93,13 @@ export default class SkinClock extends cc.Component {
         this.SetLabelValue("", this.timerCount);
         this.schedule(this.TimerHandle, 1 * PDK.ins.iclass.GetSpeed());
         if(cChair == 0){
-            this.node.setPosition(-90,-20);
+            this.node.setPosition(-90,-50);
         }else if(cChair == 1){
-            this.node.setPosition(585,180);
+            this.node.setPosition(420,80);
         }else if(cChair == 2){
-            this.node.setPosition(-100,300);
+            this.node.setPosition(0,180);
         }else if(cChair == 3){
-            this.node.setPosition(-585,180);
+            this.node.setPosition(-420,80);
         }
     }
     /**
@@ -125,12 +125,12 @@ export default class SkinClock extends cc.Component {
         }
         else {
             this.SetLabelValue(this.label_title, this.timerCount);
-            if(this.timerCount == 5){
+            if(this.timerCount == 3){
                 let action = cc.sequence(cc.rotateBy(0.05,20),cc.rotateBy(0.1,-40),cc.rotateBy(0.05,20));
                 this.node.runAction(cc.repeatForever(action));
             }
             if(this._cChair == 0){
-                if(this.timerCount > 5){
+                if(this.timerCount > 3){
                     VoicePlayer.PlaySysSound("clock_myself");
                 }else{
                     VoicePlayer.PlaySysSound("clock_myself2");

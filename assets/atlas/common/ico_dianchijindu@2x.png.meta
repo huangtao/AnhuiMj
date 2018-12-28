@@ -1,14 +1,23 @@
 {
   "ver": "1.0.0",
+<<<<<<< .mine
   "uuid": "af631b72-79b8-46a5-8826-0bc6a68720c1",
+=======
+  "uuid": "2d0186aa-dfe3-4195-a7f6-1393863376e4",
+>>>>>>> .r1780
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
     "ico_dianchijindu@2x": {
       "ver": "1.0.3",
+<<<<<<< .mine
       "uuid": "3fcbdf52-5df0-469e-8eae-d2f0017ca603",
       "rawTextureUuid": "af631b72-79b8-46a5-8826-0bc6a68720c1",
+=======
+      "uuid": "f74cc5d1-d4cf-41e9-b0e3-ad3409c5fff9",
+      "rawTextureUuid": "2d0186aa-dfe3-4195-a7f6-1393863376e4",
+>>>>>>> .r1780
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

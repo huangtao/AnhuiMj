@@ -33,17 +33,17 @@ export default class LHZMJ_DownSinglePool extends LHZMJ_SinglePoolBase {
 
             this.bmp_cardcolor.node.x=0;
             this.bmp_cardcolor.node.y=8;
-            this.bmp_cardcolor.node.scaleX=0.4;
-            this.bmp_cardcolor.node.scaleY=0.45;
+            this.bmp_cardcolor.node.scaleX=0.45;
+            this.bmp_cardcolor.node.scaleY=0.52;
             this.bmp_cardcolor.node.skewY=0;
 
             this.bmp_cardHide.node.x=0;
             this.bmp_cardHide.node.y=8;
-            this.bmp_cardHide.node.scaleX=0.44;
-            this.bmp_cardHide.node.scaleY=0.5;
+            this.bmp_cardHide.node.scaleX=0.45;
+            this.bmp_cardHide.node.scaleY=0.45;
             this.bmp_cardHide.node.skewY=0;
             this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiBeiRes("zuoyoupg@2x");
-            this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(card);
+            this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHua2D(card);
         }else{
             this.show3DCard();
         }
@@ -64,748 +64,520 @@ export default class LHZMJ_DownSinglePool extends LHZMJ_SinglePoolBase {
         return { width: 52,height: 45 };
     }
 
-    private show3DCard():void{
-
+     private show3DCard():void{
         switch(this._cardIndex){
             case 1:{
-                this.node.x=225.7;
-                this.node.y=-106.5;
-
-                this.bmp_cardback.node.width=75;
-                this.bmp_cardback.node.height=56;
-                this.bmp_cardback.node.scaleX=-1;
-
-                this.bmp_cardcolor.node.x=2;
-                this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.48;
-                this.bmp_cardcolor.node.scaleY=0.6;
-                this.bmp_cardcolor.node.skewY=11;
-
-                this.bmp_cardHide.node.x=2.1;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.55;
-                this.bmp_cardHide.node.skewY=7;
-
-                this.bmp_greenbg.node.x=2.1;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.48;
-                this.bmp_greenbg.node.scaleY=0.55;
-                this.bmp_greenbg.node.skewY=7;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_3p_10");
+                this.node.x=139;
+                this.node.y=-33;
+                this.node.setLocalZOrder(29);
+                this.bmp_cardcolor.node.x=1;
+                this.bmp_cardcolor.node.y=7;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
+                this.bmp_cardcolor.node.skewY=4.5;
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=7;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=4.5;
+                this.bmp_cardback.node.width = 64;
+                this.bmp_cardback.node.height = 52;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_1");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 2:{
-                this.node.x=220.7;
-                this.node.y=-72;
-
-                this.bmp_cardback.node.width=73;
-                this.bmp_cardback.node.height=55;
-                this.bmp_cardback.node.scaleX=-1;
-
-                this.bmp_cardcolor.node.x=2;
-                this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.48;
-                this.bmp_cardcolor.node.scaleY=0.6;
-                this.bmp_cardcolor.node.skewY=7;
-
-                this.bmp_cardHide.node.x=2.1;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.46;
-                this.bmp_cardHide.node.scaleY=0.53;
-                this.bmp_cardHide.node.skewY=7;
-
-                this.bmp_greenbg.node.x=2.1;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.46;
-                this.bmp_greenbg.node.scaleY=0.53;
-                this.bmp_greenbg.node.skewY=7;
-
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_3p_09");
+                this.node.x=137;
+                this.node.y=-1;
+                this.node.setLocalZOrder(28);
+                this.bmp_cardcolor.node.x=1;
+                this.bmp_cardcolor.node.y=7;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
+                this.bmp_cardcolor.node.skewY=3.5;
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=7;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=3.5;
+                this.bmp_cardback.node.width = 62;
+                this.bmp_cardback.node.height = 50;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_2");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 3:{
-                this.node.x=215.4;
-                this.node.y=-39.5;
-
-                this.bmp_cardback.node.width=71;
-                this.bmp_cardback.node.height=53;
-                this.bmp_cardback.node.scaleX=-1;
-
-                this.bmp_cardcolor.node.x=2;
-                this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.46;
-                this.bmp_cardcolor.node.scaleY=0.58;
-                this.bmp_cardcolor.node.skewY=7;
-
-                this.bmp_cardHide.node.x=1.8;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.44;
-                this.bmp_cardHide.node.scaleY=0.52;
-                this.bmp_cardHide.node.skewY=7;
-
-                this.bmp_greenbg.node.x=1.8;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.44;
-                this.bmp_greenbg.node.scaleY=0.52;
-                this.bmp_greenbg.node.skewY=7;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_3p_08");
+                this.node.x=134;
+                this.node.y=31;
+                this.node.setLocalZOrder(27);
+                this.bmp_cardcolor.node.x=1;
+                this.bmp_cardcolor.node.y=7;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
+                this.bmp_cardcolor.node.skewY=3.5;
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=7;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=3.5;
+                this.bmp_cardback.node.width = 62;
+                this.bmp_cardback.node.height = 50;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_3");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 4:{
-                this.node.x=211.4;
-                this.node.y=-8.9;
-
-                this.bmp_cardback.node.width=69;
-                this.bmp_cardback.node.height=53;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=132;
+                this.node.y=61;
+                this.node.setLocalZOrder(26);
                 this.bmp_cardcolor.node.x=1;
-                this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.46;
-                this.bmp_cardcolor.node.scaleY=0.58;
-                this.bmp_cardcolor.node.skewY=9;
-
-                this.bmp_cardHide.node.x=0.8;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.44;
-                this.bmp_cardHide.node.scaleY=0.52;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=0.8;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.44;
-                this.bmp_greenbg.node.scaleY=0.52;
-                this.bmp_greenbg.node.skewY=8;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_3p_07");
+                this.bmp_cardcolor.node.y=7;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
+                this.bmp_cardcolor.node.skewY=4.5;
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=7;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=4.5;
+                this.bmp_cardback.node.width = 60;
+                this.bmp_cardback.node.height = 48;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_4");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 5:{
-                this.node.x=207.2;
-                this.node.y=22.7;
-
-                this.bmp_cardback.node.width=69;
-                this.bmp_cardback.node.height=55;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=130;
+                this.node.y=91;
+                this.node.setLocalZOrder(25);
                 this.bmp_cardcolor.node.x=1;
-                this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.46;
-                this.bmp_cardcolor.node.scaleY=0.58;
-                this.bmp_cardcolor.node.skewY=9;
-
-                this.bmp_cardHide.node.x=0.8;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.44;
-                this.bmp_cardHide.node.scaleY=0.52;
-                this.bmp_cardHide.node.skewY=8;
-
-                 this.bmp_greenbg.node.x=0.8;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.44;
-                this.bmp_greenbg.node.scaleY=0.52;
-                this.bmp_greenbg.node.skewY=8;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_3p_06");
+                this.bmp_cardcolor.node.y=7;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
+                this.bmp_cardcolor.node.skewY=4.5;
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=7;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=4.5;
+                this.bmp_cardback.node.width = 58;
+                this.bmp_cardback.node.height = 48;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_5");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
-
             case 6:{
-                this.node.x=203.1;
-                this.node.y=54.1;
-
-                this.bmp_cardback.node.width=66;
+                this.node.x=128;
+                this.node.y=119;
+                this.node.setLocalZOrder(24);
                 this.bmp_cardback.node.height=52;
-                this.bmp_cardback.node.scaleX=-1;
-
-                this.bmp_cardcolor.node.x=1.7;
-                this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.41;
-                this.bmp_cardcolor.node.scaleY=0.56;
-                this.bmp_cardcolor.node.skewY=7;
-
-                this.bmp_cardHide.node.x=1.7;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.43;
+                this.bmp_cardback.node.scaleX=1;
+                this.bmp_cardcolor.node.x=1;
+                this.bmp_cardcolor.node.y=7;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
+                this.bmp_cardcolor.node.skewY=3.5;
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=7;
+                this.bmp_cardHide.node.scaleX=0.4;
                 this.bmp_cardHide.node.scaleY=0.5;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=1.7;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.43;
-                this.bmp_greenbg.node.scaleY=0.5;
-                this.bmp_greenbg.node.skewY=8;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_3p_05");
+                this.bmp_cardHide.node.skewY=3.5;
+                this.bmp_cardback.node.width = 58;
+                this.bmp_cardback.node.height = 48;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_6");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 7:{
-                this.node.x=198.3;
-                this.node.y=85;
-
-                this.bmp_cardback.node.width=66;
-                this.bmp_cardback.node.height=50;
-                this.bmp_cardback.node.scaleX=-1;
-
-                this.bmp_cardcolor.node.x=1.7;
-                this.bmp_cardcolor.node.y=9.6;
-                this.bmp_cardcolor.node.scaleX=0.41;
-                this.bmp_cardcolor.node.scaleY=0.54;
+                this.node.x=125;
+                this.node.y=148;
+                this.node.setLocalZOrder(23);
+                this.bmp_cardback.node.scaleX=1;
+                this.bmp_cardcolor.node.x=1;
+                this.bmp_cardcolor.node.y=7;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=7;
-
-                this.bmp_cardHide.node.x=1.5;
-                this.bmp_cardHide.node.y=9.2;
-                this.bmp_cardHide.node.scaleX=0.42;
-                this.bmp_cardHide.node.scaleY=0.49;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=1.5;
-                this.bmp_greenbg.node.y=9.2;
-                this.bmp_greenbg.node.scaleX=0.42;
-                this.bmp_greenbg.node.scaleY=0.49;
-                this.bmp_greenbg.node.skewY=8;
-
-
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_3p_04");
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=7;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=7;
+                this.bmp_cardback.node.width = 58;
+                this.bmp_cardback.node.height = 46;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_19");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 8:{
-                this.node.x=194.3;
-                this.node.y=114.2;
-
-                this.bmp_cardback.node.width=64;
-                this.bmp_cardback.node.height=48;
-                this.bmp_cardback.node.scaleX=-1;
-
-                this.bmp_cardcolor.node.x=1.3;
-                this.bmp_cardcolor.node.y=9.4;
+                this.node.x=124;
+                this.node.y=177;
+                this.node.setLocalZOrder(22);
+                this.bmp_cardback.node.scaleX=1;
+                this.bmp_cardcolor.node.x=1;
+                this.bmp_cardcolor.node.y=7;
                 this.bmp_cardcolor.node.scaleX=0.4;
-                this.bmp_cardcolor.node.scaleY=0.535;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=7;
-
-                this.bmp_cardHide.node.x=1.5;
-                this.bmp_cardHide.node.y=9.2;
-                this.bmp_cardHide.node.scaleX=0.42;
-                this.bmp_cardHide.node.scaleY=0.49;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=1.5;
-                this.bmp_greenbg.node.y=9.2;
-                this.bmp_greenbg.node.scaleX=0.42;
-                this.bmp_greenbg.node.scaleY=0.49;
-                this.bmp_greenbg.node.skewY=8;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_3p_03");
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=7;
+                this.bmp_cardHide.node.scaleX=0.;
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=7;
+                this.bmp_cardback.node.width = 56;
+                this.bmp_cardback.node.height = 46;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_22");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 9:{
-                this.node.x=190.2;
-                this.node.y=142.3;
-
-                this.bmp_cardback.node.width=62;
-                this.bmp_cardback.node.height=48;
-                this.bmp_cardback.node.scaleX=-1;
-
-                this.bmp_cardcolor.node.x=0.6;
-                this.bmp_cardcolor.node.y=9.4;
+                this.node.x=121;
+                this.node.y=206;
+                this.node.setLocalZOrder(21);
+                this.bmp_cardback.node.scaleX=1;
+                this.bmp_cardcolor.node.x=1;
+                this.bmp_cardcolor.node.y=7;
                 this.bmp_cardcolor.node.scaleX=0.4;
-                this.bmp_cardcolor.node.scaleY=0.53;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=7;
-
-                this.bmp_cardHide.node.x=1.1;
-                this.bmp_cardHide.node.y=9.2;
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=7;
                 this.bmp_cardHide.node.scaleX=0.4;
-                this.bmp_cardHide.node.scaleY=0.47;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=1.1;
-                this.bmp_greenbg.node.y=9.2;
-                this.bmp_greenbg.node.scaleX=0.4;
-                this.bmp_greenbg.node.scaleY=0.47;
-                this.bmp_greenbg.node.skewY=8;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_3p_02");
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=7;
+                this.bmp_cardback.node.width = 56;
+                this.bmp_cardback.node.height = 44;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_25");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
+
+            //第二行
             case 10:{
-                this.node.x=186.1;
-                this.node.y=171.5;
-
-                this.bmp_cardback.node.width=61;
-                this.bmp_cardback.node.height=47;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=196;
+                this.node.y=-34;
+                this.node.setLocalZOrder(19);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=8.5;
                 this.bmp_cardcolor.node.scaleX=0.4;
-                this.bmp_cardcolor.node.scaleY=0.51;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=7;
-
-                this.bmp_cardHide.node.x=1.1;
-                this.bmp_cardHide.node.y=8.3;
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=8.5;
                 this.bmp_cardHide.node.scaleX=0.4;
-                this.bmp_cardHide.node.scaleY=0.465;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=1.1;
-                this.bmp_greenbg.node.y=8.3;
-                this.bmp_greenbg.node.scaleX=0.4;
-                this.bmp_greenbg.node.scaleY=0.465;
-                this.bmp_greenbg.node.skewY=8;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_3p_01");
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=7;
+                this.bmp_cardback.node.width = 64;
+                this.bmp_cardback.node.height = 52;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_7");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
-
-
-
-
             case 11:{
-                this.node.x=284.5;
-                this.node.y=-106.5;
-
-                this.bmp_cardback.node.width=75;
-                this.bmp_cardback.node.height=56;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=192;
+                this.node.y=-1;
+                this.node.setLocalZOrder(18);
                 this.bmp_cardcolor.node.x=2;
                 this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.48;
-                this.bmp_cardcolor.node.scaleY=0.6;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=7;
 
-                this.bmp_cardHide.node.x=2.1;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.55;
+                this.bmp_cardHide.node.x=2;
+                this.bmp_cardHide.node.y=10.5;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
                 this.bmp_cardHide.node.skewY=7;
-
-                this.bmp_greenbg.node.x=2.1;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.48;
-                this.bmp_greenbg.node.scaleY=0.55;
-                this.bmp_greenbg.node.skewY=7;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_2p_10");
+                this.bmp_cardback.node.width = 64;
+                this.bmp_cardback.node.height = 50;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_8");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 12:{
-                this.node.x=278;
-                this.node.y=-72;
-
-                this.bmp_cardback.node.width=73;
-                this.bmp_cardback.node.height=55;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=189;
+                this.node.y=31;
+                this.node.setLocalZOrder(17);
                 this.bmp_cardcolor.node.x=2;
                 this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.48;
-                this.bmp_cardcolor.node.scaleY=0.6;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=7;
 
-                this.bmp_cardHide.node.x=2.1;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.46;
-                this.bmp_cardHide.node.scaleY=0.53;
+                this.bmp_cardHide.node.x=2;
+                this.bmp_cardHide.node.y=10.5;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
                 this.bmp_cardHide.node.skewY=7;
-
-                this.bmp_greenbg.node.x=2.1;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.46;
-                this.bmp_greenbg.node.scaleY=0.53;
-                this.bmp_greenbg.node.skewY=7;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_2p_09");
+                this.bmp_cardback.node.width = 62;
+                this.bmp_cardback.node.height = 50;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_9");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 13:{
-                this.node.x=272.3;
-                this.node.y=-39.8;
-
-                this.bmp_cardback.node.width=71;
-                this.bmp_cardback.node.height=53;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=187;
+                this.node.y=61;
+                this.node.setLocalZOrder(16);
                 this.bmp_cardcolor.node.x=2;
                 this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.46;
-                this.bmp_cardcolor.node.scaleY=0.58;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=7;
 
-                this.bmp_cardHide.node.x=1.8;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.44;
-                this.bmp_cardHide.node.scaleY=0.52;
+                this.bmp_cardHide.node.x=2;
+                this.bmp_cardHide.node.y=10.5;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
                 this.bmp_cardHide.node.skewY=7;
-
-                this.bmp_greenbg.node.x=1.8;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.44;
-                this.bmp_greenbg.node.scaleY=0.52;
-                this.bmp_greenbg.node.skewY=7;
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_2p_08");
+                this.bmp_cardback.node.width = 62;
+                this.bmp_cardback.node.height = 48;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_10");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 14:{
-                this.node.x=267;
-                this.node.y=-8.6;
-
-                this.bmp_cardback.node.width=70;
-                this.bmp_cardback.node.height=53;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=184;
+                this.node.y=92;
+                this.node.setLocalZOrder(15);
                 this.bmp_cardcolor.node.x=1;
-                this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.46;
-                this.bmp_cardcolor.node.scaleY=0.58;
+                this.bmp_cardcolor.node.y=8;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=9;
 
-                this.bmp_cardHide.node.x=0.8;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.44;
-                this.bmp_cardHide.node.scaleY=0.52;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=0.8;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.44;
-                this.bmp_greenbg.node.scaleY=0.52;
-                this.bmp_greenbg.node.skewY=8;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_2p_07");
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=8;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=9;
+                this.bmp_cardback.node.width = 60;
+                this.bmp_cardback.node.height = 48;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_11");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 15:{
-                this.node.x=260.4;
-                this.node.y=22.7;
-
-                this.bmp_cardback.node.width=69;
-                this.bmp_cardback.node.height=55;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=181;
+                this.node.y=120;
+                this.node.setLocalZOrder(14);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.46;
-                this.bmp_cardcolor.node.scaleY=0.58;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=9;
 
-                this.bmp_cardHide.node.x=0.8;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.44;
-                this.bmp_cardHide.node.scaleY=0.52;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=0.8;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.44;
-                this.bmp_greenbg.node.scaleY=0.52;
-                this.bmp_greenbg.node.skewY=8;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_2p_06");
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=10.5;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=9;
+                this.bmp_cardback.node.width = 58;
+                this.bmp_cardback.node.height = 48;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_12");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
-
             case 16:{
-                this.node.x=254.9;
-                this.node.y=54.1;
-
-                this.bmp_cardback.node.width=67;
-                this.bmp_cardback.node.height=52;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=178;
+                this.node.y=149;
+                this.node.setLocalZOrder(13);
                 this.bmp_cardcolor.node.x=1.7;
                 this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.41;
-                this.bmp_cardcolor.node.scaleY=0.56;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=7;
-
                 this.bmp_cardHide.node.x=1.7;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.43;
+                this.bmp_cardHide.node.y=10.5;
+                this.bmp_cardHide.node.scaleX=0.4;
                 this.bmp_cardHide.node.scaleY=0.5;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=1.7;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.43;
-                this.bmp_greenbg.node.scaleY=0.5;
-                this.bmp_greenbg.node.skewY=8;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_2p_05");
+                this.bmp_cardHide.node.skewY=7;
+                this.bmp_cardback.node.width = 58;
+                this.bmp_cardback.node.height = 46;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_20");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 17:{
-                this.node.x=249.6;
-                this.node.y=85;
-
-                this.bmp_cardback.node.width=66;
-                this.bmp_cardback.node.height=50;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=175;
+                this.node.y=178;
+                this.node.setLocalZOrder(12);
                 this.bmp_cardcolor.node.x=1.7;
                 this.bmp_cardcolor.node.y=9.6;
-                this.bmp_cardcolor.node.scaleX=0.41;
-                this.bmp_cardcolor.node.scaleY=0.54;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=7;
-
-                this.bmp_cardHide.node.x=1.5;
-                this.bmp_cardHide.node.y=9.2;
-                this.bmp_cardHide.node.scaleX=0.42;
-                this.bmp_cardHide.node.scaleY=0.49;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=1.5;
-                this.bmp_greenbg.node.y=9.2;
-                this.bmp_greenbg.node.scaleX=0.42;
-                this.bmp_greenbg.node.scaleY=0.49;
-                this.bmp_greenbg.node.skewY=8;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_2p_04");
+                this.bmp_cardHide.node.x=1.7;
+                this.bmp_cardHide.node.y=9.6;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=7;
+                this.bmp_cardback.node.width = 58;
+                this.bmp_cardback.node.height = 46;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_23");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 18:{
-                this.node.x=244.1;
-                this.node.y=114.2;
-
-                this.bmp_cardback.node.width=65;
-                this.bmp_cardback.node.height=48;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=173;
+                this.node.y=206;
+                this.node.setLocalZOrder(11);
                 this.bmp_cardcolor.node.x=1.3;
                 this.bmp_cardcolor.node.y=9.4;
                 this.bmp_cardcolor.node.scaleX=0.4;
-                this.bmp_cardcolor.node.scaleY=0.535;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=7;
-
-                this.bmp_cardHide.node.x=1.5;
-                this.bmp_cardHide.node.y=9.2;
-                this.bmp_cardHide.node.scaleX=0.42;
-                this.bmp_cardHide.node.scaleY=0.49;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=1.5;
-                this.bmp_greenbg.node.y=9.2;
-                this.bmp_greenbg.node.scaleX=0.42;
-                this.bmp_greenbg.node.scaleY=0.49;
-                this.bmp_greenbg.node.skewY=8;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_2p_03");
+                this.bmp_cardHide.node.x=1.3;
+                this.bmp_cardHide.node.y=9.4;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=7;
+                this.bmp_cardback.node.width = 56;
+                this.bmp_cardback.node.height = 44;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_26");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
+            //第三行
             case 19:{
-                this.node.x=239.3;
-                this.node.y=142.3;
-
-                this.bmp_cardback.node.width=63;
-                this.bmp_cardback.node.height=48;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=253;
+                this.node.y=-35;
+                this.node.setLocalZOrder(9);
                 this.bmp_cardcolor.node.x=0.6;
                 this.bmp_cardcolor.node.y=9.4;
                 this.bmp_cardcolor.node.scaleX=0.4;
-                this.bmp_cardcolor.node.scaleY=0.53;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=7;
-
-                this.bmp_cardHide.node.x=1.1;
-                this.bmp_cardHide.node.y=9.2;
+                this.bmp_cardHide.node.x=0.6;
+                this.bmp_cardHide.node.y=9.4;
                 this.bmp_cardHide.node.scaleX=0.4;
-                this.bmp_cardHide.node.scaleY=0.47;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=1.1;
-                this.bmp_greenbg.node.y=9.2;
-                this.bmp_greenbg.node.scaleX=0.4;
-                this.bmp_greenbg.node.scaleY=0.47;
-                this.bmp_greenbg.node.skewY=8;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_2p_02");
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=7;
+                this.bmp_cardback.node.width = 66;
+                this.bmp_cardback.node.height = 52;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_13");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 20:{
-                this.node.x=238.5;
-                this.node.y=171.5;
-
-                this.bmp_cardback.node.width=62;
-                this.bmp_cardback.node.height=47;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=248;
+                this.node.y=-3;
+                this.node.setLocalZOrder(8);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=8.5;
                 this.bmp_cardcolor.node.scaleX=0.4;
-                this.bmp_cardcolor.node.scaleY=0.51;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=7;
-
-                this.bmp_cardHide.node.x=1.1;
-                this.bmp_cardHide.node.y=8.3;
+                this.bmp_cardHide.node.x=1;
+                this.bmp_cardHide.node.y=8.5;
                 this.bmp_cardHide.node.scaleX=0.4;
-                this.bmp_cardHide.node.scaleY=0.465;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=1.1;
-                this.bmp_greenbg.node.y=8.3;
-                this.bmp_greenbg.node.scaleX=0.4;
-                this.bmp_greenbg.node.scaleY=0.465;
-                this.bmp_greenbg.node.skewY=8;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_2p_01");
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=7;
+                this.bmp_cardback.node.width = 66;
+                this.bmp_cardback.node.height = 50;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_14");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
-
-
             case 21:{
-                this.node.x=350.7;
-                this.node.y=-106.5;
-
-                this.bmp_cardback.node.width=75;
-                this.bmp_cardback.node.height=56;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=244;
+                this.node.y=29;
+                this.node.setLocalZOrder(7);
                 this.bmp_cardcolor.node.x=2;
                 this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.48;
-                this.bmp_cardcolor.node.scaleY=0.6;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=11;
-
-                this.bmp_cardHide.node.x=2.1;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.48;
-                this.bmp_cardHide.node.scaleY=0.55;
-                this.bmp_cardHide.node.skewY=8;
-
-                this.bmp_greenbg.node.x=2.1;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.48;
-                this.bmp_greenbg.node.scaleY=0.55;
-                this.bmp_greenbg.node.skewY=8;
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_1p_10");
+                this.bmp_cardHide.node.x=2;
+                this.bmp_cardHide.node.y=10.5;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
+                this.bmp_cardHide.node.skewY=11;
+                this.bmp_cardback.node.width = 64;
+                this.bmp_cardback.node.height = 50;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_15");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 22:{
-                this.node.x=342.7;
-                this.node.y=-72;
-
-                this.bmp_cardback.node.width=74;
-                this.bmp_cardback.node.height=55;
-                this.bmp_cardback.node.scaleX=-1;
-
+                this.node.x=241;
+                this.node.y=59;
+                this.node.setLocalZOrder(6);
                 this.bmp_cardcolor.node.x=2;
                 this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.48;
-                this.bmp_cardcolor.node.scaleY=0.6;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=11;
 
-                this.bmp_cardHide.node.x=2.1;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.46;
-                this.bmp_cardHide.node.scaleY=0.53;
+                this.bmp_cardHide.node.x=2;
+                this.bmp_cardHide.node.y=10.5;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
                 this.bmp_cardHide.node.skewY=11;
-
-                this.bmp_greenbg.node.x=2.1;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.46;
-                this.bmp_greenbg.node.scaleY=0.53;
-                this.bmp_greenbg.node.skewY=11;
-
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_1p_09");
+                this.bmp_cardback.node.width = 62;
+                this.bmp_cardback.node.height = 48;
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_16");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 23:{
-                this.node.x=335.7;
-                this.node.y=-39.8;
+                this.node.x=129;
+                this.node.y=97;
 
-                this.bmp_cardback.node.width=71;
-                this.bmp_cardback.node.height=53;
-                this.bmp_cardback.node.scaleX=-1;
+                // this.bmp_cardback.node.width=71;
+                // this.bmp_cardback.node.height=53;
+                // this.bmp_cardback.node.scaleX=-1;
 
                 this.bmp_cardcolor.node.x=1.6;
                 this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.445;
-                this.bmp_cardcolor.node.scaleY=0.58;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=10;
 
-                this.bmp_cardHide.node.x=1.4;
-                this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.43;
-                this.bmp_cardHide.node.scaleY=0.52;
+                this.bmp_cardHide.node.x=1.6;
+                this.bmp_cardHide.node.y=10.5;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
                 this.bmp_cardHide.node.skewY=10;
-
-                this.bmp_greenbg.node.x=1.4;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.43;
-                this.bmp_greenbg.node.scaleY=0.52;
-                this.bmp_greenbg.node.skewY=10;
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_1p_08");
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_17");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 24:{
-                this.node.x=329.4;
-                this.node.y=-8.6;
+                this.node.x=125;
+                this.node.y=130;
 
-                this.bmp_cardback.node.width=70;
-                this.bmp_cardback.node.height=53;
-                this.bmp_cardback.node.scaleX=-1;
+                // this.bmp_cardback.node.width=70;
+                // this.bmp_cardback.node.height=53;
+                // this.bmp_cardback.node.scaleX=-1;
 
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=10.3;
-                this.bmp_cardcolor.node.scaleX=0.45;
-                this.bmp_cardcolor.node.scaleY=0.58;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=11;
 
-                this.bmp_cardHide.node.x=0.8;
+                this.bmp_cardHide.node.x=1;
                 this.bmp_cardHide.node.y=10.3;
-                this.bmp_cardHide.node.scaleX=0.44;
-                this.bmp_cardHide.node.scaleY=0.52;
+                this.bmp_cardHide.node.scaleX=0.4;
+                this.bmp_cardHide.node.scaleY=0.5;
                 this.bmp_cardHide.node.skewY=11;
-
-                this.bmp_greenbg.node.x=0.8;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.44;
-                this.bmp_greenbg.node.scaleY=0.52;
-                this.bmp_greenbg.node.skewY=11;
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_1p_07");
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_18");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 25:{
-                this.node.x=322.2;
-                this.node.y=22.7;
+                this.node.x=121;
+                this.node.y=161;
 
-                this.bmp_cardback.node.width=69;
-                this.bmp_cardback.node.height=55;
-                this.bmp_cardback.node.scaleX=-1;
+                // this.bmp_cardback.node.width=69;
+                // this.bmp_cardback.node.height=55;
+                // this.bmp_cardback.node.scaleX=-1;
 
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=10.9;
-                this.bmp_cardcolor.node.scaleX=0.45;
-                this.bmp_cardcolor.node.scaleY=0.57;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=9;
 
                 this.bmp_cardHide.node.x=1;
@@ -813,29 +585,23 @@ export default class LHZMJ_DownSinglePool extends LHZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.scaleX=0.44;
                 this.bmp_cardHide.node.scaleY=0.51;
                 this.bmp_cardHide.node.skewY=11;
-
-                this.bmp_greenbg.node.x=1;
-                this.bmp_greenbg.node.y=11;
-                this.bmp_greenbg.node.scaleX=0.44;
-                this.bmp_greenbg.node.scaleY=0.51;
-                this.bmp_greenbg.node.skewY=11;
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_1p_06");
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_21");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
 
             case 26:{
-                this.node.x=315.1;
-                this.node.y=54.1;
+                this.node.x=120;
+                this.node.y=190;
 
-                this.bmp_cardback.node.width=68;
-                this.bmp_cardback.node.height=52;
-                this.bmp_cardback.node.scaleX=-1;
+                // this.bmp_cardback.node.width=68;
+                // this.bmp_cardback.node.height=52;
+                // this.bmp_cardback.node.scaleX=-1;
 
                 this.bmp_cardcolor.node.x=1.3;
                 this.bmp_cardcolor.node.y=10.5;
-                this.bmp_cardcolor.node.scaleX=0.41;
-                this.bmp_cardcolor.node.scaleY=0.55;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=9;
 
                 this.bmp_cardHide.node.x=1.3;
@@ -843,28 +609,22 @@ export default class LHZMJ_DownSinglePool extends LHZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.scaleX=0.41;
                 this.bmp_cardHide.node.scaleY=0.49;
                 this.bmp_cardHide.node.skewY=11;
-
-                this.bmp_greenbg.node.x=1.3;
-                this.bmp_greenbg.node.y=10.3;
-                this.bmp_greenbg.node.scaleX=0.41;
-                this.bmp_greenbg.node.scaleY=0.49;
-                this.bmp_greenbg.node.skewY=11;
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_1p_05");
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_24");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 27:{
-                this.node.x=308.3;
-                this.node.y=85;
+                this.node.x=116;
+                this.node.y=218.2;
 
-                this.bmp_cardback.node.width=66;
-                this.bmp_cardback.node.height=50;
-                this.bmp_cardback.node.scaleX=-1;
+                // this.bmp_cardback.node.width=66;
+                // this.bmp_cardback.node.height=50;
+                // this.bmp_cardback.node.scaleX=-1;
 
                 this.bmp_cardcolor.node.x=1.7;
                 this.bmp_cardcolor.node.y=9.6;
-                this.bmp_cardcolor.node.scaleX=0.41;
-                this.bmp_cardcolor.node.scaleY=0.54;
+                this.bmp_cardcolor.node.scaleX=0.4;
+                this.bmp_cardcolor.node.scaleY=0.5;
                 this.bmp_cardcolor.node.skewY=10;
 
                 this.bmp_cardHide.node.x=1.5;
@@ -872,23 +632,17 @@ export default class LHZMJ_DownSinglePool extends LHZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.scaleX=0.42;
                 this.bmp_cardHide.node.scaleY=0.48;
                 this.bmp_cardHide.node.skewY=10;
-
-                this.bmp_greenbg.node.x=1.5;
-                this.bmp_greenbg.node.y=9.2;
-                this.bmp_greenbg.node.scaleX=0.42;
-                this.bmp_greenbg.node.scaleY=0.48;
-                this.bmp_greenbg.node.skewY=10;
-                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_1p_04");
+                this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("field_right_27");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 28:{
-                this.node.x=302.3;
-                this.node.y=114.2;
+                this.node.x=402.3;
+                this.node.y=113.2;
 
-                this.bmp_cardback.node.width=65;
-                this.bmp_cardback.node.height=48;
-                this.bmp_cardback.node.scaleX=-1;
+                // this.bmp_cardback.node.width=65;
+                // this.bmp_cardback.node.height=48;
+                // this.bmp_cardback.node.scaleX=-1;
 
                 this.bmp_cardcolor.node.x=1.3;
                 this.bmp_cardcolor.node.y=9.4;
@@ -901,19 +655,13 @@ export default class LHZMJ_DownSinglePool extends LHZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.scaleX=0.39;
                 this.bmp_cardHide.node.scaleY=0.47;
                 this.bmp_cardHide.node.skewY=10;
-
-                this.bmp_greenbg.node.x=1.5;
-                this.bmp_greenbg.node.y=9.2;
-                this.bmp_greenbg.node.scaleX=0.39;
-                this.bmp_greenbg.node.scaleY=0.47;
-                this.bmp_greenbg.node.skewY=10;
                 this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_1p_03");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 29:{
-                this.node.x=296.2;
-                this.node.y=142.3;
+                this.node.x=396.2;
+                this.node.y=141.3;
 
                 this.bmp_cardback.node.width=64;
                 this.bmp_cardback.node.height=48;
@@ -930,20 +678,13 @@ export default class LHZMJ_DownSinglePool extends LHZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.scaleX=0.38;
                 this.bmp_cardHide.node.scaleY=0.46;
                 this.bmp_cardHide.node.skewY=10;
-
-                this.bmp_greenbg.node.x=1.1;
-                this.bmp_greenbg.node.y=9.2;
-                this.bmp_greenbg.node.scaleX=0.38;
-                this.bmp_greenbg.node.scaleY=0.46;
-                this.bmp_greenbg.node.skewY=10;
-
                 this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_1p_02");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 30:{
-                this.node.x=290.1;
-                this.node.y=171.5;
+                this.node.x=390.1;
+                this.node.y=170.5;
 
                 this.bmp_cardback.node.width=62;
                 this.bmp_cardback.node.height=47;
@@ -960,20 +701,11 @@ export default class LHZMJ_DownSinglePool extends LHZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.scaleX=0.4;
                 this.bmp_cardHide.node.scaleY=0.45;
                 this.bmp_cardHide.node.skewY=11;
-
-                this.bmp_greenbg.node.x=1.1;
-                this.bmp_greenbg.node.y=8.3;
-                this.bmp_greenbg.node.scaleX=0.4;
-                this.bmp_greenbg.node.scaleY=0.45;
-                this.bmp_greenbg.node.skewY=11;
-
                 this.bmp_cardback.spriteFrame=LHZMJ.ins.iclass.getMahjong3DPaiBeiRes("d_pc_left_1p_01");
                 this.bmp_cardcolor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
 
         }
-        this.node.x = this.node.x -40 + (this._cardIndex-1)*0.4;
-        this.node.y = this.node.y +80;
     }
 }

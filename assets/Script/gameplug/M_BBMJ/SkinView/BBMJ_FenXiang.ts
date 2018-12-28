@@ -234,9 +234,9 @@ export default class BBMJ_FenXiang extends cc.Component {
             rule0 += "房主支付 ";
         if(rule.GameData.tableCreatorPay == 3)
             rule0 += "圈主支付 ";
-        if(rule.GameData.MaShu == 0)
+        if(rule.GameData.MaShu == 1)
             rule0 += "无花 ";
-        else if(rule.GameData.MaShu == 1)
+        else if(rule.GameData.MaShu == 0)
             rule0 += "东风令带花 ";
 
 

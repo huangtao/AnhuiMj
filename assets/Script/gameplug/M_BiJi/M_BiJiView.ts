@@ -87,6 +87,7 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
     public GameModel() { return this.tableInfo.gameModel; }
     public Master() { return this.gameInfo.master; }
     private msg_Start: M_BiJi_GameMessage.CMD_S_GameStart;
+    private setid:number = 0;
     onLoad() {
         M_BiJiView._instance = this;
         BiJi.ins.iview = this;
@@ -1204,7 +1205,7 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
         this.tableInfo.Reset();
         this.skinButtonView.SetMulGameButton(false);
         if (this.gameInfo.isDissolveTable) {
-            this.ShowTotalScore();
+            this.ShowTotalScore();          
         }
         else {
             this.skinButtonView.HideReady();
@@ -1650,6 +1651,22 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
     private ShowGameHelp() {
 
     }
+    public showjiesuan(setid:number){
+        if(cc.isValid(this.skinTotalScore)){
+            this.skinTotalScore.ModifySetId(setid);
+        }
+        this.setid = setid;
+    }
+    public ShowJieSuanCopy(url:string){
+        if(url ==null||url ==""){
+            return;
+        }
+        if(cc.isValid(this.skinTotalScore)){
+            this.skinTotalScore.OnButtonCopy(url);
+        }else{
+            cc.log("此时结算面板无效");
+        }
+    }
     /**
      * 显示总计
      */
@@ -1657,7 +1674,7 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
         ShowNodeView("TotalScore", this.skinTotalScore, (prefab) => {
             this.skinTotalScore = this.AddPrefab(prefab, "BJ_SkinTotalScore", 15);
         }, () => {
-            this.skinTotalScore.Show(new TotalScoreData(this.scoreView, this.GetSelfID()),this.GetGameCurCount(),this.skingameClass.TableID,this.skinLabelView.GetCellScore(),this.tableInfo.havexiscore,this.tableInfo.havedropcard);
+            this.skinTotalScore.Show(new TotalScoreData(this.scoreView, this.GetSelfID()),this.GetGameCurCount(),this.skingameClass.TableID,this.skinLabelView.GetCellScore(),this.tableInfo.havexiscore,this.tableInfo.havedropcard,this.setid);
         });
     }
     /**

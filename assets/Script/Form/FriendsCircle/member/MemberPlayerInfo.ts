@@ -62,7 +62,7 @@ export class MemberPlayerInfo extends UIBase<any> {
     btn_relieve: cc.Button = null;
 
     public InitShow() {
-    	let data: FriendCircleMember = this.ShowParam;
+        let data: FriendCircleMember = this.ShowParam;
 
         if (!data) {
             return;
@@ -70,36 +70,40 @@ export class MemberPlayerInfo extends UIBase<any> {
 
         // 显示头像
         if (data.picfile && this.sp_headImg) {
-            LoadHeader(data.picfile,this.sp_headImg);
+            LoadHeader(data.picfile, this.sp_headImg);
+        } else {
+            LoadHeader("", this.sp_headImg);
         }
 
         if (this.lab_nicakName) {
-        	this.lab_nicakName.string = data.nickname;
+            this.lab_nicakName.string = data.nickname;
         }
 
         if (this.lab_userId) {
-        	this.lab_userId.string = data.userid + "";
+            this.lab_userId.string = data.userid + "";
         }
 
         if (this.lab_gameTimes) {
-        	this.lab_gameTimes.string = "局数：" + data.cnt;
+            this.lab_gameTimes.string = "局数：" + data.cnt;
         }
 
         if (this.lab_lastTime) {
-        	// this.lab_lastTime.string = data.lastTime;
+            // this.lab_lastTime.string = data.lastTime;
         }
 
-        let isCircleOwner = FriendCircleDataCache.Instance.selfIsCircleOwner();
+        let isadmin = FriendCircleDataCache.Instance.selfIsAdministrator();
 
-        if (isCircleOwner) {
+        if (isadmin) {
             this.btn_kick.node.active = true;
         } else {
             this.btn_kick.node.active = false;
         }
 
+        this.btn_kick.interactable = isadmin;
+
         let userId = this.DataCache.UserInfo.userData.UserID;
         // 自己不显示踢出按钮
-        if(userId == data.userid){
+        if (userId == data.userid) {
             this.btn_kick.node.active = false;
         }
 
@@ -115,7 +119,7 @@ export class MemberPlayerInfo extends UIBase<any> {
     /**
      * 禁玩按钮事件
      */
-    public btnBanClick(){
+    public btnBanClick() {
         let curFriendCircle = FriendCircleDataCache.Instance.CurEnterFriendCircle;
         let curRuleInfo = FriendCircleDataCache.Instance.CurSelectedRule;
         if (!curFriendCircle || !this.ShowParam || !curRuleInfo) {
@@ -126,7 +130,7 @@ export class MemberPlayerInfo extends UIBase<any> {
         let groupId = curFriendCircle.ID;
         let userId = this.ShowParam.userid;
         this.UiManager.ShowLoading("正在执行操作...");
-        FriendCircleWebHandle.GroupUserGameBan(parseInt(groupId), 2, 0,curRuleInfo.gameId ,"A",parseInt(userId), new Action(this, (res)=>{
+        FriendCircleWebHandle.GroupUserGameBan(parseInt(groupId), 2, 0, curRuleInfo.gameId, "A", parseInt(userId), new Action(this, (res) => {
             this.UiManager.CloseLoading();
 
             if (res.status != "success") {
@@ -144,7 +148,7 @@ export class MemberPlayerInfo extends UIBase<any> {
     /**
      * 解除禁玩按钮事件
      */
-    public bntRelieveClick(){
+    public bntRelieveClick() {
         let curFriendCircle = FriendCircleDataCache.Instance.CurEnterFriendCircle;
         let curRuleInfo = FriendCircleDataCache.Instance.CurSelectedRule;
         if (!curFriendCircle || !this.ShowParam || !curRuleInfo) {
@@ -153,9 +157,9 @@ export class MemberPlayerInfo extends UIBase<any> {
 
         let groupId = curFriendCircle.ID;
         let userId = this.ShowParam.userid;
-        
+
         this.UiManager.ShowLoading("正在执行操作...");
-        FriendCircleWebHandle.GroupUserGameBan(parseInt(groupId), 2, 0,curRuleInfo.gameId ,"D",parseInt(userId), new Action(this, (res)=>{
+        FriendCircleWebHandle.GroupUserGameBan(parseInt(groupId), 2, 0, curRuleInfo.gameId, "D", parseInt(userId), new Action(this, (res) => {
             this.UiManager.CloseLoading();
             if (res.status != "success") {
                 this.UiManager.CloseLoading();
@@ -172,7 +176,7 @@ export class MemberPlayerInfo extends UIBase<any> {
     /**
      * 踢出亲友圈按钮事件
      */
-    public bntKickClick(){
+    public bntKickClick() {
         let curFriendCircle = FriendCircleDataCache.Instance.CurEnterFriendCircle;
 
         if (!curFriendCircle || !this.ShowParam) {
@@ -181,6 +185,6 @@ export class MemberPlayerInfo extends UIBase<any> {
 
         let groupId = curFriendCircle.ID;
         let userId = this.ShowParam.userid;
-        FriendCircleWebHandle.kickMember(parseInt(userId),parseInt(groupId));
+        FriendCircleWebHandle.kickMember(parseInt(userId), parseInt(groupId));
     }
 }

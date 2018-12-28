@@ -46,27 +46,12 @@
                         {
                             "parentAttr": null,
                             "childrenAttr": [
-                                {
-                                    "key": "gameModel:16",
-                                    "contrary": true,
-                                    "isSelected": false
-                                },
-                                {
-                                    "key": "gameModel:15",
-                                    "contrary": true,
-                                    "isSelected": false
-                                },
-                                {
-                                    "key": "gameModel:13",
-                                    "contrary": false,
-                                    "isSelected": true
-                                },
-                                {
-                                    "key": "FZBP:true",
-                                    "contrary": false
-                                }
+                                {"key":"gameModel:16","contrary":true,"isSelected": false},
+                                {"key":"gameModel:15","contrary":true,"isSelected": false},
+                                {"key":"gameModel:13","contrary":false,"isSelected": true},
+                                {"key":"FZBP:true","contrary":false}
                             ],
-                            "attr": "PlayerNum",
+                            "attr": "PeopleNum",
                             "value": 4,
                             "desc": "4人",
                             "enabled": true,
@@ -75,27 +60,12 @@
                         {
                             "parentAttr": null,
                             "childrenAttr": [
-                                {
-                                    "key": "gameModel:16",
-                                    "contrary": false,
-                                    "isSelected": true
-                                },
-                                {
-                                    "key": "gameModel:15",
-                                    "contrary": false,
-                                    "isSelected": false
-                                },
-                                {
-                                    "key": "gameModel:13",
-                                    "contrary": true,
-                                    "isSelected": false
-                                },
-                                {
-                                    "key": "FZBP:true",
-                                    "contrary": false
-                                }
+                                {"key":"gameModel:16","contrary":false,"isSelected": true},
+                                {"key":"gameModel:15","contrary":false,"isSelected": false},
+                                {"key":"gameModel:13","contrary":true,"isSelected": false},
+                                {"key":"FZBP:true","contrary":false}
                             ],
-                            "attr": "PlayerNum",
+                            "attr": "PeopleNum",
                             "value": 3,
                             "desc": "3人",
                             "enabled": true,
@@ -104,27 +74,12 @@
                         {
                             "parentAttr": null,
                             "childrenAttr": [
-                                {
-                                    "key": "gameModel:16",
-                                    "contrary": false,
-                                    "isSelected": true
-                                },
-                                {
-                                    "key": "gameModel:15",
-                                    "contrary": false,
-                                    "isSelected": false
-                                },
-                                {
-                                    "key": "gameModel:13",
-                                    "contrary": true,
-                                    "isSelected": false
-                                },
-                                {
-                                    "key": "FZBP:true",
-                                    "contrary": true
-                                }
+                                {"key":"gameModel:16","contrary":false,"isSelected": true},
+                                {"key":"gameModel:15","contrary":false,"isSelected": false},
+                                {"key":"gameModel:13","contrary":true,"isSelected": false},
+                                {"key":"FZBP:true","contrary":true}
                             ],
-                            "attr": "PlayerNum",
+                            "attr": "PeopleNum",
                             "value": 2,
                             "desc": "2人",
                             "enabled": true,
@@ -191,10 +146,6 @@
                                 {
                                     "key": "have2OutA:true",
                                     "contrary": true
-                                },
-                                {
-                                    "key": "FZBP:true",
-                                    "contrary": true
                                 }
                             ],
                             "attr": "mustOut",
@@ -208,10 +159,6 @@
                             "childrenAttr": [
                                 {
                                     "key": "have2OutA:true",
-                                    "contrary": false
-                                },
-                                {
-                                    "key": "FZBP:true",
                                     "contrary": false
                                 }
                             ],
@@ -243,7 +190,7 @@
             ]
         },
         {
-            "attrIcon": "cjfj_77.png",
+            "attrIcon": "cjfj_33.png",
             "desc": "出牌",
             "enabled": true,
             "parentAttr": null,
@@ -257,10 +204,36 @@
                             "childrenAttr": [
                                 {
                                     "key": "spades3MustOut:true",
+                                    "contrary": true
+                                },
+                                {
+                                    "key": "redPeach3MustOut:true",
+                                    "contrary": true
+                                },
+                                {
+                                    "key": "firstSpades3Out:true",
+                                    "contrary": false
+                                }
+                            ],
+                            "attr": "spadesRedPeach3",
+                            "value": 2,
+                            "desc": "赢家先出",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": [
+                                {
+                                    "key": "spades3MustOut:true",
                                     "contrary": false
                                 },
                                 {
                                     "key": "redPeach3MustOut:true",
+                                    "contrary": true
+                                },
+                                {
+                                    "key": "firstSpades3Out:true",
                                     "contrary": true
                                 }
                             ],
@@ -280,6 +253,10 @@
                                 {
                                     "key": "spades3MustOut:true",
                                     "contrary": true
+                                },
+                                {
+                                    "key": "firstSpades3Out:true",
+                                    "contrary": true
                                 }
                             ],
                             "attr": "spadesRedPeach3",
@@ -287,6 +264,23 @@
                             "desc": "红桃3",
                             "enabled": true,
                             "defaultSelected": false
+                        }
+                    ]
+                },
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "parentAttr": {
+                                "key": "spadesRedPeach3:2",
+                                "contrary": false
+                            },
+                            "childrenAttr": null,
+                            "attr": "firstSpades3Out",
+                            "value": true,
+                            "desc": "首局黑桃3出",
+                            "enabled": true,
+                            "defaultSelected": true
                         }
                     ]
                 },
@@ -347,7 +341,7 @@
                             "value": true,
                             "desc": "放走包赔",
                             "enabled": true,
-                            "defaultSelected": false
+                            "defaultSelected": true
                         },
                         {
                             "parentAttr": null,
@@ -356,7 +350,7 @@
                             "value": true,
                             "desc": "剩三张拖尾",
                             "enabled": true,
-                            "defaultSelected": false
+                            "defaultSelected": true
                         },
                         {
                             "parentAttr": null,
@@ -365,24 +359,29 @@
                             "value": true,
                             "desc": "显示剩余张数",
                             "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": null,
+                            "attr": "threeAIsBomb",
+                            "value": true,
+                            "desc": "3A为炸(可带1)",
+                            "enabled": true,
                             "defaultSelected": false
                         }
                     ]
                 },
                 {
                     "nodeType": "TOGGLE_CHECKBOX_DROPDOWN",
-                    "defaultSelected": true,
-                    "defaultValue": 2,
+                    "defaultSelected": false,
                     "defaultShowIdx": 0,
+                    "defaultValue": -1,
                     "attr": "zhuaNiaoScore",
                     "desc": "抓鸟(红桃10)",
                     "dropDownWidth": 144,
                     "enabled": true,
                     "list": [
-                        {
-                            "value": 1,
-                            "desc": "翻倍"
-                        },
                         {
                             "value": 2,
                             "desc": "2分"
@@ -394,6 +393,10 @@
                         {
                             "value": 10,
                             "desc": "10分"
+                        },
+                        {
+                            "value": 1,
+                            "desc": "翻倍"
                         }
                     ]
                 }

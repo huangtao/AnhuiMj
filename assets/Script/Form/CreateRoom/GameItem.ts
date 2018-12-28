@@ -46,7 +46,7 @@ export default class GameItem extends cc.Component {
     icon: cc.SpriteFrame[] = [];
 
     // 是否是亲友圈进来的
-    public isFriendCircle: boolean = false;
+    public friendCircle: any = null;
 
     // 是否是添加玩法
     public isAddRule: boolean = false;
@@ -68,6 +68,7 @@ export default class GameItem extends cc.Component {
         if (!gameInfo) {
             return;
         }
+
         this.lab_gameDesc.string = gameInfo.GameDesc;
         this._gameInfo = gameInfo;
         this.lab_gameName.string = gameInfo.GameName;
@@ -77,7 +78,7 @@ export default class GameItem extends cc.Component {
             this.btn_add.node.active = true;
 
             // 从亲友圈进来的隐藏添加按钮
-            if (this.isFriendCircle) {
+            if (this.friendCircle) {
                 this.btn_add.node.active = false;
             }
         }
@@ -211,7 +212,7 @@ export default class GameItem extends cc.Component {
             return;
         }
 
-        if (this.isFriendCircle) {
+        if (this.friendCircle) {
             // 一款游戏只能创建一个玩法
            let friendInfo = FriendCircleDataCache.Instance.CurEnterFriendCircle;
 
@@ -221,12 +222,13 @@ export default class GameItem extends cc.Component {
 
            let ruleList = FriendCircleDataCache.Instance.FriendCircleRuleList.GetValue(friendInfo.ID + "");
 
-            for (var idx = 0; idx < ruleList.length; ++idx) {
+           if (ruleList) {
+              for (var idx = 0; idx < ruleList.length; ++idx) {
                 let rule: FriendCircleRule = ruleList[idx];
     
                 if (rule && rule.gameId == this._gameInfo.GameID) {
                     // 修改玩法
-                    if (!this.isAddRule) {
+                    if (!this.friendCircle.isAddRule) {
                         let curRule = FriendCircleDataCache.Instance.CurSelectedRule;
 
                         if (curRule && curRule.gameId != this._gameInfo.GameID) {
@@ -238,9 +240,10 @@ export default class GameItem extends cc.Component {
                         return;
                     }
                 }
-            }
+            } 
+           }
         }
 
-        Global.Instance.UiManager.ShowUi(UIName.SelectRule, { gameInfo: this._gameInfo, isFriendCircle: this.isFriendCircle, isAddRule: this.isAddRule });
+        Global.Instance.UiManager.ShowUi(UIName.SelectRule, { gameInfo: this._gameInfo, friendCircle: this.friendCircle });
     }
 }

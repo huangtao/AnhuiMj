@@ -4,7 +4,7 @@
         {
             "attrIcon": "cjfj_76.png",
             "desc": "人数",
-            "enabled": false,
+            "enabled": true,
             "itemList": [
                 {
                     "nodeType": "TOGGLE_SINGLE",
@@ -12,14 +12,14 @@
                         {
                             "attr": "PeopleNum",
                             "value": 0,
-                            "desc": "四人",
+                            "desc": "4人",
                             "enabled": true,
                             "defaultSelected": true
                         },
                         {
                             "attr": "PeopleNum",
                             "value": 1,
-                            "desc": "三人",
+                            "desc": "3人",
                             "enabled": true,
                             "defaultSelected": false
                         }
