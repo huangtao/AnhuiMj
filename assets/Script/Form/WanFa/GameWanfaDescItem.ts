@@ -53,6 +53,13 @@ export default class GameWanfaDescItem extends cc.Component {
         if (this.layout_desc) {
             this.layout_desc.updateLayout();
         }
+
+        // this.scheduleOnce(()=>{
+        //     if (this.layout_desc.node.getContentSize().width > 720) {
+        //         this.lab_value.node.width = 720;
+        //         this.lab_value.overflow = cc.Label.Overflow.RESIZE_HEIGHT;
+        //     }
+        // },0.01);
     }
 
     /**
@@ -62,7 +69,6 @@ export default class GameWanfaDescItem extends cc.Component {
         if (this.layout_desc.node.getContentSize().width > 360) {
             return true;
         }
-
         return false;
     }
 

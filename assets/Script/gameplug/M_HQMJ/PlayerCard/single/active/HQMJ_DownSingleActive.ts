@@ -36,50 +36,34 @@ export default class HQMJ_DownSingleActive extends HQMJ_SingleActiveBase {
         let url1="";
 
         if(_hqmj.is2D()){
-            this.bmp_liecardback.node.width=52;
+            this.bmp_liecardback.node.width=56;
             this.bmp_liecardback.node.height=45;
             this.bmp_liecardback.node.scaleX=1;
-            this.bmp_cardback.node.width=25;
-            this.bmp_cardback.node.height=57;
+            this.bmp_cardback.node.width=67;
+            this.bmp_cardback.node.height=63;
             this.bmp_cardback.node.scaleX=1;
 
             this.bmp_cardcolor.node.x=0;
-            this.bmp_cardcolor.node.y=5;
-            this.bmp_cardcolor.node.scaleX=0.5;
-            this.bmp_cardcolor.node.scaleY=0.5;
+            this.bmp_cardcolor.node.y=7.5;
+            this.bmp_cardcolor.node.scaleX=0.4;
+            this.bmp_cardcolor.node.scaleY=0.45;
             this.bmp_cardcolor.node.skewY=0;
             if(isLie) {
                 if(HQMJMahjongDef.gBackMahjongValue != card){
-                    // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_left_right_1280`;
-                    // SetTextureRes(url,this.bmp_cardback);
-
-                    // url=_hqmj.getMahjongResName(card);
-                    // SetTextureRes(url,this.bmp_cardcolor);
                     url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_left_right_1280`;
-                    //url1=_hqmj.getMahjongResName(card);
-                    this.bmp_liecardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("pb3_showcard_left_right_1280");
+                    this.bmp_liecardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("zuoyoupg@2x");
                     this.bmp_cardcolor.spriteFrame=_hqmj.getMahjongPaiHuaRes(card);
-                    //SetTextureResAry([url,url1],[this.bmp_liecardback,this.bmp_cardcolor]);
-                    // this.bmp_cardcolor.node.x = 0;
-                    // this.bmp_cardcolor.node.y = 5;
-                    // this.bmp_cardcolor.node.rotation = -90;
-                    // this.bmp_cardcolor.node.scaleX = 0.5;
-                    // this.bmp_cardcolor.node.scaleY = 0.5;
                 }else{
                     url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcardback_left_right_1280`;
-                    this.bmp_liecardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("pb3_showcardback_left_right_1280");
-                
-                    //SetTextureRes(url,this.bmp_liecardback);
+                    this.bmp_liecardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("zuoyou_back@2x");
                 }
                 this.bmp_liecardback.node.active=true;
                 this.bmp_cardcolor.node.active = HQMJMahjongDef.gBackMahjongValue != card;
             } else {
                 url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_right_1280`;
                 cc.log("显示下家");
-                this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("pb3_active_right_1280");
-                //SetTextureRes(url,this.bmp_cardback);
+                this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("you_pai@2x");
                 this.bmp_cardback.node.active=true;
-                //this.bmp_cardcolor.node.active=false;
             }
         }else{
             this.bmp_cardcolor.node.x=0;
@@ -95,8 +79,6 @@ export default class HQMJ_DownSingleActive extends HQMJ_SingleActiveBase {
                 this.bmp_cardback.node.active=true;
             }
         }
-
-        
         this.node.active=true;
     }
     

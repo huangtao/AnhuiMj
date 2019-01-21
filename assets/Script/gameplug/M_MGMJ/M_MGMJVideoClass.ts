@@ -24,7 +24,7 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
 
     @property(cc.SpriteAtlas)
     private paibei:cc.SpriteAtlas=null;
-        @property(cc.SpriteAtlas)
+    @property(cc.SpriteAtlas)
     private paibei3d:cc.SpriteAtlas=null;
     @property(M_MGMJVideoView)
     private gameView: M_MGMJVideoView=null;
@@ -32,6 +32,9 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
 
     //牌桌配置
     private _tableConfig : MGMJTableConfig;
+
+    //续局次数
+    private _addNum :number = 1;
     /**
      * 牌桌配置
      * */
@@ -361,36 +364,51 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
      * */
     private Handle_CMD_S_TableConfig(sendChair : number,msg: GameIF.CustomMessage):void{
         var tableConfig: M_MGMJ_GameMessage.CMD_S_TableConfig = <M_MGMJ_GameMessage.CMD_S_TableConfig>msg;
-        
+        this._addNum = tableConfig.addNum;
         console.log(`录像消息:桌子规则`);
 
         this._tableConfig.init(
-            tableConfig.CellScore,
+            tableConfig.PlayerNum,
+            tableConfig.WaitTimeNum,
+            tableConfig.CheckGps>0,
+            tableConfig.CheckPeiZi,
+            tableConfig.PeiZi,
+            tableConfig.DianPao>0,
+            tableConfig.QiangGangHu>0,
+            tableConfig.daiDaPai,
             tableConfig.LaPaoZuo>0,
             tableConfig.qiduijia>0,         
             tableConfig.gangkaijia>0,
             tableConfig.bukaojia > 0,
+
             tableConfig.isYiPaoDuoXiang > 0,
             tableConfig.GoldCardBaseIdx,
             tableConfig.IsRecordScoreRoom > 0,
             tableConfig.TableCreatorID,
             tableConfig.TableCreatorChair,
+
             tableConfig.TableCode,
             tableConfig.SetGameNum,
             tableConfig.GameNum,
             tableConfig.RealGameNum,
             tableConfig.isOutTimeOp>0,
-            true,
-            30,
+
+            tableConfig.isSaveTable>0,
+            tableConfig.saveTableTime,
             tableConfig.tableCreatorPay,
             tableConfig.tableCost,
             tableConfig.IfCanSameIP>0,
-            tableConfig.canChi>0,
+
             tableConfig.gangFen>0,
+            tableConfig.canChi>0,
             tableConfig.gangFen>0,
             tableConfig.zhanZhuang>0,
             tableConfig.daiDaPai>0,
-            tableConfig.whoLose>0
+            tableConfig.whoLose>0,
+
+            tableConfig.tableWhere,
+            tableConfig.ftbz,
+            tableConfig.ifShiSanYao
         );
         //this.gameView.GameInfo.init();
         this.gameView.GameInfo.tableCode = tableConfig.TableCode;
@@ -399,7 +417,12 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
                 gameCount = 8;
             if(this._tableConfig.setGameNum == 1)
                 gameCount = 16;
-        this.gameView.GameInfo.SetGameNum(this._tableConfig.alreadyGameNum,gameCount);
+        this.gameView.GameInfo.SetGameNum(this._tableConfig.alreadyGameNum,gameCount*this._addNum);
+        
+        if(M_MGMJVideoClass.ins.TableConfig.CheckPeiZi==0){
+            M_MGMJVideoView.ins.mg_baopai.showBaoPai(M_MGMJVideoClass.ins.TableConfig.SetPeiZi);
+            M_MGMJVideoView.ins.img_baokuang.node.active =true;
+        }
     }
     /**
      * 游戏开始
@@ -530,9 +553,9 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
         }
             let sex:number=this.TablePlayer[playerOutCard.chair].Gender==1?1:2;
         
-        M_MGMJVoice.PlayCardType(`/sound/mj_outCard.mp3`);
+        M_MGMJVoice.PlayCardType(`/sound/dapai.mp3`);
         //播放音效,todo
-        M_MGMJVoice.PlayCardType(`/sound/${sex}/mj_${sex}_${MGMJMahjongAlgorithm.GetMahjongColor(playerOutCard.card)}_${MGMJMahjongAlgorithm.GetMahjongValue(playerOutCard.card)}.mp3`);
+        M_MGMJVoice.PlayCardType(`/sound/PT/${sex}/mj_${sex}_${MGMJMahjongAlgorithm.GetMahjongColor(playerOutCard.card)}_${MGMJMahjongAlgorithm.GetMahjongValue(playerOutCard.card)}.mp3`);
         
         if(this._outCardPlayer.isValid){
             this.gameView.CardView.addCard2Pool(this._outCardPlayer.Chair,this._outCardPlayer.Card);
@@ -560,7 +583,7 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
         this.handleOPAfter();
         let sex:number=this.TablePlayer[playerPeng.chair].Gender==1?1:2;
         //音效
-        M_MGMJVoice.PlayCardType(`/sound/${sex}/mj_peng_${sex}.mp3`);
+        M_MGMJVoice.PlayCardType(`/sound/1/peng_${sex}.mp3`);
         if(playerPeng.chair == this.SelfChair) {
             this.gameView.CardView.selfActive.activeEnable(false);
         }
@@ -587,7 +610,7 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
         this.handleOPAfter();
         let sex:number=this.TablePlayer[playerAGang.chair].Gender==1?1:2;
         // 音效
-        M_MGMJVoice.PlayCardType(`/sound/${sex}/mj_gang_${sex}.mp3`);
+        M_MGMJVoice.PlayCardType(`/sound/1/gang_${sex}.mp3`);
 
         if(playerAGang.chair == this.SelfChair) {
             this.gameView.CardView.selfActive.activeEnable(false);
@@ -612,7 +635,7 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
         this.handleOPAfter();
         let sex:number=this.TablePlayer[playerMGang.chair].Gender==1?1:2;
         // 音效
-        M_MGMJVoice.PlayCardType(`/sound/${sex}/mj_gang_${sex}.mp3`);
+        M_MGMJVoice.PlayCardType(`/sound/1/gang_${sex}.mp3`);
         if(playerMGang.chair == this.SelfChair) {
             this.gameView.CardView.selfActive.activeEnable(false);
         }
@@ -638,7 +661,7 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
         this.handleOPAfter();
         let sex:number=this.TablePlayer[playerBGang.chair].Gender==1?1:2;
         // 音效
-        M_MGMJVoice.PlayCardType(`/sound/${sex}/mj_gang_${sex}.mp3`);
+        M_MGMJVoice.PlayCardType(`/sound/1/gang_${sex}.mp3`);
         if(playerBGang.chair == this.SelfChair) {
             this.gameView.CardView.selfActive.activeEnable(false);
         }
@@ -668,23 +691,23 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
             case enHuCardType.HuCardType_PingHu:{
                 //清理玩家打出的牌
                 this._outCardPlayer.clear();
-                M_MGMJVoice.PlayCardType(`/sound/${sex}/mj_hu_${sex}.mp3`);
+                M_MGMJVoice.PlayCardType(`/sound/1/hu_${sex}.mp3`);
                 //this.gameView.OutCardView.show = false;
                 this.gameView.playMGMJAni(playerHu.chair,enMGMJAniType.aniType_huCard);
                 break;
             }
             case enHuCardType.HuCardType_QiangGangHu:{
-                M_MGMJVoice.PlayCardType(`/sound/${sex}/mj_hu_${sex}.mp3`);
+                M_MGMJVoice.PlayCardType(`/sound/1/hu_${sex}.mp3`);
                 this.gameView.playMGMJAni(playerHu.chair,enMGMJAniType.aniType_huCard);
                 break;
             }
             case enHuCardType.HuCardType_ZiMo:{
-                M_MGMJVoice.PlayCardType(`/sound/${sex}/mj_hu_${sex}.mp3`);
+                M_MGMJVoice.PlayCardType(`/sound/1/hu_${sex}.mp3`);
                 this.gameView.playMGMJAni(playerHu.chair,enMGMJAniType.aniType_ziMo);
                 break;
             }
             case enHuCardType.HuCardType_GangShangHua:{
-                M_MGMJVoice.PlayCardType(`/sound/${sex}/mj_zimo_${sex}.mp3`);
+                M_MGMJVoice.PlayCardType(`/sound/1/zimo_${sex}.mp3`);
                 this.gameView.playMGMJAni(playerHu.chair,enMGMJAniType.aniType_ziMo);
                 break;
             }
@@ -779,9 +802,9 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
         this._outCardPlayer.clear();
         this.stopTimer();
 
-        this.gameView.TimerView.node.active=false;
+        // this.gameView.TimerView.node.active=false;
         
-        this.gameView.TipMsgView.showTip("录像回放结束,点击右上角[返回]退出录像",false);
+        this.gameView.TipMsgView.showTip("录像回放结束,点击[返回]退出录像",false);
         this.gameView.VideoCtl.end();
     }
     /**
@@ -836,7 +859,8 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
         this._timer.setTimer(timerid,timerLen,chair,this.onTimerEvent,this);
         
         M_MGMJVideoView.ins.TimerView.node.active=true;
-        M_MGMJVideoView.ins.TimerView.showArrow = chair;
+        // M_MGMJVideoView.ins.TimerView.showArrow = chair;
+        M_MGMJVideoView.ins.TimerView.showArr(chair,this.SelfChair,true);// = chair;
         M_MGMJVideoView.ins.TimerView.timerNum = timerLen;
         
         this._timer.start();
@@ -953,6 +977,7 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
      * 获取麻将牌花资源
      * */
     public getMahjongPaiHuaRes(card: number): cc.SpriteFrame {
+
         return this.paihua.getSpriteFrame(`mahjong_${MGMJMahjongAlgorithm.GetMahjongColor(card)}_${MGMJMahjongAlgorithm.GetMahjongValue(card)}`);
         //return `gameres/gameCommonRes/Texture/Mahjong/PaiHua/mahjong_${WHMJMahjongAlgorithm.GetMahjongColor(card)}_${WHMJMahjongAlgorithm.GetMahjongValue(card)}`;
     }
@@ -962,6 +987,10 @@ export default class M_MGMJVideoClass extends GameVideoBase implements IMGMJClas
     public getMahjongPaiBeiRes(cardtype: string): cc.SpriteFrame {
         return this.paibei.getSpriteFrame(cardtype);
         //return `gameres/gameCommonRes/Texture/Mahjong/PaiHua/mahjong_${WHMJMahjongAlgorithm.GetMahjongColor(card)}_${WHMJMahjongAlgorithm.GetMahjongValue(card)}`;
+    }
+    //3D麻将牌花获取
+    public getMahjongPaiHuaResOut(card: number): cc.SpriteFrame {
+        return this.paihua.getSpriteFrame(`mahjong_${MGMJMahjongAlgorithm.GetMahjongColor(card)}_${MGMJMahjongAlgorithm.GetMahjongValue(card)}`);
     }
      /**
      * 获取麻将牌背资源

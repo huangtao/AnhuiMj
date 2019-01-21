@@ -32,7 +32,10 @@ export default class RankListItem extends ScrollHelperItem {
     frame_defaultHead: cc.SpriteFrame = null;
     @property(cc.Sprite)
     prize_TV: cc.Sprite = null;
-
+    @property(cc.Node)
+    node_inning : cc.Node = null;
+    @property(cc.Label)
+    lab_self_qidou : cc.Label = null;
 
     public initShow(data: RankListItemInfo, idx: number, data_type: string) {
         if (!data) {
@@ -64,16 +67,20 @@ export default class RankListItem extends ScrollHelperItem {
          */
         switch (data_type) {
             case "today":
-                this.GiftInit(data, 188, 128, 88, 68, 0, 0);
+                this.lab_self_qidou.string = "";
+                this.inning_num.string = data.inning_num.toString();//局数
+                this.GiftInit(data, 188, 128, 88, 38, 0, 0);
                 break;
             case "total":
-                this.GiftInit(data, 1, 2888, 1888, 3000, 2000, 1000);
+                this.inning_num.string = "";
+                this.lab_self_qidou.string = data.inning_num.toString();//玩家七豆数量
+                this.ShowQiDouRank();
                 break;
             default:
                 break;
         }
 
-        this.inning_num.string = data.inning_num.toString();//局数
+        // this.inning_num.string = data.inning_num.toString();//局数
         // this.prize_num.string = data.prize_num;//奖品数量
 
         let that = this;
@@ -103,7 +110,7 @@ export default class RankListItem extends ScrollHelperItem {
                 that.rank_num.node.active = false;
                 that.rank_img_c.node.active = true;
                 // that.prize_TV.node.active = false;
-                // that.prize_num.node.active = true;
+                // that.prize_num.node.active = true; 
                 break;
             default:
                 that.rank_img_a.node.active = false;
@@ -132,28 +139,28 @@ export default class RankListItem extends ScrollHelperItem {
             case 1:
                 if (one > 1) {
                     this.prize_TV.node.active = false;
-                    this.prize_qidou.node.active = false;
-                    this.prize_dimmond.node.active = true;
+                    this.prize_qidou.node.active = true;
+                    this.prize_dimmond.node.active = false;
                     this.prize_num.string = one + "";
                     this.prize_num.node.active = true;
                 }else{
-                    this.prize_TV.node.active = true;
+                    this.prize_TV.node.active = false;
                     this.prize_qidou.node.active = false;
                     this.prize_dimmond.node.active = false;
                     this.prize_num.node.active = false;
                 }
                 break;
             case 2:
-                this.prize_dimmond.node.active = true;
+                this.prize_dimmond.node.active = false;
                 this.prize_num.node.active = true;
-                this.prize_qidou.node.active = false;
+                this.prize_qidou.node.active = true;
                 this.prize_num.string = tow + "";
                 this.prize_TV.node.active = false;
-                this.prize_num.node.active = true;
+                this.prize_num.node.active = true; 
                 break;
             case 3:
-                this.prize_dimmond.node.active = true;
-                this.prize_qidou.node.active = false;
+                this.prize_dimmond.node.active = false;
+                this.prize_qidou.node.active = true;
                 this.prize_num.string = three + "";
                 this.prize_TV.node.active = false;
                 this.prize_num.node.active = true;
@@ -199,5 +206,12 @@ export default class RankListItem extends ScrollHelperItem {
                 }
                 break;
         }
+    }
+
+    private ShowQiDouRank(){
+        this.prize_TV.node.active = false;
+        this.prize_qidou.node.active = false;
+        this.prize_dimmond.node.active = false;
+        this.prize_num.node.active = false;
     }
 }

@@ -30,10 +30,53 @@ export  class MGMJMahjongAlogrithmHaveHun {
                 if (MGMJMahjongAlogrithmHaveHun.CheckIfCanHuCardArrayForRQMJ(allCard,HunAry))
                     tingCards.push(MGMJMahjongDef.gMahjongCard[i]);
             }
+
+            var ssyTing = this.CheckIfCanHuShiSanYao(srcAry,HunAry);
+            if(null != ssyTing){
+                for(let i=0;i<ssyTing.length;i++){
+                    tingCards.push(ssyTing[i]);
+                }
+            }
+                
             return tingCards;
        }
 
-       
+       //十三幺
+       public static CheckIfCanHuShiSanYao(handCard:Array<number>,HunAry:Array<number>):Array<number>{
+            if(handCard.length != 13 || null == HunAry)
+                return null;
+            var ssyPai = [1,9,17,25,33,41,49,50,51,52,53,54,55];
+            var ssyCount = 0;
+            for(var i=0;i<ssyPai.length;i++){
+                if(handCard.indexOf(ssyPai[i])>-1)
+                    ssyCount++;
+            }
+            if(ssyPai.indexOf(HunAry[0]) == -1){
+                for(var i=0;i<handCard.length;i++){
+                    if(handCard[i] == HunAry[0])
+                        ssyCount++;
+                }
+            }else{
+                var hunCount = 0;
+                for(var i=0;i<handCard.length;i++){
+                    if(handCard[i] == HunAry[0])
+                        hunCount++;
+                }
+                ssyCount += (hunCount - 1);
+            }
+            if(ssyCount == 13){
+                if(ssyPai.indexOf(HunAry[0]) != -1)
+                    return ssyPai;
+                else{
+                    ssyPai.push(HunAry[0]);
+                    return ssyPai;
+                }
+            }else{
+                return null;
+            }
+
+       }
+
         /// <summary>
         /// 检查一副牌是否胡牌，带赖子
         /// </summary>
@@ -78,6 +121,7 @@ export  class MGMJMahjongAlogrithmHaveHun {
             }
             return false;
         }
+
          /// <summary>
         /// 是否胡普通结构
         /// </summary>
@@ -102,14 +146,15 @@ export  class MGMJMahjongAlogrithmHaveHun {
                     srcAry.push(vSrc[i]);
                 }
             }
+
             //宿州麻将是否可以胡7对是一个可选项
-            if(MGMJMahjongAlogrithmHaveHun.IsCanHu7Dui){
-                //为任丘麻将加的
-                if(this.ChangeArrayTo7PairsNeedHun(srcAry, laiziNum))
-                {
-                    return true;
-                }
-            }
+            // if(MGMJMahjongAlogrithmHaveHun.IsCanHu7Dui){
+                //为任丘麻将加的(中发白 算一副牌)
+            //     if(this.ChangeArrayTo7PairsNeedHun(srcAry, laiziNum))
+            //     {
+            //         return true;
+            //     }
+            // }
 
             //分情况
             MGMJMahjongAlgorithm.sortCardAry(srcAry);
@@ -200,7 +245,6 @@ export  class MGMJMahjongAlogrithmHaveHun {
         public static GetLastCardToTing(srcAry:Array<number>,HunAry:Array<number>):Array<number>{       
             //清理
             var vectorChuCard:Array<number>=new Array<number>();
-            
 
             for(var i:number=0;i<srcAry.length;i++)
             {
@@ -211,6 +255,9 @@ export  class MGMJMahjongAlogrithmHaveHun {
                     if(j!=i)
                         cardAry.push(srcAry[j]);
                 }
+                if(null != this.CheckIfCanHuShiSanYao(cardAry,HunAry)){
+                    vectorChuCard.push(srcAry[i]);
+                }
                 cardAry.push(HunAry[0]);
                 if(this.CheckIfCanHuCardArrayForRQMJ(cardAry,HunAry))
                 {
@@ -218,7 +265,9 @@ export  class MGMJMahjongAlogrithmHaveHun {
                         vectorChuCard.push(srcAry[i]);                 
                 }
             }
+            
             return vectorChuCard;
+
         }
 
         

@@ -105,7 +105,7 @@ export default class MJ_ReadyUser extends cc.Component {
         this.img_guzhang.play();
         this.scheduleOnce(this.AniGuZhangFinish, 2);
     }
-        private AniGuZhangFinish() {
+    private AniGuZhangFinish() {
         this.img_guzhang.stop();
         this.img_guzhang.node.active = false;
     }

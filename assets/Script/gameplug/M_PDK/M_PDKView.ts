@@ -46,14 +46,14 @@ export default class M_PDKView extends cc.Component implements IPDKView {
     private skinPlayerControl: SkinPlayerControl;
     @property(cc.Prefab)
     prefab_buttonView: cc.Prefab = null;
-    private skinButtonView: SkinButtonView;
+    public skinButtonView: SkinButtonView;
     @property(cc.Prefab)
     prefab_dissolveTable:cc.Prefab = null;
     private skinDissolveTable: SkinDissolveTable;
 
     @property(cc.Prefab)
     prefab_selfSelectCardView:cc.Prefab = null;
-    private selfSelectCardView: SelfSelectCardView;
+    public selfSelectCardView: SelfSelectCardView;
     @property(cc.Prefab)
     prefab_clock: cc.Prefab = null;
     private skinClock: SkinClock;
@@ -73,6 +73,7 @@ export default class M_PDKView extends cc.Component implements IPDKView {
     public roundResult:PDK_RoundResult = null;
     private skinTotalScore:SkinTotalScore = null;
     private skinRecordVideo: SkinRecordVideo;
+    private setId:number = 0;
    
     onLoad() {
         M_PDKView._instance = this;
@@ -88,7 +89,7 @@ export default class M_PDKView extends cc.Component implements IPDKView {
         this.skinButtonView = this.AddPrefab(this.prefab_buttonView, "PDK_SkinButtonView", orderIndex++);//6
         this.skinClock = this.AddPrefab(this.prefab_clock, "PDK_SkinClock", orderIndex++)//8;
         this.ani_CardType = this.AddPrefab(this.prefab_AniCardType, "Ani_CardType", orderIndex++)//9;
-        this.skinDissolveTable = this.AddPrefab(this.prefab_dissolveTable, "PDK_SkinDissolveTable", orderIndex++);
+        this.skinDissolveTable = this.AddPrefab(this.prefab_dissolveTable, "PDK_SkinDissolveTable", 20);
         this.huDongDaoJu = this.AddPrefab(this.prefab_hudong,"HuDong_Animation",orderIndex++);
         //SkinTiren:11
         //SkinPlayerInfo:12
@@ -132,10 +133,10 @@ export default class M_PDKView extends cc.Component implements IPDKView {
     private AddTimerForm() {
         let timeForm = this.skingameClass.UiManager.GetTimerForm();
         this.background.getChildByName("top_left").addChild(timeForm);
-        timeForm.x = 130;
-        timeForm.y = 10;
-        timeForm.color=cc.color().fromHEX("#ACACAC");
-        timeForm.getComponent(cc.Label).fontSize =20;
+        timeForm.x = 115;
+        timeForm.y = 0;
+        timeForm.color=cc.color().fromHEX("#ffffff");
+        timeForm.getComponent(cc.Label).fontSize =22;
     }
     //
     //==================================== 基类可重写 结束 =======================================
@@ -183,13 +184,19 @@ export default class M_PDKView extends cc.Component implements IPDKView {
         this.gameInfo.gameCount[1] += this.gameInfo.startNum;
         this.skinLabelView.SetGameCount( this.gameInfo.gameCount);
         this.gameInfo.SetIsTrueReady(false);
+        if(this.roundResult != undefined && this.roundResult.node.active){
+            this.roundResult.changeBtnReadyImage(true);
+        }
     }
     public RefuseNextGameReset(){
-        this.gameInfo.gameCount[1] -=this.skinLabelView.allgamenum;
-        this.gameInfo.gameCount[0] = this.gameInfo.gameCount[1]; 
+        //this.gameInfo.gameCount[1] -= this.gameInfo.startNum;
+        //this.gameInfo.gameCount[0] = this.gameInfo.gameCount[1]; 
       //  this.skinLabelView.SetGameCountForNext(this.gameInfo.gameCount[1]);
         cc.log("---------清理-----------游戏--------规则------");
         this.TheEnd();
+        if(this.roundResult != undefined && this.roundResult.node.active){
+            this.roundResult.changeBtnReadyImage(false);
+        }
        // this.skinButtonView.ShowTotalScore();
     }
     /**
@@ -269,7 +276,7 @@ export default class M_PDKView extends cc.Component implements IPDKView {
         this.skinLabelView.SetGameCount(data.gameCount);
        
         this.gameInfo.SetGameCount(data.gameCount);
-        this.gameInfo.SetPlayerCount(data.PlayerNum);
+        this.gameInfo.SetPlayerCount(data.PeopleNum);
         this.gameInfo.SetCardsCount(data.gameModel);
         this.tableInfo.SetMoneyType(data.moneyType);
         this.gameInfo.SetTableCreateWaitTime(data.tableCreateWaitTime);
@@ -286,13 +293,26 @@ export default class M_PDKView extends cc.Component implements IPDKView {
         
         this.gameInfo.SetHasForceLeft(data.hasForceLeft);
         this.skingameClass.allmoney = data.tableCostNum;
-
-        this.gamerule.SetGameNum = data.startNum/10-1;
+        if(data.startNum == 8){
+            this.gamerule.SetGameNum = 0;
+        }else if(data.startNum == 12){
+            this.gamerule.SetGameNum = 1;
+        }
         console.log("局数为："+this.gamerule.SetGameNum );
-        this.gameInfo.PlayerCount = data.PlayerNum;
+        this.gameInfo.PlayerCount = data.PeopleNum;
         this.gamerule.zhuaNiaoScore = data.zhuaNiaoScore;
         this.gamerule.mustOut = data.mustOut;
         this.gamerule.have2OutA = data.have2OutA;
+        this.gamerule.PeopleNum = data.PeopleNum;
+        if(data.PeopleNum ==2){
+            let leftCardCount = 0;
+            if(data.gameModel == 16){
+                leftCardCount = 16;
+            }else if(data.gameModel == 15){
+                leftCardCount = 15;
+            }
+            this.skinLabelView.showPaihe(leftCardCount);
+        }
 
 
         this.gamerule.spades3MustOut = data.spades3MustOut;
@@ -303,8 +323,10 @@ export default class M_PDKView extends cc.Component implements IPDKView {
         this.gamerule.bomb = data.bomb;
         this.gamerule.FZBP = data.FZBP;
         this.gamerule.SZTW = data.SZTW;
+        this.gamerule.firstSpades3Out = data.firstSpades3Out;
+        this.gamerule.threeAIsBomb = data.threeAIsBomb;
         this.gamerule.showRemainNum = data.showRemainNum;
-        this.gamerule.checkIP = data.ifcansameip;
+        this.gamerule.ifcansameip = data.ifcansameip;
         this.gamerule.checkGps = data.CheckGps;
         this.gamerule.extendBet = 0;
         this.gamerule.gameModel = data.gameModel;
@@ -313,6 +335,7 @@ export default class M_PDKView extends cc.Component implements IPDKView {
         this.gamerule.tableCreatorPay = data.tableCostType;
         if (this.skingameClass.IsCreateTable()){
             this.skinLabelView.SetTableNum(this.skingameClass.TableID,data.isgroup);
+            this.skinLabelView.setPlayerNum(data.PeopleNum);
        }
       
         if (this.skingameClass.GetSelfState() != QL_Common.GState.Gaming)
@@ -329,15 +352,68 @@ export default class M_PDKView extends cc.Component implements IPDKView {
         }
         
         const tableCostName = this.tableInfo.tableCostType == TableCostType.GroupOwnerPay ? "钻石" : TranslateMoneyTypeName(this.skingameClass.RoomClient.TableCostMoneyType);
-        PDK.ins.iclass.ShowWanFa();
+        //if(this.roundResult == undefined || this.roundResult.node.active == false){
+        //    PDK.ins.iclass.ShowWanFa();
+        //}
+        let ruleStr:string = "";
+        ruleStr = data.gameModel + "张玩法 ";
+        if(data.mustOut == 0){
+            ruleStr = ruleStr + "有牌必要 ";
+        }else if(data.mustOut == 1){
+            ruleStr = ruleStr + "可不要 ";
+            if(data.have2OutA){
+                ruleStr = ruleStr + "有2必打A ";
+            }
+        }
+        if(data.bomb){
+            ruleStr = ruleStr + "炸弹+10 ";
+        }
+        if(data.SZTW){
+            ruleStr = ruleStr + "剩三张拖尾 ";
+        }
+        if(data.zhuaNiaoScore != -1){
+            if(data.zhuaNiaoScore == 1){
+                ruleStr = ruleStr + "抓鸟(翻倍) ";
+            }else{
+                ruleStr = ruleStr + "抓鸟(" + data.zhuaNiaoScore + "分) ";
+            }
+        }
+        if(data.threeAIsBomb){
+            ruleStr = ruleStr + "3A为炸(可带1)";
+        }
+
+        this.skinLabelView.showGameRule(ruleStr);
     }
-
-
     /**
      * 请求玩家创建房间
      */
     public Rec_GameCreatePlease(msg: GameIF.CustomMessage) {
         this.gameInfo.SetShowExitAsk(true);
+    }
+
+    /**
+     * 发送setID
+     */
+    public Rec_setSetId(msg: GameIF.CustomMessage) {
+        var data = <M_PDK_GameMessage.CMD_S_SendSetId>msg;
+        if(data.Setid==undefined||data.Setid<=0){
+            return;
+        }
+        if(cc.isValid(this.skinTotalScore)){
+            this.skinTotalScore.ModifySetId(data.Setid);
+        }
+        this.setId = data.Setid;
+    }
+
+    public ShowJieSuanCopy(url:string){
+        if(url ==null||url ==""){
+            return;
+        }
+        if(cc.isValid(this.skinTotalScore)){
+            this.skinTotalScore.OnButtonCopy(url);
+        }else{
+            cc.log("此时结算面板无效");
+        }
     }
 
     /**
@@ -348,7 +424,17 @@ export default class M_PDKView extends cc.Component implements IPDKView {
         //设置游戏开始
         this.gameInfo.SetIsGaming(true);
         var data = <M_PDK_GameMessage.CMD_S_GameStart>msg;
+        let FirstcChair = this.skingameClass.GetClientChair(data.FirstOperationChair);
+
         if(aniFinish){
+            this.selfSelectCardView.showFristCardAni(data.FirstCard,this.skinPlayerControl.skinPlayer[FirstcChair].node.getPosition(),FirstcChair);
+        }else{
+            this.gameInfo.AddCurCount();
+            this.skinPlayerControl.userStateClear();
+            this.selfSelectCardView.clearHandCard();
+            this.gameInfo.firstOutValue = data.FirstCard;
+            this.Clear();
+
             this.msg_Start = data;
             console.log("--------Rec_GameStart:" + aniFinish);
             //设置是否真实结束
@@ -356,39 +442,52 @@ export default class M_PDKView extends cc.Component implements IPDKView {
     
             this.skinButtonView.SetMulGameButton(this.skingameClass.isSelfCreateRoom);
             this.skinButtonView.HideReady();
-            this.selfSelectCardView.SetPlayerCard(data.cards);
-            this.changeOperationPlayer(data.FirstOperationChair,true);
-            this.skinPlayerControl.setCardView();
+            this.skinButtonView.HideShare();
+            this.skinPlayerControl.clearAllOutCards();
             this.skinLabelView.SetGameCount(this.gameInfo.gameCount);
-            if(data.zhuaNiaoChair != -1){
-                this.skinPlayerControl.showZhuaNiaoAni(this.skingameClass.GetClientChair(data.zhuaNiaoChair));
-            }
-
-        }else{
-            this.gameInfo.firstOutValue = data.FirstCard;
-            this.Clear();
-            this.skinPlayerControl.showFristCardAni(data.FirstCard,this.skingameClass.GetClientChair(data.FirstOperationChair),data);
+            this.selfSelectCardView.SetPlayerCard(data.cards);
+            this.skinPlayerControl.setCardView();
+            this.selfSelectCardView.showGetCardAni(data);
         }
-    }   
+    } 
+    /**
+     * 显示先出标签
+     */
+    public showFirstIcon(cChair:number){
+        this.skinPlayerControl.skinPlayer[cChair].showFirstIcon();  
+    }
+    
     /**
      * 断线重连--出牌中
      */
     public Rec_GameContext_OutCard(msg: GameIF.CustomMessage) {
+        console.log("出牌中断线重连----")
         var data = <M_PDK_GameMessage.CMD_S_GameContext_OutCard>msg;
         this.gameInfo.SetIsTrueOver(false);
+        this.selfSelectCardView.clearHandCard();
 
         this.skinButtonView.SetMulGameButton(this.skingameClass.isSelfCreateRoom);
         this.skinButtonView.HideReady();
+        this.skinButtonView.HideShare();
         this.selfSelectCardView.SetPlayerCard(data.cards);
-        this.changeOperationPlayer(data.nowOprationChair,data.CanOut);
         this.skinPlayerControl.setCardViewByData(data.playerChair,data.playerCardsCount,data.playerOutCards);
         this.gameInfo.SetGameCount(data.gameCount);
         this.skinLabelView.SetGameCount(this.gameInfo.gameCount);
+        this.gameInfo.lastOutCardChair = data.lastOutCardChair;
+        let nextcChair = this.skingameClass.GetClientChair(data.nowOprationChair);
+        this.gameInfo.nextOutCardChair = nextcChair;
         if(data.lastOutCardChair != -1){
             this.gameInfo.lastOutCardChair = this.skingameClass.GetClientChair(data.lastOutCardChair);
             this.gameInfo.lastOutCards = data.lastOutCard;
             this.gameInfo.lastOutCardType = data.lastOutCardType;
-        } 
+            this.changeOperationPlayer(nextcChair,data.CanOut);
+        }else{
+            this.changeOperationPlayer(nextcChair,true);
+        }
+        if(data.zhuaNiaoChair != 100){
+            this.ShowZhuaNiaoIcon(this.skingameClass.GetClientChair(data.zhuaNiaoChair));
+        }
+        this.showFirstIcon(this.skingameClass.GetClientChair(data.firstChair));
          //设置游戏开始
          this.gameInfo.SetIsGaming(true);
     }
@@ -401,6 +500,7 @@ export default class M_PDKView extends cc.Component implements IPDKView {
 
         this.skinButtonView.SetMulGameButton(this.skingameClass.isSelfCreateRoom);
         this.skinButtonView.HideReady();
+        this.skinButtonView.HideShare();
         this.gameInfo.SetGameCount(data.gameCount);
         this.skinLabelView.SetGameCount(this.gameInfo.gameCount);
         let cChair:number[] = [];
@@ -411,8 +511,17 @@ export default class M_PDKView extends cc.Component implements IPDKView {
             }
         }
         this.skinPlayerControl.showReadyImage(cChair,data.userState);
+        this.selfSelectCardView.clearHandCard();
          //设置游戏开始
          this.gameInfo.SetIsGaming(true);
+    }
+    /**
+     *玩家准备
+     */
+    public Rec_ShowReady(msg:GameIF.CustomMessage){
+        var data = <M_PDK_GameMessage.CMD_C_Ready>msg;
+        let cChair = this.skingameClass.GetClientChair(data.chair);
+        this.skinPlayerControl.skinPlayer[cChair].SetUserReady(true);
     }
     /**
      * 游戏结束
@@ -441,11 +550,13 @@ export default class M_PDKView extends cc.Component implements IPDKView {
      * 局数打完或者解散房间
      */
     private TheEnd() {
+        this.selfSelectCardView.clearTips();
+        this.ani_CardType.HideAllAni();
         this.gameInfo.SetIsTrueOver(false);
         this.Reset();
         this.tableInfo.Reset();
-        this.skinButtonView.SetMulGameButton(false);
-        if (this.gameInfo.isDissolveTable) {
+        this.skinButtonView.SetMulGameButton(true);
+        if (this.gameInfo.isDissolveTable && (this.roundResult == undefined || (this.roundResult != undefined && this.roundResult.node.active== false))) {
             this.ShowTotalScore();
         }
         else {
@@ -460,7 +571,7 @@ export default class M_PDKView extends cc.Component implements IPDKView {
         ShowNodeView("TotalScore", this.skinTotalScore, (prefab) => {
             this.skinTotalScore = this.AddPrefab(prefab, "PDK_SkinTotalScore", 15);
         }, () => {
-            this.skinTotalScore.Show();
+            this.skinTotalScore.Show(this.skingameClass.TableID,this.setId);
         });
     }
 
@@ -471,8 +582,7 @@ export default class M_PDKView extends cc.Component implements IPDKView {
         ShowNodeView("RoundResult", this.roundResult, (prefab) => {
             this.roundResult = this.AddPrefab(prefab, "PDK_RoundResult", 16);
         }, () => {
-            this.roundResult.Show(this.scoreView, this.gameInfo.gameCount[0]);
-            this.gameInfo.AddCurCount();
+            this.roundResult.Show(this.scoreView);
         });
     }
     private ShowReady() {
@@ -503,30 +613,37 @@ export default class M_PDKView extends cc.Component implements IPDKView {
         this.scoreView.RoundScoreInfolist.push(new ScoreStrEle(data.scoreInfoList)); 
         this.scoreView.isWinList.push(new ScoreEle(data.isWinList)); 
         this.skinPlayerControl.showHandCard(data.chairList,data.cardsList);
+        this.skinPlayerControl.stopWarningEffect()
 
         for(let i = 0 ;i< data.dataList.length;i++){
-            if(this.skingameClass.GetClientChair(data.dataList[i]) == 0){
+            if(this.skingameClass.GetClientChair(data.chairList[i]) == 0){
                 if(data.isWinList[i] == 1){
                     //播放胜利特效
                     VoicePlayer.PlaySysSound("bull_win");
+                    this.selfSelectCardView.showRoundResultTip(1);
                 }else{
-                    if(data.baoPeiList[i]){
+                    if(data.baoPeiList[i] == true){
                         //播放包赔特效
+                        this.playCardTypeAni(CardType.baopei,0,new cc.Vec2(0,-100));
+                        //this.selfSelectCardView.showRoundResultTip(2);
                     }else if(data.menGuoList[i] == 1){
-                        //播放春天特效
-                        this.playCardTypeAni(CardType.chuantian,0,new cc.Vec2(0,0));
+                         //播放春天特效
+                         this.playCardTypeAni(CardType.chuantian,0,new cc.Vec2(0,0));
                     }else{
                         //播放普通输牌特效
+                        this.selfSelectCardView.showRoundResultTip(3);
                     }
                     VoicePlayer.PlaySysSound("bull_loss");
                 }
             }
 
         }
-        this.skinPlayerControl.stopWarningEffect()
+
+        
         this.scheduleOnce(function(){
+            this.selfSelectCardView.showRoundResultTip(0);
             this.TheEnd();
-        },1.5);
+        },3);
     }
     /**
      * 刷新计分板所有信息
@@ -545,7 +662,7 @@ export default class M_PDKView extends cc.Component implements IPDKView {
             this.scoreView.isWinList.push(new ScoreEle(data.isWinList[i])); 
         }
         if (data.isExit && this.skinDissolveTable != undefined) {
-            if (this.gameInfo.isGaming)
+            //if (this.gameInfo.isGaming)
                 this.gameInfo.SetIsDissolveTable(true);
             this.skinDissolveTable.OnClose();
         }
@@ -560,6 +677,7 @@ export default class M_PDKView extends cc.Component implements IPDKView {
     public Rec_TableState(msg: GameIF.CustomMessage) {
         this.skinButtonView.SetMulGameButton(this.skingameClass.isSelfCreateRoom);
         var data = <M_PDK_GameMessage.CMD_S_TableState>msg;
+        this.skinPlayerControl.userStateClear()
         this.skinPlayerControl.GameStartClear();
         this.skinButtonView.HideTiRen();
         for (var i = 0; i < data.chair.length; i++) {
@@ -571,12 +689,17 @@ export default class M_PDKView extends cc.Component implements IPDKView {
                 this.skinPlayerControl.SetUserReady(chair);
                 if (chair == 0) {
                     this.skinButtonView.HideReady();
+                    this.skinButtonView.HideShare();
                     
                 }
             }
             else if (chair == 0) {
                 console.log(chair + "," + data.surplusTimer);
-                this.skinButtonView.ShowReady();
+                let isRoundEnd = false;
+                if(this.roundResult != undefined && this.roundResult.node.active){
+                    isRoundEnd = true;
+                }
+                this.skinButtonView.ShowReady(isRoundEnd);
                 // if (data.surplusTimer > 0)
                 //     this.RegTimer(TimeFlag.Interval, false, data.surplusTimer);
             }
@@ -665,24 +788,38 @@ export default class M_PDKView extends cc.Component implements IPDKView {
     /**
      * 切换操作玩家
      */
-    public changeOperationPlayer(serverChair:number,canOut){
-        let cChair = this.skingameClass.GetClientChair(serverChair);
+    public changeOperationPlayer(nextcChair:number,canOut){
+        this.DestroyTimer();
+        let cChair = nextcChair;
         this.skinPlayerControl.showZhishi(cChair);
+        this.selfSelectCardView.showBtnCantOut(false);
+        let ClockTimes = 15;
         if(cChair === 0 ){
             if(canOut){
                 this.selfSelectCardView.SetCanSelectCard(true);
                 //最后出牌的人是自己，表示自己的牌无人要的起，必须要出牌，不出按钮禁用
                 if(this.gameInfo.lastOutCardChair == -1 || this.gameInfo.lastOutCardChair == 0 || this.gamerule.mustOut == 0){
+                    if(this.gameInfo.lastOutCardChair == -1 || this.gameInfo.lastOutCardChair == 0 ){
+                        this.selfSelectCardView.setPromptBtnState(false);
+                        ClockTimes = 30;
+                    }else{
+                        this.selfSelectCardView.setPromptBtnState(true);
+                    }
                     this.selfSelectCardView.setPassBtnState(false);
                 }else{
                     this.selfSelectCardView.setPassBtnState(true);
+                    this.selfSelectCardView.setPromptBtnState(true);
                 }
-                this.RegTimer(TimeFlag.OutCards,true,30,"",cChair);
+                this.RegTimer(TimeFlag.OutCards,true,ClockTimes,"",cChair);
             }else{
-                this.skingameClass.UiManager.ShowTip("没有牌大过上家");
+                this.selfSelectCardView.showBtnCantOut(true);
             }
         }else{
-            this.RegTimer(TimeFlag.OutCards,true,30,"",cChair);
+            if(this.gameInfo.lastOutCardChair == -1 || this.gameInfo.lastOutCardChair == cChair ){
+                ClockTimes = 30;
+            }
+            this.RegTimer(TimeFlag.OutCards,true,ClockTimes,"",cChair);
+            this.selfSelectCardView.showAuto();
         }
         
     }
@@ -690,23 +827,35 @@ export default class M_PDKView extends cc.Component implements IPDKView {
     public Rec_OutCard(msg: GameIF.CustomMessage){
         var data = <M_PDK_GameMessage.CMD_S_OutCard>msg;
         let cChair = this.skingameClass.GetClientChair(data.chair);
+        let nextcChair = this.skingameClass.GetClientChair(data.nextChair);
         if(data.cards.length > 0){
             this.gameInfo.lastOutCardChair = cChair;
             this.gameInfo.lastOutCards = data.cards;
             this.gameInfo.lastOutCardType = data.cardType;
         } 
+        this.gameInfo.nextOutCardChair = nextcChair;
 
         let cards = GameLogic.SortCardToSmall(data.cards,data.cards.length,true);
-        this.OutCard(cChair,cards,data.cardType);
-        this.changeOperationPlayer(data.nextChair,data.canOut);
-        if(cChair == 0){
+        this.OutCard(cChair,cards,data.cardType,data.isRoundEnd,true);
+        if(this.gamerule.zhuaNiaoScore != -1){
+            for(let value of data.cards){
+                if(value == 0x2A){
+                    this.selfSelectCardView.showZhuaNiaoAni(cChair,this.skinPlayerControl.skinPlayer[cChair].getZhuaNiaoIconPos());
+                    break;
+                }
+            }
+        }
+        if(data.isRoundEnd){
+            this.selfSelectCardView.showBtnCantOut(false);
             this.DestroyTimer();
+        }else{
+            this.changeOperationPlayer(nextcChair,data.canOut);
         }
     }
 
     //显示玩家打出的牌
-    public OutCard(cChair:number,cards:number[],cardType:CardType){
-        this.skinPlayerControl.showOutCard(cChair,cards,cardType);
+    public OutCard(cChair:number,cards:number[],cardType:CardType,isRoundEnd:boolean,isNeedSound:boolean){
+        this.skinPlayerControl.showOutCard(cChair,cards,cardType,isRoundEnd,isNeedSound);
     }
     /**
      * 玩家余额
@@ -715,8 +864,11 @@ export default class M_PDKView extends cc.Component implements IPDKView {
         var data = <M_PDK_GameMessage.CMD_S_PlayerScore>msg;
         for (var i = 0; i < data.score.length; i++) {
             var chair = this.skingameClass.GetClientChair(i);
-            this.skinPlayerControl.SetUserMoney(chair, data.score[i]);
+            this.skinPlayerControl.SetUserMoney(chair, data.score[i],data.isRefresh);
         }
+    }
+    public ShowZhuaNiaoIcon(cChair:number){
+        this.skinPlayerControl.skinPlayer[cChair].showZhuaNiaoIcon();
     }
     //==================================== 接收消息 结束 =======================================
 
@@ -823,44 +975,89 @@ export default class M_PDKView extends cc.Component implements IPDKView {
          }else{
               title = this.skingameClass.isSelfCreateRoom ? `【跑得快】房号：${this.skingameClass.TableID}` : `赶快加入"跑得快"`;
          }
-       
-        //  var checkIP = this.tableInfo.checkIP ? "同IP不许同桌" : "同IP允许同桌";
-      //  var extendBet = this.GetRuleExtendBet(this.tableInfo.extendBet);
-        var gameCount = this.GetGameCount();
-        var tableCostType = this.GetTableCostType();
-    //    var startMasterModel = this.GetStartMasterModel();
-     //   var gameModel = this.GetGameModel();
-     //   var cardTypeModel = this.GetCardTypeModel();
-        var havedropcard = "";
-        var havexifen = "";
-        var havesanshunzi = "";
-        var shareText = `玩法:打${gameCount}局,${tableCostType},`;
-            var j = 0;
-           for (var i = 0; i < this.gameInfo.PlayerCount; i++) {
-            if (this.skinPlayerControl.skinPlayer[i].IsJoinGame()) {
-                j++;}
-            }
-        shareText = shareText+havedropcard+havexifen+havesanshunzi+j+"缺"+(5-j);
-        var context = this.skingameClass.isSelfCreateRoom ? shareText : `你的好友邀请你来加入"跑得快"！`;
+        var context = this.skingameClass.isSelfCreateRoom ? this.getShareText() : `你的好友邀请你来加入"跑得快"！`;
         this.skingameClass.ShowShare(0, this.skingameClass.TableID, title, context);
     }
     public OnButtonCopy(){
            var title = this.skingameClass.isSelfCreateRoom ? `跑得快${this.skingameClass.TableID}` : `赶快加入"跑得快"`;
-           var gameCount = this.GetGameCount();
-           var tableCostType = this.GetTableCostType();   
-            var shareText = `玩法:${gameCount}局,${tableCostType},`;
-            var havedropcard = "";
-            var havexifen = "";
-            var havesanshunzi = "";
-            var j = 0;
-                       for (var i = 0; i < this.gameInfo.PlayerCount; i++) {
-            if (this.skinPlayerControl.skinPlayer[i].IsJoinGame()) {
-                j++;}
-            }
-            title = title+shareText+havedropcard+havexifen+havesanshunzi+j+"缺"+(5-j);
+            title = title + this.getShareText();
             cc.log(title);
         this.skingameClass.CopyToClipboard(title);
     }
+
+    private getShareText(){
+        var gameCount = this.GetGameCount();
+        var tableCostType = this.GetTableCostType();   
+         var shareText = `玩法:${gameCount}局,${tableCostType},`;
+         var CardNum = this.gamerule.gameModel + "张玩法,";
+         var mustOut = "有牌必要,";
+         var have2OutA ="";
+         if(this.gamerule.mustOut == 1){
+             mustOut = "可不要,";
+             if(this.gamerule.have2OutA){
+                 have2OutA = "有2必打A,";
+             }
+         }
+         var spadesRedPeach3 = "";
+         var firstMustOut = "";
+         if(this.gamerule.spadesRedPeach3 == 1){
+             spadesRedPeach3 = "红桃三,";
+             if(this.gamerule.redPeach3MustOut){
+                 firstMustOut = "红桃三必出,";
+             }
+         }else{
+             spadesRedPeach3 = "黑桃三,";
+             if(this.gamerule.spades3MustOut){
+                 firstMustOut = "黑桃三必出,";
+             }
+         }
+
+         var bomb = "";
+         if(this.gamerule.bomb){
+             bomb = "炸弹+10,";
+         }
+         var FZBP = "";
+         if(this.gamerule.FZBP){
+             FZBP = "放走包赔,";
+         }
+         var SZTW = "";
+         if(this.gamerule.SZTW){
+             FZBP = "三张拖尾,";
+         }
+         var showRemainNum = "";
+         if(this.gamerule.showRemainNum){
+             showRemainNum = "显示剩余张数,";
+         }
+
+         var zhuaNiao = "";
+         if(this.gamerule.zhuaNiaoScore != -1){
+             if(this.gamerule.zhuaNiaoScore = 1){
+                 zhuaNiao = "抓鸟翻倍,";
+             }else{
+                 zhuaNiao = "抓鸟+" + this.gamerule.zhuaNiaoScore + "分,";
+             }
+         }
+
+         var checkIP = "";
+         if(this.gamerule.ifcansameip){
+             checkIP = "同IP检测,";
+         }
+
+         var checkGps = "";
+         if(this.gamerule.checkGps){
+             checkIP = "GPS定位,";
+         }
+         
+         var j = 0;
+         for (var i = 0; i < this.gameInfo.PlayerCount; i++) {
+             if (this.skinPlayerControl.skinPlayer[i].IsJoinGame()) {
+                 j++;
+             }
+         }
+         var text = shareText + CardNum + mustOut + have2OutA + spadesRedPeach3 + firstMustOut + bomb + FZBP + SZTW + showRemainNum + zhuaNiao + checkIP + checkGps +j+"缺"+(this.gameInfo.PlayerCount-j);
+         return text;
+    }
+
     /**
      * 设置按钮事件
      */
@@ -956,7 +1153,7 @@ export default class M_PDKView extends cc.Component implements IPDKView {
      * 准备按钮事件
      */
     public OnButtonReady() {
-        if(this.gameInfo.GetLastGameCount() == 0){
+        if(this.gameInfo.GetLastGameCount() == 0 || this.gameInfo.isDissolveTable){
             this.ShowTotalScore();
             return;
         }
@@ -982,8 +1179,8 @@ export default class M_PDKView extends cc.Component implements IPDKView {
     /**
      * 显示牌型特效动画
      */
-    public playCardTypeAni(cardType:CardType,chair:number,pos:cc.Vec2){
-        this.ani_CardType.playAni(cardType,chair,pos);
+    public playCardTypeAni(cardType:CardType,chair:number,pos:cc.Vec2,cardCount:number = 0){
+        this.ani_CardType.playAni(cardType,chair,pos,cardCount);
     }
 
     /**

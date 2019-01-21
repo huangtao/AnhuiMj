@@ -278,6 +278,12 @@ export class RecordDataManage {
             let recordInfo = this.RecordList.GetValue(recordId + '');
             let indexArray = new Array<number>();
             // 因服务器返回的数据和战绩列表中的排序不一致，所以客户端要根据战绩列表进行排序。
+
+            if (!recordInfo && 1 == this.RecordList.Count) {
+                recordInfo = this.RecordList.Values[0];
+                recordId = recordInfo.recordId;
+            }
+
             let detailList = item.data;
             for (let idx = 0; idx < recordInfo.scoreList.length; ++idx) {
                 for (var index = 0; index < detailList.length; ++index) {
@@ -291,6 +297,11 @@ export class RecordDataManage {
             for (var idx = 0; idx < detailList.length; ++idx) {
                 let detailItemInfo: RoundDetailInfoItem = new RoundDetailInfoItem();
                 let detailItem = item.data[indexArray[idx]];
+
+                if (!detailItem) {
+                    continue;
+                }
+                
                 detailItem.recordid = detailItem.recordid;
                 detailItem.userid = detailItem.userid;
                 detailItem.moneynum = detailItem.moneynum;

@@ -28,13 +28,13 @@ export default class HQMJ_OppoSinglePool extends HQMJ_SinglePoolBase {
         // this.bmp_cardcolor.spriteFrame=_hqmj.getMahjongPaiHuaRes(card);
         
         if(_hqmj.is2D()){
-            this.bmp_cardback.node.width=42;
-            this.bmp_cardback.node.height=58;
+            this.bmp_cardback.node.width=43;
+            this.bmp_cardback.node.height=60;
             this.bmp_cardback.node.scaleX=1;
 
             this.bmp_cardcolor.node.x=0;
-            this.bmp_cardcolor.node.y=4;
-            this.bmp_cardcolor.node.scaleX=0.45;
+            this.bmp_cardcolor.node.y=8;
+            this.bmp_cardcolor.node.scaleX=0.75;
             this.bmp_cardcolor.node.scaleY=0.45;
             this.bmp_cardcolor.node.skewX=0;
 
@@ -43,7 +43,7 @@ export default class HQMJ_OppoSinglePool extends HQMJ_SinglePoolBase {
             this.bmp_cardHide.node.scaleX=0.56;
             this.bmp_cardHide.node.scaleY=0.43;
             this.bmp_cardHide.node.skewX=0;
-            this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("pb3_showcard_oppo_1280");
+            this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("shangdp_back@2x");
             this.bmp_cardcolor.spriteFrame=_hqmj.getMahjongPaiHuaRes(card);
         }else{
             this.show3DCard(_hqmj);

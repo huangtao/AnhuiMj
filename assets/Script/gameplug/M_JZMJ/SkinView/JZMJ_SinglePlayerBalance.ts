@@ -90,7 +90,7 @@ export default class JZMJ_SinglePlayerBalance extends cc.Component {
         {
             for(var i=0;i<allcard.fixedCard.length;i++)
             {
-                this.fixedCard.addFixed(allcard.fixedCard[i].tokenCard,allcard.fixedCard[i].type, null,allcard.fixedCard[i].chiType);
+                this.fixedCard.addFixed(allcard.fixedCard[i].tokenCard,allcard.fixedCard[i].type, null,0);
             }
             this.handCard.fixedCardNum=allcard.fixedCard.length;
         }          

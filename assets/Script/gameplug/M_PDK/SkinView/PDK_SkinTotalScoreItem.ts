@@ -35,6 +35,9 @@ export default class SkinTotalScoreItem extends cc.Component {
         LoadHeader(faceID, this.img_face);
         this.img_face.node.width = 68;
         this.img_face.node.height = 68;
+        if( name.length > 5){
+            name = name.substring(0,5) + "...";            
+        }
         this.label_name.string = name;
         this.label_info.string = "ID:" + userID;
         if(score>=0){
@@ -49,8 +52,8 @@ export default class SkinTotalScoreItem extends cc.Component {
 
         this.people_info[0].string = "x"+winCount;
         this.people_info[1].string = "x"+bomb;
-        this.people_info[2].string = "x"+zhuaNiao;
-        this.people_info[3].string = "x"+menGuo;
+        this.people_info[2].string = "x"+menGuo;
+        this.people_info[3].string = "x"+zhuaNiao;
 
         this.img_fangzhu.node.active = isTableCreator;
     }

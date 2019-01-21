@@ -25,8 +25,8 @@ export default class MGMJ_OppoFixed extends MGMJ_FixedBase {
         if(this._fixedData.length > 0){
             if(MGMJ.ins.iclass.is2D()){
                 for(let i: number = 0;i < this._fixedData.length;i++) {
-                this._fixedData[i].node.x = 284 - i*130-40;//830
-                this._fixedData[i].node.y = 284;
+                this._fixedData[i].node.x = 257 - i*133;//830
+                this._fixedData[i].node.y = 309;
             }
             }else{
                 // for(let i:number=0; i<this._fixedData.length; i++){

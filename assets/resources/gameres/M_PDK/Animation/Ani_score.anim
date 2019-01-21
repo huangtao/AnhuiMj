@@ -3,7 +3,7 @@
   "_name": "Ani_score",
   "_objFlags": 0,
   "_rawFiles": null,
-  "_duration": 1.6666666666666667,
+  "_duration": 2.183333333333333,
   "sample": 60,
   "speed": 1,
   "wrapMode": 1,
@@ -25,14 +25,14 @@
           ]
         },
         {
-          "frame": 1.5,
+          "frame": 2,
           "value": [
             0,
             90
           ]
         },
         {
-          "frame": 1.6666666666666667,
+          "frame": 2.183333333333333,
           "value": [
             0,
             150
@@ -49,11 +49,11 @@
           "value": 255
         },
         {
-          "frame": 1.5,
+          "frame": 2,
           "value": 255
         },
         {
-          "frame": 1.6666666666666667,
+          "frame": 2.183333333333333,
           "value": 0
         }
       ]

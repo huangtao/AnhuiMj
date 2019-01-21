@@ -157,6 +157,34 @@ export namespace WebRequest {
         public static GetUploadPolicy(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
             doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/UserInfo.GetUploadPolicy`, action, data, method);
         }
+
+        /**
+         * 
+         * @param action 获取文件上传策略数据
+         * @param data 
+         * @param method 
+         */
+        public static SetUserHeader(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/UserInfo.SetUserHeader`, action, data, method);
+        }
+        /**
+         * 
+         * @param action 设置玩家个人相册数据
+         * @param data 
+         * @param method 
+         */
+        public static SetUserPhoto(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/UserInfo.SetUserPhoto`, action, data, method);
+        }
+        /**
+         * 
+         * @param action 删除玩家个人相册数据
+         * @param data 
+         * @param method 
+         */
+        public static DeleteUserPhoto(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/UserInfo.DeleteUserPhoto`, action, data, method);
+        }
     }
 
 
@@ -276,8 +304,29 @@ export namespace WebRequest {
         /**
          * 获取亲友圈战绩统计数据
          */
-        public static getGroupStat(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
-            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/PyGroup.getGroupStat`, action, data, method);
+        public static getGroupGameStat(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/PyGroup.GroupGameStat`, action, data, method);
+        }
+
+        /**
+         * 成员圈点心
+         */
+        public static GroupSetHeartFlag(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/PyGroup.GroupSetHeartFlag`, action, data, method);
+        }
+
+        /**
+         * 战绩点赞
+         */
+        public static GroupSetRecordFlag(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/PyGroup.GroupSetRecordFlag`, action, data, method);
+        }
+
+        /**
+         * 禁玩
+         */
+        public static GroupUserGameBan(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/PyGroup.GroupUserGameBan`, action, data, method);
         }
     }
 
@@ -301,6 +350,17 @@ export namespace WebRequest {
         public static getSubReplayList(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
             doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/Record.getSubReplayList`, action, data, method);
         }
+
+        /**
+         * 获取游戏战绩的分享连接
+         * @param action 
+         * @param data 
+         * @param method 
+         */
+        public static getRecordUrl(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST") {
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/Record.getRecordUrl`, action, data, method);
+        }
+
     }
 
     export class system{
@@ -345,7 +405,7 @@ export namespace WebRequest {
          * @param data
          */
         public static get_task_list(action?: ActionNet, data?: IDictionary<string, any>, method: string = "GET") {
-            doActionJson(`${ConfigData.webserverinterfaceUrl}/do/api.s.email.get_email_list`, action, data, method);
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/Task.getTaskList`, action, data, method);
         }
 
         /**
@@ -354,7 +414,7 @@ export namespace WebRequest {
          * @param data
          */
         public static getReward(action?: ActionNet, data?: IDictionary<string, any>, method: string = "GET") {
-            doActionJson(`${ConfigData.webserverinterfaceUrl}/do/api.s.email.read_email`, action, data, method);
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/Task.getTaskGift`, action, data, method);
         }
 
     }
@@ -404,6 +464,15 @@ export namespace WebRequest {
     }
 
     /**
+     * 实名绑定
+     */
+    export class bind{
+        public static BindID(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST"){
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/web/Hall.BindIDSuccess`, action, data, method);
+        }
+    }
+
+    /**
      * 获取充值项
      */
     export class pay{
@@ -434,6 +503,23 @@ export namespace WebRequest {
 
         public static showChangeRecord(action?: ActionNet, data?: IDictionary<string, any>, method: string = "GET"){
             doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/GiftView.showChangeRecord`, action, data, method);
+        }
+    }
+
+    /**
+     * 转盘
+     */
+    export class Turntable{
+        public static GetTurntableGiftList(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST"){
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/Turntable.getPrizeList`, action, data, method);
+        }
+
+        public static LuckDrawRequest(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST"){
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/Turntable.LuckDrawRequest`, action, data, method);
+        }
+
+        public static getPrizeRecord(action?: ActionNet, data?: IDictionary<string, any>, method: string = "POST"){
+            doActionJson(`${ConfigData.webserverinterfaceUrl}/platfrom/Turntable.getPrizeRecord`, action, data, method);
         }
     }
 }

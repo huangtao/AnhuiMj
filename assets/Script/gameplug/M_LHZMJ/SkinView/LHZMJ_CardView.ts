@@ -10,6 +10,7 @@ import LHZMJ_SinglePoolBase from "../PlayerCard/single/LHZMJ_SinglePoolBase";
 import M_LHZMJView from "../M_LHZMJView";
 import LHZMJ_PaiQiang from "./LHZMJ_PaiQiang";
 import M_LHZMJClass from "../M_LHZMJClass";
+import { LHZMJMahjongAlgorithm1 } from "../LHZMJMahjongAlgorithm/LHZMJMahjongAlgorithm1";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -52,6 +53,10 @@ export default class LHZMJ_CardView extends cc.Component {
     //6张翻码的牌背
     @property([cc.Sprite])
     fanma_cardback:cc.Sprite[] = [];
+    
+    @property([cc.Sprite])
+    img_zhongma: cc.Sprite[]=[];
+
     //6张翻码的牌花
     @property([cc.Sprite])
     fanma_cardcolor:cc.Sprite[] = [];
@@ -275,7 +280,7 @@ export default class LHZMJ_CardView extends cc.Component {
         this.bg_poolCardArrow.y=arrowPos.y;
         
         // this.img_poolCardArrow.node.stopAllActions();
-        // let aciton= cc.repeatForever(cc.sequence(cc.moveBy(0.8, cc.p(0, 10)), cc.moveBy(0.8, cc.p(0, -10))));
+        // let aciton= cc.repeatForever(cc.sequence(cc.moveBy(0.8, cc.v2(0, 10)), cc.moveBy(0.8, cc.v2(0, -10))));
         // //egret.Tween.get(this._img_poolCardArrow,{ loop: true }).to({ y: this.img_poolCardArrow.y - 10 },800).to({ y: this.img_poolCardArrow.y },800);
         // this.img_poolCardArrow.node.runAction(aciton);
        // this.schedule(this.ArrowRun,1.05);
@@ -318,7 +323,7 @@ export default class LHZMJ_CardView extends cc.Component {
         //更新活动牌阵中定牌数量
         this.activeCard[logicChair].fixedCardNum = this.fixedCard[logicChair].fixedCardNum;
         //刷新手牌阵
-        this.activeCard[logicChair].refreshHandCardData(cardAry);
+        this.activeCard[logicChair].refreshHandCardData(cardAry,true);
     }
 
 
@@ -475,10 +480,13 @@ export default class LHZMJ_CardView extends cc.Component {
         this.fama_view.active = false;
     }
 
+
+    private zhongma_pai:number[] = [1,5,9,11,15,19,21,25,29,35];
     public showFanMa(mapai:number[]): void {
 
         for (var i = 0; i < mapai.length; i++) {
             this.fanma_cardback[i].node.active = true;
+            this.img_zhongma[i].node.active = false;
         }
         this.fama_view.active = true;
         this.schedule(() => {
@@ -493,12 +501,24 @@ export default class LHZMJ_CardView extends cc.Component {
             if (this.timeidx >= 10) {
                 for (var q = 0; q < mapai.length; q++) {
                     this.fanma_cardcolor[q].spriteFrame = M_LHZMJClass.ins.getMahjongPaiHuaRes(mapai[q])
+
+                    if(this.ZhongMa(mapai[q])){
+                        this.img_zhongma[q].node.active = true;
+                    // }else{                        
+                    //     this.img_zhongma[q].node.active = false;
+                    }
                 }
             } 
         }, 0.1, 10);
-       
-        
     }
+
+    private ZhongMa(card:number):boolean{
+        if((LHZMJMahjongAlgorithm1.GetMahjongValue(card)==1)||(LHZMJMahjongAlgorithm1.GetMahjongValue(card)==5)||(LHZMJMahjongAlgorithm1.GetMahjongValue(card)==9)||(card==53)){
+            return true
+        }
+        return false;
+    }
+
     public HideFanMa(){
         this.fama_view.active = false;
     }

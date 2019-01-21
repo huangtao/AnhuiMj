@@ -90,7 +90,7 @@ export default class SkinLabelView extends cc.Component {
             
     }
     public SetGameCountForNext(value:number){
-            this.label_gameCount.string = "局数："+this.gamenum+"/" + this.allnum+this.allgamenum;
+            this.label_gameCount.string = "局数："+(this.allnum-this.allgamenum)+"/" + (this.allnum-this.allgamenum);
     }
     /**
      * 设置房间号

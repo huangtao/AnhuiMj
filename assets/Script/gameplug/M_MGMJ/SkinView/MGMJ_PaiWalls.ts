@@ -366,6 +366,9 @@ export default class MGMJ_PaiWalls extends cc.Component {
             }else if(numUsual > 50){
                 //从最后一蹲牌开始删除
                 let onePai = numUsual - 51;
+                if(numGang%2 == 1 && (numUsual + numGang) == 84){
+                    onePai += 1;
+                }
                 if(selfChair == bankerChair){
                     if(onePai%2 == 0)
                         cc.find("ID_LEFTPAI/ID_NODE_PAIQINAG3/ID_NODE_PQ3_UP/ID_PAIQIANG3_MJ"+onePai, this.node).active = false;

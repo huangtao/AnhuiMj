@@ -22,7 +22,10 @@ export default class MGMJ_GameStatusUserInfo extends cc.Component {
         // init logic
         // console.log("gameUserInfo玩家信息初始化");
         //this.init();
-        
+        for(let i=0;i<MGMJMahjongDef.gPlayerNum;i++)
+        {
+            this.userAry[i].node.on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
+        }
     }
 
     public init():void{
@@ -32,10 +35,6 @@ export default class MGMJ_GameStatusUserInfo extends cc.Component {
             this.group_voice[i].active=false;
             let tempvoice:MJ_PlayVoiceStaus=this.group_voice[i].getComponent<MJ_PlayVoiceStaus>(MJ_PlayVoiceStaus);
             this.voiceAry.push(tempvoice);
-        }
-        for(let i=0;i<MGMJMahjongDef.gPlayerNum;i++)
-        {
-            this.userAry[i].node.on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
         }
         
         for(let i=0;i<this.userAry.length;i++)

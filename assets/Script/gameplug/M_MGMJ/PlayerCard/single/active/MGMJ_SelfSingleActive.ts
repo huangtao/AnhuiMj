@@ -6,6 +6,7 @@ import MGMJEvent from "../../../MGMJEvent";
 import { MGMJMahjongDef, MGMJ } from "../../../ConstDef/MGMJMahjongDef";
 import M_MGMJView from "../../../M_MGMJView";
 import { SetTextureRes, SetTextureResAry } from "../../../../MJCommon/MJ_Function";
+import { IPDKClass } from '../../../../M_PDK/GameHelp/PDK_IClass';
 
 const { ccclass, property } = cc._decorator;
 
@@ -228,7 +229,7 @@ export default class MGMJ_SelfSingleActive extends MGMJ_SingleActiveBase {
     public down():void{
 
         this.node.stopAllActions();
-        this.node.y=-304;
+        this.node.y=-295;
         this._isUp = false;
     }
     /**
@@ -238,10 +239,7 @@ export default class MGMJ_SelfSingleActive extends MGMJ_SingleActiveBase {
          
         if(!this._isUp){ 
             this.node.stopAllActions();
-            this.node.y=-304;
-            let tempY=this.node.y+20;
-            //this.y-=20;
-            //egret.Tween.get(this).to({y:tempY},200).call(()=>{},this);
+            let tempY=this.node.y+25;
             let action=cc.moveTo(0.2,this.node.x,tempY);
             this.node.runAction(action);
             this._isUp = true;
@@ -349,64 +347,47 @@ export default class MGMJ_SelfSingleActive extends MGMJ_SingleActiveBase {
         if(MGMJ.ins.iclass.is2D()){
             this.node.width=79;
             this.node.height=119;
-            this.bmp_cardback.node.width=79;
-            this.bmp_cardback.node.height=113;
+            this.bmp_cardback.node.width=92;
+            this.bmp_cardback.node.height=132;
             this.bmp_cardback.node.scaleX=1;
-            this.bmp_cardcolor.node.width=68;
-            this.bmp_cardcolor.node.height=97;
+            this.bmp_cardcolor.node.width=88;//68;
+            this.bmp_cardcolor.node.height=92//;97;
             this.bmp_enable.node.width=73;
             this.bmp_enable.node.height=107;
-
-            if(true){
+            
+            if(isLie){
                 this.bmp_enable.node.active=false;
+                
                 if(MGMJMahjongDef.gBackMahjongValue != card){
-                    // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_self_1280`;
-                    // SetTextureRes(url,this.bmp_cardback);
-                    
-                    // url=MGMJ.ins.iclass.getMahjongResName(card);
-                    // SetTextureRes(url,this.bmp_cardcolor);
-
                     url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_self_1280`;
-                    //url1=MGMJ.ins.iclass.getMahjongResName(card);
-                    this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcard_self_1280");
+                    this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("shoupaipg@2x");
                     this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(card);
-                    //SetTextureResAry([url,url1],[this.bmp_cardback,this.bmp_cardcolor]);
-                    //this.bmp_cardcolor.node.x = 0;//9;
-                    this.bmp_cardcolor.node.y = 10;//3;
-
+                    this.bmp_cardback.node.width=92; 
+                    this.bmp_cardback.node.height=132;
+                    this.bmp_cardcolor.node.y = 20;//3;
                     this.bmp_cardcolor.node.scaleX = 1;
-                    this.bmp_cardcolor.node.scaleY = 1;
+                    this.bmp_cardcolor.node.scaleY = 0.8;
                     this.bmp_cardcolor.node.skewX = 0;
                     this.bmp_cardcolor.node.skewY = 0;
-                    
-
                     this.bmp_cardcolor.node.active = true;
                     this.bmp_cardback.node.active = true;
                 }else{
                     url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_backcard_self_1280`;
-                    this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("pb3_backcard_self_1280");
-                    //SetTextureRes(url,this.bmp_cardback);
-                    //this._bmp_cardback.texture = <egret.Texture>RES.getRes(switchResName("xzmj_backcard_self_png"));
+                    this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("shoupaipg_back@2x");
                     this.bmp_cardback.node.active = true;
                     this.bmp_cardcolor.node.active=false;
                 }
 
                 
             }else{
-                // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_self_1280`;
-                // SetTextureRes(url,this.bmp_cardback);
-            
-                // url=MGMJ.ins.iclass.getMahjongResName(card);
-                // SetTextureRes(url,this.bmp_cardcolor);
-                //url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_self_1280`;
-                //url1=MGMJ.ins.iclass.getMahjongResName(card);
-                //this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("pb3_active_self_1280");
-               // this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(card);
-                //SetTextureResAry([url,url1],[this.bmp_cardback,this.bmp_cardcolor]);
-
-                //this.bmp_cardcolor.node.x=0;//6;
-                //this.bmp_cardcolor.node.y=-9;//15;
-
+                url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_self_1280`;
+                this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("shoupai2@2x");
+                this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(card);
+                this.bmp_cardback.node.width=92;
+                this.bmp_cardback.node.height=132;
+                this.bmp_cardback.node.scaleX=1;
+                this.bmp_cardback.node.scaleY=1;
+                this.bmp_cardcolor.node.y=-9;//15;
                 this.bmp_cardcolor.node.scaleX = 1;
                 this.bmp_cardcolor.node.scaleY = 1;
                 this.bmp_cardcolor.node.skewX = 0;
@@ -415,40 +396,18 @@ export default class MGMJ_SelfSingleActive extends MGMJ_SingleActiveBase {
                 this.bmp_cardback.node.active = true;
             }
         }else{
-            
-            if(isLie){
-                this.bmp_enable.node.active=false;
-                if(MGMJMahjongDef.gBackMahjongValue != card){
-                    
-                    this.showSelfDaoPai();                                 
-
-                    this.bmp_cardcolor.node.active = true;
-                    this.bmp_cardback.node.active = true;
-                }else{
-                    //url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_backcard_self_1280`;
-                    // this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("hand_self_1");
-                    //SetTextureRes(url,this.bmp_cardback);
-                    //this._bmp_cardback.texture = <egret.Texture>RES.getRes(switchResName("xzmj_backcard_self_png"));
-                    this.bmp_enable.node.active=false;
-                    this.showSelfDaoPai();
-                    this.bmp_cardback.node.active = true;
-                    this.bmp_cardcolor.node.active=false;
-                }               
-            }else{
-                this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("hand_self_1");
-                this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(card);
-                this.bmp_huipai.node.active = hunpai==card;
-            
-                // this.bmp_cardcolor.node.y=-11.5;//15;
-
-                // this.bmp_cardcolor.node.skewX = 0;
-                // this.bmp_cardcolor.node.skewY = 0;
-
-                this.bmp_cardcolor.node.active = true;
-                this.bmp_cardback.node.active = true;
-            }
+            this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("hand_self_1");
+            this.bmp_cardback.node.scaleX=1.2;
+            this.bmp_cardback.node.scaleY=1.2;
+            this.bmp_cardcolor.node.x=0.5;
+            this.bmp_cardcolor.node.y=-4;
+            this.bmp_cardcolor.node.scaleX=0.6;
+            this.bmp_cardcolor.node.scaleY=0.6;
+            this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(card);
+            this.bmp_cardcolor.node.active = true;
+            this.bmp_cardback.node.active = true;
         }
-        
+        this.bmp_huipai.node.active = card == hunpai;
         this.node.active=true;
     }
 

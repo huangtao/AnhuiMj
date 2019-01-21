@@ -1,9 +1,10 @@
 import Global from "../Global/Global";
 import { CallUMengParam } from "../CustomType/CallUMengParam";
-import { UploadInfo, Voice, Header } from "../CustomType/UploadInfo";
-import ConfigData from "../Global/ConfigData";
+import { UploadInfo, UploadInfo_Type_Voice } from "../CustomType/UploadInfo";
 import { Action } from "../CustomType/Action";
 import { BuglyUserData } from "../CustomType/BuglyUserData";
+import { ChoosePhotoReq } from "../CustomType/ChoosePhotoReq";
+import { CheckNativeApiVersion } from "../Tools/Function";
 export class NativeCtrl {
 
     public static HideSplash() {
@@ -47,14 +48,14 @@ export class NativeCtrl {
     /**
      * 错误信息上报
      */
-    public static ReportError(error: any) {
+    public static ReportError() {
 
     }
     /**
      * 停止录音
      */
     public static StopRecord(isValid: boolean) {
-        const key = Global.Instance.DataCache.UploadInfos.GetUploadInfo(Voice);
+        const key = Global.Instance.DataCache.UploadInfos.GetUploadInfo(UploadInfo_Type_Voice);
         if (!key) {
             Global.Instance.UiManager.ShowTip("录音上传失败，请重启应用！");
             //return;
@@ -75,6 +76,9 @@ export class NativeCtrl {
     public static PlayRecorder(id: string) {
         NativeCtrl.CallNative("PlayRecorder", id);
     }
+    /**
+     * 
+     */
     public static GetNativeConfig(): string {
         return NativeCtrl.CallNative("GetNativeConfig");
     }
@@ -126,14 +130,35 @@ export class NativeCtrl {
      * @param value 
      */
     public static SetBuglyUserData(value: BuglyUserData): boolean {
-        if(!cc.isValid(value))return;
+        if (!cc.isValid(value)) return;
         let msg = NativeCtrl.CallNative("SetBuglyUserData", JSON.stringify(value));
         return msg == "success";
     }
     /**
+     * 选择图片获得图片地址
+     * @param value 
+     * @version NaiveApi>=2
+     */
+    public static ChoosePhoto(req: ChoosePhotoReq, callBack: Action): boolean {
+        if(!cc.isValid(callBack)){
+            return false;
+        }
+        if (!CheckNativeApiVersion(2)) {
+            return false;
+        }
+        req.callBack = Global.Instance.ActionManager.AddFunction(callBack)
+        let msg = NativeCtrl.CallNative("ChoosePhoto", JSON.stringify(req));
+        return msg == "success";
+    }
+
+
+
+
+
+    /**
      * 通过js来调用native的静态方法
      * @param method
-     * @param value 
+      @param value 
      */
     private static CallNative(method: string, value: string = "无参数", showlog: boolean = true): string {
         if (showlog) {
@@ -166,5 +191,7 @@ export class NativeCtrl {
 
         return result;
     }
+
+
 }
 

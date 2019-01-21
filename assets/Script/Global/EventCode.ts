@@ -60,4 +60,19 @@ export namespace EventCode {
      * 大厅跑马灯到达
      */
     export const HornHallStart = 21;
+
+    /**
+     * 手机号登录成功
+     */
+    export const MobileLoginSuccess = 22;
+
+    /**
+     * 亲友圈消息推送
+     */
+    export const GroupSystemPush = 23;
+
+    /**
+     * 任务完成并未领奖的推送
+     */
+    export const TaskNumPush = 24;
 }

@@ -28,14 +28,12 @@ export default class JZMJ_DownFixed extends JZMJ_FixedBase {
             if(_JZMJ.is2D()){
                 for(let i: number = 0;i < this._fixedData.length;i++) {
                     this._fixedData[i].node.setLocalZOrder(this._fixedData.length-i);
-                    this._fixedData[i].node.x = 490;
-                    this._fixedData[i].node.y = -150 + i*113-20;
+                    this._fixedData[i].node.x = 478;
+                    this._fixedData[i].node.y = -145 + i*115;
                 }
             }else{
                 for(let i: number = 0;i < this._fixedData.length;i++) {
                     this._fixedData[i].node.setLocalZOrder(this._fixedData.length-i);
-                    // this._fixedData[i].node.x = 480;
-                    // this._fixedData[i].node.y = -140 + i*115;
                 }
             }
             

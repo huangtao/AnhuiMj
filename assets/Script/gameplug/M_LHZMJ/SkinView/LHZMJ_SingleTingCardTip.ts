@@ -50,6 +50,8 @@ export default class LHZMJ_SingleTingCardTip extends cc.Component {
         // SetTextureRes(url,this.img_cardColor);
          this.img_cardColor.spriteFrame=LHZMJ.ins.iclass.getMahjongPaiHuaRes(this._data.tingCard);
 
+         // this.img_cardColor.node.scaleX = 0.625;
+         // this.img_cardColor.node.scaleY = 0.625;
         // load the sprite frame of (project/assets/resources/imgs/cocos.png) from resources folder
 		// cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
 		//     if (err) {

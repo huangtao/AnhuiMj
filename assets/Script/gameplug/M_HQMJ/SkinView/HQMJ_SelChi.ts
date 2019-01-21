@@ -128,31 +128,31 @@ export default class HQMJ_SelChi extends cc.Component {
             this.node_chi_2.active = false;
             //吃牌赋值
             if(!leftChi){//中 右
-                this.img_0[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card-1);
-                this.img_0[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card);
-                this.img_0[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card+1);
+                this.img_0[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card-1);
+                this.img_0[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card);
+                this.img_0[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card+1);
 
-                this.img_1[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card);
-                this.img_1[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card+1);
-                this.img_1[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card+2);
+                this.img_1[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card);
+                this.img_1[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card+1);
+                this.img_1[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card+2);
             }
             if(!midChi){//左 右
-                this.img_0[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card-2);
-                this.img_0[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card-1);
-                this.img_0[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card);
+                this.img_0[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card-2);
+                this.img_0[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card-1);
+                this.img_0[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card);
 
-                this.img_1[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card);
-                this.img_1[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card+1);
-                this.img_1[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card+2);
+                this.img_1[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card);
+                this.img_1[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card+1);
+                this.img_1[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card+2);
             }
             if(!rightChi){//左 中
-                this.img_0[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card-2);
-                this.img_0[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card-1);
-                this.img_0[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card);
+                this.img_0[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card-2);
+                this.img_0[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card-1);
+                this.img_0[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card);
 
-                this.img_1[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card-1);
-                this.img_1[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card);
-                this.img_1[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card+1);
+                this.img_1[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card-1);
+                this.img_1[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card);
+                this.img_1[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card+1);
             }   
         }
         //三种吃法
@@ -164,18 +164,19 @@ export default class HQMJ_SelChi extends cc.Component {
             this.btn_chi_2.node.active = true;          
             this.node_chi_2.active = true;
             //左
-            this.img_0[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card-2);
-            this.img_0[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card-1);
-            this.img_0[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card);
+            this.img_0[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card-2);
+            this.img_0[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card-1);
+            this.img_0[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card);
             //中
-            this.img_1[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card-1);
-            this.img_1[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card);
-            this.img_1[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card+1);
+            this.img_1[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card-1);
+            this.img_1[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card);
+            this.img_1[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card+1);
             //右
-            this.img_2[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card);
-            this.img_2[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card+1);
-            this.img_2[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(card+2);
+            this.img_2[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card);
+            this.img_2[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card+1);
+            this.img_2[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(card+2);
         }
        
     }
+    
 }

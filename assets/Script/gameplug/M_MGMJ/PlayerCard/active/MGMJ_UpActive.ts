@@ -19,7 +19,7 @@ export default class MGMJ_UpActive extends MGMJ_OtherActive {
 
     //活动牌起点:x=150
     //活动牌起点:y:121,180,290,400,510
-    private static ArrangeStartPos_stand: Array<number> = [120,161,273,385,497];
+    private static ArrangeStartPos_stand: Array<number> = [0,39,156,273,390];
 
     //
     //摊开状态,y间隔31
@@ -27,7 +27,7 @@ export default class MGMJ_UpActive extends MGMJ_OtherActive {
 
     //活动牌起点:x=131
     //活动牌起点:y:90,175,285,395,505
-    private static ArrangeStartPos_lie: Array<number> = [85,150,270,385,495];
+    private static ArrangeStartPos_lie: Array<number> = [0,67,184,301,418];
     
 
     /**
@@ -44,8 +44,8 @@ export default class MGMJ_UpActive extends MGMJ_OtherActive {
             //开始排版
             for(var i: number = 0;i < this._cardData.length;i++) {
                 this._cardData[i].node.setLocalZOrder(i+1);
-                this._cardData[i].node.x = -490;
-                this._cardData[i].node.y = 360-(startPos + i*32)-30;
+                this._cardData[i].node.x = -478;
+                this._cardData[i].node.y = 215-(startPos + i*33);
                 this._cardData[i].showCard(this._handCard[i],this.isLie,0);
 
                 if(this.isHoldAfter && (i == (this._cardData.length - 1))) {
@@ -59,8 +59,8 @@ export default class MGMJ_UpActive extends MGMJ_OtherActive {
             //开始排版
             for(var i: number = 0;i < this._cardData.length;i++) {
                 this._cardData[i].node.setLocalZOrder(i+1);
-                this._cardData[i].node.x = -490;
-                this._cardData[i].node.y = 360-(startPos + i*29)-20;
+                this._cardData[i].node.x = -510;
+                this._cardData[i].node.y = 178-(startPos + i*25);
                 this._cardData[i].showCard(this._handCard[i],this.isLie,0);
 
                 if(this.isHoldAfter && (i == (this._cardData.length - 1))) {

@@ -20,9 +20,13 @@ export class ShareGiftForm extends UIBase<any>{
     public IsEventHandler: boolean = true;
     public IsKeyHandler: boolean = true;
 
-    public ProType : string = "";
-    public ProNum : number = 0;
-    public ImgId : number = 0;
+    public ProType_1 : string = "钻石";
+    public ProNum_1 : number = 5;
+    public ImgId_1 : number = 0;
+
+    public ProType_2 : string = "七豆";
+    public ProNum_2 : number = 10;
+    public ImgId_2 : number = 1;
     // @property(cc.Label)
     // numtxt: cc.Label=null;
 
@@ -103,20 +107,21 @@ export class ShareGiftForm extends UIBase<any>{
         this.CloseClick();
 
         try {
-            if(obj.diamond > 0){
-                this.ProType = "钻石";
-                this.ProNum = obj.diamond;
-            }else if(obj.gold > 0){
-                this.ProType = "金币";
-                this.ProNum = obj.gold;
-            }else if(obj.qidou > 0){
-                this.ProType = "七豆";
-                this.ProNum = obj.qidou;
-            }else{
-                return;
-            }
+            // if(obj.diamond > 0){
+            //     this.ProType = "钻石";
+            //     this.ProNum = obj.diamond;
+            // }else if(obj.gold > 0){
+            //     this.ProType = "金币";
+            //     this.ProNum = obj.gold;
+            // }else if(obj.qidou > 0){
+            //     this.ProType = "七豆";
+            //     this.ProNum = obj.qidou;
+            // }else{
+            //     return;
+            // }
 
-            Global.Instance.UiManager.ShowUi(UIName.ShopGiftPanel, this); //弹出奖励面板
+            // Global.Instance.UiManager.ShowUi(UIName.GiveGiftPanel, this); //弹出奖励面板
+            Global.Instance.UiManager.ShowUi(UIName.GiveGiftPanel, this);
             // this.UiManager.ShowTip("已赠送房卡×" + this.DataCache.SysConfig.GetValue("GiveMoneyMaxNum"));
         } catch (ex) {
             cc.error(ex);

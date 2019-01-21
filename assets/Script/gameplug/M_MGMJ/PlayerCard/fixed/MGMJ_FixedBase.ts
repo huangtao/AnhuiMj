@@ -72,11 +72,22 @@ export default class MGMJ_FixedBase extends MGMJ_CardBase{
     public recoveryFixed(fixedCard : Array<M_MGMJ_GameMessage.ORCFixedCard>,mychair:number):void{
         if((null != fixedCard) && (fixedCard.length > 0)){
             for(var i:number=0; i<fixedCard.length; i++){
-                let pos=(fixedCard[i].outChair+MGMJMahjongDef.gPlayerNum-mychair)%MGMJMahjongDef.gPlayerNum;
+                // let pos=(fixedCard[i].outChair+MGMJMahjongDef.gPlayerNum-mychair + 1)%MGMJMahjongDef.gPlayerNum;
+
+                let pos : number = 0;
+                let outChair : number = fixedCard[i].outChair;
+                if(mychair < outChair && Math.abs(mychair - outChair) == 1 || mychair > outChair &&  Math.abs(mychair - outChair) == 3)
+                    pos = 2;//下家
+                if(mychair -outChair == 2 || outChair - mychair == 2)
+                    pos = 1;//对家
+                if(mychair > outChair && Math.abs(mychair - outChair) == 1 || mychair < outChair &&  Math.abs(mychair - outChair) == 3)           
+                    pos = 0;//上家
+                
                 let newnode = MGMJ.ins.iclass.getFreeFixed(this._logicChair).get();
                 if (!cc.isValid(newnode)) {
                     newnode = cc.instantiate(this.FixedType);
                 }
+
                 // var newnode=cc.instantiate(this.FixedType);
                 var fixed = newnode.getComponent<MGMJ_SingleFixedBase>(MGMJ_SingleFixedBase);
                 fixed.init();

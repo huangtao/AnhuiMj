@@ -37,7 +37,7 @@ export default class HQMJ_SingleFixed extends HQMJ_SingleFixedBase {
                 // this.bmp_cardcolorAry[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 // this.bmp_cardcolorAry[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
                 // this.bmp_cardcolorAry[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-                this.bmp_cardcolorAry[3].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardcolorAry[3].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this.cardValue);
 
                 this.bmp_cardbackAry[0].node.active=true;
                 this.bmp_cardbackAry[1].node.active=true;
@@ -58,10 +58,10 @@ export default class HQMJ_SingleFixed extends HQMJ_SingleFixedBase {
                 this.bmp_cardbackAry[1].spriteFrame=HQMJ.ins.iclass.getMahjong3DPaiBeiRes("chi_self_1_7");
                 this.bmp_cardbackAry[2].spriteFrame=HQMJ.ins.iclass.getMahjong3DPaiBeiRes("chi_self_1_7");
                 this.bmp_cardbackAry[3].spriteFrame=HQMJ.ins.iclass.getMahjong3DPaiBeiRes("chi_self_1_7");
-                this.bmp_cardcolorAry[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-                this.bmp_cardcolorAry[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-                this.bmp_cardcolorAry[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-                this.bmp_cardcolorAry[3].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardcolorAry[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this.cardValue);
+                this.bmp_cardcolorAry[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this.cardValue);
+                this.bmp_cardcolorAry[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this.cardValue);
+                this.bmp_cardcolorAry[3].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this.cardValue);
                 for(let i=0;i<4;i++){
                     this.bmp_cardcolorAry[i].node.scaleX=0.4;
                     this.bmp_cardcolorAry[i].node.scaleY=0.4;
@@ -74,9 +74,9 @@ export default class HQMJ_SingleFixed extends HQMJ_SingleFixedBase {
                 this.bmp_cardbackAry[0].spriteFrame=HQMJ.ins.iclass.getMahjong3DPaiBeiRes("chi_self_1_7");
                 this.bmp_cardbackAry[1].spriteFrame=HQMJ.ins.iclass.getMahjong3DPaiBeiRes("chi_self_1_7");
                 this.bmp_cardbackAry[2].spriteFrame=HQMJ.ins.iclass.getMahjong3DPaiBeiRes("chi_self_1_7");
-                this.bmp_cardcolorAry[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-                this.bmp_cardcolorAry[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
-                this.bmp_cardcolorAry[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardcolorAry[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this.cardValue);
+                this.bmp_cardcolorAry[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this.cardValue);
+                this.bmp_cardcolorAry[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this.cardValue);
                 for(let i=0;i<3;i++){
                     this.bmp_cardcolorAry[i].node.scaleX=0.4;
                     this.bmp_cardcolorAry[i].node.scaleY=0.4;
@@ -90,9 +90,9 @@ export default class HQMJ_SingleFixed extends HQMJ_SingleFixedBase {
                 this.bmp_cardbackAry[0].spriteFrame=HQMJ.ins.iclass.getMahjong3DPaiBeiRes("chi_self_1_7");
                 this.bmp_cardbackAry[1].spriteFrame=HQMJ.ins.iclass.getMahjong3DPaiBeiRes("chi_self_1_7");
                 this.bmp_cardbackAry[2].spriteFrame=HQMJ.ins.iclass.getMahjong3DPaiBeiRes("chi_self_1_7");
-                this.bmp_cardcolorAry[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue + this._chiType - 2);
-                this.bmp_cardcolorAry[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue + this._chiType - 1);
-                this.bmp_cardcolorAry[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaRes(this.cardValue + this._chiType);
+                this.bmp_cardcolorAry[0].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this.cardValue + this._chiType - 2);
+                this.bmp_cardcolorAry[1].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this.cardValue + this._chiType - 1);
+                this.bmp_cardcolorAry[2].spriteFrame=HQMJ.ins.iclass.getMahjongPaiHuaResOut(this.cardValue + this._chiType);
                 for(let i=0;i<3;i++){
                     this.bmp_cardcolorAry[i].node.scaleX=0.4;
                     this.bmp_cardcolorAry[i].node.scaleY=0.4;

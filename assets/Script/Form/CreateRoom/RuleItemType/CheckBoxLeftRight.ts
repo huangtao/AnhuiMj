@@ -23,18 +23,20 @@ export default class CheckBoxLeftRight extends RuleItemToggleBase {
 			return;
 		}
 
-		this._curSelectIdx = this.showData.defaultValue;
+		this._curSelectIdx = this.showData.defaultShowIdx;
 
 		if (this.lab_desc) {
 			this.lab_desc.string = this.showData.list[this._curSelectIdx].desc;
 		}
-
-		if (this.showData.defaultSelected) {
-			this.checkBox.check();
-		}else{
-			this.checkBox.uncheck()
-		}
 	}
+
+	public get isChecked() {
+    	if (!this.checkBox) {
+    		return false;
+    	}
+    	
+    	return this.checkBox.isChecked;
+    }
 
 	/**
      * 设置选中状态下和值
@@ -50,7 +52,11 @@ export default class CheckBoxLeftRight extends RuleItemToggleBase {
 			this.checkBox.uncheck();
 		}
 
-		this._curSelectIdx = parseInt(data.value);
+		if (!data.value) {
+			this._curSelectIdx = 0;
+		} else {
+			this._curSelectIdx = parseInt(data.value);
+		}
 
 		if (this.lab_desc) {
 			this.lab_desc.string = this.showData.list[this._curSelectIdx].desc;

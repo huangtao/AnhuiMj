@@ -19,6 +19,8 @@ export class LoadingForm extends UIBase<any>{
     @property(cc.Label)
     label: cc.Label = null;
 
+    public get isPopCloseEffect() { return false; }
+
     // @property(cc.Animation)
     // ani: cc.Animation = null;
 

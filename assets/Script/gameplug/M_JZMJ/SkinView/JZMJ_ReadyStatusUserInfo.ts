@@ -57,8 +57,7 @@ export default class JZMJ_ReadyStatusUserInfo extends cc.Component {
     @property(cc.Button)
     kickBtn2:cc.Button = null;
     @property(cc.Button)
-    kickBtn3:cc.Button = null;
-
+    kickBtn3:cc.Button = null;  
 
     @property([cc.Node])
     group_voice: cc.Node[]=[];
@@ -71,6 +70,12 @@ export default class JZMJ_ReadyStatusUserInfo extends cc.Component {
 
     @property(cc.Button)
     btn_invite: cc.Button=null;
+
+    @property(cc.Button)
+    btn_copy: cc.Button = null;
+
+    @property(cc.Sprite)
+    btn_warming: cc.Sprite = null;
 
     private _JZMJClass: any = null;
 
@@ -87,7 +92,11 @@ export default class JZMJ_ReadyStatusUserInfo extends cc.Component {
         //this.init();
         for(var i=0;i<4;i++){
             this.userAry[i].node.active = false;
-        }        
+        }    
+
+        for(let i=0;i<JZMJMahjongDef.gPlayerNum;i++){
+            this.group_user[i].on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
+        }    
     }
 
     public init():void{
@@ -136,11 +145,7 @@ export default class JZMJ_ReadyStatusUserInfo extends cc.Component {
         this.kickBtn3.node.on(cc.Node.EventType.TOUCH_END,() => {
                 let chair: number = this.JZMJClass.logic2physicalChair(3);
                 this.onKickUser(chair);
-        },this);           
-
-        for(let i=0;i<JZMJMahjongDef.gPlayerNum;i++){
-            this.group_user[i].on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
-        }
+        },this);                 
         
     }
     /**
@@ -201,7 +206,12 @@ export default class JZMJ_ReadyStatusUserInfo extends cc.Component {
         //this._img_offline[this.JZMJClass.physical2logicChair(chair)].visible = false;
         this.userAry[this.JZMJClass.physical2logicChair(chair)].Hideoffline();
     }                
-                    
+
+    //复制房间号
+    private OnCopyRoomNum() : void{
+        M_JZMJClass.ins.CopyToClipboard(JZMJ.ins.iclass.getTableConfig().TableCode);
+    }
+
     private onShare():void{
         //var chair: number = this.JZMJClass.logic2physicalChair(lgchair);
         //M_JZMJView.ins.OnButtonShare();
@@ -415,8 +425,8 @@ export default class JZMJ_ReadyStatusUserInfo extends cc.Component {
          if(this.JZMJClass.getTablePlayerAry()[this.JZMJClass.getSelfChair()].PlayerState==QL_Common.GState.SitDown){
             if(this.JZMJClass.getTableConfig().isValid && this.JZMJClass.getTableConfig().alreadyGameNum==0){
                 this.btn_ready.node.active=true;
-                this.btn_ready.node.x=130;
-                this.btn_invite.node.x=-130;
+                this.btn_ready.node.x=0;
+                // this.btn_invite.node.x=-130;
                 this.group_userReady.active=true;
             }else{
                 this.onReady();
@@ -425,7 +435,7 @@ export default class JZMJ_ReadyStatusUserInfo extends cc.Component {
         else if(this.JZMJClass.getTablePlayerAry()[this.JZMJClass.getSelfChair()].PlayerState==QL_Common.GState.PlayerReady){
             if(this.JZMJClass.getTableConfig().isValid && this.JZMJClass.getTableConfig().alreadyGameNum==0){
                 this.btn_ready.node.active=false;
-                this.btn_invite.node.x=0;
+                // this.btn_invite.node.x=0;
                 this.group_userReady.active=true;
             }
         }
@@ -446,7 +456,7 @@ export default class JZMJ_ReadyStatusUserInfo extends cc.Component {
             // this._btn_dissTable.visible=false;
             // this._btn_ready.visible=false;
              this.btn_ready.node.active=false;
-            this.btn_invite.node.x=0;
+            // this.btn_invite.node.x=0;
         }
          else {
             // if(this.HQMJClass.getTableStauts()!=QL_Common.TableStatus.gameing)

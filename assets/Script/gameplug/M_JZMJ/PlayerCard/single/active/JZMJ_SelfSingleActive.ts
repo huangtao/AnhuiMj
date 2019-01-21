@@ -216,7 +216,7 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
                 }
                 else
                 {
-                    this.down();
+                    this.down()
                     this.node.dispatchEvent(new JZMJEvent(JZMJEvent.msg_reflashHandCard));
                 }
             
@@ -226,7 +226,7 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
     public down():void{
 
         this.node.stopAllActions();
-        this.node.y=-304;
+        this.node.y=-300;
         this._isUp = false;
     }
     /**
@@ -236,8 +236,8 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
          
         if(!this._isUp){ 
             this.node.stopAllActions();
-            this.node.y=-304;
-            let tempY=this.node.y+20;
+            // this.node.y=-304;
+            let tempY=this.node.y+25;
             //this.y-=20;
             //egret.Tween.get(this).to({y:tempY},200).call(()=>{},this);
             let action=cc.moveTo(0.2,this.node.x,tempY);
@@ -324,7 +324,7 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
         this._clickEnable=false;
     }
     
-    public showCard(card: number,isLie: boolean,index:number,_JZMJ=JZMJ.ins.iclass): void {
+    public showCard(card: number,isLie: boolean,index:number,_jzmj=JZMJ.ins.iclass): void {
         //cc.log("开始刷新牌元"+card);
         if(this.node.parent!=null)
         {
@@ -335,7 +335,7 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             if(!isLie)
                 return;
         }
-        super.showCard(card,isLie,index,_JZMJ);
+        super.showCard(card,isLie,index,_jzmj);
         
         this.node.opacity=255;
         this._isUp=false;
@@ -344,121 +344,93 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
         
         let url="";
         let url1="";
-        if(_JZMJ.is2D()){
+        if(_jzmj.is2D()){
             this.node.width=79;
             this.node.height=119;
-            this.bmp_cardback.node.width=79;
-            this.bmp_cardback.node.height=113;
+            this.bmp_cardback.node.width=92;
+            this.bmp_cardback.node.height=132;
             this.bmp_cardback.node.scaleX=1;
-            this.bmp_cardcolor.node.width=68;
-            this.bmp_cardcolor.node.height=97;
+            this.bmp_cardcolor.node.width=88;
+            this.bmp_cardcolor.node.height=92;
             this.bmp_enable.node.width=73;
             this.bmp_enable.node.height=107;
-
-            if(true){
+            if(isLie){
                 this.bmp_enable.node.active=false;
+                
                 if(JZMJMahjongDef.gBackMahjongValue != card){
-                    // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_self_1280`;
-                    // SetTextureRes(url,this.bmp_cardback);
-                    
-                    // url=_JZMJ.getMahjongResName(card);
-                    // SetTextureRes(url,this.bmp_cardcolor);
-
                     url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_self_1280`;
-                    //url1=_JZMJ.getMahjongResName(card);
-                    this.bmp_cardback.spriteFrame=_JZMJ.getMahjongPaiBeiRes("pb3_showcard_self_1280");
-                    this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(card);
-                    //SetTextureResAry([url,url1],[this.bmp_cardback,this.bmp_cardcolor]);
-                    //this.bmp_cardcolor.node.x = 0;//9;
-                    this.bmp_cardcolor.node.y = 10;//3;
-
+                    this.bmp_cardback.spriteFrame=_jzmj.getMahjongPaiBeiRes("shoupaipg@2x");
+                    this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(card);
+                    this.bmp_cardback.node.width=92; 
+                    this.bmp_cardback.node.height=132;
+                    this.bmp_cardcolor.node.y = 20;//3;
                     this.bmp_cardcolor.node.scaleX = 1;
-                    this.bmp_cardcolor.node.scaleY = 1;
+                    this.bmp_cardcolor.node.scaleY = 0.8;
                     this.bmp_cardcolor.node.skewX = 0;
                     this.bmp_cardcolor.node.skewY = 0;
-                    
-
                     this.bmp_cardcolor.node.active = true;
                     this.bmp_cardback.node.active = true;
                 }else{
                     url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_backcard_self_1280`;
-                    this.bmp_cardback.spriteFrame=_JZMJ.getMahjongPaiBeiRes("pb3_backcard_self_1280");
-                    //SetTextureRes(url,this.bmp_cardback);
-                    //this._bmp_cardback.texture = <egret.Texture>RES.getRes(switchResName("xzmj_backcard_self_png"));
+                    this.bmp_cardback.spriteFrame=_jzmj.getMahjongPaiBeiRes("shoupaipg_back@2x");
                     this.bmp_cardback.node.active = true;
                     this.bmp_cardcolor.node.active=false;
                 }
-
-                
             }else{
-                // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_self_1280`;
-                // SetTextureRes(url,this.bmp_cardback);
-            
-                // url=_JZMJ.getMahjongResName(card);
-                // SetTextureRes(url,this.bmp_cardcolor);
-                //url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_self_1280`;
-                //url1=_JZMJ.getMahjongResName(card);
-                //this.bmp_cardback.spriteFrame=_JZMJ.getMahjongPaiBeiRes("pb3_active_self_1280");
-               // this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(card);
-                //SetTextureResAry([url,url1],[this.bmp_cardback,this.bmp_cardcolor]);
-
-                //this.bmp_cardcolor.node.x=0;//6;
-                //this.bmp_cardcolor.node.y=-9;//15;
-
-                // this.bmp_cardcolor.node.scaleX = 1;
-                // this.bmp_cardcolor.node.scaleY = 1;
-                // this.bmp_cardcolor.node.skewX = 0;
-                // this.bmp_cardcolor.node.skewY = 0;
-                // this.bmp_cardcolor.node.active = true;
-                // this.bmp_cardback.node.active = true;
-            }
-        }else{
-            
-            if(isLie){
-                this.bmp_enable.node.active=false;
-                if(JZMJMahjongDef.gBackMahjongValue != card){
-                    
-                    this.showSelfDaoPai(_JZMJ);                                 
-
-                    this.bmp_cardcolor.node.active = true;
-                    this.bmp_cardback.node.active = true;
-                }else{
-                    //url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_backcard_self_1280`;
-                    // this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
-                    //SetTextureRes(url,this.bmp_cardback);
-                    //this._bmp_cardback.texture = <egret.Texture>RES.getRes(switchResName("xzmj_backcard_self_png"));
-                    this.bmp_enable.node.active=false;
-                    this.showSelfDaoPai(_JZMJ);
-                    this.bmp_cardback.node.active = true;
-                    this.bmp_cardcolor.node.active=false;
-                }               
-            }else{
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(card);
-            
-                // this.bmp_cardcolor.node.y=-11.5;//15;
-
-                // this.bmp_cardcolor.node.skewX = 0;
-                // this.bmp_cardcolor.node.skewY = 0;
-
+                url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_self_1280`;
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjongPaiBeiRes("shoupai2@2x");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(card);
+                this.bmp_cardback.node.width=92;
+                this.bmp_cardback.node.height=132;
+                this.bmp_cardback.node.scaleX=1;
+                this.bmp_cardback.node.scaleY=1;
+                this.bmp_cardcolor.node.y=-9;//15;
+                this.bmp_cardcolor.node.scaleX = 1;
+                this.bmp_cardcolor.node.scaleY = 1;
+                this.bmp_cardcolor.node.skewX = 0;
+                this.bmp_cardcolor.node.skewY = 0;
                 this.bmp_cardcolor.node.active = true;
                 this.bmp_cardback.node.active = true;
             }
+        }else{//3D
+            // if(isLie){
+            //     this.bmp_enable.node.active=false;
+            //     if(JZMJMahjongDef.gBackMahjongValue != card){
+            //         this.showSelfDaoPai(_jzmj);                                 
+            //         this.bmp_cardcolor.node.active = true;
+            //         this.bmp_cardback.node.active = true;
+            //     }else{
+            //         this.bmp_enable.node.active=false;
+            //         this.showSelfDaoPai(_jzmj);
+            //         this.bmp_cardback.node.active = true;
+            //         this.bmp_cardcolor.node.active=false;
+            //     }               
+            // }else{
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.node.scaleX=1.2;
+                this.bmp_cardback.node.scaleY=1.2;
+                this.bmp_cardcolor.node.x=0.5;
+                this.bmp_cardcolor.node.y=-4;
+                this.bmp_cardcolor.node.scaleX=0.6;
+                this.bmp_cardcolor.node.scaleY=0.6;
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(card);
+                this.bmp_cardcolor.node.active = true;
+                this.bmp_cardback.node.active = true;
+            // }
         }
-        
         this.node.active=true;
     }
 
-    private showSelfDaoPai(_JZMJ):void{
+    private showSelfDaoPai(_jzmj):void{
         cc.log(this._cardIndex + "------" +this._cardValue);
         var paiY = -304;
         switch(this._cardIndex){
             case 1:{
                 this.node.x=-496+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue);
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue);
                 this.bmp_cardcolor.node.x=0;
                 this.bmp_cardcolor.node.y=-3.5;
                 break;
@@ -466,9 +438,9 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             case 2:{
                 this.node.x=-421+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue);
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue);
                 this.bmp_cardcolor.node.x=0;
                 this.bmp_cardcolor.node.y=-3.5;
                 break;
@@ -476,9 +448,9 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             case 3:{
                 this.node.x=-346+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue);
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue);
                 this.bmp_cardcolor.node.x=-2;
                 this.bmp_cardcolor.node.y=-3.5;
                 break;
@@ -486,9 +458,9 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             case 4:{
                 this.node.x=-271+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue);
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue);
                 this.bmp_cardcolor.node.x=-5;
                 this.bmp_cardcolor.node.y=-3.5;
                 break;
@@ -496,9 +468,9 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             case 5:{
                 this.node.x=-196+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue);
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue);
                 this.bmp_cardcolor.node.x=0;
                 this.bmp_cardcolor.node.y=-3.5;
                 break;
@@ -506,9 +478,9 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             case 6:{
                 this.node.x=-121+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue);
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=-3.5;
                 break;
@@ -516,9 +488,9 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             case 7:{
                 this.node.x=-46+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue);
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue);
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=-3.5;
                 break;
@@ -526,9 +498,9 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             case 8:{
                 this.node.x=29+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue);
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue);
                 this.bmp_cardcolor.node.skewX=0;
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=-3.5;
@@ -537,9 +509,9 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             case 9:{
                 this.node.x=104+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue);
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue);
                 this.bmp_cardcolor.node.skewX=-1;
                 this.bmp_cardcolor.node.x=1;
                 this.bmp_cardcolor.node.y=-3.5;
@@ -548,9 +520,9 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             case 10:{
                 this.node.x=179+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue);
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue);
                 this.bmp_cardcolor.node.x=3;
                 this.bmp_cardcolor.node.y=-3.5;
                 break;           
@@ -558,9 +530,9 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             case 11:{
                 this.node.x=254+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue)
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue)
                 this.bmp_cardcolor.node.x=0;
                 this.bmp_cardcolor.node.y=-3.5;
                 break;
@@ -568,9 +540,9 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             case 12:{
                 this.node.x=329+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue);
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue);
                 this.bmp_cardcolor.node.x=0;
                 this.bmp_cardcolor.node.y=-3.5;
                 break;
@@ -578,9 +550,9 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             case 13:{              
                 this.node.x=404+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue);
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue);
                 this.bmp_cardcolor.node.x=0;
                 this.bmp_cardcolor.node.y=-3.5;
                 break;
@@ -588,9 +560,9 @@ export default class JZMJ_SelfSingleActive extends JZMJ_SingleActiveBase {
             case 14:{              
                 this.node.x=491+7+9;
                 this.node.y=paiY;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("hand_self_1");
                 this.bmp_cardback.node.scaleX=1;
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this._cardValue);
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this._cardValue);
                 this.bmp_cardcolor.node.x=4;
                 this.bmp_cardcolor.node.y=-3.5;
                 break;

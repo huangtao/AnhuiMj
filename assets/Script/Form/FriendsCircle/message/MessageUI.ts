@@ -139,11 +139,10 @@ export default class MessageUI extends UIBase<any> {
 				// 刷新数据
 				if (-1 != this._messageList[this._curOperateItem.Idx]) {
 					this.refreshStatusShow(1);
-				}
-
-				// 请求列表刷新
-				// this.requestMessageList();
+				}				
 			}
+
+			FriendCircleDataCache.Instance.dealMessage(this._curOperateItem.showData[0] + "");
 		});
 
 		this._isRequesting = true;

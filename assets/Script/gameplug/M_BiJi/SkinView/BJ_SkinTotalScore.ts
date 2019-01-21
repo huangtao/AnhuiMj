@@ -2,6 +2,7 @@
 import SkinTotalScoreEle from "./BJ_SkinTotalScoreEle";
 import { BiJi } from "../GameHelp/BJ_IBiJiClass";
 import { TotalScoreData } from "../GameHelp/BJ_GameHelp";
+import ConfigData from "../../../Global/ConfigData";
 
 
 const { ccclass, property } = cc._decorator;
@@ -34,6 +35,8 @@ export default class SkinTotalScore extends cc.Component {
     private isdropcard:cc.Label = null;
     private namelist:string[] = [];
     private scorelist:string[] =[];
+    private setid:number=0;
+
 
 
     onLoad() {
@@ -46,7 +49,8 @@ export default class SkinTotalScore extends cc.Component {
         this.group.addChild(node0);
         return node0.getComponent<SkinTotalScoreEle>(SkinTotalScoreEle);
     }
-    public Show(data: TotalScoreData,gamecount:number,roomnum:number,scoretime:string,xifenmodel:boolean,isdropcard:boolean) {
+    public Show(data: TotalScoreData,gamecount:number,roomnum:number,scoretime:string,xifenmodel:boolean,isdropcard:boolean,setid:number) {
+        this.node.active = true;
         const scoreview = data.scoreView;
         const selfID = data.selfID;
         this.SetTime();
@@ -85,16 +89,54 @@ export default class SkinTotalScore extends cc.Component {
             skinEle.Show(scoreview.facelist[i], scoreview.namelist[i], scoreview.scorelist.length, scoreview.IDlist[i], total[i], selfID, scoreview.scorelist.length > 0 && total[i] == maxScore);
             skinEle.SetPeopleGameInfo(scoreview.winhead[i],scoreview.winoppo[i],scoreview.winlast[i],scoreview.xifentime[i],scoreview.allwin[i]);
         }
+        this.setid = setid;
+        if(this.setid>0){
+            this.node.active = true;
+        }
+    }
+
+    public ModifySetId(setid:number){
+        this.setid = setid;
+        this.node.active = true;
+    }
+    public OnButtonCopy(url:string) {
+        if (this.setid <= 0) {
+            return;
+        }
+        if(url == ""){
+            return;
+        }
+        var xq = "查看详情:" + url + "\n房号:" + this.roomnum.string + "\n本局分数：" + "\n";
+        // var info ="本局分数："+"\n";
+        for (var i = 0; i < this.namelist.length; i++) {
+            xq += this.namelist[i] + ":" + this.scorelist[i] + "\n";
+        }
+        //xq=xq;
+        cc.log(xq);
+        BiJi.ins.iclass.CopyToClipboardInfo(xq);
     }
     private OnButtonInfo() {
-     //   BiJi.ins.iview.ShowQueryScore();
-     var info ="本局分数："+"\n";
-     for(var i = 0;i<this.namelist.length;i++){
-         info += this.namelist[i]+":"+this.scorelist[i]+"\n";
-     }
-  
-    BiJi.ins.iclass.CopyToClipboardInfo(info);
+        if (this.setid <= 0) {
+              var xq = "\n房号:" + this.roomnum.string + "\n本局分数：" + "\n";
+        // var info ="本局分数："+"\n";
+        for (var i = 0; i < this.namelist.length; i++) {
+            xq += this.namelist[i] + ":" + this.scorelist[i] + "\n";
+        }
+        //xq=xq;
+        cc.log(xq);
+        BiJi.ins.iclass.CopyToClipboardInfo(xq);
+
+
+
+            return;
+        }
+
+        BiJi.ins.iclass.GetSetId(this.setid);
+
+
     }
+
+
     private OnButtonShare() {
         BiJi.ins.iclass.ScreenShot(true,this.bg);
     }

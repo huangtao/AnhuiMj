@@ -21,27 +21,23 @@ export default class LHZMJ_DownPool extends LHZMJ_PoolBase {
             return {x:0,y:0};
         }
         
-
-
-        
-        
-
-        let columnNum = Math.ceil((this._poolCard.length - 1) / 9) + 1;
         let valueIdx: number = 0;
         let cardIdx: number = this._poolCard.length;
         let lastIdx: number = 0;
 
         if(LHZMJ.ins.iclass.is2D()){
+            this.resetZ_2d();
             this.node.rotation = 0;
-            for(let i: number = 0;i < columnNum;i++) {
-                for(let j: number = 0;j < 10;j++) {
+            let columnNum2d = Math.ceil((this._poolCard.length - 1) / 12) + 1;
+            for(let i: number = 0;i < columnNum2d;i++) {
+                for(let j: number = 0;j < 12;j++) {
 
                     if((cardIdx > 0) && (valueIdx < this._cardAry.length)) {
 
                         --cardIdx;
 
-                        this._poolCard[cardIdx].node.x = 280 + i * 50.5;
-                        this._poolCard[cardIdx].node.y = -122.5 + j * 31.5+4;
+                        this._poolCard[cardIdx].node.x = 299 + i * 53;
+                        this._poolCard[cardIdx].node.y = -145 + j * 34;
                         this._poolCard[cardIdx].showCard(this._cardAry[valueIdx],0);
                         ++valueIdx;
                         
@@ -52,11 +48,11 @@ export default class LHZMJ_DownPool extends LHZMJ_PoolBase {
                 }
             }
         }else{
-            this.resetZ();
+            let columnNum = Math.ceil((this._poolCard.length - 1) / 10) + 1;
             for(let i: number = 0;i < columnNum;i++) {
-                for(let j: number = 0;j < 9;j++) {
-                    if((i * 9 + j) < this._poolCard.length) {
-                        this._poolCard[i * 9 + j].showCard(this._cardAry[i * 9 + j],i * 10 + j+1);
+                for(let j: number = 0;j < 10;j++) {
+                    if((i * 10 + j) < this._poolCard.length) {
+                        this._poolCard[i * 10 + j].showCard(this._cardAry[i * 10 + j],i * 10 + j+1);
 
                     } else {
                         break;
@@ -72,11 +68,16 @@ export default class LHZMJ_DownPool extends LHZMJ_PoolBase {
         return { x: rx,y: ry };
     }
 
+    private resetZ_2d():void{
+        for(let i: number = 0;i < this._poolCard.length;i++){
+            this._poolCard[i].node.setLocalZOrder(i+1);
+        }
+    }  
+
     private resetZ():void{
         for(let i: number = 0;i < this._poolCard.length;i++){
             this._poolCard[i].node.setLocalZOrder(this._poolCard.length-i);
         }
-
         // if(this._poolCard.length <= 8){
         //     for (let i: number = 0; i < this._poolCard.length; i++) {
         //         this._poolCard[i].node.setLocalZOrder(i + 21);

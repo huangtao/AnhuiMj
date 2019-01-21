@@ -13,6 +13,8 @@ import LHZMJ_Ani from "./SkinView/LHZMJ_Ani";
 import { LHZMJ, enLHZMJAniType, LHZMJMahjongDef } from "./ConstDef/LHZMJMahjongDef";
 import LHZMJEvent from "./LHZMJEvent";
 import LHZMJ_VideoCtl from "./SkinView/LHZMJ_VideoCtl";
+import MJ_Out from "../MJCommon/MJ_Out";
+
 
 const { ccclass, property } = cc._decorator;
 
@@ -108,6 +110,14 @@ export default class M_LHZMJVideoView extends cc.Component {
         return this._selGang;
     }
 
+    @property(cc.Prefab)
+    MJ_Out:cc.Prefab=null;
+
+    private _mjOut:MJ_Out;
+
+    public get mg_out():MJ_Out{
+        return this._mjOut;
+    }
     
     // @property(cc.Prefab)
     // LHZMJ_QiangGang_View: cc.Prefab;
@@ -189,6 +199,11 @@ export default class M_LHZMJVideoView extends cc.Component {
         // this._qiangGang=qianggnode.getComponent<LHZMJ_QiangGangView>(LHZMJ_QiangGangView);
         // this.node.addChild(qianggnode);
 
+
+        let mjoutNode=cc.instantiate(this.MJ_Out);
+        this._mjOut=mjoutNode.getComponent<MJ_Out>(MJ_Out);
+        this.node.addChild(mjoutNode);
+        
         let tipnode=cc.instantiate(this.LHZMJ_TipMsg_View);
         this._tipMsg=tipnode.getComponent<LHZMJ_TipMsg>(LHZMJ_TipMsg);
         this.node.addChild(tipnode);

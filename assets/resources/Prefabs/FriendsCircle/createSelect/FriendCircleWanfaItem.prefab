@@ -18,21 +18,24 @@
         "__id__": 2
       },
       {
-        "__id__": 61
+        "__id__": 63
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 72
+        "__id__": 75
       },
       {
-        "__id__": 73
+        "__id__": 76
+      },
+      {
+        "__id__": 78
       }
     ],
     "_prefab": {
-      "__id__": 75
+      "__id__": 79
     },
     "_id": "",
     "_opacity": 255,
@@ -60,8 +63,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 640,
+      "y": 360
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -120,9 +123,13 @@
     ],
     "_tag": -1,
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 61
+      }
+    ],
     "_prefab": {
-      "__id__": 60
+      "__id__": 62
     },
     "_id": "",
     "_opacity": 255,
@@ -1753,7 +1760,7 @@
       }
     ],
     "_prefab": {
-      "__id__": 59
+      "__id__": 60
     },
     "_id": "",
     "_opacity": 255,
@@ -1951,7 +1958,11 @@
     },
     "duration": 0.1,
     "zoomScale": 0.9,
-    "clickEvents": [],
+    "clickEvents": [
+      {
+        "__id__": 59
+      }
+    ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
     "_N$normalColor": {
@@ -1991,6 +2002,15 @@
     }
   },
   {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 1
+    },
+    "component": "FriendCircleWanfaItem",
+    "handler": "btnShowWanfaClickEvent",
+    "customEventData": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
@@ -2000,6 +2020,32 @@
     },
     "fileId": "e63repM6RBipJSHC3lhe5G",
     "sync": false
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 45,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": false,
+    "_isAbsRight": false,
+    "_isAbsTop": false,
+    "_isAbsBottom": false,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 430,
+    "_originalHeight": 240
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -2021,20 +2067,24 @@
     },
     "_children": [
       {
-        "__id__": 62
+        "__id__": 64
       },
       {
-        "__id__": 65
+        "__id__": 67
       },
       {
-        "__id__": 68
+        "__id__": 70
       }
     ],
     "_tag": -1,
     "_active": false,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 73
+      }
+    ],
     "_prefab": {
-      "__id__": 71
+      "__id__": 74
     },
     "_id": "",
     "_opacity": 255,
@@ -2077,18 +2127,18 @@
     "_name": "sp_bg",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 61
+      "__id__": 63
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 63
+        "__id__": 65
       }
     ],
     "_prefab": {
-      "__id__": 64
+      "__id__": 66
     },
     "_id": "",
     "_opacity": 255,
@@ -2131,7 +2181,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 62
+      "__id__": 64
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -2168,18 +2218,18 @@
     "_name": "sp_locked",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 61
+      "__id__": 63
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 66
+        "__id__": 68
       }
     ],
     "_prefab": {
-      "__id__": 67
+      "__id__": 69
     },
     "_id": "",
     "_opacity": 255,
@@ -2222,7 +2272,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 65
+      "__id__": 67
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -2259,18 +2309,18 @@
     "_name": "lab_tip",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 61
+      "__id__": 63
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 69
+        "__id__": 71
       }
     ],
     "_prefab": {
-      "__id__": 70
+      "__id__": 72
     },
     "_id": "",
     "_opacity": 255,
@@ -2313,7 +2363,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 68
+      "__id__": 70
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -2342,6 +2392,32 @@
     },
     "fileId": "aaztZeWwdCeZ/O630mRzd+",
     "sync": false
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 63
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 45,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": false,
+    "_isAbsRight": false,
+    "_isAbsTop": false,
+    "_isAbsBottom": false,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 430,
+    "_originalHeight": 240
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -2386,7 +2462,7 @@
       "__id__": 10
     },
     "node_lockStatus": {
-      "__id__": 61
+      "__id__": 63
     },
     "node_unLockStatus": {
       "__id__": 2
@@ -2431,7 +2507,7 @@
     "zoomScale": 1.2,
     "clickEvents": [
       {
-        "__id__": 74
+        "__id__": 77
       }
     ],
     "_N$interactable": true,
@@ -2468,6 +2544,32 @@
     "component": "FriendCircleWanfaItem",
     "handler": "btnUnlockOrEnterTableListClickEvent",
     "customEventData": ""
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 9,
+    "_left": 0.33203125,
+    "_right": 0.33203125,
+    "_top": 0.33333333333333337,
+    "_bottom": 0.33333333333333337,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": false,
+    "_isAbsRight": false,
+    "_isAbsTop": false,
+    "_isAbsBottom": false,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 430,
+    "_originalHeight": 240
   },
   {
     "__type__": "cc.PrefabInfo",

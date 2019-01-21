@@ -18,6 +18,7 @@ export interface IPDKClass {
     CopyToClipboardInfo(result:string);
     ForceQuit();
     PlayGameSound(soundName: string, type: AudioType, loops: boolean);
+    GetSetId(setid:number);
 
 }
 export interface IPDKView {
@@ -39,11 +40,14 @@ export interface IPDKView {
     GetTableInfo():TableInfo;
     GetGameRule():GameRule;
     GetScoreView():ScoreView;
-    OutCard(cChair:number,cards:number[],cardType:CardType);
+    OutCard(cChair:number,cards:number[],cardType:CardType,isRoundEnd:boolean,isNeedSound:boolean);
     TimerOver(value: TimeFlag);
     Rec_GameStart(msg: GameIF.CustomMessage, aniFinish: boolean);
-    playCardTypeAni(cardType:CardType,chair:number,pos:cc.Vec2);
+    playCardTypeAni(cardType:CardType,chair:number,pos:cc.Vec2,cardsCount:number);
     ShowPlayerInfo(chair: number);
+    ShowZhuaNiaoIcon(cChair:number);
+    changeOperationPlayer(sChair:number,canOut:boolean);
+    showFirstIcon(cChair:number);
 
 }
 

@@ -36,40 +36,35 @@ export default class HQMJ_DownActive extends HQMJ_OtherActive {
         
         let idx : number=0;
         if(HQMJ.ins.iclass.is2D()){
+            this.node.x = 0;
+            this.node.rotation = 0;
             if(this.isLie){
             //起始位置
             var startPos: number = HQMJ_DownActive.ArrangeStartPos_lie[this.fixedCardNum];
-
             for(var i: number = this._cardData.length; i>0; i--){
                 this._cardData[i-1].node.setLocalZOrder(i);
-                this._cardData[i - 1].node.x = 490;
-                this._cardData[i - 1].node.y = 360-(startPos - idx * 32)-45;
+                this._cardData[i - 1].node.x = 478;
+                this._cardData[i - 1].node.y = 360-(startPos - idx * 33);
                 this._cardData[i - 1].showCard(this._handCard[idx],this.isLie,0);
-
                 if(this.isHoldAfter && (i == 1)) {
                     this._cardData[i - 1].node.y += 10;
                 }
-                
                 ++idx;
             }
             }else{
             //起始位置
             var startPos: number = HQMJ_DownActive.ArrangeStartPos_stand[this.fixedCardNum];
-
             for(var i: number = this._cardData.length;i > 0;i--) {
                 this._cardData[i-1].node.setLocalZOrder(i);
-                this._cardData[i - 1].node.x = 290;
-                this._cardData[i - 1].node.y = 360-(startPos - idx * 29)-45;
+                this._cardData[i - 1].node.x = 510;
+                this._cardData[i - 1].node.y = 360-(startPos - idx * 25);//屋顶拍，-145开始
                 this._cardData[i - 1].showCard(this._handCard[idx],this.isLie,0);
-
                 if(this.isHoldAfter && (i == 1)) {
                     this._cardData[i - 1].node.y += 10;
                 }
-
                 ++idx;
             }
-            
-        }
+            }
         }else{
             let temp=0;
             if(this._cardData.length%3==2){

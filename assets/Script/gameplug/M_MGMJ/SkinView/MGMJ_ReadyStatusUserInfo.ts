@@ -66,6 +66,12 @@ export default class MGMJ_ReadyStatusUserInfo extends cc.Component {
     @property(cc.Button)
     btn_invite: cc.Button=null;
 
+    @property(cc.Button)
+    btn_copy: cc.Button = null;
+
+    @property(cc.Sprite)
+    btn_warming: cc.Sprite = null;
+
     private btn_flag :boolean = false;
 
     onLoad() {
@@ -73,6 +79,9 @@ export default class MGMJ_ReadyStatusUserInfo extends cc.Component {
         //this.init();
         for(var i=0;i<4;i++){
             this.userAry[i].node.active = false;
+        }
+        for(let i=0;i<MGMJMahjongDef.gPlayerNum;i++){
+            this.group_user[i].on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
         }
         
     }
@@ -120,9 +129,7 @@ export default class MGMJ_ReadyStatusUserInfo extends cc.Component {
         //             this.onKickUser(chair);
         //     },this);           
         // }
-        for(let i=0;i<MGMJMahjongDef.gPlayerNum;i++){
-            this.group_user[i].on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
-        }
+        
         //处理踢人按钮
         for(let i= 0 ;i<this.kickBtn.length;i++){
             let chair: number = M_MGMJClass.ins.logic2physicalChair(i+1);
@@ -198,6 +205,11 @@ export default class MGMJ_ReadyStatusUserInfo extends cc.Component {
         this.userAry[MGMJ.ins.iclass.physical2logicChair(chair)].Hideoffline();
     }                
                     
+    //复制房间号
+    private OnCopyRoomNum() : void{
+        M_MGMJClass.ins.CopyToClipboard(MGMJ.ins.iclass.getTableConfig().TableCode);
+    }
+
     private onShare():void{
         //var chair: number = MGMJ.ins.iclass.logic2physicalChair(lgchair);
         //M_MGMJView.ins.OnButtonShare();
@@ -226,23 +238,18 @@ export default class MGMJ_ReadyStatusUserInfo extends cc.Component {
             wanfa = "房主支付,";
         if(M_MGMJClass.ins.TableConfig.IsTableCreatorPay == 3)
             wanfa = "圈主支付,";
-        if(!M_MGMJClass.ins.TableConfig.isWhoLose)
-            wanfa += "赢倒三家有,";
-        if(M_MGMJClass.ins.TableConfig.isWhoLose)
-            wanfa += "谁打谁出分,";
-        if(!M_MGMJClass.ins.TableConfig.isCanChi)
-            wanfa += "不准吃牌,";
-        if(M_MGMJClass.ins.TableConfig.isDaiDaPai)
-            wanfa += "带大牌,";
-        if(!M_MGMJClass.ins.TableConfig.isDaiDaPai)
-            wanfa += "不带大牌,";
-        if(M_MGMJClass.ins.TableConfig.isGangFen)
-            wanfa += "带明杠暗杠,";
-        if(!M_MGMJClass.ins.TableConfig.isGangFen)
-            wanfa += "不带明杠暗杠,";
+        if(M_MGMJClass.ins.TableConfig.SetPeiZi==55)
+            wanfa += "白皮配子,";
+        if(M_MGMJClass.ins.TableConfig.SetPeiZi!=55)
+            wanfa += "随机配子,";
+        if(M_MGMJClass.ins.TableConfig.DianPao)
+            wanfa += "点炮三家付,";
+        if(M_MGMJClass.ins.TableConfig.QiangGangHu)
+            wanfa += "可抢杠胡,";
+        if(M_MGMJClass.ins.TableConfig.ftbz)
+            wanfa += "逢头必战,";
         if(M_MGMJClass.ins.TableConfig.isZhanZhuang)
-            wanfa += "占庄,";
-            
+            wanfa += "带十三幺,";
         context = "玩法:"+ wanfa + playerName + "邀请你";
         M_MGMJClass.ins.ShowShare(null,tableID,title,context);
     }
@@ -410,8 +417,8 @@ export default class MGMJ_ReadyStatusUserInfo extends cc.Component {
          if(MGMJ.ins.iclass.getTablePlayerAry()[MGMJ.ins.iclass.getSelfChair()].PlayerState==QL_Common.GState.SitDown){
             if(MGMJ.ins.iclass.getTableConfig().isValid && MGMJ.ins.iclass.getTableConfig().alreadyGameNum==0){
                 this.btn_ready.node.active=true;
-                this.btn_ready.node.x=130;
-                this.btn_invite.node.x=-130;
+                this.btn_ready.node.x=0;
+                // this.btn_invite.node.x=-130;
                 this.group_userReady.active=true;
             }else{
                 this.onReady();
@@ -420,7 +427,7 @@ export default class MGMJ_ReadyStatusUserInfo extends cc.Component {
         else if(MGMJ.ins.iclass.getTablePlayerAry()[MGMJ.ins.iclass.getSelfChair()].PlayerState==QL_Common.GState.PlayerReady){
             if(MGMJ.ins.iclass.getTableConfig().isValid && MGMJ.ins.iclass.getTableConfig().alreadyGameNum==0){
                 this.btn_ready.node.active=false;
-                this.btn_invite.node.x=0;
+                // this.btn_invite.node.x=0;
                 this.group_userReady.active=true;
             }
         }
@@ -441,7 +448,7 @@ export default class MGMJ_ReadyStatusUserInfo extends cc.Component {
             // this._btn_dissTable.visible=false;
             // this._btn_ready.visible=false;
              this.btn_ready.node.active=false;
-            this.btn_invite.node.x=0;
+            // this.btn_invite.node.x=0;
         }
         else {
             if(MGMJ.ins.iclass.getTableStauts()!=QL_Common.TableStatus.gameing)

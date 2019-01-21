@@ -5,6 +5,7 @@ import { LoadHeader } from "../../Tools/Function";
 import { ActionNet } from "../../CustomType/Action";
 import { WebRequest } from "../../Net/Open8hb";
 import { LocalStorage } from "../../CustomType/LocalStorage";
+import { EventCode } from "../../Global/EventCode";
 
 const { ccclass, property } = cc._decorator;
 
@@ -141,12 +142,12 @@ export default class GiftExchange extends UIBase<any> {
             return false;
         }
 
+
         if (phoneNum != null && (phoneNum == "" || phoneNum.length <= 0)) {
             return false;
         }else{
             if(phoneNum != null){
                 let regex = /^[1][3,4,5,7,8][0-9]{9}$/;
-
                 if(!regex.test(phoneNum)){
                     return false;
                 }
@@ -220,6 +221,7 @@ export default class GiftExchange extends UIBase<any> {
     private ExChangeSuccess(){
         this.UiManager.CloseLoading();
         this.UiManager.ShowTip("兑换请求发送成功 请等待审核!");
+        this.EventManager.PostMessage(EventCode.LatestBalance);
         this.UiManager.DestroyUi(UIName.GiftExchange);
     }
 

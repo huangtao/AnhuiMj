@@ -37,6 +37,7 @@ import HuDong_Animation from "../MJCommon/HuDong_Animation";
 import LHZMJ_Cheating from "./SkinView/LHZMJ_Cheating";
 import M_LHZMJVoice from "./M_LHZMJVoice";
 import { AudioType } from "../../CustomType/Enum";
+import MJ_Out from "../MJCommon/MJ_Out";
 
 @ccclass
 export default class M_LHZMJView extends cc.Component implements ILHZMJView {
@@ -116,6 +117,11 @@ export default class M_LHZMJView extends cc.Component implements ILHZMJView {
         return this._readyStatus_gameInfo;
     }
 
+
+    // private _settingView:LHZMJ_SettingView;
+    // public get LHZMJ_SettingView(): LHZMJ_SettingView {
+    //     return this._settingView;
+    // }
     // @property(cc.Prefab)
     // ReadyStatusGameUserView: cc.Prefab = null;
 
@@ -326,6 +332,16 @@ export default class M_LHZMJView extends cc.Component implements ILHZMJView {
     public get HuDong_Ani():HuDong_Animation{
         return this.huDongDaoJu;
     }
+     //outpai
+    @property(cc.Prefab)
+    MJ_Out:cc.Prefab=null;
+
+    private _mjOut:MJ_Out;
+
+    public get mg_out():MJ_Out{
+        return this._mjOut;
+    }
+
 
     @property(cc.Prefab)
     LHZMJ_JieShuan_View: cc.Prefab = null;
@@ -528,6 +544,16 @@ export default class M_LHZMJView extends cc.Component implements ILHZMJView {
     //请求听牌提示
     btn_tingtip: cc.Button = null;
 
+
+    @property(cc.Sprite)
+    backpack:cc.Sprite = null;
+    //2d桌布
+    @property(cc.SpriteFrame)
+    private backpack_2d:cc.SpriteFrame = null;
+
+    @property(cc.SpriteFrame)
+    private backpack_3d:cc.SpriteFrame = null;
+    
     // @property(cc.Button)
     // //位置
     // btn_location: cc.Button = null;
@@ -556,7 +582,9 @@ export default class M_LHZMJView extends cc.Component implements ILHZMJView {
         // rsgnode.setLocalZOrder(2);
         // // M_LHZMJView._needDestroyNode.push(rsgnode);
         // this.group_mid.addChild(rsgnode);
-
+            let mjoutNode=cc.instantiate(this.MJ_Out);
+            this._mjOut=mjoutNode.getComponent<MJ_Out>(MJ_Out);
+            this.node.addChild(mjoutNode);
 
         // let rsunode = cc.instantiate(this.ReadyStatusGameUserView);
         // this._readyStatus_userInfo = rsunode.getComponent<LHZMJ_ReadyStatusUserInfo>(LHZMJ_ReadyStatusUserInfo);
@@ -720,6 +748,12 @@ export default class M_LHZMJView extends cc.Component implements ILHZMJView {
     }
 
     public Init(): void {
+        if(LHZMJ.ins.iclass.is2D()){
+           this.backpack.spriteFrame = this.backpack_2d; 
+         }else{
+            this.backpack.spriteFrame = this.backpack_3d;
+        }
+        
         this._locked = false;
         this._lockedSetting=false;
         if (cc.isValid(this.GameInfo)) {
@@ -928,7 +962,11 @@ export default class M_LHZMJView extends cc.Component implements ILHZMJView {
         let title : string;
         let context : string;
         let tableID : number = M_LHZMJClass.ins.TableID;
-        title = "红中麻将 房间号:" + tableID + " "+curPlayerCount+"缺"+(4-curPlayerCount);
+        if(M_LHZMJClass.ins.TableConfig._groupid > 0){
+            title = "红中麻将 亲友圈房间号:" + tableID + " 圈号" + M_LHZMJClass.ins.TableConfig._groupid.toString()+" "+curPlayerCount+"缺"+(4-curPlayerCount);
+        }else{
+            title = "红中麻将 房间号:" + tableID + " "+curPlayerCount+"缺"+(4-curPlayerCount);
+        }
 
         let wanfa:string=  "";
 
@@ -1122,6 +1160,8 @@ export default class M_LHZMJView extends cc.Component implements ILHZMJView {
     }
 
     public GameStart(): void {
+        this._setting.refreshBtn_backStatus();
+        this.ReadyAndGameUserInfo.warning.node.active = false;
         this._isCleared = false;
         this.hideGameInfo();
         
@@ -1164,17 +1204,32 @@ export default class M_LHZMJView extends cc.Component implements ILHZMJView {
 
     public nextAction (): void{
         this.GameInfo.holdCardOver();
-        for (let i = 0; i < LHZMJMahjongDef.gPlayerNum; i++) {
+        // for (let i = 0; i < LHZMJ.ins.iclass.getRealUserNum(); i++) {
+        //     var playerarr = M_LHZMJClass.ins.getTablePlayerAry();
+        //     playerarr.indexOf(null);
+
+        //     this.CardView.holdTricksCard(i, 13);
+        // }
+        var playerarr = M_LHZMJClass.ins.getTablePlayerAry();
+        for(let i = 0;i<playerarr.length;i++){
+            if(playerarr[i] == null){
+                continue;
+            }
             this.CardView.holdTricksCard(i, 13);
         }
         this.scheduleOnce(()=>{
             this._cardView.selfActive.refreshHandCardData(LHZMJ.ins.iclass.getSelfHandCardData());
             this._cardView.selfActive.arrangeHandCard();      
+            // if(M_LHZMJClass.ins.oncebuhua){
+            //     this.CardView.selfActive.refreshCardStatus();
+            // }
+            
             },1.25);
     }
 
     public StartSendCard(): void {
         this.StartAniPlay();
+        
         if(LHZMJ.ins.iclass.is2D()){
             this.nextAction();
         }else{
@@ -1261,7 +1316,9 @@ export default class M_LHZMJView extends cc.Component implements ILHZMJView {
     public OnReady() {
 
         if (LHZMJ.ins.iclass.getTableConfig().alreadyGameNum == 0) {
+            this.gameClass.SendGameData(new M_LHZMJ_GameMessage.CMD_C_UserReady());
             this.gameClass.SendUserReady();
+
         }
         else {
             //this.DestroyTimer();
@@ -1355,7 +1412,7 @@ export default class M_LHZMJView extends cc.Component implements ILHZMJView {
 
     }
     public ShowSetVolume(): void {
-        this.gameClass.ShowSettingForm();
+        this.gameClass.ShowSettingForm(true);
     }
         /**
      * 显示互动道具

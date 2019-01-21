@@ -18,7 +18,7 @@ export class M_PDK_GameData {
     public ifcansameip: boolean = false;
 
     //人数
-    public PlayerNum: number = 0;
+    public PeopleNum: number = 0;
     //玩法
     public gameModel:number = 0;
     //有牌必要
@@ -31,6 +31,12 @@ export class M_PDK_GameData {
     public spades3MustOut: boolean = false;
     //红桃三必出
     public redPeach3MustOut: boolean = false;
+    //红桃三必出
+    public zhuaNiaoScore: number = 0;
+    //首局黑桃三先出
+    public firstSpades3Out:boolean = false;
+    //3A为炸
+    public threeAIsBomb:boolean = false;
 
     //炸弹+10
     public bomb: boolean = false;

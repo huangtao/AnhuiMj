@@ -36,11 +36,11 @@ export default class HQMJ_OppoSingleActive extends HQMJ_SingleActiveBase {
         let url="";
         let url1="";
         if(_hqmj.is2D()){
-            this.bmp_liecardback.node.width=39;
-            this.bmp_liecardback.node.height=56;
+            this.bmp_liecardback.node.width=43;
+            this.bmp_liecardback.node.height=60;
             this.bmp_liecardback.node.scaleX=1;
-            this.bmp_cardback.node.width=39;
-            this.bmp_cardback.node.height=56;
+            this.bmp_cardback.node.width=42;
+            this.bmp_cardback.node.height=64;
 
             this.bmp_cardcolor.node.x=0;
             this.bmp_cardcolor.node.y=5;
@@ -50,37 +50,20 @@ export default class HQMJ_OppoSingleActive extends HQMJ_SingleActiveBase {
 
             if(isLie) {
                 if(HQMJMahjongDef.gBackMahjongValue != card){
-                    // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_oppo_1280`;
-                    // SetTextureRes(url,this.bmp_cardback);
-                    // url=_hqmj.getMahjongResName(card);
-                    // SetTextureRes(url,this.bmp_cardcolor);
-                    
                     url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_oppo_1280`;
-                    //url1=_hqmj.getMahjongResName(card);
-                    this.bmp_liecardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("pb3_showcard_oppo_1280");
+                    this.bmp_liecardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("shangdp_back@2x");
                     this.bmp_cardcolor.spriteFrame=_hqmj.getMahjongPaiHuaRes(card);
-                    //SetTextureResAry([url,url1],[this.bmp_liecardback,this.bmp_cardcolor]);
-
-                    // this.bmp_cardcolor.node.x = 0;
-                    // this.bmp_cardcolor.node.y = 5;
-                    // this.bmp_cardcolor.node.scaleX = 0.45;
-                    // this.bmp_cardcolor.node.scaleY = 0.45;
                 }else{
                     url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcardback_oppo_self_1280`;
-                    this.bmp_liecardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("pb3_showcardback_oppo_self_1280");
-                    //SetTextureRes(url,this.bmp_liecardback);
+                    this.bmp_liecardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("shangdp_fan@2x");
                 } 
-
                 this.bmp_liecardback.node.active=true;
                 this.bmp_cardcolor.node.active = HQMJMahjongDef.gBackMahjongValue != card;
 
             } else {
                 url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_oppo_1280`;
-                this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("pb3_active_oppo_1280");
-                //SetTextureRes(url,this.bmp_cardback);
+                this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("shang_back@2x");
                 this.bmp_cardback.node.active=true;
-
-                //this.bmp_cardcolor.node.active = false;
             }
         }else{
             this.bmp_liecardback.node.scaleX=1;
@@ -100,7 +83,6 @@ export default class HQMJ_OppoSingleActive extends HQMJ_SingleActiveBase {
                 this.bmp_cardback.node.active=true;
             }
         }
-        
         this.node.active=true;
     }
     

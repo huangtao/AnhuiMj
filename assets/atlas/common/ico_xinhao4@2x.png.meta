@@ -1,0 +1,39 @@
+{
+  "ver": "1.0.0",
+<<<<<<< .mine
+  "uuid": "07995614-7483-49f2-b7aa-44c5617f8c26",
+=======
+  "uuid": "200785b5-0bce-46f4-b238-fa23fc1e014f",
+>>>>>>> .r1780
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "ico_xinhao4@2x": {
+      "ver": "1.0.3",
+<<<<<<< .mine
+      "uuid": "f9b8d3fb-4f19-4958-9c6b-c781260efd28",
+      "rawTextureUuid": "07995614-7483-49f2-b7aa-44c5617f8c26",
+=======
+      "uuid": "cf43c229-8e71-44d8-bf85-881ba251ff12",
+      "rawTextureUuid": "200785b5-0bce-46f4-b238-fa23fc1e014f",
+>>>>>>> .r1780
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 28,
+      "height": 21,
+      "rawWidth": 28,
+      "rawHeight": 21,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

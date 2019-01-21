@@ -5,7 +5,6 @@ import { GameIF } from "../../CommonSrc/GameIF";
 import { ShareParam } from "../../CustomType/ShareParam";
 // import { String, set, Label, update, property } from '../../../../creator';
 import SendMessage from '../../Global/SendMessage';
-import PrefabClass from './PrefabClass';
 
 import Global from "../../Global/Global";
 import M_HQMJView from './M_HQMJView';
@@ -205,7 +204,6 @@ export default class M_HQMJVideoClass extends GameVideoBase implements IHQMJClas
         public set ignoreForceLeft(value:boolean){
             this._isIgnoreForceLeft=value;
         }
-
         /**
          * 自己的椅子号
          * */
@@ -224,7 +222,6 @@ export default class M_HQMJVideoClass extends GameVideoBase implements IHQMJClas
         public get HandCardData():Array<number>{
             return this._handCard;
         }
-        
         /**
          * 检查余额是否可以继续游戏
          * */
@@ -235,7 +232,6 @@ export default class M_HQMJVideoClass extends GameVideoBase implements IHQMJClas
             // }
             return true;
         }
-
          /**
          * 游戏所需钱数
          * */
@@ -418,40 +414,7 @@ export default class M_HQMJVideoClass extends GameVideoBase implements IHQMJClas
             }
             
             M_HQMJVideoView.ins.TingTip.showTingTip(tingTip,tips);
-            // if(tingTip.length > 0){
-         
-            //      if((pos + M_HQMJVideoView.ins.TingTip.size.width/2) > 640){
-            //     M_HQMJVideoView.ins.TingTip.node.x = 640 - M_HQMJVideoView.ins.TingTip.size.width;
-            // }else if((pos - M_HQMJVideoView.ins.TingTip.size.width/2) < -640){
-            //     M_HQMJVideoView.ins.TingTip.node.x = M_HQMJVideoView.ins.TingTip.size.width - 640;
-            // }
-            // else
-            // {
-            //     M_HQMJVideoView.ins.TingTip.node.x = pos - M_HQMJVideoView.ins.TingTip.size.width/2;
-            // }
-            // }
-            // M_HQMJVideoView.ins.TingTip.node.x=-330;
-            // M_HQMJVideoView.ins.TingTip.node.y=-150;
-        //    if(tingTip.length>0 && pos!=3000){
-        //     if((pos-M_HQMJVideoView.ins.TingTip.size.width/2)<-640){
-        //         M_HQMJVideoView.ins.TingTip.node.x=-540;
-
-        //     }
-        //     else if((pos + M_HQMJVideoView.ins.TingTip.size.width/2) > 640){
-        //         M_HQMJVideoView.ins.TingTip.node.x = 640 - M_HQMJVideoView.ins.TingTip.size.width;
-
-        //     }
-        //     else{
-        //         M_HQMJVideoView.ins.TingTip.node.x = pos - M_HQMJVideoView.ins.TingTip.size.width/2;
-
-        //     }
-        // }else{
             
-        //      M_HQMJVideoView.ins.TingTip.node.x = 640 - M_HQMJVideoView.ins.TingTip.size.width-200;
-
-            
-
-        //  }
         }
 
  
@@ -459,7 +422,7 @@ export default class M_HQMJVideoClass extends GameVideoBase implements IHQMJClas
          * 计时器事件
          * */
         private onTimerEvent(timerid: number,chair: number,leftTickNum: number):void{
-            M_HQMJVideoView.ins.TimerView.timerNum = leftTickNum;
+            // M_HQMJVideoView.ins.TimerView.timerNum = leftTickNum;
             if(chair != this.SelfChair){
                 return;
             }
@@ -579,16 +542,6 @@ export default class M_HQMJVideoClass extends GameVideoBase implements IHQMJClas
 
     onLoad() {
         super.onLoad();
-        // let viewNode = cc.find('M_HQMJVideoView',this.node);
-
-        // if (viewNode) {
-        //     viewNode.active = true;
-        //     let comp = viewNode.getComponent('M_HQMJVideoView');
-
-        //     if (comp) {
-        //         comp.onLoad();
-        //     }
-        // }
         M_HQMJVideoClass._ins = this;
         // HQMJ.ins.iclass = this;
         M_HQMJVideoView.ins.ReadyStatusUserInfo.HQMJClass = M_HQMJVideoClass.ins;
@@ -1137,7 +1090,7 @@ export default class M_HQMJVideoClass extends GameVideoBase implements IHQMJClas
                         tipMsg[1] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[2])].NickName
                         tipMsg[2] = "玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[2])].NickName
                     }
-                    M_HQMJVideoView.ins.cheatBox.showCheatBox(tipMsg);
+                    // M_HQMJVideoView.ins.cheatBox.showCheatBox(tipMsg);
                 }   
             }
     }
@@ -1570,7 +1523,8 @@ export default class M_HQMJVideoClass extends GameVideoBase implements IHQMJClas
             tableConfig.daiDaPai>0,
             tableConfig.whoLose>0,
 
-            tableConfig.tableWhere
+            tableConfig.tableWhere,
+            tableConfig.checkGps>0
 
         );
         M_HQMJVideoView.ins.ReadyStatusGameInfo.refresh();
@@ -1923,82 +1877,28 @@ export default class M_HQMJVideoClass extends GameVideoBase implements IHQMJClas
         this._recordCard.outACard(playerOutCard.card);
         let sex:number=this.TablePlayer[playerOutCard.chair].Gender==1?1:2;
         let chair = playerOutCard.chair;
-        // M_HQMJVoice.PlayCardType(`/sound/dapai.mp3`);
-        //播放音效,todo
-        //  if(true){//如果是普通话
-            // if(chair % 2 == 0)
-                // M_HQMJVoice.PlayCardType(`/sound/PT/1/mj_1_${HQMJMahjongAlgorithm.GetMahjongColor(playerOutCard.card)}_${HQMJMahjongAlgorithm.GetMahjongValue(playerOutCard.card)}.mp3`);
-            // else
-                // M_HQMJVoice.PlayCardType(`/sound/PT/2/mj_2_${HQMJMahjongAlgorithm.GetMahjongColor(playerOutCard.card)}_${HQMJMahjongAlgorithm.GetMahjongValue(playerOutCard.card)}.mp3`);
-        //  }else{
-            //M_HQMJVoice.PlayCardType(`/sound/${sex}/mj_${sex}_${HQMJMahjongAlgorithm.GetMahjongColor(playerOutCard.card)}_${HQMJMahjongAlgorithm.GetMahjongValue(playerOutCard.card)}.mp3`);
-        //M_HQMJVoice.PlayDiaCardType(`resources/gameres/M_HQMJ/sound/dialectsound/${sex}/dsmj_${sex}_${HQMJMahjongAlgorithm.GetMahjongColor(playerOutCard.card)}_${HQMJMahjongAlgorithm.GetMahjongValue(playerOutCard.card)}.mp3`);
-        //  }
+       
         if(this._outCardPlayer.isValid){
             M_HQMJVideoView.ins.CardView.addCard2Pool(this._outCardPlayer.Chair,this._outCardPlayer.Card);
         }          
         //活动牌阵处理
         M_HQMJVideoView.ins.CardView.playerOutCard(playerOutCard.chair,playerOutCard.card);
              //听牌提示剩余牌可能要刷新
-        // if(M_HQMJVideoView.ins.TingTip.node.active){
-        //     this.showTingCard(0,3000);
-        // } 
         //如果是自己
         if(this.SelfChair == playerOutCard.chair){
             HQMJMahjongAlgorithm.delCard(this._handCard,[playerOutCard.card]);
             HQMJMahjongAlgorithm.sortCardAry(this._handCard);
-            // let str="服务端出2牌"
-            // for(let i=0;i<this._handCard.length;i++){
-            //     str+=" "+this._handCard[i];
-            // }
-            // console.log(str);
-            // M_HQMJVideoView.ins.CardView.selfVideoActive.activeEnable(false);
-            // M_HQMJVideoView.ins.CardView.selfVideoActive.refreshHandCardData(this._handCard);
             
             M_HQMJVideoView.ins.OperatorView.node.active=false;
-            // M_HQMJVideoView.ins.SelGangView.node.active=false;
 
             M_HQMJVideoView.ins.TimerView.hideArrow();
-            // M_HQMJVideoView.ins.CardView.selfVideoActive.allDown();
-
-            // M_HQMJVideoView.ins.CardView.selfVideoActive.showTingCardToken(null);
             M_HQMJVideoView.ins.TingTip.showTingTip(null,true);
               this._isTing = HQMJMahjongAlgorithm.CheckIfCanTingCardArray(this._handCard);
-            //   M_HQMJVideoView.ins.TingBtn(this._isTing);
-            if(this._isTing){
-                // M_HQMJVideoView.ins.btn_tingtip.node.active = true;
-                this.showTingCard(0,3000,true);
-            }else{
-                // M_HQMJVideoView.ins.btn_tingtip.node.active = false;
-            }
-            // if(this._isTing){
-            //     M_HQMJVideoView.ins.GameStatusUserInfo.Ting = playerOutCard.chair;
-            //    }
 
         }
             
         }
     
-        
-    
-    // else{
-    //         console.log("-----------变--牌变--牌---------")
-    //          if(this._isTing){
-    //             for(var k=0;k<4;k++)
-    //            {
-    //          for(var i=0;i<M_HQMJVideoView.ins.CardView.getFixed(k)._fixedData.length;i++)
-    //         {
-    //             if(M_HQMJVideoView.ins.CardView.getFixed(k)._fixedData[i].fixedType==enFixedCardType.FixedCardType_AGang)
-    //             {
-                
-    //             var url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei1/pb1_showcard_self_1280`;
-    //             SetTextureRes(url,M_HQMJVideoView.ins.CardView.getFixed(k)._fixedData[i].bmp_cardbackAry[3]);
-                 
-    //              console.log("-----------变--牌变--牌---------")
-    //             M_HQMJVideoView.ins.CardView.getFixed(k)._fixedData[i].bmp_cardcolorAry[1].node.active=true;
-    //         }}
-    //            }}
-    // }
     /**
      * 断线重连恢复玩家分数变化
      * */
@@ -2011,7 +1911,7 @@ export default class M_HQMJVideoClass extends GameVideoBase implements IHQMJClas
         // var action = cc.moveTo(0.1, 0, 120);
         // this.node.runAction(action);
         if(chair != this.SelfChair)
-            M_HQMJVideoView.ins.mg_out.showOutPai(chair,outPai,true);
+            M_HQMJVideoView.ins.mg_out.showOutPai(chair,outPai,M_HQMJVideoClass.ins);
 
         // var bgStr = "#shoupai2@2x.png";
         // var colorStr = $.Mj4_common.getNewCardRes(mj,"sp");
@@ -2678,7 +2578,7 @@ export default class M_HQMJVideoClass extends GameVideoBase implements IHQMJClas
         
         M_HQMJVideoView.ins.TimerView.node.active=true;
         M_HQMJVideoView.ins.TimerView.showArr(chair,selfChair,true);// = chair;
-        M_HQMJVideoView.ins.TimerView.timerNum = timerLen;
+        // M_HQMJVideoView.ins.TimerView.timerNum = timerLen;
        
         this._timer.start();
     }    
@@ -2805,7 +2705,10 @@ export default class M_HQMJVideoClass extends GameVideoBase implements IHQMJClas
     public getMahjong3DPaiBeiRes(cardtype: string): cc.SpriteFrame {
         return this.paibei3d.getSpriteFrame(cardtype);
     }
-
+    public getMahjongPaiHuaResOut(card: number): cc.SpriteFrame {
+        
+        return this.paihua.getSpriteFrame(`mahjong_${HQMJMahjongAlgorithm.GetMahjongColor(card)}_${HQMJMahjongAlgorithm.GetMahjongValue(card)}`);
+    }
     /**
      * 逻辑椅子号转物理椅子号
      * */

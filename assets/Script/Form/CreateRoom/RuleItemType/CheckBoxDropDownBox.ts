@@ -33,22 +33,25 @@ export default class CheckBoxDropDownBox extends RuleItemToggleBase {
 	@property(cc.Layout)
 	layout_dropDownBox: cc.Layout = null;
 
-	private _curSelectValue: any = { value: 0, desc: "" };
+	// private _curSelectValue: any = { value: 0, desc: "" };
+	private _curSelectIdx: number = 0;
 
 	public initShow(): void {
+		this._curSelectIdx = 0;
+
 		if (!this.showData || 0 == this.showData.list.length) {
 			return;
-		}
-
-		if (this.lab_desc) {
-			this.lab_desc.string = this.showData.desc;
 		}
 
 		if (this.layout_dropDownBox) {
 			this.layout_dropDownBox.node.active = false;
 		}
 
-		this._curSelectValue.value = this.showData.defaultValue;
+		this._curSelectIdx = this.showData.defaultShowIdx;
+
+		if (this.showData.list[this._curSelectIdx]) {
+			this.lab_selectValue.string = this.showData.list[this._curSelectIdx].desc;
+		}
 
 		this.btn_fold.width = this.showData.dropDownWidth;
 		this.layout_dropDownBox.node.width = this.showData.dropDownWidth;
@@ -95,20 +98,30 @@ export default class CheckBoxDropDownBox extends RuleItemToggleBase {
 			return;
 		}
 
-		if (data.value) {
-			this._curSelectValue.value = parseInt(data.value);
-
-			// 遍历匹配值的描述
-			for (var idx = this.showData.list.length - 1; idx >= 0; idx--) {
-				if (this.showData.list[idx].value == data.value) {
-					this._curSelectValue.desc = this.showData.list[idx].desc;
-					this.lab_selectValue.string = this.showData.list[idx].desc;
-					break;
+		// 本地保存的是值所以要遍历找到对应的索引
+		if (typeof data.value != "undefined" && data.value != null) {
+			if (data.value == this.showData.defaultValue) {
+				this._curSelectIdx = this.showData.defaultShowIdx;
+				this.lab_selectValue.string = this.showData.list[this._curSelectIdx].desc;
+				this.checkBox.uncheck();
+				return;
+			} else {
+				for (let idx = 0; idx < this.showData.list.length; ++idx) {
+					if (data.value == this.showData.list[idx].value) {
+						this._curSelectIdx = idx;
+						break;
+					}
 				}
 			}
 		}
 
-		if (data.selected) {
+		if (!this.showData.list[this._curSelectIdx]) {
+			return;
+		}
+
+		this.lab_selectValue.string = this.showData.list[this._curSelectIdx].desc;
+
+		if (this.showData.list[this._curSelectIdx].value != this.showData.defaultValue) {
 			this.checkBox.check();
 		} else {
 			this.checkBox.uncheck();
@@ -119,17 +132,17 @@ export default class CheckBoxDropDownBox extends RuleItemToggleBase {
 	 * 点击事件处理
 	 */
 	protected clickEventHandle(): void {
-		if (!cc.isValid(this.checkBox) || !this._curSelectValue) {
+		if (!cc.isValid(this.checkBox)) {
 			return;
 		}
 
 		this._attrParam = new AttrParam();
 		this._attrParam.attrName = this.showData.attr;
 		this._attrParam.isChecked = this.checkBox.isChecked;
-		this._attrParam.valueDesc = this._curSelectValue.desc;
+		this._attrParam.valueDesc = this.showData.list[this._curSelectIdx].desc;
 
 		if (this.checkBox.isChecked) {
-			this._attrParam.value = this._curSelectValue.value;
+			this._attrParam.value = this.showData.list[this._curSelectIdx].value;
 		} else {
 			this._attrParam.value = this.showData.defaultValue;
 		}
@@ -140,16 +153,19 @@ export default class CheckBoxDropDownBox extends RuleItemToggleBase {
 	/**
 	 * 列表项Item点击事件处理
 	 */
-	protected dropDownItemBtnEventHandle(data: any): void {
+	protected dropDownItemBtnEventHandle(index: number): void {
 		if (!cc.isValid(this.checkBox)) {
 			return;
 		}
 
-		if (data) {
-			this.lab_selectValue.string = data.desc;
-			this._curSelectValue = data;
-			this.layout_dropDownBox.node.active = false;
-			this.clickEventHandle();
+		if (typeof index == "number") {
+			if (this.showData.list[index]) {
+				this.lab_selectValue.string = this.showData.list[index].desc;
+				this._curSelectIdx = index;
+				this.layout_dropDownBox.node.active = false;
+				this.clickEventHandle();
+			}
+
 			return;
 		}
 

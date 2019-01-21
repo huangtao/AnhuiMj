@@ -2,6 +2,32 @@
     "gameName": "M_HQMJ",
     "list": [
         {
+            "attrIcon": "cjfj_76.png",
+            "desc": "人数",
+            "enabled": true,
+            "itemList": [
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "attr": "PeopleNum",
+                            "value": 0,
+                            "desc": "4人",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "attr": "PeopleNum",
+                            "value": 1,
+                            "desc": "3人",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "attrIcon": "cjfj_41.png",
             "desc": "局数",
             "enabled": true,
@@ -154,11 +180,6 @@
         }
     ],
     "defaultAttr":[
-        {   
-            "attrName": "IfCanSameIp",
-            "value": false,
-            "desc":"是否同ip"
-        },
         {
             "attrName": "isGangJiuYou",
             "value": true,

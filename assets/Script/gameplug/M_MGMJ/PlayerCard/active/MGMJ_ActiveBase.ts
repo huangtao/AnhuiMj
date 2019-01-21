@@ -36,6 +36,7 @@ export default class MGMJ_ActiveBase extends MGMJ_CardBase {
      * */
     protected _logicChair:number;
 
+
     onLoad() {
         // init logic
         
@@ -45,6 +46,7 @@ export default class MGMJ_ActiveBase extends MGMJ_CardBase {
         this._cardData[this._cardData.length-1].onClick();
         
     }
+    
     
     public init(logicChair: number):void{
         this._logicChair= logicChair;

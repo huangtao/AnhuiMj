@@ -193,6 +193,9 @@ export default class MJ_UserData extends cc.Component {
     }
 
     public showUserData(IsShowID: boolean, player: QL_Common.TablePlayer, x: number, y: number): void {
+        if(this.node.active){
+            return;
+        }
         if (null != player) {
             if (IsShowID) {
                 this.lbl_useridbt.node.active = true;

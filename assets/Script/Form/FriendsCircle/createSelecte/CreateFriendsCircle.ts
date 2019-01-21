@@ -1,13 +1,7 @@
 import UIBase from "../../Base/UIBase";
 import { WebRequest } from "../../../Net/Open8hb";
 import { IDictionary } from "../../../Interface/IDictionary";
-import UiManager from "../../../Manager/UiManager";
-import Global from "../../../Global/Global";
-import { Action, ActionNet } from "../../../CustomType/Action";
-import { GameCachePool } from "../../../Global/GameCachePool";
-import { HallNodePools } from "../../../Global/HallNodePools";
-import { EventCode } from "../../../Global/EventCode";
-import { QL_Common } from "../../../CommonSrc/QL_Common";
+import { ActionNet } from "../../../CustomType/Action";
 import { UIName } from "../../../Global/UIName";
 import FriendCircleDataCache from "../FriendCircleDataCache";
 

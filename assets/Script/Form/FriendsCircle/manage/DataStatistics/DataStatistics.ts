@@ -1,8 +1,5 @@
 import { Action, ActionNet } from "../../../../CustomType/Action";
-import { UIName } from "../../../../Global/UIName";
 import Global from "../../../../Global/Global";
-import FriendCircleDataCache from "../../FriendCircleDataCache";
-import FriendCircleWebHandle from "../../FriendCircleWebHandle";
 import ManageChildBase from "../ManageChildBase";
 
 const {ccclass, property} = cc._decorator;
@@ -88,7 +85,7 @@ export default class DataStatistics extends ManageChildBase {
         });
 
         Global.Instance.UiManager.ShowLoading('正在获数据');
-        let curFriendInfo = FriendCircleDataCache.Instance.CurEnterFriendCircle;
-        FriendCircleWebHandle.getGroupStat(parseInt(curFriendInfo.ID),act);
+        // let curFriendInfo = FriendCircleDataCache.Instance.CurEnterFriendCircle;
+        // FriendCircleWebHandle.getGroupStat(parseInt(curFriendInfo.ID),act);
     }
 }

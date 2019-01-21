@@ -3538,7 +3538,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 252,
+      "width": 326,
       "height": 30
     },
     "_rotationX": 0,
@@ -3579,7 +3579,7 @@
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 1
+    "_N$overflow": 2
   },
   {
     "__type__": "cc.PrefabInfo",

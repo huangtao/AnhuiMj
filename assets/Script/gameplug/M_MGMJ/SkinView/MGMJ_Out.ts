@@ -29,7 +29,7 @@ export default class MJ_Cheating extends cc.Component {
     public showOutPai(chair,outPai){
 
         this.mj_pai.spriteFrame=M_MGMJClass.ins.getMahjong3DPaiBeiRes("hand_self_1");            
-        this.mj_hua.spriteFrame=M_MGMJClass.ins.getMahjongPaiHuaRes(outPai);
+        this.mj_hua.spriteFrame=M_MGMJClass.ins.getMahjongPaiHuaResOut(outPai);
         
         var logicChair: number =M_MGMJClass.ins.physical2logicChair(chair);
 

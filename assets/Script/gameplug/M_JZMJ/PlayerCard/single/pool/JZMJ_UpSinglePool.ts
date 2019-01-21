@@ -16,40 +16,35 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
     /**
      * 显示牌
      * */
-    public showCard(card: number,index:number,_JZMJ): void {
+    public showCard(card: number,index:number,_jzmj): void {
         if(card==this._cardValue){
             return;
         }
-        super.showCard(card,index,_JZMJ);
+        super.showCard(card,index,_jzmj);
 
-        if(_JZMJ.is2D()){
-            this.bmp_cardback.node.width=52;
-            this.bmp_cardback.node.height=42;
+        if(_jzmj.is2D()){
+            this.bmp_cardback.node.width=56;
+            this.bmp_cardback.node.height=45;
             this.bmp_cardback.node.scaleX=1;
 
             this.bmp_cardcolor.node.x=0;
-            this.bmp_cardcolor.node.y=5;
-            this.bmp_cardcolor.node.scaleX=0.45;
-            this.bmp_cardcolor.node.scaleY=0.45;
+            this.bmp_cardcolor.node.y=8;
+            this.bmp_cardcolor.node.scaleX=0.4;
+            this.bmp_cardcolor.node.scaleY=0.55;
             this.bmp_cardcolor.node.skewY=0;
 
             this.bmp_cardHide.node.x=0;
-            this.bmp_cardHide.node.y=5;
-            this.bmp_cardHide.node.scaleX=0.45;
+            this.bmp_cardHide.node.y=8;
+            this.bmp_cardHide.node.scaleX=0.4;
             this.bmp_cardHide.node.scaleY=0.45;
             this.bmp_cardHide.node.skewY=0;
-            this.bmp_cardback.spriteFrame=_JZMJ.getMahjongPaiBeiRes("pb3_showcard_left_right_1280");
-            this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(card);
+            this.bmp_cardback.spriteFrame=_jzmj.getMahjongPaiBeiRes("zuoyoupg@2x");
+            this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(card);
         }else{
-            this.show3DCard(_JZMJ);
+            this.show3DCard(_jzmj);
         }
         this.bmp_cardback.node.active=true;
         this.bmp_cardcolor.node.active=true;
-        // this._bmp_cardcolor.x = 51;
-        // this._bmp_cardcolor.y = 0;
-        // this._bmp_cardcolor.scaleX = 0.5;
-        // this._bmp_cardcolor.scaleY = 0.5;
-        // this._bmp_cardcolor.rotation = 90;
     }
     
     /**
@@ -59,7 +54,7 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
         return { width: 52,height: 45 };
     }
 
-    private show3DCard(_JZMJ): void {
+    private show3DCard(_jzmj): void {
         switch (this._cardIndex) {
             case 9:{
                 this.node.x=-167.5;
@@ -77,8 +72,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-7;
                 this.bmp_cardback.node.width = 68;
                 this.bmp_cardback.node.height = 54;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_25");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_25");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 8:{
@@ -97,8 +92,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-7;
                 this.bmp_cardback.node.width = 68;
                 this.bmp_cardback.node.height = 52;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_22");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_22");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 7:{
@@ -117,8 +112,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-9;
                 this.bmp_cardback.node.width = 66;
                 this.bmp_cardback.node.height = 52;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_19");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_19");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 6:{
@@ -137,8 +132,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-9;
                 this.bmp_cardback.node.width = 66;
                 this.bmp_cardback.node.height = 52;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_6");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_6");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 5:{
@@ -157,8 +152,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-7;
                 this.bmp_cardback.node.width = 64;
                 this.bmp_cardback.node.height = 50;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_5");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_5");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 4:{
@@ -177,8 +172,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-7;
                 this.bmp_cardback.node.width = 62;
                 this.bmp_cardback.node.height = 50;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_4");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_4");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 3:{
@@ -197,8 +192,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-7;
                 this.bmp_cardback.node.width = 62;
                 this.bmp_cardback.node.height = 48;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_3");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_3");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 2:{
@@ -217,8 +212,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-5;
                 this.bmp_cardback.node.width = 60;
                 this.bmp_cardback.node.height = 48;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_2");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_2");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 1:{
@@ -237,8 +232,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-5;
                 this.bmp_cardback.node.width = 60;
                 this.bmp_cardback.node.height = 46;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_1");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_1");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             } 
             //第二行
@@ -258,8 +253,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-7;
                 this.bmp_cardback.node.width = 70;
                 this.bmp_cardback.node.height = 54;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_26");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_26");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 17:{
@@ -278,8 +273,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-9;
                 this.bmp_cardback.node.width = 68;
                 this.bmp_cardback.node.height = 52;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_23");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_23");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 16:{
@@ -298,8 +293,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-9;
                 this.bmp_cardback.node.width = 68;
                 this.bmp_cardback.node.height = 52;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_20");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_20");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 15:{
@@ -318,8 +313,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-7;
                 this.bmp_cardback.node.width = 66;
                 this.bmp_cardback.node.height = 52;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_12");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_12");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 14:{
@@ -338,8 +333,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-7;
                 this.bmp_cardback.node.width = 66;
                 this.bmp_cardback.node.height = 50;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_11");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_11");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 13:{
@@ -358,8 +353,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-7;
                 this.bmp_cardback.node.width = 64;
                 this.bmp_cardback.node.height = 50;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_10");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_10");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 12:{
@@ -378,8 +373,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-7;
                 this.bmp_cardback.node.width = 62;
                 this.bmp_cardback.node.height = 48;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_9");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_9");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 11:{
@@ -398,8 +393,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-7;
                 this.bmp_cardback.node.width = 62;
                 this.bmp_cardback.node.height = 48;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_8");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_8");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 10:{
@@ -420,8 +415,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardback.node.height = 46;
                 this.bmp_cardback.node.width = 60;
                 this.bmp_cardback.node.height = 46;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_7");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_7");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             //第三行
@@ -441,8 +436,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.scaleX=0.48;
                 this.bmp_cardHide.node.scaleY=0.55;
                 this.bmp_cardHide.node.skewY=-8;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_13");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_13");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 29:{
@@ -462,8 +457,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.scaleX=0.46;
                 this.bmp_cardHide.node.scaleY=0.53;
                 this.bmp_cardHide.node.skewY=-11;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_14");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_14");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 28:{
@@ -485,8 +480,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.scaleX=0.43;
                 this.bmp_cardHide.node.scaleY=0.52;
                 this.bmp_cardHide.node.skewY=-10;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_15");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_15");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 27:{
@@ -504,8 +499,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.scaleX=0.44;
                 this.bmp_cardHide.node.scaleY=0.52;
                 this.bmp_cardHide.node.skewY=-11;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_16");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_16");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 26:{
@@ -527,8 +522,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.scaleX=0.44;
                 this.bmp_cardHide.node.scaleY=0.51;
                 this.bmp_cardHide.node.skewY=-11;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_24");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_24");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
 
@@ -548,8 +543,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-9;
                 this.bmp_cardback.node.width = 66;
                 this.bmp_cardback.node.height = 50;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_16");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_16");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 24:{
@@ -567,8 +562,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-10;
                 this.bmp_cardback.node.width = 64;
                 this.bmp_cardback.node.height = 48;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_15");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_15");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 23:{
@@ -587,8 +582,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-10;
                 this.bmp_cardback.node.width = 64;
                 this.bmp_cardback.node.height = 48;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_14");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_14");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 22:{
@@ -610,8 +605,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardback.node.height = 50;
                 this.bmp_cardback.node.width = 62;
                 this.bmp_cardback.node.height = 46;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_13");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_13");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 21:{
@@ -631,8 +626,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-9;
                 this.bmp_cardback.node.width = 62;
                 this.bmp_cardback.node.height = 48;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_15");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_15");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 20:{
@@ -652,8 +647,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-7;
                 this.bmp_cardback.node.width = 62;
                 this.bmp_cardback.node.height = 48;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_14");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_14");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
             case 19:{
@@ -672,8 +667,8 @@ export default class JZMJ_UpSinglePool extends JZMJ_SinglePoolBase {
                 this.bmp_cardHide.node.skewY=-7;
                 this.bmp_cardback.node.width = 60;
                 this.bmp_cardback.node.height = 46;
-                this.bmp_cardback.spriteFrame=_JZMJ.getMahjong3DPaiBeiRes("field_left_13");
-                this.bmp_cardcolor.spriteFrame=_JZMJ.getMahjongPaiHuaRes(this.cardValue);
+                this.bmp_cardback.spriteFrame=_jzmj.getMahjong3DPaiBeiRes("field_left_13");
+                this.bmp_cardcolor.spriteFrame=_jzmj.getMahjongPaiHuaRes(this.cardValue);
                 break;
             }
 

@@ -3,6 +3,8 @@ import { UIName } from "../../Global/UIName";
 import { LocalStorage } from "../../CustomType/LocalStorage";
 import Global from "../../Global/Global";
 import { Action } from "../../CustomType/Action";
+import FriendCircleDataCache from "../FriendsCircle/FriendCircleDataCache";
+import { FriendCircleRule } from "../../CustomType/FriendCircleInfo";
 
 const { ccclass, property } = cc._decorator;
 
@@ -44,7 +46,10 @@ export default class GameItem extends cc.Component {
     icon: cc.SpriteFrame[] = [];
 
     // 是否是亲友圈进来的
-    public isFriendCircle: boolean = false;
+    public friendCircle: any = null;
+
+    // 是否是添加玩法
+    public isAddRule: boolean = false;
 
     // 回调
     public action: Action = null;
@@ -63,6 +68,7 @@ export default class GameItem extends cc.Component {
         if (!gameInfo) {
             return;
         }
+
         this.lab_gameDesc.string = gameInfo.GameDesc;
         this._gameInfo = gameInfo;
         this.lab_gameName.string = gameInfo.GameName;
@@ -72,7 +78,7 @@ export default class GameItem extends cc.Component {
             this.btn_add.node.active = true;
 
             // 从亲友圈进来的隐藏添加按钮
-            if (this.isFriendCircle) {
+            if (this.friendCircle) {
                 this.btn_add.node.active = false;
             }
         }
@@ -206,6 +212,38 @@ export default class GameItem extends cc.Component {
             return;
         }
 
-        Global.Instance.UiManager.ShowUi(UIName.SelectRule, { gameInfo: this._gameInfo, isFriendCircle: this.isFriendCircle });
+        if (this.friendCircle) {
+            // 一款游戏只能创建一个玩法
+           let friendInfo = FriendCircleDataCache.Instance.CurEnterFriendCircle;
+
+           if (!friendInfo) {
+               return;
+           }
+
+           let ruleList = FriendCircleDataCache.Instance.FriendCircleRuleList.GetValue(friendInfo.ID + "");
+
+           if (ruleList) {
+              for (var idx = 0; idx < ruleList.length; ++idx) {
+                let rule: FriendCircleRule = ruleList[idx];
+    
+                if (rule && rule.gameId == this._gameInfo.GameID) {
+                    // 修改玩法
+                    if (!this.friendCircle.isAddRule) {
+                        let curRule = FriendCircleDataCache.Instance.CurSelectedRule;
+
+                        if (curRule && curRule.gameId != this._gameInfo.GameID) {
+                            Global.Instance.UiManager.ShowTip("该游戏已经被创建请勿创建相同的游戏玩法");
+                            return;
+                        }
+                    } else {
+                        Global.Instance.UiManager.ShowTip("该游戏已经被创建请勿创建相同的游戏玩法");
+                        return;
+                    }
+                }
+            } 
+           }
+        }
+
+        Global.Instance.UiManager.ShowUi(UIName.SelectRule, { gameInfo: this._gameInfo, friendCircle: this.friendCircle });
     }
 }

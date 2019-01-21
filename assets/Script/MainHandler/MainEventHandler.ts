@@ -3,6 +3,7 @@ import { EventCode } from "../Global/EventCode";
 import Global from "../Global/Global";
 import { QL_Common } from "../CommonSrc/QL_Common";
 import { Debug } from "../Tools/Function";
+import { LocalStorage } from "../CustomType/LocalStorage";
 
 export class MainEventHandler implements IEventHandler {
 
@@ -43,15 +44,12 @@ export class MainEventHandler implements IEventHandler {
                 return;
             case QL_Common.SystemErrorCode.RemoteLogin:
                 //清除记住的密码
-                cc.sys.localStorage.setItem("account", "");
-                cc.sys.localStorage.setItem("logontoken", "");
+                // LocalStorage.LastUserLoginCache = '';
                 Global.ChangeScene("hotupdate", function () {
                     this.UiManager.ShowMsgBox(msg);
                 }.bind(this));
                 return;
             case QL_Common.SystemErrorCode.LoginFail:
-                cc.sys.localStorage.setItem("account", "");
-                cc.sys.localStorage.setItem("logontoken", "");
                 this.UiManager.CloseLoading();
                 //this.UiManager.ShowMsgBox(msg);
                 Global.SocketHeart.Stop();
@@ -66,6 +64,13 @@ export class MainEventHandler implements IEventHandler {
             case QL_Common.SystemErrorCode.ExitRoomFail:
                 cc.log("退出房间失败了");
                 return;
+            case QL_Common.SystemErrorCode.ServerMaintain: {
+                if (msg.length > 0) {
+                    this.UiManager.ShowMsgBox(msg)
+                }
+                this.UiManager.CloseLoading();
+                return;
+            }
             default:
                 if (msg.length > 0) {
                     this.UiManager.ShowTip(msg);

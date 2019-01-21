@@ -134,7 +134,7 @@
                             "enabled": true,
                             "defaultSelected": true
                         },
-                        {
+                         {
                             "attr": "BuKao",
                             "value": 1,
                             "desc": "活不靠",

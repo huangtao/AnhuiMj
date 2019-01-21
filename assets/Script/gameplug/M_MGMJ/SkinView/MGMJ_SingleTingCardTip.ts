@@ -55,7 +55,7 @@ export default class MGMJ_SingleTingCardTip extends cc.Component {
         // cc.log(`听的牌为：${this._data.tingCard}`);
         //  let url = MGMJ.ins.iclass.getMahjongResName(this._data.tingCard);
         //  SetTextureRes(url,this.img_cardColor);
-        this.img_cardColor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(this._data.tingCard);
+        this.img_cardColor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaResOut(this._data.tingCard);
         this.img_huipai.node.active = this._data.isHunPai;
 
         // load the sprite frame of (project/assets/resources/imgs/cocos.png) from resources folder

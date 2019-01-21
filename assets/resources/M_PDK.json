@@ -1,7 +1,7 @@
 {
     "gameName": "M_PDK",
     "list": [
-        {   
+        {
             "attrIcon": "cjfj_41.png",
             "desc": "局数",
             "enabled": true,
@@ -16,7 +16,7 @@
                             "childrenAttr": null,
                             "attr": "SetGameNum",
                             "value": 0,
-                            "desc": "6局",
+                            "desc": "8局",
                             "enabled": true,
                             "defaultSelected": false
                         },
@@ -33,7 +33,7 @@
                 }
             ]
         },
-        {   
+        {
             "attrIcon": "cjfj_76.png",
             "desc": "人数",
             "enabled": true,
@@ -45,8 +45,13 @@
                     "list": [
                         {
                             "parentAttr": null,
-                            "childrenAttr": null,
-                            "attr": "PlayerNum",
+                            "childrenAttr": [
+                                {"key":"gameModel:16","contrary":true,"isSelected": false},
+                                {"key":"gameModel:15","contrary":true,"isSelected": false},
+                                {"key":"gameModel:13","contrary":false,"isSelected": true},
+                                {"key":"FZBP:true","contrary":false}
+                            ],
+                            "attr": "PeopleNum",
                             "value": 4,
                             "desc": "4人",
                             "enabled": true,
@@ -54,8 +59,13 @@
                         },
                         {
                             "parentAttr": null,
-                            "childrenAttr": null,
-                            "attr": "PlayerNum",
+                            "childrenAttr": [
+                                {"key":"gameModel:16","contrary":false,"isSelected": true},
+                                {"key":"gameModel:15","contrary":false,"isSelected": false},
+                                {"key":"gameModel:13","contrary":true,"isSelected": false},
+                                {"key":"FZBP:true","contrary":false}
+                            ],
+                            "attr": "PeopleNum",
                             "value": 3,
                             "desc": "3人",
                             "enabled": true,
@@ -63,8 +73,13 @@
                         },
                         {
                             "parentAttr": null,
-                            "childrenAttr": null,
-                            "attr": "PlayerNum",
+                            "childrenAttr": [
+                                {"key":"gameModel:16","contrary":false,"isSelected": true},
+                                {"key":"gameModel:15","contrary":false,"isSelected": false},
+                                {"key":"gameModel:13","contrary":true,"isSelected": false},
+                                {"key":"FZBP:true","contrary":true}
+                            ],
+                            "attr": "PeopleNum",
                             "value": 2,
                             "desc": "2人",
                             "enabled": true,
@@ -87,7 +102,7 @@
                         {
                             "parentAttr": null,
                             "childrenAttr": null,
-                            "attr": "havedropCard",
+                            "attr": "gameModel",
                             "value": 16,
                             "desc": "16张玩法",
                             "enabled": true,
@@ -96,20 +111,20 @@
                         {
                             "parentAttr": null,
                             "childrenAttr": null,
-                            "attr": "havedropCard",
+                            "attr": "gameModel",
                             "value": 15,
                             "desc": "15张玩法",
                             "enabled": true,
-                            "defaultSelected": true
+                            "defaultSelected": false
                         },
                         {
                             "parentAttr": null,
                             "childrenAttr": null,
-                            "attr": "havedropCard",
+                            "attr": "gameModel",
                             "value": 13,
                             "desc": "13张玩法",
                             "enabled": true,
-                            "defaultSelected": true
+                            "defaultSelected": false
                         }
                     ]
                 }
@@ -127,26 +142,44 @@
                     "list": [
                         {
                             "parentAttr": null,
-                            "childrenAttr": null,
-                            "attr": "havexiScore",
-                            "value": true,
+                            "childrenAttr": [
+                                {
+                                    "key": "have2OutA:true",
+                                    "contrary": true
+                                }
+                            ],
+                            "attr": "mustOut",
+                            "value": 0,
                             "desc": "有牌必要",
                             "enabled": true,
                             "defaultSelected": true
                         },
                         {
                             "parentAttr": null,
-                            "childrenAttr": null,
-                            "attr": "havesanShunzi",
-                            "value": true,
+                            "childrenAttr": [
+                                {
+                                    "key": "have2OutA:true",
+                                    "contrary": false
+                                }
+                            ],
+                            "attr": "mustOut",
+                            "value": 1,
                             "desc": "可不要",
                             "enabled": true,
                             "defaultSelected": false
-                        },
+                        }
+                    ]
+                },
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
                         {
-                            "parentAttr": null,
+                            "parentAttr": {
+                                "key": "have2OutA:true",
+                                "contrary": true
+                            },
                             "childrenAttr": null,
-                            "attr": "havesanShunzi",
+                            "attr": "have2OutA",
                             "value": true,
                             "desc": "有2必打A",
                             "enabled": true,
@@ -155,10 +188,9 @@
                     ]
                 }
             ]
-            
         },
         {
-            "attrIcon": "cjfj_77.png",
+            "attrIcon": "cjfj_33.png",
             "desc": "出牌",
             "enabled": true,
             "parentAttr": null,
@@ -169,39 +201,115 @@
                     "list": [
                         {
                             "parentAttr": null,
-                            "childrenAttr": null,
-                            "attr": "outCardType",
-                            "value": true,
+                            "childrenAttr": [
+                                {
+                                    "key": "spades3MustOut:true",
+                                    "contrary": true
+                                },
+                                {
+                                    "key": "redPeach3MustOut:true",
+                                    "contrary": true
+                                },
+                                {
+                                    "key": "firstSpades3Out:true",
+                                    "contrary": false
+                                }
+                            ],
+                            "attr": "spadesRedPeach3",
+                            "value": 2,
+                            "desc": "赢家先出",
+                            "enabled": true,
+                            "defaultSelected": true
+                        },
+                        {
+                            "parentAttr": null,
+                            "childrenAttr": [
+                                {
+                                    "key": "spades3MustOut:true",
+                                    "contrary": false
+                                },
+                                {
+                                    "key": "redPeach3MustOut:true",
+                                    "contrary": true
+                                },
+                                {
+                                    "key": "firstSpades3Out:true",
+                                    "contrary": true
+                                }
+                            ],
+                            "attr": "spadesRedPeach3",
+                            "value": 0,
                             "desc": "黑桃3",
                             "enabled": true,
                             "defaultSelected": true
                         },
                         {
                             "parentAttr": null,
+                            "childrenAttr": [
+                                {
+                                    "key": "redPeach3MustOut:true",
+                                    "contrary": false
+                                },
+                                {
+                                    "key": "spades3MustOut:true",
+                                    "contrary": true
+                                },
+                                {
+                                    "key": "firstSpades3Out:true",
+                                    "contrary": true
+                                }
+                            ],
+                            "attr": "spadesRedPeach3",
+                            "value": 1,
+                            "desc": "红桃3",
+                            "enabled": true,
+                            "defaultSelected": false
+                        }
+                    ]
+                },
+                {
+                    "nodeType": "TOGGLE_SINGLE",
+                    "list": [
+                        {
+                            "parentAttr": {
+                                "key": "spadesRedPeach3:2",
+                                "contrary": false
+                            },
                             "childrenAttr": null,
-                            "attr": "outCardType",
+                            "attr": "firstSpades3Out",
+                            "value": true,
+                            "desc": "首局黑桃3出",
+                            "enabled": true,
+                            "defaultSelected": true
+                        }
+                    ]
+                },
+                {
+                    "nodeType": "TOGGLE_CHECKBOX",
+                    "list": [
+                        {
+                            "parentAttr": {
+                                "key": "spadesRedPeach3:0",
+                                "contrary": false
+                            },
+                            "childrenAttr": null,
+                            "attr": "spades3MustOut",
                             "value": true,
                             "desc": "黑桃3必出",
                             "enabled": true,
-                            "defaultSelected": true
+                            "defaultSelected": false
                         },
                         {
-                            "parentAttr": null,
+                            "parentAttr": {
+                                "key": "spadesRedPeach3:1",
+                                "contrary": false
+                            },
                             "childrenAttr": null,
-                            "attr": "outCardType",
-                            "value": true,
-                            "desc": "红桃3",
-                            "enabled": true,
-                            "defaultSelected": true
-                        },
-                        {
-                            "parentAttr": null,
-                            "childrenAttr": null,
-                            "attr": "outCardType",
+                            "attr": "redPeach3MustOut",
                             "value": true,
                             "desc": "红桃3必出",
                             "enabled": true,
-                            "defaultSelected": true
+                            "defaultSelected": false
                         }
                     ]
                 }
@@ -233,7 +341,7 @@
                             "value": true,
                             "desc": "放走包赔",
                             "enabled": true,
-                            "defaultSelected": false
+                            "defaultSelected": true
                         },
                         {
                             "parentAttr": null,
@@ -242,43 +350,8 @@
                             "value": true,
                             "desc": "剩三张拖尾",
                             "enabled": true,
-                            "defaultSelected": false
-                        }
-                    ]
-                },
-                {
-                    "nodeType": "CHECKBOX_LEFTRIGHT",
-                    "defaultSelected": true,
-                    "defaultValue": 2,
-                    "attr": "OutCardTime",
-                    "enabled": true,
-                    "list": [
-                        {
-                            "value": 0,
-                            "desc": "2分"
+                            "defaultSelected": true
                         },
-                        {
-                            "value": 1,
-                            "desc": "5分"
-                        },
-                        {
-                            "value": 2,
-                            "desc": "10分"
-                        }
-                    ]
-                }
-            ]
-            
-        },{   
-            "attrIcon": "cjfj_78.png",
-            "desc": "张数",
-            "enabled": true,
-            "parentAttr": null,
-            "childrenAttr": null,
-            "itemList": [
-                {
-                    "nodeType": "TOGGLE_SINGLE",
-                    "list": [
                         {
                             "parentAttr": null,
                             "childrenAttr": null,
@@ -286,16 +359,44 @@
                             "value": true,
                             "desc": "显示剩余张数",
                             "enabled": true,
-                            "defaultSelected": false
+                            "defaultSelected": true
                         },
                         {
                             "parentAttr": null,
                             "childrenAttr": null,
-                            "attr": "showRemainNum",
+                            "attr": "threeAIsBomb",
                             "value": true,
-                            "desc": "不显示剩余张数",
+                            "desc": "3A为炸(可带1)",
                             "enabled": true,
-                            "defaultSelected": true
+                            "defaultSelected": false
+                        }
+                    ]
+                },
+                {
+                    "nodeType": "TOGGLE_CHECKBOX_DROPDOWN",
+                    "defaultSelected": false,
+                    "defaultShowIdx": 0,
+                    "defaultValue": -1,
+                    "attr": "zhuaNiaoScore",
+                    "desc": "抓鸟(红桃10)",
+                    "dropDownWidth": 144,
+                    "enabled": true,
+                    "list": [
+                        {
+                            "value": 2,
+                            "desc": "2分"
+                        },
+                        {
+                            "value": 5,
+                            "desc": "5分"
+                        },
+                        {
+                            "value": 10,
+                            "desc": "10分"
+                        },
+                        {
+                            "value": 1,
+                            "desc": "翻倍"
                         }
                     ]
                 }
@@ -369,31 +470,31 @@
             ]
         }
     ],
-    "defaultAttr":[
-        {   
+    "defaultAttr": [
+        {
             "attrName": "cellScore",
             "value": 1,
-            "desc":""
+            "desc": ""
         },
         {
             "attrName": "checkIP",
             "value": false,
-            "desc":""
+            "desc": ""
         },
         {
             "attrName": "extendBet",
             "value": 0,
-            "desc":""
+            "desc": ""
         },
         {
             "attrName": "isValid",
             "value": true,
-            "desc":""
+            "desc": ""
         },
         {
             "attrName": "rubCard",
             "value": false,
-            "desc":""
+            "desc": ""
         }
     ]
 }

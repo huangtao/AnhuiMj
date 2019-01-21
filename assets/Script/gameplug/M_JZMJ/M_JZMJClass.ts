@@ -71,12 +71,23 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
     public get ShareTitle():string{
         return this._shareContext;
     }
-            /**
+    /**
      * 是否2D
     */
     public is2D():boolean{
-        return false;
-    }      
+        return this.two_dimensional;
+    }
+    public canvaSwitchClickEvent(canvas: string) {
+        this.two_dimensional = canvas== "2D"?true:false;
+        this.OnNetResponding();
+        if(this.two_dimensional){
+            M_JZMJView.ins.btn_2d.node.active = false;
+            M_JZMJView.ins.btn_3d.node.active = true;
+        }else{
+            M_JZMJView.ins.btn_2d.node.active = true;
+            M_JZMJView.ins.btn_3d.node.active = false;
+        }
+    }     
         //续局次数(1表示0次)
         public _addNum:number = 1;
 
@@ -111,6 +122,8 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
          * */
         public get BankerChair():number{return this._bankerChair;};
         
+        public two_dimensional :boolean = false;
+
         //当前游戏阶段
         private _gamePhase:enGamePhase;
         /**
@@ -890,6 +903,16 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
                     this.Handle_CMD_S_PlayerPaoInfo(cm);
                     break;
                 }
+                //某个玩家选择了跑嘴 需要显示关闭跑嘴状态 但是不显示跑嘴数
+                case M_JZMJ_GameMessage.JZMJMsgID_s2c.CMD_S_SelfPao:{
+                    this.Handle_CMD_S_PlayerPaoStatus(cm);
+                    break;
+                }
+                //断线回来 恢复选跑情况
+                case M_JZMJ_GameMessage.JZMJMsgID_s2c.CMD_S_PaoStatus:{
+                    this.Handle_CMD_S_OrcPaoStatus(cm);
+                    break;
+                }
                 //圈主钻石不足 将玩家踢出房间
                 case M_JZMJ_GameMessage.JZMJMsgID_s2c.CMD_S_QuitCreator:{
                     this.Hanle_CMD_S_QuitCreator();
@@ -1095,8 +1118,8 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
     protected OnPlayerSitDown(chairID: number, player: QL_Common.TablePlayer): void {
         //cc.log("OnPlayerSitDown:" + chairID.toString() + "," + player.FaceID + "," + player.NickName + "," + player.PlayerState);
         //var a  = this.TablePlayer;
-        if(this.TablePlayer[chairID].PlayerState != QL_Common.GState.Gaming)
-            this.showCheckIP();
+        // if(this.TablePlayer[chairID].PlayerState != QL_Common.GState.Gaming)
+        //     this.showCheckIP();
         this.gameView.ReadyStatusUserInfo.OnPlayerSitDown(chairID,player);
         this.gameView.GameStatusUserInfo.OnPlayerSitDown(chairID,player);
         //踢人按钮
@@ -1138,66 +1161,66 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
                     }
                 }
             }        
-            if(this._tableConfig.alreadyGameNum == 0 && sameIPPlayer.length > 0){           
-                var tipMsg:string[] = [];       
-                // for(var n:number=0; n<sameIPPlayer.length; n++){
-                //     var chairAry: Array<string> = sameIPPlayer[n].split(",");
-                //     if(chairAry.length > 1){
-                //         for(var x:number=0; x<chairAry.length; x++){
-                //             if(this.TablePlayer[parseInt(chairAry[x])].NickName.length > 6)
-                //                 tipMsg += this.TablePlayer[parseInt(chairAry[x])].NickName.substr(0,6)+" ";
-                //             else
-                //                 tipMsg += this.TablePlayer[parseInt(chairAry[x])].NickName+" ";
-                //             tipMsg += x == (chairAry.length - 1) ? "":",";
-                //             //tipMsg += `玩家:${this.TablePlayer[parseInt(chairAry[x])].NickName}${x == (chairAry.length - 1) ? "":","}`;
-                //         }
-                //         // tipMsg+="  IP相同"+"\n"; 
-                //     }
-                //     if(n != (sameIPPlayer.length - 1)){
-                //         tipMsg+=" | ";
-                //     }
-                // }
-                let playerCount:number = 0;
-                for(var i=0;i<4;i++) {
-                    if(null != this.TablePlayer[i])
-                        playerCount++;
-                }
-                if(playerCount == 4){
-                    var sameIps = sameIPPlayer[0].split(",");
-                    if(sameIps.length == 2){
-                        if(this.TablePlayer[parseInt(sameIps[0])].NickName.length > 4){
-                            this.TablePlayer[parseInt(sameIps[0])].NickName = this.TablePlayer[parseInt(sameIps[0])].NickName.substr(0,4);
-                        }
-                        if(this.TablePlayer[parseInt(sameIps[1])].NickName.length > 4){
-                            this.TablePlayer[parseInt(sameIps[1])].NickName = this.TablePlayer[parseInt(sameIps[1])].NickName.substr(0,4);
-                        }
-                        tipMsg[0] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName
-                    }
-                    if(sameIps.length == 3){
-                        if(this.TablePlayer[parseInt(sameIps[0])].NickName.length > 4){
-                            this.TablePlayer[parseInt(sameIps[0])].NickName = this.TablePlayer[parseInt(sameIps[0])].NickName.substr(0,4);
-                        }
-                        if(this.TablePlayer[parseInt(sameIps[1])].NickName.length > 4){
-                            this.TablePlayer[parseInt(sameIps[1])].NickName = this.TablePlayer[parseInt(sameIps[1])].NickName.substr(0,4);
-                        }
-                        if(this.TablePlayer[parseInt(sameIps[2])].NickName.length > 4){
-                            this.TablePlayer[parseInt(sameIps[2])].NickName = this.TablePlayer[parseInt(sameIps[2])].NickName.substr(0,4);
-                        }
-                        tipMsg[0] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName
-                        tipMsg[1] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[2])].NickName
-                        tipMsg[2] = "玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[2])].NickName
-                    }
-                    M_JZMJView.ins.cheatBox.showCheatBox(tipMsg,()=>{M_JZMJView.ins._setting.onExit();},this);
-                }   
-            }
+            // if(this._tableConfig.alreadyGameNum == 0 && sameIPPlayer.length > 0){           
+            //     var tipMsg:string[] = [];       
+            //     // for(var n:number=0; n<sameIPPlayer.length; n++){
+            //     //     var chairAry: Array<string> = sameIPPlayer[n].split(",");
+            //     //     if(chairAry.length > 1){
+            //     //         for(var x:number=0; x<chairAry.length; x++){
+            //     //             if(this.TablePlayer[parseInt(chairAry[x])].NickName.length > 6)
+            //     //                 tipMsg += this.TablePlayer[parseInt(chairAry[x])].NickName.substr(0,6)+" ";
+            //     //             else
+            //     //                 tipMsg += this.TablePlayer[parseInt(chairAry[x])].NickName+" ";
+            //     //             tipMsg += x == (chairAry.length - 1) ? "":",";
+            //     //             //tipMsg += `玩家:${this.TablePlayer[parseInt(chairAry[x])].NickName}${x == (chairAry.length - 1) ? "":","}`;
+            //     //         }
+            //     //         // tipMsg+="  IP相同"+"\n"; 
+            //     //     }
+            //     //     if(n != (sameIPPlayer.length - 1)){
+            //     //         tipMsg+=" | ";
+            //     //     }
+            //     // }
+            //     let playerCount:number = 0;
+            //     for(var i=0;i<4;i++) {
+            //         if(null != this.TablePlayer[i])
+            //             playerCount++;
+            //     }
+            //     if(playerCount == 4){
+            //         var sameIps = sameIPPlayer[0].split(",");
+            //         if(sameIps.length == 2){
+            //             if(this.TablePlayer[parseInt(sameIps[0])].NickName.length > 4){
+            //                 this.TablePlayer[parseInt(sameIps[0])].NickName = this.TablePlayer[parseInt(sameIps[0])].NickName.substr(0,4);
+            //             }
+            //             if(this.TablePlayer[parseInt(sameIps[1])].NickName.length > 4){
+            //                 this.TablePlayer[parseInt(sameIps[1])].NickName = this.TablePlayer[parseInt(sameIps[1])].NickName.substr(0,4);
+            //             }
+            //             tipMsg[0] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName
+            //         }
+            //         if(sameIps.length == 3){
+            //             if(this.TablePlayer[parseInt(sameIps[0])].NickName.length > 4){
+            //                 this.TablePlayer[parseInt(sameIps[0])].NickName = this.TablePlayer[parseInt(sameIps[0])].NickName.substr(0,4);
+            //             }
+            //             if(this.TablePlayer[parseInt(sameIps[1])].NickName.length > 4){
+            //                 this.TablePlayer[parseInt(sameIps[1])].NickName = this.TablePlayer[parseInt(sameIps[1])].NickName.substr(0,4);
+            //             }
+            //             if(this.TablePlayer[parseInt(sameIps[2])].NickName.length > 4){
+            //                 this.TablePlayer[parseInt(sameIps[2])].NickName = this.TablePlayer[parseInt(sameIps[2])].NickName.substr(0,4);
+            //             }
+            //             tipMsg[0] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName
+            //             tipMsg[1] = "玩家:"+this.TablePlayer[parseInt(sameIps[0])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[2])].NickName
+            //             tipMsg[2] = "玩家:"+this.TablePlayer[parseInt(sameIps[1])].NickName+" 与 "+"玩家:"+this.TablePlayer[parseInt(sameIps[2])].NickName
+            //         }
+            //         M_JZMJView.ins.cheatBox.showCheatBox(tipMsg,()=>{M_JZMJView.ins._setting.onExit();},this);
+            //     }   
+            // }
     }
     /**
      * 玩家坐下后告诉坐下的玩家,这个桌子上之前已经有哪些玩家了,这个函数需要同时处理玩家的状态显示
      * */
     protected OnTablePlayer(chairID: number, player: QL_Common.TablePlayer): void {
         //cc.log("OnPlayerSitDown:" + chairID.toString() + "," + player.FaceID + "," + player.NickName + "," + player.PlayerState);
-        if(this.TablePlayer[chairID].PlayerState != QL_Common.GState.Gaming)
-            this.showCheckIP();
+        // if(this.TablePlayer[chairID].PlayerState != QL_Common.GState.Gaming)
+        //     this.showCheckIP();
         this.gameView.ReadyStatusUserInfo.OnTablePlayer(chairID,player);
         //踢人按钮
         if(M_JZMJClass.ins.SelfIsTableOwener){
@@ -1313,10 +1336,8 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
         this._haveGameScene=true;
         //播放背景音乐
         M_JZMJVoice.PlayBgm(); 
-        
         //清理数据
         this.clear();
-        
         //通知玩家进入
         //this.node.dispatchEvent(new JZMJEvent(JZMJEvent.msg_playerComeing));
         this.gameView.playerComeing();
@@ -1386,6 +1407,7 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
         super.OnNetResponding();
         var reSet: M_JZMJ_GameMessage.CMD_C_ReSetScene = new M_JZMJ_GameMessage.CMD_C_ReSetScene();
         this.SendGameData(reSet);
+        this.gameView.Init();
     }
 
     /**
@@ -1429,7 +1451,9 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
                 this.stopTimer();
                 //隐藏邀请好友按钮
                 M_JZMJView.ins.ReadyStatusUserInfo.btn_invite.node.active = false;
+                M_JZMJView.ins.ReadyStatusUserInfo.btn_copy.node.active = false;
                 M_JZMJView.ins.ReadyStatusUserInfo.btn_ready.node.active = false;
+                M_JZMJView.ins.ReadyStatusUserInfo.btn_warming.node.active = false;
                 //玩家点击继续游戏 清除所有的牌蹲
                 M_JZMJView.ins.CardView.PaiWallView.hidePaiWall();
                 //继续游戏时 隐藏踢人按钮
@@ -1510,6 +1534,7 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
                 var card :number = <number>e.parm;
                 var pao : M_JZMJ_GameMessage.CMD_C_Pao = new M_JZMJ_GameMessage.CMD_C_Pao();
                 pao.point = card;
+                pao.chair = this.SelfChair;
                 this.SendGameData(pao);
                 e.stopPropagation();
                 break;
@@ -1653,12 +1678,24 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
 
         //如果防作弊提示active 则直接隐藏
         M_JZMJView.ins.cheatBox.hideCheatBox();
+        //防作弊 标识 隐藏
+        this.gameView.ReadyStatusUserInfo.btn_warming.node.active = false;
 
-        // M_JZMJView.ins.playJZMJAni(this.SelfChair,enJZMJAniType.aniType_start);
+        //M_JZMJView.ins.playJZMJAni(this.SelfChair,enJZMJAniType.aniType_start);
 
         //游戏开始 牌蹲显示
-        this.gameView.CardView.PaiWallView.node.active = true;
-        M_JZMJView.ins.CardView.PaiWallView.showPaiWall();
+        if(!this.is2D()){
+            this.gameView.CardView.PaiWallView.node.active = true;
+            M_JZMJView.ins.CardView.PaiWallView.showPaiWall();
+        }else{
+            this.gameView.CardView.PaiWallView.node.active = false;
+        }
+        //游戏开始 exit按钮隐藏 23D切花按钮 局数 剩余牌 左移
+        M_JZMJView.ins.btn_exit.node.active = false;
+        M_JZMJView.ins.btn_2d.node.x = -589;
+        M_JZMJView.ins.btn_3d.node.x = -589;
+        M_JZMJView.ins.GameInfo.leftPaiBei.node.x = -189;
+        M_JZMJView.ins.GameInfo.js_bg.x = -559;
 
         //设置分享玩家信息
         this.gameView.GameJiFenBan.SetPlayerData();
@@ -1676,7 +1713,6 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
                 this.TablePlayer[m].PlayerState = QL_Common.GState.Gaming;
             }          
         }
-        
         if(this.isSelfCreateRoom){
    
         }else{
@@ -1705,7 +1741,7 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
         //_bankerChair 本局庄家座位号
         // M_JZMJView.ins.PaiWallView.node.active = true;
         //M_JZMJView.ins.CardView.PaiWallView.delPaiWall(this._bankerChair,this.SelfChair,this._sz1+this._sz2);
-
+        
         //不跑嘴 执行发牌动作 
         if(this._tableConfig.isPaoZui == 0)
             M_JZMJView.ins.CardView.PaiWallView.testPai(this._bankerChair,this.SelfChair,this._sz1+this._sz2,0,4);
@@ -1713,17 +1749,17 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
     }
 
     private Handle_CMD_S_StartPao(msg: GameIF.CustomMessage):void{
-         var pao: M_JZMJ_GameMessage.CMD_S_StartPao = <M_JZMJ_GameMessage.CMD_S_StartPao>msg;
+        var pao: M_JZMJ_GameMessage.CMD_S_StartPao = <M_JZMJ_GameMessage.CMD_S_StartPao>msg;
               
         this._gamePhase=enGamePhase.GamePhase_Pao;
         M_JZMJView.ins.PaoView.node.active=true;
         M_JZMJView.ins.PaoView.btn_pao_0.node.active=true;
         M_JZMJView.ins.PaoView.btn_pao_1.node.active=true;
-        // if(pao.pao==false){
-            M_JZMJView.ins.PaoView.btn_pao_2.node.active=true;
-        // }
+        M_JZMJView.ins.PaoView.btn_pao_2.node.active=true;
         M_JZMJView.ins.PaoView.btn_pao_3.node.active=true;
-        //this.regTimer(JZMJTimerDef.timer_id_vote,JZMJTimerDef.timer_len_vote,this.SelfChair);
+
+        M_JZMJView.ins.GameStatusUserInfo.showPlayerpaoStatus();
+
     }
 
     private Handle_CMD_S_StartLa():void{
@@ -1735,12 +1771,23 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
         var pao: M_JZMJ_GameMessage.CMD_S_PlayerPaoInfo = <M_JZMJ_GameMessage.CMD_S_PlayerPaoInfo>msg;
 
         M_JZMJView.ins.GameStatusUserInfo.SetPao(pao.points);
-        M_JZMJView.ins.CardView.PaiWallView.testPai(this._bankerChair,this.SelfChair,this._sz1+this._sz2,0,4);
+        if(!this.is2D())
+            M_JZMJView.ins.CardView.PaiWallView.testPai(this._bankerChair,this.SelfChair,this._sz1+this._sz2,0,4);
     }
     
+    private Handle_CMD_S_PlayerPaoStatus(msg: GameIF.CustomMessage):void{
+        var pao: M_JZMJ_GameMessage.CMD_S_SelfPao = <M_JZMJ_GameMessage.CMD_S_SelfPao>msg;
+        M_JZMJView.ins.GameStatusUserInfo.hidePlayerPaoStatus(pao.point);
+    }
+
+    private Handle_CMD_S_OrcPaoStatus(msg: GameIF.CustomMessage):void{
+        var pao: M_JZMJ_GameMessage.CMD_S_PaoStatus = <M_JZMJ_GameMessage.CMD_S_PaoStatus>msg;
+        M_JZMJView.ins.GameStatusUserInfo.showPlayerpaoStatus(pao.pao);
+    }
+
     private Handle_CMD_S_PlayerLaInfo(msg: GameIF.CustomMessage):void{
         var la: M_JZMJ_GameMessage.CMD_S_PlayerLaInfo = <M_JZMJ_GameMessage.CMD_S_PlayerLaInfo>msg;
-        //显示跑嘴
+        //显示
         M_JZMJView.ins.GameStatusUserInfo.SetLa(la.points);
     }
 
@@ -1815,7 +1862,9 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
         M_JZMJView.ins.GameInfo.holdACard();
         
         //玩家抓牌 去预制体删除对应牌蹲
-        M_JZMJView.ins.CardView.PaiWallView.delOnePai(this.SelfChair,this._bankerChair,playerHoldCard.countPai,playerHoldCard.gangNum,playerHoldCard.usual);
+        if(!this.is2D()){
+            M_JZMJView.ins.CardView.PaiWallView.delOnePai(this.SelfChair,this._bankerChair,playerHoldCard.countPai,playerHoldCard.gangNum,playerHoldCard.usual);
+        }
         
         //玩家抓牌
         M_JZMJView.ins.CardView.playerHoldCard(playerHoldCard.chair,playerHoldCard.card);
@@ -2449,9 +2498,16 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
         this._gamePhase = gameInfo.gamePhase;
         M_JZMJView.ins.GameStatusUserInfo.setBankerChair(this._bankerChair,this._lianBanker-1);
         //跑嘴恢复
-        if(gameInfo.paoType > 0){
+        if(!gameInfo.isPaoing && gameInfo.paoType > 0){
             M_JZMJView.ins.GameStatusUserInfo.SetPao(gameInfo.paoScore);
         }
+
+        //游戏开始 exit按钮隐藏 23D切花按钮 局数 剩余牌 左移
+        M_JZMJView.ins.btn_exit.node.active = false;
+        M_JZMJView.ins.btn_2d.node.x = -589;
+        M_JZMJView.ins.btn_3d.node.x = -589;
+        M_JZMJView.ins.GameInfo.leftPaiBei.node.x = -189;
+        M_JZMJView.ins.GameInfo.js_bg.x = -559;
         //通知游戏开始开始
         this.gameView.GameStart();//(new JZMJEvent(JZMJEvent.msg_gameStart));
 
@@ -2491,9 +2547,13 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
            
         }
         //3、恢复牌墙
-        this.gameView.CardView.PaiWallView.node.active = true;
-        M_JZMJView.ins.CardView.PaiWallView.showPaiWall();
-        M_JZMJView.ins.CardView.PaiWallView.delAllPai(this._bankerChair,this.SelfChair,playerCard.paiWall.paiCount + 52,playerCard.paiWall.houPai);
+        if(!this.is2D()){
+            this.gameView.CardView.PaiWallView.node.active = true;
+            M_JZMJView.ins.CardView.PaiWallView.showPaiWall();
+            M_JZMJView.ins.CardView.PaiWallView.delAllPai(this._bankerChair,this.SelfChair,playerCard.paiWall.paiCount + 52,playerCard.paiWall.houPai);
+        }else{
+            this.gameView.CardView.PaiWallView.node.active = false;
+        }
             
     }
     /**
@@ -2545,6 +2605,12 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
         if(this._isTing)
             this.showTingCard(0,3000,true);
         //this.gameView.TingBtn(this._isTing);
+        if(this.is2D()){
+            this.gameView.CardView.PaiWallView.node.active = false;
+        }else{
+            this.gameView.CardView.PaiWallView.node.active = true;
+        }
+        this.gameView.ShowTimerView(this.SelfChair);
     }
     /**
      * 断线重连恢复解散房间
@@ -2565,12 +2631,13 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
         this.clear();
         //通知玩家进入
         this.gameView.playerComeing();//this.dispatchEvent(new JZMJEvent(JZMJEvent.msg_playerComeing));
-
+        //发牌前切换2d或3d时更换罗盘
+        this.gameView.ShowTimerView(this.SelfChair);
         //显示准备界面
         if(this.getTableStauts()==QL_Common.TableStatus.gameing)
         {
             M_JZMJView.ins.PlayFenXiang.SetPlayerData(this._tableConfig.alreadyGameNum);
-            M_JZMJView.ins.GameJiFenBan.SetPlayerData();
+            // M_JZMJView.ins.GameJiFenBan.SetPlayerData();
             M_JZMJView.ins.ReadyStatusUserInfo.OnPlayerStatusChange(this.SelfChair,QL_Common.GState.PlayerReady);
             M_JZMJView.ins.TipMsgView.showTip("上局已经结束,等待其他玩家准备进入下一局",false);
         }
@@ -2611,6 +2678,8 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
             this.gameView.ReadyStatusUserInfo.kickBtn3.node.active = false;
             this.gameView.ReadyStatusUserInfo.btn_ready.node.active = false;
             this.gameView.ReadyStatusUserInfo.btn_invite.node.active = false;
+            this.gameView.ReadyStatusUserInfo.btn_copy.node.active = false;
+            this.gameView.ReadyStatusUserInfo.btn_warming.node.active = false;
         }
         if(tablefree.isXuJu == 1){
             M_JZMJView.ins.ReadyStatusUserInfo.btn_ready.node.active = true;
@@ -2685,8 +2754,7 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
                 this.ExitGame();
             },this);
         }
-    }
-        
+    }      
 
     /**
      * 注册一个计时器
@@ -2703,7 +2771,6 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
     }    
 
     ///接口    
-
 
     /**
      * 是否自建房间
@@ -2798,17 +2865,25 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
     public getLianBanker(): number{
         return this._lianBanker;
     }
+
     /**
      * 获取麻将资源名称
      * */
     public getMahjongResName(card: number): string {
         return `gameres/majiang_plist/paihua/mahjong_${JZMJMahjongAlgorithm.GetMahjongColor(card)}_${JZMJMahjongAlgorithm.GetMahjongValue(card)}`;
     }
-     public getMahjongPaiHuaRes(card: number): cc.SpriteFrame {
-         let aa = `mahjong_${JZMJMahjongAlgorithm.GetMahjongColor(card)}_${JZMJMahjongAlgorithm.GetMahjongValue(card)}`;
-         
+    //2 3D麻将 牌花获取
+    public getMahjongPaiHuaRes(card: number): cc.SpriteFrame {
+        if(this.is2D()){        
+            return this.paibei.getSpriteFrame(`mahjong_${JZMJMahjongAlgorithm.GetMahjongColor(card)}_${JZMJMahjongAlgorithm.GetMahjongValue(card)}`);
+        }
+        else{
+            return this.paihua.getSpriteFrame(`mahjong_${JZMJMahjongAlgorithm.GetMahjongColor(card)}_${JZMJMahjongAlgorithm.GetMahjongValue(card)}`);
+        }
+    }
+    //3D麻将 牌花获取
+    public getMahjongPaiHuaResOut(card: number): cc.SpriteFrame {
         return this.paihua.getSpriteFrame(`mahjong_${JZMJMahjongAlgorithm.GetMahjongColor(card)}_${JZMJMahjongAlgorithm.GetMahjongValue(card)}`);
-        //return `gameres/gameCommonRes/Texture/Mahjong/PaiHua/mahjong_${WHMJMahjongAlgorithm.GetMahjongColor(card)}_${WHMJMahjongAlgorithm.GetMahjongValue(card)}`;
     }
     /**
      * 获取麻将牌背资源
@@ -2875,56 +2950,16 @@ export default class M_JZMJClass extends GameBaseClass implements IJZMJClass {
         let path=cc.url.raw(soundName);//soundName是全路径名.mp3
         this.PlaySound(path, type, loops);
     }
-    
 
         getFreeActive(chair:number):cc.NodePool{
         return JZMJ_CardView._freeActiveNode[chair];
-        // switch(chair){
-        //     case 0:{
-        //         return WHMJ_CardView._freeSelfActiveNode;
-        //     }
-        //     case 1:{
-        //         return WHMJ_CardView._freeDownActiveNode;
-        //     }
-        //     case 2:{
-        //         return WHMJ_CardView._freeOppoActiveNode;
-        //     }
-        //     case 3:{
-        //         return WHMJ_CardView._freeUpActiveNode;
-        //     }
-        // }
+    
     }
     getFreeFixed(chair:number):cc.NodePool{
-        // switch(chair){
-        //     case 0:{
         return JZMJ_CardView._freeFixedNode[chair];
-        //     }
-        //     case 1:{
-        //         return WHMJ_CardView._freeDownFixedNode;
-        //     }
-        //     case 2:{
-        //         return WHMJ_CardView._freeOppoFixedNode;
-        //     }
-        //     case 3:{
-        //         return WHMJ_CardView._freeUpFixedNode;
-        //     }
-        // }
     }
     getFreePool(chair:number):cc.NodePool{
         return JZMJ_CardView._freePoolNode[chair];
-        // switch(chair){
-        //     case 0:{
-        //         return WHMJ_CardView._freeSelfPoolNode;
-        //     }
-        //     case 1:{
-        //         return WHMJ_CardView._freeDownPoolNode;
-        //     }
-        //     case 2:{
-        //         return WHMJ_CardView._freeOppoPoolNode;
-        //     }
-        //     case 3:{
-        //         return WHMJ_CardView._freeUpPoolNode;
-        //     }
-        // }
+        
     } 
 }

@@ -1,4 +1,4 @@
-import { enHuCardType, HQMJ } from "../ConstDef/HQMJMahjongDef";
+import { enHuCardType, HQMJ } from '../ConstDef/HQMJMahjongDef';
 import { M_HQMJ_GameMessage } from "../../../CommonSrc/M_HQMJ_GameMessage";
 import M_HQMJView from "../M_HQMJView";
 import HQMJEvent from "../HQMJEvent";
@@ -15,8 +15,6 @@ export default class HQMJ_JieShuan extends cc.Component {
 
     @property(cc.Label)
     lbl_gameid: cc.Label=null;
-    @property(cc.Label)
-    lbl_tableRule: cc.Label=null;
     //牌型分
      @property([cc.Label])
     lbl_HuCardType: cc.Label[] = [];
@@ -37,26 +35,11 @@ export default class HQMJ_JieShuan extends cc.Component {
     img_hu: cc.Sprite[]=[];
 
     @property(cc.Button)
-    btn_yinCang: cc.Button=null;
-
-    @property(cc.Button)
-    btn_open: cc.Button=null;
-
-    @property(cc.Button)
-    btn_exit: cc.Button=null;
-
-    @property(cc.Button)
     btn_goon: cc.Button=null;
     //局数打完返回总结算
     @property(cc.Button)
     btn_LookZongJieSuan: cc.Button=null;
 
-    @property(cc.Button)
-    btn_share: cc.Button=null;
-
-    @property(cc.Button)
-    btn_close: cc.Button=null;
-  
     //中码图标
      @property([cc.Sprite])
     img_zhongma: cc.Sprite[]=[];
@@ -154,9 +137,13 @@ export default class HQMJ_JieShuan extends cc.Component {
     }   
    
     public goonbtn():void{
-        this.scheduleOnce(()=>{         
-                this.node.dispatchEvent(new HQMJEvent(HQMJEvent.msg_goongame));        
-        },0.2);      
+        // if(M_HQMJClass.ins.TableConfig.realGameNum == M_HQMJClass.ins.TableConfig.setGameNum){
+        //     M_HQMJClass.ins.checkMoneyCanGame();
+        // }else{
+            this.scheduleOnce(()=>{         
+                    this.node.dispatchEvent(new HQMJEvent(HQMJEvent.msg_goongame));        
+            },0.2);      
+        // }
     }
     private LookZongJieSuanbtn():void{
         this.scheduleOnce(()=>{           
@@ -233,10 +220,6 @@ export default class HQMJ_JieShuan extends cc.Component {
 
         this.lbl_gameid.string = HQMJ.ins.iclass.getGameID();
         let msg=`底分${HQMJ.ins.iclass.getTableConfig().cellScore}|`;
-      //  msg+=HQMJ.ins.iclass.getTableConfig().IsGangKai?"杠后开花加番|":"";
-      //  msg+=HQMJ.ins.iclass.getTableConfig().IsQiDui?"七对加番|":"";
-      //  msg+=HQMJ.ins.iclass.getTableConfig().IsBuKao?"无风牌|":"";
-        this.lbl_tableRule.string=msg; 
         //显示庄家位置,相对于自己
         var bankerpos=(M_HQMJClass.ins.BankerChair-M_HQMJClass.ins.SelfChair+4)%4;
         this.img_banker.node.y = HQMJ_JieShuan.BankerPos[bankerpos].y + 65;
@@ -396,8 +379,6 @@ export default class HQMJ_JieShuan extends cc.Component {
         if(M_HQMJClass.ins.isSelfCreateRoom && this._isPlayEnoughGameNum) {
             M_HQMJClass.ins.ignoreForceLeft = true;
         }
-        this.btn_exit.node.active = !HQMJ.ins.iclass.isCreateRoom();
-        this.btn_share.node.active = HQMJ.ins.iclass.isCreateRoom();
         //egret.setTimeout(()=>{
         console.log("jiesuan");
         
@@ -408,5 +389,10 @@ export default class HQMJ_JieShuan extends cc.Component {
 
         //},this,300);
        
+    }
+
+    onEnable() {
+        cc.info("--- active is true");
+        this.unscheduleAllCallbacks();
     }
 }

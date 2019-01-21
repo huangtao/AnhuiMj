@@ -49,7 +49,7 @@ export default class JZMJ_SettingView extends cc.Component {
     }
 
     private showSetting(){
-        M_JZMJClass.ins.ShowSettingForm();
+        M_JZMJClass.ins.ShowSettingForm(true);
     }
 
     private showGPS(){
@@ -152,7 +152,7 @@ export default class JZMJ_SettingView extends cc.Component {
     /**
      * 解散房间
      */
-    private onDissable(){
+    public onDissable(){
         M_JZMJVoice.PlayCardType(`/sound/Button32.mp3`);
         this.btn_dissTable.scheduleOnce(p=>{
             cc.log("解散房间");

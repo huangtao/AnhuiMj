@@ -22,6 +22,8 @@ export default class M_PDKClass extends GameBaseClass implements IPDKClass {
     public validata:boolean = false;
     private chatMsg: string[];
     public VoiceType() { return this.VoiceType; }
+    private PeopleNum:number = 0;
+    private url:string = "";
 
 
     onLoad(): void {
@@ -50,11 +52,71 @@ export default class M_PDKClass extends GameBaseClass implements IPDKClass {
         this.ScreenCapture(hasMask, node);
     }
     GetServerChair(chair: number): number {
-        return (this.ChairID + chair) % MaxPlayerCount;
+        /**if(this.PeopleNum == 2){
+            if(chair == 0){
+                return this.ChairID;
+            }else{
+                if(this.ChairID == 0){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            }
+        }else if(this.PeopleNum == 3){
+            if(chair == 0){
+                return this.ChairID;
+            }else{
+                if(this.ChairID == 0){
+                    if(chair == 3){
+                        return 2;
+                    }else{
+                        return 1;
+                    }
+                }else if(this.ChairID == 1){
+                    if(chair == 3){
+                        return 0;
+                    }else{
+                        return 2;
+                    }
+                }else if(this.ChairID == 2){
+                    if(chair == 3){
+                        return 1;
+                    }else{
+                        return 0;
+                    }
+                }
+            }
+        }else{*/
+            return (this.ChairID + chair) % MaxPlayerCount;
+        //}
     }
     GetClientChair(chair: number): number {
-        return this.PhysicChair2LogicChair(chair);
+        /**
+        if(this.PeopleNum == 2){
+            return chair == this.ChairID?0:1;
+        }else if(this.PeopleNum == 3){
+            if(chair == this.ChairID){
+                return 0;
+            }else{
+                if(chair > this.ChairID){
+                    if(chair - this.ChairID < 2){
+                        return 1;
+                    }else{
+                        return 3;
+                    }
+                }else{
+                    if(Math.abs(chair - this.ChairID) < 2){
+                        return 3;
+                    }else{
+                        return 1;
+                    }  
+                }
+            }
+        }else{ */
+            return this.PhysicChair2LogicChair(chair);
+        //}
     }
+
     IsVideo(): boolean {
         return false;
     }
@@ -104,8 +166,17 @@ export default class M_PDKClass extends GameBaseClass implements IPDKClass {
                     this.skingameView.Rec_GameStart(cm);
                     break;
                 }
+                case CMD_Static.SUB_S_PeopleNum:{
+                    var data = <M_PDK_GameMessage.CMD_S_PeopleNum>cm;
+                    this.PeopleNum = data.PeopleNum;
+                    break;
+                }
                 case CMD_Static.SUB_S_DissolveTable: {
                     this.skingameView.Rec_DissolveTable(cm);
+                    break;
+                }
+                case CMD_Static.SUB_S_Ready: {
+                    this.skingameView.Rec_ShowReady(cm);
                     break;
                 }
                 case CMD_Static.SUB_S_ForceLeftSuccess: {
@@ -152,6 +223,10 @@ export default class M_PDKClass extends GameBaseClass implements IPDKClass {
                     this.skingameView.Rec_GameContext_Interval(cm);
                     break;
                 }
+                case CMD_Static.SUB_S_SendSetid: {
+                    this.skingameView.Rec_setSetId(cm);
+                    break;
+                }
                 case CMD_Static.SUB_S_GameCreatePlease: {
                     if (!this.GameRule) {
                         console.log("SUB_S_GameCreatePlease:");
@@ -166,7 +241,7 @@ export default class M_PDKClass extends GameBaseClass implements IPDKClass {
                     createTable.tableCreatorPay = data.tableCreatorPay;                  
                     createTable.SetGameNum = data.SetGameNum;
                     createTable.ifcansameip = data.ifcansameip;
-                    createTable.PlayerNum = data.PlayerNum;
+                    createTable.PeopleNum = data.PeopleNum;
                     createTable.gameModel = data.gameModel;
                     createTable.mustOut = data.mustOut;
                     createTable.have2OutA = data.have2OutA;
@@ -176,8 +251,11 @@ export default class M_PDKClass extends GameBaseClass implements IPDKClass {
                     createTable.bomb = data.bomb;
                     createTable.FZBP = data.FZBP;
                     createTable.SZTW = data.SZTW;
+                    createTable.firstSpades3Out = data.firstSpades3Out;
+                    createTable.threeAIsBomb = data.threeAIsBomb;
                     createTable.showRemainNum = data.showRemainNum;
                     createTable.CheckGps = data.CheckGps;
+                    createTable.zhuaNiaoScore = data.zhuaNiaoScore;
 
                     console.log(createTable);                   
                     this.SendGameData(createTable);
@@ -188,7 +266,13 @@ export default class M_PDKClass extends GameBaseClass implements IPDKClass {
         }
         return true;
     }
+    GetSetId(setid:number){
 
+        this.getRecordShareUrl(setid,(url)=>{           
+            this.skingameView.ShowJieSuanCopy(url);
+        });
+        
+    }
     /**
      * 销毁游戏
      */

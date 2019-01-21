@@ -20,9 +20,9 @@ export default class LHZMJ_JieShuan extends cc.Component {
     @property([cc.Label])
     lbl_HuCardType: cc.Label[] = [];
     @property(cc.Sprite)
-    img_banker: cc.Sprite=null;
+    img_banker: cc.Sprite[]=[];
     @property(cc.Sprite)
-    img_creator: cc.Sprite=null;
+    img_creator: cc.Sprite[]=[];
 
     @property(cc.Sprite)
     img_dianpao: cc.Sprite=null;
@@ -83,6 +83,10 @@ export default class LHZMJ_JieShuan extends cc.Component {
     onLoad() {
         // init logic
         
+    }
+    
+    public isVisible() : boolean{
+        return this.node.active;
     }
 
     private static BankerPos: Array<{ x: number,y: number }> = [
@@ -223,19 +227,30 @@ export default class LHZMJ_JieShuan extends cc.Component {
         // msg+=LHZMJ.ins.iclass.getTableConfig()._ifCanTianHu?"天胡|":"";
         // msg+=LHZMJ.ins.iclass.getTableConfig()._ifCanHu7Dui?"七对|":"";
         // msg+=LHZMJ.ins.iclass.getTableConfig().IsChuHunJiaFan?"出会加番|":"";
-
+       cc.log(M_LHZMJClass.ins.TablePlayer[0]);
+       cc.log(M_LHZMJClass.ins.TablePlayer[1]);
+       cc.log(M_LHZMJClass.ins.TablePlayer[2]);
+       cc.log(M_LHZMJClass.ins.TablePlayer[3]);
 
    //     this.lbl_tableRule.string=msg; 
         //显示庄家位置,相对于自己
+        cc.log(M_LHZMJClass.ins.BankerChair);
+        cc.log(M_LHZMJClass.ins.SelfChair);
         var bankerpos=(M_LHZMJClass.ins.BankerChair-M_LHZMJClass.ins.SelfChair+4)%4;
-       
-          this.img_banker.node.y = LHZMJ_JieShuan.BankerPos[bankerpos].y + 65;
-           let creatorPos = (M_LHZMJClass.ins.getTableConfig().tableCreatorChair - M_LHZMJClass.ins.SelfChair + 4)%4;
-            this.img_creator.node.y = LHZMJ_JieShuan.BankerPos[bankerpos].y + 25;
+        for (var i = 0; i < this.img_banker.length; i++) {
+           if(i == bankerpos){
+              this.img_banker[i].node.active = true;     
+           }else{
+              this.img_banker[i].node.active = false;
+           }
+        }
+          
+          let creatorPos = (M_LHZMJClass.ins.getTableConfig().tableCreatorChair - M_LHZMJClass.ins.SelfChair + 4)%4;
+          this.img_creator[creatorPos].node.active = true;
 
         //显示玩家结算数据,本家，对家,上家，下家
         var me=M_LHZMJClass.ins.SelfChair;
-                if(balanceData.playerBalance[me].TotalScore>0){
+        if(balanceData.playerBalance[me].TotalScore>0){
             M_LHZMJVoice.PlayCardType(`/sound/win.mp3`);     
             this.img_ying.node.active = true;
             this.img_shu.node.active = false;
@@ -283,99 +298,123 @@ export default class LHZMJ_JieShuan extends cc.Component {
             }
         }
 
+        /////
         var dui=(me+1)%4;
         if(balanceData.playerBalance[dui].HuType>0){
             this.huType = "胡牌+2 ";
         }else{
             this.huType = "";
         }
-        this.balanceAry[1].showBalance(M_LHZMJClass.ins.TablePlayer[dui].NickName,balanceData.playerCard[dui],balanceData.playerBalance[dui],M_LHZMJClass.ins.TablePlayer[dui].FaceID);  
-       // this.balanceAry[1].showFlowerCard(balanceData.playerCard[dui]);
-       this.lbl_HuCardType[1].string = this.huType+this.GetHuTypeString(balanceData.playerBalance[dui]);
-        this.huType = "";
-        this.lbl_HuCardType[1].node.active = true;
-        if(balanceData.playerBalance[dui].FangPao>0)
-        {
-            this.img_dianpao.node.active=true;
-            //this._img_dianpao.x=LHZMJ_JieShuan.DianPaoORZiMoPos[1].x;
-            this.img_dianpao.node.y=LHZMJ_JieShuan.DianPaoORZiMoPos[1].y;
-        }
-        else if(balanceData.playerBalance[dui].HuType>0)
-        {
-            if(balanceData.playerBalance[dui].HuType==enHuCardType.HuCardType_ZiMo||balanceData.playerBalance[dui].HuType==enHuCardType.HuCardType_GangShangHua)
+
+        if(M_LHZMJClass.ins.TablePlayer[dui] != null){
+
+            this.balanceAry[1].showBalance(M_LHZMJClass.ins.TablePlayer[dui].NickName,balanceData.playerCard[dui],balanceData.playerBalance[dui],M_LHZMJClass.ins.TablePlayer[dui].FaceID);  
+           // this.balanceAry[1].showFlowerCard(balanceData.playerCard[dui]);
+           this.lbl_HuCardType[1].string = this.huType+this.GetHuTypeString(balanceData.playerBalance[dui]);
+            this.huType = "";
+            this.lbl_HuCardType[1].node.active = true;
+            if(balanceData.playerBalance[dui].FangPao>0)
             {
-                this.img_zimo.node.active=true;
-                //this._img_zimo.x=LHZMJ_JieShuan.DianPaoORZiMoPos[1].x;
-                this.img_zimo.node.y=LHZMJ_JieShuan.DianPaoORZiMoPos[1].y;
+                this.img_dianpao.node.active=true;
+                //this._img_dianpao.x=LHZMJ_JieShuan.DianPaoORZiMoPos[1].x;
+                this.img_dianpao.node.y=LHZMJ_JieShuan.DianPaoORZiMoPos[1].y;
             }
-            else
+            else if(balanceData.playerBalance[dui].HuType>0)
             {
-                this.img_hu[1].node.active=true;
+                if(balanceData.playerBalance[dui].HuType==enHuCardType.HuCardType_ZiMo||balanceData.playerBalance[dui].HuType==enHuCardType.HuCardType_GangShangHua)
+                {
+                    this.img_zimo.node.active=true;
+                    //this._img_zimo.x=LHZMJ_JieShuan.DianPaoORZiMoPos[1].x;
+                    this.img_zimo.node.y=LHZMJ_JieShuan.DianPaoORZiMoPos[1].y;
+                }
+                else
+                {
+                    this.img_hu[1].node.active=true;
+                }
+              
             }
-          
+        }else{
+            this.balanceAry[1].node.active = false;
         }
+
+        /////
         var shang=(me+2)%4;
          if(balanceData.playerBalance[shang].HuType>0){
             this.huType = "胡牌+2 ";
         }else{
             this.huType = "";
         }
-        this.balanceAry[2].showBalance(M_LHZMJClass.ins.TablePlayer[shang].NickName,balanceData.playerCard[shang],balanceData.playerBalance[shang],M_LHZMJClass.ins.TablePlayer[shang].FaceID);
-       // this.balanceAry[2].showFlowerCard(balanceData.playerCard[shang]);
-       this.lbl_HuCardType[2].string =  this.huType+this.GetHuTypeString(balanceData.playerBalance[shang]);
-        this.huType = "";
-        this.lbl_HuCardType[2].node.active = true;
-        if(balanceData.playerBalance[shang].FangPao>0)
-        {
-            this.img_dianpao.node.active=true;
-            //this._img_dianpao.x=LHZMJ_JieShuan.DianPaoORZiMoPos[2].x;
-            this.img_dianpao.node.y=LHZMJ_JieShuan.DianPaoORZiMoPos[2].y;
-        }
-        else if(balanceData.playerBalance[shang].HuType>0)
-        {
-            if(balanceData.playerBalance[shang].HuType==enHuCardType.HuCardType_ZiMo||balanceData.playerBalance[shang].HuType==enHuCardType.HuCardType_GangShangHua)
+
+        if(M_LHZMJClass.ins.TablePlayer[shang] != null){
+            this.balanceAry[2].showBalance(M_LHZMJClass.ins.TablePlayer[shang].NickName,balanceData.playerCard[shang],balanceData.playerBalance[shang],M_LHZMJClass.ins.TablePlayer[shang].FaceID);
+           // this.balanceAry[2].showFlowerCard(balanceData.playerCard[shang]);
+           this.lbl_HuCardType[2].string =  this.huType+this.GetHuTypeString(balanceData.playerBalance[shang]);
+            this.huType = "";
+            this.lbl_HuCardType[2].node.active = true;
+            if(balanceData.playerBalance[shang].FangPao>0)
             {
-                this.img_zimo.node.active=true;
-                //this._img_zimo.x=LHZMJ_JieShuan.DianPaoORZiMoPos[2].x;
-                this.img_zimo.node.y=LHZMJ_JieShuan.DianPaoORZiMoPos[2].y;
+                this.img_dianpao.node.active=true;
+                //this._img_dianpao.x=LHZMJ_JieShuan.DianPaoORZiMoPos[2].x;
+                this.img_dianpao.node.y=LHZMJ_JieShuan.DianPaoORZiMoPos[2].y;
             }
-            else
+            else if(balanceData.playerBalance[shang].HuType>0)
             {
-                this.img_hu[2].node.active=true;
+                if(balanceData.playerBalance[shang].HuType==enHuCardType.HuCardType_ZiMo||balanceData.playerBalance[shang].HuType==enHuCardType.HuCardType_GangShangHua)
+                {
+                    this.img_zimo.node.active=true;
+                    //this._img_zimo.x=LHZMJ_JieShuan.DianPaoORZiMoPos[2].x;
+                    this.img_zimo.node.y=LHZMJ_JieShuan.DianPaoORZiMoPos[2].y;
+                }
+                else
+                {
+                    this.img_hu[2].node.active=true;
+                }
             }
+        }else{
+            this.balanceAry[2].node.active = false;
         }
+
+        //////
         var xia=(me+3)%4;
          if(balanceData.playerBalance[xia].HuType>0){
             this.huType = "胡牌+2 ";
         }else{
             this.huType = "";
         }
-        this.balanceAry[3].showBalance(M_LHZMJClass.ins.TablePlayer[xia].NickName,balanceData.playerCard[xia],balanceData.playerBalance[xia],M_LHZMJClass.ins.TablePlayer[xia].FaceID);
-        //this.balanceAry[3].showFlowerCard(balanceData.playerCard[xia]);
-        this.lbl_HuCardType[3].string =  this.huType+this.GetHuTypeString(balanceData.playerBalance[xia]);
-         this.huType = "";
-        this.lbl_HuCardType[3].node.active = true;
-        if(balanceData.playerBalance[xia].FangPao>0)
-        {
-            this.img_dianpao.node.active=true;
-            //this._img_dianpao.x=LHZMJ_JieShuan.DianPaoORZiMoPos[3].x;
-            this.img_dianpao.node.y=LHZMJ_JieShuan.DianPaoORZiMoPos[3].y;
-        }
-        else if(balanceData.playerBalance[xia].HuType>0)
-        {
-            if(balanceData.playerBalance[xia].HuType==enHuCardType.HuCardType_ZiMo||balanceData.playerBalance[xia].HuType==enHuCardType.HuCardType_GangShangHua)
+
+        if(M_LHZMJClass.ins.TablePlayer[xia] != null){
+            this.balanceAry[3].showBalance(M_LHZMJClass.ins.TablePlayer[xia].NickName,balanceData.playerCard[xia],balanceData.playerBalance[xia],M_LHZMJClass.ins.TablePlayer[xia].FaceID);
+            //this.balanceAry[3].showFlowerCard(balanceData.playerCard[xia]);
+            this.lbl_HuCardType[3].string =  this.huType+this.GetHuTypeString(balanceData.playerBalance[xia]);
+             this.huType = "";
+            this.lbl_HuCardType[3].node.active = true;
+            if(balanceData.playerBalance[xia].FangPao>0)
             {
-                this.img_zimo.node.active=true;
-                //this._img_zimo.x=LHZMJ_JieShuan.DianPaoORZiMoPos[3].x;
-                this.img_zimo.node.y=LHZMJ_JieShuan.DianPaoORZiMoPos[3].y;
+                this.img_dianpao.node.active=true;
+                //this._img_dianpao.x=LHZMJ_JieShuan.DianPaoORZiMoPos[3].x;
+                this.img_dianpao.node.y=LHZMJ_JieShuan.DianPaoORZiMoPos[3].y;
             }
-            else
+            else if(balanceData.playerBalance[xia].HuType>0)
             {
-                this.img_hu[3].node.active=true;
+                if(balanceData.playerBalance[xia].HuType==enHuCardType.HuCardType_ZiMo||balanceData.playerBalance[xia].HuType==enHuCardType.HuCardType_GangShangHua)
+                {
+                    this.img_zimo.node.active=true;
+                    //this._img_zimo.x=LHZMJ_JieShuan.DianPaoORZiMoPos[3].x;
+                    this.img_zimo.node.y=LHZMJ_JieShuan.DianPaoORZiMoPos[3].y;
+                }
+                else
+                {
+                    this.img_hu[3].node.active=true;
+                }
+                
             }
-            
+        }else{
+            this.balanceAry[3].node.active = false;
         }
 
+
+
+        
         this.node.x=0;
         this.node.y=0;
         this._isPlayEnoughGameNum = balanceData.isPlayEnougnGameNum != 0;
@@ -473,10 +512,19 @@ export default class LHZMJ_JieShuan extends cc.Component {
              lbl+="明杠+"+balanceData.JieSuan[3]*3+" ";
         }
         if(balanceData.JieSuan[5]>0){
-             lbl+="补杠+"+balanceData.JieSuan[5]*3+" ";
+            if(LHZMJ.ins.iclass.getRealUserNum() ==4){
+                lbl+="补杠+"+balanceData.JieSuan[5]*3+" ";
+            }else{
+                lbl+="补杠+"+balanceData.JieSuan[5]*2+" ";
+            }
         }
         if(balanceData.JieSuan[6]>0){
-             lbl+="暗杠+"+balanceData.JieSuan[6]*6+" ";
+            if(LHZMJ.ins.iclass.getRealUserNum() ==4){
+                 lbl+="暗杠+"+balanceData.JieSuan[6]*6+" ";
+             }else{
+                 lbl+="暗杠+"+balanceData.JieSuan[6]*4+" ";
+             }
+
         }
         
         

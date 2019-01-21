@@ -1,5 +1,5 @@
 import { TingCardTip } from "../ConstDef/MGMJMahjongDef";
-import M_MGMJClass from "../M_MGMJClass";
+import M_MGMJView from "../M_MGMJView";
 import MGMJ_SingleTingCardTip from "./MGMJ_SingleTingCardTip";
 
 const { ccclass, property } = cc._decorator;
@@ -71,6 +71,7 @@ export default class MGMJ_TingTip extends cc.Component {
          MGMJ_TingTip._freeNode.put(this._tingCardAry.pop().node);
         }
 
+        
         this.node.x = 0;
         this.node.y = -170;
         //设置背景宽度
@@ -166,6 +167,7 @@ export default class MGMJ_TingTip extends cc.Component {
         this.countHU.string = countHu.toString();
         cc.log("显示全部听牌！！！");
         this.node.active = true;
+        this.scroll.scrollToLeft(0.5);
     }
     /**
      * 获取尺寸

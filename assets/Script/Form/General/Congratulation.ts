@@ -2,12 +2,12 @@ import UIBase from "../Base/UIBase";
 import { UIName } from "../../Global/UIName";
 import Global from "../../Global/Global";
 import { AudioType } from "../../CustomType/Enum";
-import { PlayEffect } from "../../Tools/Function";
+import { PlayEffect, LoadHeader } from "../../Tools/Function";
 
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class NewClass extends UIBase<any> {
+export default class Congratulation extends UIBase<any> {
     public IsEventHandler: boolean = true;
     public IsKeyHandler: boolean = true;
 
@@ -38,7 +38,13 @@ export default class NewClass extends UIBase<any> {
         if(obj){
             this.name_label.string = obj.ProType;
             this.num_label.string = "x"+obj.ProNum;
-            this.ProImg.spriteFrame = this.ResList[obj.ImgId];
+
+            if(obj.ProImg != null){
+                LoadHeader(obj.ProImg, this.ProImg);
+            }else{
+                cc.log(obj.ImgId);
+                this.ProImg.spriteFrame = this.ResList[obj.ImgId];
+            }
         }
     }
 

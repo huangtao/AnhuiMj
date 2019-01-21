@@ -287,7 +287,7 @@ export class WxManager implements IWXManager {
             } else {
                 var texture = new cc.RenderTexture(size.width, size.height, cc.ImageFormat.JPG);
             }
-
+            
             texture.begin();
             panel.visit();
             texture.end();

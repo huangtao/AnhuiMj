@@ -43,7 +43,7 @@ export default class ConfigData {
 
         o.Identifier = ConstValues.DefaultRegion+"_android";
         o.RegionName = ConstValues.DefaultRegion;
-        o.AppVersion = 0;
+        o.AppVersion = ConstValues.DefaultPkgVersion;
 
         return o;
     }
@@ -52,12 +52,18 @@ export default class ConfigData {
 
         // //获取app的版本号 
         let pkg_version = cc["LocalVersion"]
-        if (!cc.isValid(pkg_version)) {
+        let native_api_version = parseInt(ConfigData.GetNativeConf.NativeApiVersion);
+        if (Number.isNaN(pkg_version)) {
             pkg_version = parseInt(ConfigData.GetNativeConf.AppVersion);
         }
+        if (Number.isNaN(native_api_version)) {
+            native_api_version = ConstValues.DefaultNativeVersion;
+        }
+        
         cc.log("获取到App版本号：" + pkg_version);
         cc.sys.localStorage.setItem("currentVersion", pkg_version + "");
         ConfigData.AppVersion = pkg_version;
+        ConfigData.NativeApiVersion = native_api_version;
         ConfigData.RegionName = ConfigData.GetNativeConf.RegionName;
         ConfigData.Identifier = ConfigData.GetNativeConf.Identifier;
     }
@@ -132,9 +138,15 @@ export default class ConfigData {
     /**
      * app版本号
      */
-    public static AppVersion: number = 0;
+    public static AppVersion: number = ConstValues.DefaultPkgVersion;
+    /**
+     * app版本号
+     */
+    public static NativeApiVersion: number = ConstValues.DefaultNativeVersion;
 
     public static SystemInited: boolean = false;
+
+    // 大厅游戏列表
     private static _gameList: Array<number>;
     public static get GameList(): Array<number> {
         if (ConfigData._gameList == null) {
@@ -145,4 +157,23 @@ export default class ConfigData {
     public static set GameList(val: Array<number>) {
         ConfigData._gameList = val;
     }
+
+    // 亲友圈特殊授权游戏列表
+    public static _friendAccreditGameList: Array< number >;
+
+    public static get FriendAccreditGameList(): Array<number> {
+        if (ConfigData._friendAccreditGameList == null) {
+            ConfigData._friendAccreditGameList = [
+                76                 // 牛牛
+            ];
+        }
+
+        return ConfigData._friendAccreditGameList;
+    }
+
+    public static set FriendAccreditGameList(val: Array<number>) {
+        ConfigData._friendAccreditGameList = val;
+    }
+
+    public static PkgDownloadURI:string = "https://fir.im/ahmjce";
 }

@@ -75,6 +75,8 @@ export default abstract class RuleItemToggleBase extends cc.Component {
     public get Type() : ToggleType {
         return this._Type;
     }
+
+    public get isChecked(): boolean { return false};
     /*
      * 返回选中的参数和数值
      */

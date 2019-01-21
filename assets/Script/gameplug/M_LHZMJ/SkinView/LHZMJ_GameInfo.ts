@@ -1,7 +1,8 @@
 import { LHZMJMahjongDef, LHZMJ } from "../ConstDef/LHZMJMahjongDef";
 import M_LHZMJVideoClass from "../M_LHZMJVideoClass";
 import M_LHZMJClass from "../M_LHZMJClass";
-
+import M_LHZMJView from "../M_LHZMJView";
+import { LocalStorage } from "../../../CustomType/LocalStorage";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -22,9 +23,17 @@ export default class LHZMJ_GameInfo extends cc.Component {
     @property(cc.Label)
     lbl_GameNum: cc.Label=null;
 
+    @property(cc.Sprite)
+    sprite_2d:cc.Sprite=null;
+    @property(cc.Sprite)
+    sprite_3d:cc.Sprite=null;
+
     private _leftCardNum:number;
     private _groupid:number;
-
+    /**
+     * 按钮是否可点击（避免短时间内用户连续点击多次按钮会出现问题)
+     */
+    private _isClickEnable: boolean = true;
     onLoad() {
         // init logic
         //this.init();
@@ -45,9 +54,33 @@ export default class LHZMJ_GameInfo extends cc.Component {
         
         this.GroupLeftCard.active=false;
         this._groupid = 0;
+
+        if(LHZMJ.ins.iclass.is2D()){
+            this.sprite_2d.node.active = false;
+            this.sprite_3d.node.active = true;
+        }else{
+            this.sprite_3d.node.active = false;
+            this.sprite_2d.node.active = true;
+        }
     }
 
-    
+    private changeSence(e,any:string){
+
+        if (!this._isClickEnable) {
+             M_LHZMJView.ins.TipMsgShow("您的操作过于频繁，请稍后再试");
+            return;
+        }
+
+        this._isClickEnable = false;
+        this.scheduleOnce(()=>{
+            this._isClickEnable = true;
+        }, 2);
+
+        LHZMJ.ins.iclass.canvaSwitchClickEvent(any);
+        LocalStorage.SetItem("Game_Canvas",any);
+
+    }
+
     /**
      * 设置桌子号
      * */
@@ -77,7 +110,12 @@ export default class LHZMJ_GameInfo extends cc.Component {
      * */
     public holdCardOver():void{
         this.GroupLeftCard.active=true;
-        this.leftCardNum = LHZMJMahjongDef.gCardCount_Package - (LHZMJMahjongDef.gCardCount_Active - 1) * LHZMJMahjongDef.gPlayerNum;
+        if(LHZMJ.ins.iclass.isVideo()){
+            this.leftCardNum = LHZMJMahjongDef.gCardCount_Package - (LHZMJMahjongDef.gCardCount_Active - 1) * M_LHZMJVideoClass.ins.getRealUserNum();
+        }else{
+            this.leftCardNum = LHZMJMahjongDef.gCardCount_Package - (LHZMJMahjongDef.gCardCount_Active - 1) * LHZMJ.ins.iclass.getRealUserNum();    
+        }
+        
     }
     public get cardCount():number{
         return this._leftCardNum;

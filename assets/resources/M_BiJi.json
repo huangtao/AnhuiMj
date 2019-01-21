@@ -76,7 +76,7 @@
                     "list": [
                         {
                             "parentAttr": null,
-                            "childrenAttr": ["havesanShunzi:true"],
+                            "childrenAttr": [{"key":"havesanShunzi:true","contrary":false}],
                             "attr": "havexiScore",
                             "value": true,
                             "desc": "带喜分",

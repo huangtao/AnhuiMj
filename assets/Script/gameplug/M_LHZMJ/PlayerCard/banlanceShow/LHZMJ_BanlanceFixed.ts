@@ -55,11 +55,11 @@ export default class LHZMJ_BanlanceFixed extends LHZMJ_CardBase {
      * 刷新定牌
      * */
     protected refreshFixedCard():void{
-        this.node.active=false;
+       this.node.active=false;
         if(this._fixedData.length > 0){
             for(var i:number=0; i<this._fixedData.length; i++){
-                this._fixedData[i].node.x = i*153-390+22.5*3;
-                this._fixedData[i].node.y = -5;
+                this._fixedData[i].node.x = i*148-390+22.5*3+50;
+                this._fixedData[i].node.y = -2;
             }
         }
         this.node.active=true;

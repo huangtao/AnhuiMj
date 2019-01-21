@@ -21,6 +21,8 @@ export default class M_BiJiClass extends GameBaseClass implements IBiJiClass {
     private skingameView: M_BiJiView = null;
     private chatMsg: string[];
     public allmoney:number=0;
+    public validata:boolean = false;
+    private url:string = "";
     public VoiceType() { return this.VoiceType; }
 
     onLoad(): void {
@@ -227,7 +229,7 @@ export default class M_BiJiClass extends GameBaseClass implements IBiJiClass {
                     this.skingameView.Rec_DropCards(cm);
                     break;
                 }case CMD_Static.SUB_S_NextGamePlease:{
-                    cc.log("----------------------续--------------局-----------------------");
+                    cc.log("----------------------显示--------------结算-----------------------");
                     this.RecNextGamePlease(cm);              
 
                      break;
@@ -236,13 +238,24 @@ export default class M_BiJiClass extends GameBaseClass implements IBiJiClass {
         }
         return true;
     }
+     GetSetId(setid:number){
+
+        this.getRecordShareUrl(setid,(url)=>{           
+            this.skingameView.ShowJieSuanCopy(url);
+        });
+        
+    }
     /**
      * 请求续局弹框
      * @param msg 
      */
     private RecNextGamePlease(msg:GameIF.CustomMessage){
         var data = <M_BiJi_GameMessage.CMD_S_NextGamePlease>msg;
-         this.showResumeGameForm(new Action(this,this.RefusedNext),new Action(this,this.AgreeNext),this.getTablePlayerAry(),data.total,30);
+        if(data.sponsor==undefined||data.sponsor<=0){
+            return;
+        }
+        this.skingameView.showjiesuan(data.sponsor);
+       //  this.showResumeGameForm(new Action(this,this.RefusedNext),new Action(this,this.AgreeNext),this.getTablePlayerAry(),data.total,30);
     }
 
     //玩家拒绝续局 
@@ -318,10 +331,12 @@ export default class M_BiJiClass extends GameBaseClass implements IBiJiClass {
     protected OnAgreeNextGame(){
         cc.log("所有玩家同意续局");
         this.skingameView.tableInfo.tableCostNum+=this.allmoney;
-     //   this.skingameView.AgreeNextGameReset();
+        this.validata = true;
+         this.skingameView.AgreeNextGameReset();
     }
     protected OnRefuseNextGame(){
         cc.log("有玩家拒绝续局");
+        
         this.skingameView.RefuseNextGameReset();
     }
     protected CheckCanNext():boolean{

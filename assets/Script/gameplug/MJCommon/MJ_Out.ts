@@ -6,7 +6,7 @@ import M_HQMJVideoClass from '../M_HQMJ/M_HQMJVideoClass';
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class MJ_Cheating extends cc.Component {
+export default class HQMJ_Out extends cc.Component {
 
     @property(cc.Sprite)
     mj_bg:cc.Sprite = null;
@@ -27,17 +27,13 @@ export default class MJ_Cheating extends cc.Component {
             { x: -330,y: 20 }
         ];
 
-    public showOutPai(chair,outPai,isVideo:boolean = false){
-
-        let _HQMJ:any = null;
-        if(isVideo)
-            _HQMJ = M_HQMJVideoClass.ins;
-        else
-            _HQMJ = M_HQMJClass.ins;
-        this.mj_pai.spriteFrame=_HQMJ.getMahjong3DPaiBeiRes("hand_self_1");            
-        this.mj_hua.spriteFrame=_HQMJ.getMahjongPaiHuaRes(outPai);
+    public showOutPai(chair,outPai,_mjType:any){
         
-        var logicChair: number =_HQMJ.physical2logicChair(chair);
+        this.mj_pai.spriteFrame=_mjType.getMahjong3DPaiBeiRes("hand_self_1");
+                    
+        this.mj_hua.spriteFrame=_mjType.getMahjongPaiHuaResOut(outPai);
+        
+        var logicChair: number =_mjType.physical2logicChair(chair);
 
         this.mj_pai.node.x = this.UserDataPos[logicChair].x;
 

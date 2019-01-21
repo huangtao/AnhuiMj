@@ -1,4 +1,5 @@
 import { CardType } from "./PDK_GameHelp";
+import { PDK } from "./PDK_IClass";
 import { SetFontRes } from "../../MJCommon/MJ_Function";
 const { ccclass, property } = cc._decorator;
 
@@ -269,7 +270,7 @@ export default class GameLogic {
         let shunzi = true;
         this.getSortCardArray(cardValueArray,cardCountArray);
         for(let i = 0;i<cardValueArray.length;i++){
-            if(cardValueArray[i]-1 != cardValueArray[i+1]){
+            if(i+1 < cardValueArray.length && (cardValueArray[i]-1 != cardValueArray[i+1] || cardValueArray[i] == 15 || cardValueArray[i+1] == 15)){
                 shunzi = false;
             }
         }
@@ -278,7 +279,7 @@ export default class GameLogic {
 
     //判断是否为顺子、连对
     public static isShunOrDui(cardValueArray:number[],cardCountArray:number[]){
-        if(this.isConsecutive(cardValueArray,cardCountArray)){
+        if(this.isConsecutive(cardValueArray,cardCountArray) == false){
             return 0;
         }
         let shunzi = true;
@@ -371,6 +372,7 @@ export default class GameLogic {
 
     //返回牌型
     public static getCardType(cards:number[]){
+        let threeAIsBomb = PDK.ins.iview.GetGameRule().threeAIsBomb;
         let cardHashObj = this.getCardHashObj(cards);
         let cardHashObjNum = Object.getOwnPropertyNames(cardHashObj).length;
         if(cards.length == 1){
@@ -383,6 +385,10 @@ export default class GameLogic {
             }
         }else if(cards.length == 3){
             if(cardHashObjNum == 1){
+                //三个A是炸弹
+                if(threeAIsBomb && cardHashObj[14]){
+                    return CardType.Bomb;
+                }
                 return CardType.Three;
             }else{
                 return CardType.Error;
@@ -390,7 +396,7 @@ export default class GameLogic {
         }else if(cards.length >= 4){
             let [cardValueArray,cardCountArray] = this.ObjToArray(cardHashObj);
             let shunOrDui = this.isShunOrDui(cardValueArray,cardCountArray);
-            if(shunOrDui == 1){
+            if(shunOrDui == 1 && cards.length > 4){
                 return CardType.ShunZi
             }else if( shunOrDui == 2){
                 return CardType.lianDui;
@@ -400,11 +406,16 @@ export default class GameLogic {
                 if(cardHashObjNum == 1){
                     return CardType.Bomb;
                 }else if(cardHashObjNum == 2){
-                   if(cardHashObj[14] && cardHashObj[14] == 3){
-                        return CardType.Bomb;
-                   }else{
-                       return CardType.ThreeAndOne;
-                   }
+                    //三个A带1是炸弹
+                    if(threeAIsBomb && cardHashObj[14] && cardHashObj[14] == 3){
+                            return CardType.Bomb;
+                    }else if(cardCountArray[0] == 3 || cardCountArray[1] == 3){
+                        return CardType.ThreeAndOne;
+                    }else{
+                        return CardType.Error;
+                    }
+                }else{
+                    return CardType.Error;
                 } 
             }else{
                 //5张
@@ -426,7 +437,8 @@ export default class GameLogic {
                     }
                     if(cards.length == 6){
                         for(let cardCount of cardCountArray){
-                            if(cardCount == 4){
+                             //三个A带任何其他三张牌是4带二
+                            if(cardCount == 4 || (threeAIsBomb && cardHashObj[14] && cardHashObj[14] == 3)){
                                 return CardType.FourAndTwo;
                             }
                         }

@@ -191,7 +191,7 @@ export function LoadResourcesImage(url: string, img: cc.Sprite) {
  * 
  * @param component 
  */
-export function ReflushNodeWidgetAlignment(component: cc.Component,callback?:Function) {
+export function ReflushNodeWidgetAlignment(component: cc.Component, callback?: Function) {
     if (!cc.isValid(component)) return;
 
 
@@ -209,20 +209,35 @@ export function ReflushNodeWidgetAlignment(component: cc.Component,callback?:Fun
             }
         }
 
-        let autoFixArray =  component.getComponents<AutoFit>(AutoFit)
-        .concat(component.getComponentsInChildren<AutoFit>(AutoFit));
+        let autoFixArray = component.getComponents<AutoFit>(AutoFit)
+            .concat(component.getComponentsInChildren<AutoFit>(AutoFit));
 
         for (let w of autoFixArray) {
             if (cc.isValid(w)) {
                 w.OnFrameSizeChanged();
             }
         }
-        if(cc.isValid(callback)){
+        if (cc.isValid(callback)) {
             callback();
         }
     }, 0);
 }
-
+export function CheckNativeApiVersion(minVersion: number): boolean {
+    let n_version = ConfigData.NativeApiVersion;
+    cc.log(`n_version = ${n_version}`);
+    if (ConfigData.NativeApiVersion < minVersion) {
+        let durl = ConfigData.PkgDownloadURI;
+        cc.log(`durl = ${durl}`);
+        if (cc.isValid(durl) && durl.length > 0) {
+            // NativeAPI必须大于等于2
+            Global.Instance.UiManager.ShowMsgBox("需要下载最新的游戏包才可以使用该功能", this, () => {
+                cc.sys.openURL(ConfigData.PkgDownloadURI);
+            });
+        }
+        return false;
+    }
+    return true;
+}
 
 
 /**
@@ -477,8 +492,24 @@ export function ObjectToString(obj: any): string {
     }
 
     let idx = 0;
+    let value = null;
     for (let key in obj) {
-        str += key + ":" + obj[key];
+        value = obj[key];
+        // 判断是否是数组
+        let arr = "";
+        if ("object" == typeof (value) && "number" == typeof (value.length)) {
+            for (let idx = 0; idx < value.length; idx++) {
+                arr += value[idx];
+
+                if (idx < value.length - 1) {
+                    arr += "&";
+                }
+            }
+
+            str += key + ":" + arr;
+        } else {
+            str += key + ":" + obj[key];
+        }
 
         if (idx < len - 1) {
             str += "|";
@@ -525,7 +556,7 @@ export function MillisSecondToDate(millis: number): string {
 
     let date = new Date(millis);
     let year = date.getFullYear().toString();
-    let month = (date.getMonth()+1).toString();
+    let month = (date.getMonth() + 1).toString();
     let day = date.getDate().toString();
     let h = date.getHours().toString();
     let min = date.getMinutes().toString();
@@ -558,8 +589,8 @@ export function MillisSecondToDate(millis: number): string {
 /**
  * 播放背景音乐
  */
-export function PlayBgMusic(path:string){
-    if(!path || path.length <= 0){
+export function PlayBgMusic(path: string) {
+    if (!path || path.length <= 0) {
         cc.log("找不到此背景音乐文件" + path);
         return;
     }
@@ -570,13 +601,43 @@ export function PlayBgMusic(path:string){
 /**
  * 播放音效
  */
-export function PlayEffect(path:string){
-    if(!path || path.length <= 0){
+export function PlayEffect(path: string) {
+    if (!path || path.length <= 0) {
         cc.log("找不到此音效文件" + path);
         return;
     }
 
     Global.Instance.AudioManager.Play(path, AudioType.Effect, false);
+}
+
+export function JsonFormat(json) {
+    if (!json) {
+        return json;
+    }
+
+    if (json.status != "success") {
+        return json;
+    }
+
+    if (!json.column || !json.data) {
+        return json;
+    }
+
+
+    // let data = new Array<any>()
+
+    // for (let index = 0; index < json.column.length; index++) {
+    //     let c = [];
+    //     c.push(json.column[index]);
+    //     for (let i = 0; i < json.data.length; index++) {
+    //         const element = array[index];
+
+    //     }
+    // }
+
+    // return {
+
+    // }
 }
 
 // function loadNative (url:string, callback:Function){
@@ -637,3 +698,11 @@ export function PlayEffect(path:string){
 //     xhr.open("GET", url, true);
 //     xhr.send();
 // }
+// 
+export function checkNumber(str) {
+    var reg = /^[0-9]+?$/;
+    if (reg.test(str)) {
+        return true;
+    }
+    return false;
+}

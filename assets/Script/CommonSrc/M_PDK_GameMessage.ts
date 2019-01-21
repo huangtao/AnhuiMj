@@ -5,7 +5,33 @@ import {GameIF} from "./GameIF";
 export module M_PDK_GameMessage {
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
+     * @创建人员：PC-20180301ZDSR\Administrator
+     * @备注信息：
+     *
+     */
+    export class CMD_S_PeopleNum extends GameIF.GameMessage {
+        public constructor()
+        {
+            super();
+            
+            this.wMainCmdID = 52;
+            this.wSubCmdID = 10;
+            this.$T="M_PDK_GameMessage.CMD_S_PeopleNum"; 
+        }
+       /**
+        *
+        */
+       public PeopleNum: number = 0;
+   
+    }
+    SerializerCreator.Register("M_PDK_GameMessage.CMD_S_PeopleNum", function () {return new CMD_S_PeopleNum()})
+    TSRH.RSerializer("13322", "4|PeopleNum", "M_PDK_GameMessage.CMD_S_PeopleNum");
+
+
+    /**
+     *
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -78,7 +104,7 @@ export module M_PDK_GameMessage {
        /**
         *
         */
-       public PlayerNum: number = 0;
+       public PeopleNum: number = 0;
        /**
         *
         */
@@ -99,6 +125,10 @@ export module M_PDK_GameMessage {
         *
         */
        public redPeach3MustOut: boolean = false;
+       /**
+        *
+        */
+       public firstSpades3Out: boolean = false;
        /**
         *
         */
@@ -127,15 +157,19 @@ export module M_PDK_GameMessage {
         *
         */
        public startNum: number = 0;
+       /**
+        *
+        */
+       public threeAIsBomb: boolean = false;
    
     }
     SerializerCreator.Register("M_PDK_GameMessage.CMD_S_Attribute", function () {return new CMD_S_Attribute()})
-    TSRH.RSerializer("13323", "14|bomb&14|CheckGps&4|forceLeftMoney&4|forceLeftMoneyType&14|FZBP&!4|gameCount&4|gameModel&14|hasForceLeft&14|have2OutA&14|ifcansameip&14|isgroup&4|moneyType&4|mustOut&4|PlayerNum&14|redPeach3MustOut&4|roomType&14|showRemainNum&14|spades3MustOut&4|spadesRedPeach3&4|startNum&14|SZTW&5|tableCostNum&4|tableCostType&4|tableCreateWaitTime&4|tableCreator&5|tableID&4|zhuaNiaoScore", "M_PDK_GameMessage.CMD_S_Attribute");
+    TSRH.RSerializer("13323", "14|bomb&14|CheckGps&14|firstSpades3Out&4|forceLeftMoney&4|forceLeftMoneyType&14|FZBP&!4|gameCount&4|gameModel&14|hasForceLeft&14|have2OutA&14|ifcansameip&14|isgroup&4|moneyType&4|mustOut&4|PeopleNum&14|redPeach3MustOut&4|roomType&14|showRemainNum&14|spades3MustOut&4|spadesRedPeach3&4|startNum&14|SZTW&5|tableCostNum&4|tableCostType&4|tableCreateWaitTime&4|tableCreator&5|tableID&14|threeAIsBomb&4|zhuaNiaoScore", "M_PDK_GameMessage.CMD_S_Attribute");
 
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -173,7 +207,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -243,7 +277,33 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
+     * @创建人员：PC-20180301ZDSR\Administrator
+     * @备注信息：
+     *
+     */
+    export class CMD_S_SendSetId extends GameIF.GameMessage {
+        public constructor()
+        {
+            super();
+            
+            this.wMainCmdID = 52;
+            this.wSubCmdID = 51;
+            this.$T="M_PDK_GameMessage.CMD_S_SendSetId"; 
+        }
+       /**
+        *
+        */
+       public Setid: number = 0;
+   
+    }
+    SerializerCreator.Register("M_PDK_GameMessage.CMD_S_SendSetId", function () {return new CMD_S_SendSetId()})
+    TSRH.RSerializer("13363", "4|Setid", "M_PDK_GameMessage.CMD_S_SendSetId");
+
+
+    /**
+     *
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -289,7 +349,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -307,6 +367,14 @@ export module M_PDK_GameMessage {
         *
         */
        public cards: number[] = null;
+       /**
+        *
+        */
+       public zhuaNiaoChair: number = 0;
+       /**
+        *
+        */
+       public firstChair: number = 0;
        /**
         *
         */
@@ -346,12 +414,12 @@ export module M_PDK_GameMessage {
    
     }
     SerializerCreator.Register("M_PDK_GameMessage.CMD_S_GameContext_OutCard", function () {return new CMD_S_GameContext_OutCard()})
-    TSRH.RSerializer("13333", "14|CanOut&13|cards&!4|gameCount&13|lastOutCard&2|lastOutCardChair&4|lastOutCardType&2|nowOprationChair&!4|playerCardsCount&!3|playerChair&!13|playerOutCards", "M_PDK_GameMessage.CMD_S_GameContext_OutCard");
+    TSRH.RSerializer("13333", "14|CanOut&13|cards&0|firstChair&!4|gameCount&13|lastOutCard&2|lastOutCardChair&4|lastOutCardType&2|nowOprationChair&!4|playerCardsCount&!3|playerChair&!13|playerOutCards&0|zhuaNiaoChair", "M_PDK_GameMessage.CMD_S_GameContext_OutCard");
 
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -385,7 +453,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -411,7 +479,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -429,15 +497,19 @@ export module M_PDK_GameMessage {
         *
         */
        public score: number[] = null;
+       /**
+        *
+        */
+       public isRefresh: boolean = false;
    
     }
     SerializerCreator.Register("M_PDK_GameMessage.CMD_S_PlayerScore", function () {return new CMD_S_PlayerScore()})
-    TSRH.RSerializer("13329", "!4|score", "M_PDK_GameMessage.CMD_S_PlayerScore");
+    TSRH.RSerializer("13329", "14|isRefresh&!4|score", "M_PDK_GameMessage.CMD_S_PlayerScore");
 
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -459,7 +531,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -529,7 +601,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -571,7 +643,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -629,7 +701,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -655,7 +727,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -677,7 +749,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -711,7 +783,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -745,7 +817,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -771,7 +843,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -797,7 +869,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -819,7 +891,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -845,7 +917,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -870,7 +942,7 @@ export module M_PDK_GameMessage {
        /**
         *
         */
-       public PlayerNum: number = 0;
+       public PeopleNum: number = 0;
        /**
         *
         */
@@ -895,6 +967,10 @@ export module M_PDK_GameMessage {
         *
         */
        public redPeach3MustOut: boolean = false;
+       /**
+        *
+        */
+       public firstSpades3Out: boolean = false;
        /**
         *
         */
@@ -923,15 +999,19 @@ export module M_PDK_GameMessage {
         *
         */
        public CheckGps: boolean = false;
+       /**
+        *
+        */
+       public threeAIsBomb: boolean = false;
    
     }
     SerializerCreator.Register("M_PDK_GameMessage.CMD_C_CreateTable", function () {return new CMD_C_CreateTable()})
-    TSRH.RSerializer("13433", "14|bomb&14|CheckGps&14|FZBP&4|gameModel&14|have2OutA&14|ifcansameip&4|mustOut&4|PlayerNum&14|redPeach3MustOut&4|SetGameNum&14|showRemainNum&14|spades3MustOut&4|spadesRedPeach3&14|SZTW&4|tableCreatorPay&4|zhuaNiaoScore", "M_PDK_GameMessage.CMD_C_CreateTable");
+    TSRH.RSerializer("13433", "14|bomb&14|CheckGps&14|firstSpades3Out&14|FZBP&4|gameModel&14|have2OutA&14|ifcansameip&4|mustOut&4|PeopleNum&14|redPeach3MustOut&4|SetGameNum&14|showRemainNum&14|spades3MustOut&4|spadesRedPeach3&14|SZTW&4|tableCreatorPay&14|threeAIsBomb&4|zhuaNiaoScore", "M_PDK_GameMessage.CMD_C_CreateTable");
 
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -957,7 +1037,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -987,7 +1067,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -1013,7 +1093,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -1035,7 +1115,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *
@@ -1061,7 +1141,7 @@ export module M_PDK_GameMessage {
 
     /**
      *
-     * @创建时间：2018年12月01日 14:55:10
+     * @创建时间：2018年12月26日 14:41:18
      * @创建人员：PC-20180301ZDSR\Administrator
      * @备注信息：
      *

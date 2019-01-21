@@ -28,6 +28,7 @@ import MGMJ_DissTable from "./SkinView/MGMJ_DissTable";
 import MGMJ_MsgBox from "./SkinView/MGMJ_MsgBox";
 import MJ_Cheating from "../MJCommon/MJ_Cheating";
 import MGMJ_Out from "./SkinView/MGMJ_Out";
+import MGMJ_BaoPai from "../MJCommon/MJ_BaoPai";
 import MGMJ_Pao from "./SkinView/MGMJ_Pao";
 import MGMJ_La from "./SkinView/MGMJ_La";
 import MGMJ_SettingView from './SkinView/MGMJ_SettingView';
@@ -40,6 +41,7 @@ import MGMJ_JiFenBanX from "./SkinView/MGMJ_JiFenBanX";
 import MGMJ_OutCardView from "./SkinView/MGMJ_OutCardView";
 import M_MGMJVoice from "./M_MGMJVoice";
 import HuDong_Animation from "../MJCommon/HuDong_Animation";
+import { AudioType } from "../../CustomType/Enum";
 
 @ccclass
 export default class M_MGMJView extends cc.Component implements IMGMJView {
@@ -245,7 +247,14 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
             return this._jieShuan;
         }
 
+        @property(cc.Sprite)
+        backpack:cc.Sprite = null;
+        //2d桌布
+        @property(cc.SpriteFrame)
+        private backpack_2d:cc.SpriteFrame = null;
 
+        @property(cc.SpriteFrame)
+        private backpack_3d:cc.SpriteFrame = null;
 
         @property(cc.Button)
         //录音
@@ -254,6 +263,16 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
         @property(cc.Button)
         //语句设置
         btn_chat:cc.Button=null;
+
+        //2、3D切换按钮
+        @property(cc.Button)
+        btn_2d:cc.Button = null;
+        @property(cc.Button)
+        btn_3d:cc.Button = null;
+
+        //退出房间按钮
+        @property(cc.Button)
+        btn_exit:cc.Button = null;
 
         @property(cc.Prefab)
         MGMJ_help_View: cc.Prefab=null;
@@ -324,6 +343,16 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
 
         public get mg_out():MGMJ_Out{
             return this._mjOut;
+        }
+
+        //outpai
+        @property(cc.Prefab)
+        MGMJ_Bao:cc.Prefab=null;
+
+        private _BaoPai:MGMJ_BaoPai;
+
+        public get mg_baopai():MGMJ_BaoPai{
+            return this._BaoPai;
         }
 
         @property(cc.Prefab)
@@ -402,6 +431,11 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
         //请求听牌提示
         btn_tingtip:cc.Button=null;
 
+        //宝牌显示框
+        @property(cc.Sprite)
+        img_baokuang:cc.Sprite=null;
+
+
         onLoad(){
             M_MGMJView._ins = this;
             MGMJ.ins.iview = this;
@@ -434,13 +468,13 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
             this._outCardView=ocvnode.getComponent<MGMJ_OutCardView>(MGMJ_OutCardView);
             this.group_mid.addChild(ocvnode);
 
-            let hudongnode = cc.instantiate(this.prefab_hudong);
-            this.huDongDaoJu = hudongnode.getComponent<HuDong_Animation>(HuDong_Animation);
-            this.node.addChild(hudongnode);
-
             let gsunode=cc.instantiate(this.GameStatus_userInfo_View);
             this._gameStatus_userInfo=gsunode.getComponent<MGMJ_GameStatusUserInfo>(MGMJ_GameStatusUserInfo);
             this.node.addChild(gsunode);      
+
+            let hudongnode = cc.instantiate(this.prefab_hudong);
+            this.huDongDaoJu = hudongnode.getComponent<HuDong_Animation>(HuDong_Animation);
+            this.node.addChild(hudongnode);
 
             let opnode=cc.instantiate(this.MGMJ_OP_View);
             this._operatorView=opnode.getComponent<MGMJ_OperatorView>(MGMJ_OperatorView);
@@ -513,6 +547,10 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
             let mjoutNode=cc.instantiate(this.MGMJ_Out);
             this._mjOut=mjoutNode.getComponent<MGMJ_Out>(MGMJ_Out);
             this.node.addChild(mjoutNode);
+
+            let mjbaopai=cc.instantiate(this.MGMJ_Bao);
+            this._BaoPai=mjbaopai.getComponent<MGMJ_BaoPai>(MGMJ_BaoPai);
+            this.node.addChild(mjbaopai);
 
             let jsnode=cc.instantiate(this.MGMJ_JieShuan_View);
             this._jieShuan=jsnode.getComponent<MGMJ_JieShuan>(MGMJ_JieShuan);
@@ -602,7 +640,11 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
             this._recordVideo.init();
             console.log("View初始化");
             
-            
+            if(MGMJ.ins.iclass.is2D()){
+                this.backpack.spriteFrame = this.backpack_2d; 
+            }else{
+                this.backpack.spriteFrame = this.backpack_3d;
+            }
             
             //this._operatorView.node.on(MGMJEvent.MGMJ_EVENT_TYPE,this.onGameEvent,this);
             //this._selGang.node.on(MGMJEvent.MGMJ_EVENT_TYPE,this.onGameEvent,this);
@@ -647,6 +689,11 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
          //   this.gameClass.ShowShare(0, this.gameClass.TableID, this.gameClass.WebConfigName() + "麻将分享",MGMJ.ins.iclass.getTableConfig().shareContext);
         this.gameClass.ShowShare(0, this.gameClass.TableID, this.gameClass.WebConfigName() + "【临泉麻将】房号："+MGMJ.ins.iclass.getTableConfig().TableCode,MGMJ.ins.iclass.getTableConfig().shareContext);
 
+        }
+
+        //设置宝牌的框
+        public getBaoPaiKuang():cc.Sprite{
+            return this.img_baokuang;
         }
 
         private onshowSetting(e:cc.Event.EventTouch):void{
@@ -704,6 +751,8 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
         }else{
             this.ReadyStatusUserInfo.ShowGuZhang(spschair);
             this.GameStatusUserInfo.ShowGuZhang(spschair);
+            var path = cc.url.raw("resources/Sound/Item/guzhang.mp3");
+            this.gameClass.PlaySound(path,AudioType.Effect,false);
             // M_HQMJVoice.playDaoJu("guzhang.mp3");
         }
         // if(idx==4){
@@ -745,6 +794,33 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
             }
             this.gameClass.showTingCard(0,3000,true);
             //this.btn_tingtip.interactable=this.TingTip.node.active;
+        }
+
+        /**
+        * 罗盘
+        */
+        public ShowTimerView(chair:number): void {
+            if (cc.isValid(this._timerView)) {
+                this._timerView.showLuoPan();
+            } else {
+                cc.loader.loadRes("gameres/M_MGMJ/Prefabs/skinView/MGMJ_Timer3D", function (err, prefab) {
+                    if (err) {
+                        cc.error(err);
+                        return;
+                    }
+                    if (!cc.isValid(this._timerView)) {
+                        let timenode: cc.Node = cc.instantiate(prefab);
+                        this._timerView = timenode.getComponent<MGMJ_TimerView>(MGMJ_TimerView);
+                        // timenode.setLocalZOrder(4);
+                        this.group_mid.addChild(timenode);
+                        this._timerView.init();
+                        this._timerView.showLuoPan(chair);
+                    }else{
+                        this._timerView.showLuoPan(chair);
+                    }
+                }.bind(this));
+            }
+
         }
         
         // //骰子动画
@@ -947,6 +1023,8 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
             this.btn_location.node.active = M_MGMJClass.ins.isSelfCreateRoom;
             this.btn_chat.node.active=true;
             this.group_gameNum.active=false;
+            //新加的
+            this._readyStatus_userInfo.onEnable();
         }
         
         public GameStart():void{
@@ -968,8 +1046,12 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
             this._timerView.timerNum = 0;
             this._timerView.showArrow = MGMJ.ins.iclass.getSelfChair();
             this._timerView.showArr(255,MGMJ.ins.iclass.getSelfChair());
-            this._timerView.node.active=false;
+            this._timerView.node.active = true;
             this._cardView.node.active = true;
+            // if(M_MGMJClass.ins.TableConfig.CheckPeiZi==0){
+            //     M_MGMJView.ins.mg_baopai.showBaoPai(M_MGMJClass.ins.TableConfig.SetPeiZi);
+            //     this.img_baokuang.node.active =true;
+            // }
             
         }
 
@@ -1055,6 +1137,7 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
                 
                 //继续游戏
                 case MGMJEvent.msg_goongame: {
+                    console.log("------------M_MGMJViews  msg_goongame -----");
                     this.clear();
                     this._gameInfo.node.active = true;
                     //if(M_MGMJClass.ins.TableConfig.IsBuKao){
@@ -1068,13 +1151,14 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
                     if(M_MGMJClass.ins.checkMoneyCanGame){
                         console.log(`isSelfCreateRoom=${this.gameClass.isSelfCreateRoom}`);
                         console.log(`alreadyGameNum=${M_MGMJClass.ins.TableConfig.alreadyGameNum}`);
-                        console.log(`isPlayEnoughGameNum=${M_MGMJClass.ins.TableConfig.isPlayEnoughGameNum}`);
+                        console.log(`isPlayEnoughGameNum=${M_MGMJClass.ins.TableConfig.isPlayEnoughGameNum(M_MGMJClass.ins._addNum)}`);
                         
-                        if(this.gameClass.isSelfCreateRoom && (M_MGMJClass.ins.TableConfig.alreadyGameNum > 0) && !M_MGMJClass.ins.TableConfig.isPlayEnoughGameNum){
+                        if(this.gameClass.isSelfCreateRoom && (M_MGMJClass.ins.TableConfig.alreadyGameNum > 0) && !M_MGMJClass.ins.TableConfig.isPlayEnoughGameNum(M_MGMJClass.ins._addNum)){
                             this.ReadyStatusUserInfo.OnPlayerStatusChange(M_MGMJClass.ins.SelfChair,QL_Common.GState.PlayerReady);
-                            
+                            console.log("-----继续下一局执行-----");
                             this.gameClass.SendGameData(new M_MGMJ_GameMessage.CMD_C_NextGame());                       
                         }else{
+                            console.log("----come here in now ------");
                             M_MGMJClass.ins.SendUserReady();
                         }
                     }
@@ -1151,6 +1235,27 @@ export default class M_MGMJView extends cc.Component implements IMGMJView {
                 //this.DestroyTimer();
                 this.gameClass.SendGameData(new M_MGMJ_GameMessage.CMD_C_NextGame());
             }
+        }
+
+        private On2d():void{//2D切换
+            this.btn_2d.node.active = false;
+            this.btn_3d.node.active = true;
+            M_MGMJClass.ins.canvaSwitchClickEvent("2D");
+        }
+
+        private On3d():void{//3D切换
+            this.btn_3d.node.active = false;
+            this.btn_2d.node.active = true;
+            M_MGMJClass.ins.canvaSwitchClickEvent("3D");
+        }
+
+        //独立的退出键
+        private OnExit():void{
+            // if(MGMJ.ins.iclass.getTableStauts() == QL_Common.TableStatus.gameing){
+            //     this._setting.onDissable();//解散
+            // }else{
+                this._setting.onExit();//退出
+            // }
         }
 
         /**

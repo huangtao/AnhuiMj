@@ -11,6 +11,9 @@ export default class QLToggleContainer extends cc.Component {
     @property(cc.Layout)
     layout_item: cc.Layout = null;
 
+    // 一行最多子节点数目(根据该属性来判断是否换行显示)
+    public static MAX_ROW_CHILDREN_NUM: number = 3;
+
     private action: Action = null;
     /*
      * 上一个选中的节点
@@ -26,7 +29,7 @@ export default class QLToggleContainer extends cc.Component {
     }
 
     public addToggle(toggle: any): void{
-    	cc.info("addToggle");
+    	cc.log("addToggle");
     	if (!cc.isValid(toggle)) {
     		cc.info("error: invalid toggle!");
     		return;
@@ -69,6 +72,11 @@ export default class QLToggleContainer extends cc.Component {
      */
     private allowOnlyOneToggleChecked(isCheck: boolean, toggle: cc.Toggle){
     	let curToggle = toggle.getComponent(cc.Toggle);
+        // 只有一个的时候默认选中不能取消选中
+        if (1 == this._toggleItems.length && !isCheck) {
+            curToggle.check();
+            return;
+        }
 
     	if (!cc.isValid(this._preSelectedToggle) && isCheck) {
         	this._preSelectedToggle = curToggle;

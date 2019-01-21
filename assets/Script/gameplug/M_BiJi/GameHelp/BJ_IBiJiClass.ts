@@ -19,6 +19,7 @@ export interface IBiJiClass {
     VoiceType();
     ShowWanFa();
     ShowMaps();
+    GetSetId(setid:number);
 }
 export interface IBiJiView {
     GameModel();

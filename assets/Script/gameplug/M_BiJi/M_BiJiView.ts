@@ -87,6 +87,7 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
     public GameModel() { return this.tableInfo.gameModel; }
     public Master() { return this.gameInfo.master; }
     private msg_Start: M_BiJi_GameMessage.CMD_S_GameStart;
+    private setid:number = 0;
     onLoad() {
         M_BiJiView._instance = this;
         BiJi.ins.iview = this;
@@ -227,8 +228,12 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
     }
     public AgreeNextGameReset(){
         this.skinLabelView.SetGameCountForNext(this.gameInfo.gameCount[1]);
+        this.gameInfo.SetIsTrueReady(true);
     }
     public RefuseNextGameReset(){
+        this.gameInfo.gameCount[1] -=this.skinLabelView.allgamenum;
+        this.gameInfo.gameCount[0] = this.gameInfo.gameCount[1]; 
+      //  this.skinLabelView.SetGameCountForNext(this.gameInfo.gameCount[1]);
         cc.log("---------清理-----------游戏--------规则------");
         this.TheEnd();
        // this.skinButtonView.ShowTotalScore();
@@ -317,7 +322,7 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
         cc.log("是否带弃牌" + data.havedropcard + "是否带喜分" + data.havexiscore+"是否带三顺子"+data.havesanshunzi);
         this.gamerule = new GameRule();
         this.skinLabelView.SetCellScore(data.cellScore, this.skingameClass.IsCreateTable());
-        this.skinLabelView.allgamenum = data.gameCount[1];
+        this.skinLabelView.allgamenum = data.startNum;
         this.skinLabelView.SetMoneyType(data.moneyType);
         this.skinLabelView.SetGameCount(data.gameCount);
        
@@ -347,7 +352,7 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
         this.gameInfo.SetHasForceLeft(data.hasForceLeft);
 
 
-        this.gamerule.SetGameNum = data.gameCount[1]/10-1;
+        this.gamerule.SetGameNum = data.startNum/10-1;
         this.gamerule.cellScore = data.cellScore;
         this.gamerule.checkIP = false;
         this.gamerule.extendBet = 0;
@@ -656,7 +661,12 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
 
             this.skinLabelView.SetGameCount(data.gameCount);
             this.gameInfo.SetGameCount(data.gameCount);
-            this.gameInfo.SetIsTrueReady(data.isEnd);
+            if(data.gameCount[1]-data.gameCount[0]==this.skinLabelView.allgamenum){
+                this.gameInfo.SetIsTrueReady(true);
+            }else{
+                this.gameInfo.SetIsTrueReady(data.isEnd);
+            }
+            
             
             this.OnGameOver();
             for(var i =0;i<data.chair.length;i++){
@@ -981,8 +991,13 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
         if (data.surplusTimer - TimerValue.Interval > 1) {
             this.skingameClass.UiManager.ShowTip("游戏结算中，请耐心等待游戏结束。");
         }
-        this.gameInfo.SetIsTrueReady(data.isend);
+           if(data.gameCount[1]-data.gameCount[0]==this.skinLabelView.allgamenum){
+                this.gameInfo.SetIsTrueReady(true);
+            }else{
+                this.gameInfo.SetIsTrueReady(false);
+            }
         this.OnGameOver();
+
     }
     /**
      * 请求玩家创建房间
@@ -1024,7 +1039,11 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
                 this.skinDissolveTable.OnClose();
             }
             if (data.isShow) {
+            if(this.gameInfo.gameCount[1]-this.gameInfo.gameCount[0]==this.skinLabelView.allgamenum){
+                this.gameInfo.SetIsTrueReady(true);
+            }else{
                 this.gameInfo.SetIsTrueReady(false);
+            }
                 if (data.isExit){
                     cc.log("---------清理-----------游戏--------规则------");
                     this.TheEnd();
@@ -1186,7 +1205,7 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
         this.tableInfo.Reset();
         this.skinButtonView.SetMulGameButton(false);
         if (this.gameInfo.isDissolveTable) {
-            this.ShowTotalScore();
+            this.ShowTotalScore();          
         }
         else {
             this.skinButtonView.HideReady();
@@ -1464,10 +1483,14 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
             return;
         }
         this.skinButtonView.HideReady();
+        if(this.gameInfo.gameCount[1]>this.skinLabelView.allgamenum){
+            this.DestroyTimer();
+            this.skingameClass.SendGameData(new M_BiJi_GameMessage.CMD_C_Ready());
+        }else
         if (this.gameInfo.isTrueReady) {
             cc.log("-------------真的准备过了-----------")
             this.skingameClass.SendUserReady();
-        }
+        } 
         else {
             cc.log("--------往服务端发送准备-------")
             this.DestroyTimer();
@@ -1628,6 +1651,22 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
     private ShowGameHelp() {
 
     }
+    public showjiesuan(setid:number){
+        if(cc.isValid(this.skinTotalScore)){
+            this.skinTotalScore.ModifySetId(setid);
+        }
+        this.setid = setid;
+    }
+    public ShowJieSuanCopy(url:string){
+        if(url ==null||url ==""){
+            return;
+        }
+        if(cc.isValid(this.skinTotalScore)){
+            this.skinTotalScore.OnButtonCopy(url);
+        }else{
+            cc.log("此时结算面板无效");
+        }
+    }
     /**
      * 显示总计
      */
@@ -1635,7 +1674,7 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
         ShowNodeView("TotalScore", this.skinTotalScore, (prefab) => {
             this.skinTotalScore = this.AddPrefab(prefab, "BJ_SkinTotalScore", 15);
         }, () => {
-            this.skinTotalScore.Show(new TotalScoreData(this.scoreView, this.GetSelfID()),this.GetGameCount(),this.skingameClass.TableID,this.skinLabelView.GetCellScore(),this.tableInfo.havexiscore,this.tableInfo.havedropcard);
+            this.skinTotalScore.Show(new TotalScoreData(this.scoreView, this.GetSelfID()),this.GetGameCurCount(),this.skingameClass.TableID,this.skinLabelView.GetCellScore(),this.tableInfo.havexiscore,this.tableInfo.havedropcard,this.setid);
         });
     }
     /**
@@ -1799,13 +1838,21 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
      */
     private TableCost() {
         if (this.skingameClass.IsCreateTable()) {
-            if (this.tableInfo.tableCostType == TableCostType.TableCreatorPay && this.gameInfo.isTrueReady) {
-                return this.tableInfo.tableCostNum;
+            if (this.tableInfo.tableCostType == TableCostType.TableCreatorPay) {
+                if (this.gameInfo.isTrueReady || this.skingameClass.validata||(this.gameInfo.gameCount[0]%10==0)) {
+                    this.skingameClass.validata = false;
+                    return this.tableInfo.tableCostNum;
+                }
+
             }
-            if (this.tableInfo.tableCostType == TableCostType.AAPay && this.gameInfo.isTrueReady) {              
-                cc.log("检查玩家桌费 AA制钻石"+this.gameInfo.gameCount[1]); 
-                return this.gameInfo.gameCount[1];
+            if (this.tableInfo.tableCostType == TableCostType.AAPay) {
+                if (this.gameInfo.isTrueReady || this.skingameClass.validata||(this.gameInfo.gameCount[0]%10==0)) {
+                    cc.log("检查玩家桌费 AA制钻石" + this.gameInfo.gameCount[1]);
+                    this.skingameClass.validata = false;
+                    return this.gameInfo.gameCount[1];
+                }
             }
+
 
             return 0;
         }
@@ -1922,6 +1969,12 @@ export default class M_BiJiView extends cc.Component implements IBiJiView {
      */
     public GetGameCount() {
         return this.gameInfo.GetAllGameCount();
+    }
+        /**
+     * 获取当前局数
+     */
+    public GetGameCurCount() {
+        return this.gameInfo.GetCurGameCount();
     }
     /**
      * 获取推注文本

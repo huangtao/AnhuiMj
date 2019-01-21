@@ -2208,7 +2208,7 @@
     },
     "_enabled": true,
     "CardType": {
-      "__uuid__": "3e4617ff-54b9-442b-bf12-294adb739232"
+      "__uuid__": "17bed977-6f06-4835-b357-0fb2f011ae5f"
     }
   },
   {
@@ -4989,6 +4989,7 @@
         "__id__": 155
       }
     ],
+    "img_zhongma": [],
     "fanma_cardcolor": [
       {
         "__id__": 123
@@ -5056,6 +5057,9 @@
     "LHZMJ_SelGang_View": {
       "__uuid__": "c3f68030-7db5-40e4-ad82-9eb04b9c3db9"
     },
+    "MJ_Out": {
+      "__uuid__": "77d1899f-090b-4cc5-94a3-179bff87917d"
+    },
     "LHZMJ_TipMsg_View": {
       "__uuid__": "4314e272-fb67-4ba0-ad14-b04cfe3434ca"
     },
@@ -5089,13 +5093,13 @@
     },
     "_enabled": true,
     "paihua": {
-      "__uuid__": "a0a0741e-9185-4a70-bed0-240b963c58b1"
+      "__uuid__": "e59fbb4c-f5b6-41dd-a698-b138eea1db24"
     },
     "paibei": {
-      "__uuid__": "673b9897-cf6b-46b6-92a1-d911fa521cec"
+      "__uuid__": "2b11d901-de97-446d-a3a3-758a979a76d3"
     },
     "paibei3d": {
-      "__uuid__": "3f860f29-ec26-4b83-a3b5-e364c01ee43a"
+      "__uuid__": "2b11d901-de97-446d-a3a3-758a979a76d3"
     },
     "gameView": {
       "__id__": 162

@@ -78,7 +78,7 @@ export default class FormTop extends cc.Component {
         }
 
         if (cc.isValid(this.lab_qiDou) && cc.isValid(this.lab_diamond)) {
-            if(!Global.Instance.DataCache.UserInfo.userData.MoneyBag) {
+            if(!Global.Instance.DataCache.UserProp) {
                 return;
             }
 

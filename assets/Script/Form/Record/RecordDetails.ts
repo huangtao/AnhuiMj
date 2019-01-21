@@ -26,8 +26,12 @@ export default class RecordDetails extends UIBase<any> {
 
         this.showData = this.ShowParam;
 
+        // 清除数据
+        let scroll = this.scrollView.getComponent(RecrodDetailScrollView);
+        scroll.resetList();
+        
     	// 显示五个人的昵称
-    	for (var idx = 0; idx < 5; ++idx) {
+    	for (var idx = 0; idx < 6; ++idx) {
     		let lab_name = cc.find("mt/node/backGround/top/lab_name" + idx,this.node).getComponent(cc.Label);
     		
             if (idx > this.showData.scoreList.length - 1) {

@@ -1,9 +1,8 @@
 import UIBase from "../Base/UIBase";
-import { NoticeForm } from "../General/NoticeForm";
 import ItemListScrollView from "./ItemListScrollView";
-import ActivityItem from "./ActivityItem";
 import { Action } from "../../CustomType/Action";
 import { UIName } from "../../Global/UIName";
+import TurntablePanel from "../Turntable/TurntablePanel";
 
 const { ccclass, property } = cc._decorator;
 
@@ -11,6 +10,11 @@ const { ccclass, property } = cc._decorator;
 export default class NewClass extends UIBase<any> {
     public IsEventHandler: boolean = true;
     public IsKeyHandler: boolean = true;
+
+    /**
+     * 存放已经实例化的预制体
+     */
+    public turntable = null;
 
     @property(cc.Layout)
     layout: cc.Layout = null;
@@ -27,6 +31,16 @@ export default class NewClass extends UIBase<any> {
     @property(cc.Node)
     notice: cc.Node = null;
 
+    @property(cc.Button)
+    jump: cc.Button = null;
+
+    @property(cc.Prefab)
+    TurntablePanel: cc.Prefab = null;
+
+    @property(cc.Node)
+    ParentNode: cc.Node = null;
+
+
     InitShow() {
         super.InitShow();
         this.notice.active = false;
@@ -42,13 +56,25 @@ export default class NewClass extends UIBase<any> {
         let scroll_ActivityItem: ItemListScrollView = this.activityItem_scrollview.getComponent("ItemListScrollView");
         let itemList = [
             {
+                name: "转盘抽奖上线",
+                list: []
+            },
+            {
+                name: "跑得快上线",
+                list: ["image/activity/activity/f"]
+            },
+            // {
+            //     name: "蚌埠麻将上线",
+            //     list: ["image/activity/activity/e"]
+            // },
+            {
                 name: "礼品上线",
                 list: ["image/activity/activity/d"]
             },
-            {
-                name: "麻神争霸赛",
-                list: ["image/activity/activity/c"]
-            },
+            // {
+            //     name: "麻神争霸赛",
+            //     list: ["image/activity/activity/c"]
+            // },
             {
                 name: "真3D来了",
                 list: ["image/activity/activity/b"]
@@ -96,7 +122,22 @@ export default class NewClass extends UIBase<any> {
         if (!info || !info.list) {
             return;
         }
-
+ 
+        if (info.name == "转盘抽奖上线") {
+            if (this.turntable == null) {
+                let turntable = cc.instantiate(this.TurntablePanel);
+                if (cc.isValid(turntable)) {
+                    this.ParentNode.addChild(turntable);
+                }
+                this.turntable = turntable;
+                return;
+            }else{
+                this.turntable.active = true;
+            }
+        }else{
+            this.turntable.active = false;
+        }
+        
         var that = this;
         cc.loader.loadResArray(info.list, cc.SpriteFrame, (err, spriteFrames) => {
             this.layout.node.removeAllChildren();
@@ -110,12 +151,9 @@ export default class NewClass extends UIBase<any> {
                 const e = new cc.Component.EventHandler();
 
                 switch (info.name) {
-                    case "麻神争霸赛":
-                        e.target = this.node;
-                        e.component = "Activity";
-                        e.handler = "OnClickRank";
-                        btn.clickEvents.push(e);
-                        break;
+                    case "蚌埠麻将上线":
+                        this.jump.node.active = true;
+                        return;
                     case "礼品上线":
                         e.target = this.node;
                         e.component = "Activity";
@@ -125,6 +163,8 @@ export default class NewClass extends UIBase<any> {
                     default:
                         break;
                 }
+
+                this.jump.node.active = false;
 
                 /**
                  * 如果点击的是麻神争霸赛
@@ -167,4 +207,8 @@ export default class NewClass extends UIBase<any> {
         this.CloseClick(); //关闭本窗体
     }
 
+    OnClickBbmj() {
+        this.UiManager.ShowUi(UIName.Service);
+        this.CloseClick(); //关闭本窗体
+    }
 }

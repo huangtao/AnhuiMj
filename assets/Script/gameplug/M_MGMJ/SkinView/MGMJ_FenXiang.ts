@@ -234,14 +234,14 @@ export default class MGMJ_FenXiang extends cc.Component {
         //播放游戏结束音效
        // M_MGMJVoice.GameOver();
         this.node.active = true;
-        this.lab_other.string="霍邱麻将";
+        this.lab_other.string="明光麻将";
         //游戏规则
         var rule = M_MGMJClass.ins.GameRule;
         var rule0 = "";
         var rule1 = "";
-        if(rule.GameData.SetGameNum == 8)
+        if(rule.GameData.SetGameNum == 0)
             rule0 += "8局 ";
-        if(rule.GameData.SetGameNum == 16)
+        if(rule.GameData.SetGameNum == 1)
             rule0 += "16局 ";
         if(rule.GameData.tableCreatorPay == 1)
             rule0 += "AA支付 ";
@@ -249,21 +249,19 @@ export default class MGMJ_FenXiang extends cc.Component {
             rule0 += "房主支付 ";
         if(rule.GameData.tableCreatorPay == 3)
             rule0 += "圈主支付 ";
-        if(rule.GameData.whoLose == 0)
-            rule0 += "赢倒三家有 ";
-        if(rule.GameData.whoLose == 1)
-            rule0 += "谁打谁出分 ";
+        if(rule.GameData.PeiZi==55)
+            rule0 += "白皮配子 ";
+        if(rule.GameData.PeiZi!=55)
+            rule0 += "随机配子 ";
+        if(rule.GameData.QiangGangHu)
+            rule0 += "抢杠胡 ";
 
-        if(rule.GameData.zhanZhuang)
-            rule1 += "占庄 ";
-        if(rule.GameData.daiDaPai)
-            rule1 += "带大牌 ";
-        if(!rule.GameData.daiDaPai)
-            rule1 += "不带大牌 ";
-        if(rule.GameData.gangFen)
-            rule1 += "明杠暗杠 ";
-        if(rule.GameData.canChi)
-            rule1 += "不准吃牌 ";
+        if(rule.GameData.DianPao)
+            rule1 += "点炮三家付 ";
+        if(rule.GameData.ftbz)
+            rule1 += "逢头必战 ";
+        if(rule.GameData.ifShiSanYao)
+            rule1 += "带十三幺 ";
             
         //显示玩法
         this.rule0.string = rule0;
@@ -309,12 +307,12 @@ export default class MGMJ_FenXiang extends cc.Component {
     
         if(null != this._gameRecordAry[0].huGangCount){
         
-        //胡牌 杠牌次数统计
+        //胡牌 杠牌次数统计 杠和暗杠页面标签拖拽错误 处理交换 2 3 
             for(var i=0;i<4;i++){
                 this.lal_ziMoCnt[i].string="x"+this._gameRecordAry[0].huGangCount[i][0].toString();
                 this.lal_dianPaoHuCnt[i].string="x"+this._gameRecordAry[0].huGangCount[i][1].toString();
-                this.lal_mingGangCnt[i].string="x"+this._gameRecordAry[0].huGangCount[i][2].toString();
-                this.lal_anGangCnt[i].string="x"+this._gameRecordAry[0].huGangCount[i][3].toString();
+                this.lal_mingGangCnt[i].string="x"+this._gameRecordAry[0].huGangCount[i][3].toString();
+                this.lal_anGangCnt[i].string="x"+this._gameRecordAry[0].huGangCount[i][2].toString();
             }
         }else{
             for(var i=0;i<4;i++){

@@ -2,6 +2,8 @@ import UIBase from "../Base/UIBase";
 import { ActionNet } from "../../CustomType/Action";
 import { WebRequest } from "../../Net/Open8hb";
 import TaskItem from "./TaskItem";
+import TaskInfo from "./TaskInfo";
+import { UIName } from "../../Global/UIName";
 
 const { ccclass, property } = cc._decorator;
 
@@ -11,90 +13,150 @@ export class TaskForm extends UIBase<any> {
     public IsKeyHandler: boolean = true;
 
     @property(cc.Node)
-    Group: cc.Node=null;
+    Group: cc.Node = null;
 
     @property(cc.Prefab)
-    itemPrefab: cc.Prefab=null;
+    itemPrefab: cc.Prefab = null;
 
-    private _isFree = true;
+    @property(cc.ScrollView)
+    ScrollView : cc.ScrollView = null;
 
-    //private taskdata: Array<Array<any>>;
+    private isActivity = false;
 
-    private static taskPool = new cc.NodePool("TaskItem");
+    /**
+     * 记录本地缓存表
+     */
+    private dataList = null;
 
-    onLoad(){
-        super.onLoad();
-        //this.taskdata = new Array();
+    LoadDataNum = 20;
+
+    InitShow() {
+        let obj = this.ShowParam;
+        if (obj) {
+            this.isActivity = true;
+        }
+
+        this.UiManager.ShowLoading("正在刷新任务数据");
     }
 
-    InitShow() {        
+    OnShow(){
+        super.OnShow();
+        
         this.LoadTask();
     }
-    OnClose(){
-        this.ClearAll();
+
+    /**
+     * 发送请求
+     */
+    LoadTask() {
+        const data = WebRequest.DefaultData();
+        const action = new ActionNet(this, this.TaskSuccess, this.TaskError);
+        data.Add("count", this.LoadDataNum);
+        WebRequest.Task.get_task_list(action, data);
     }
 
-    ClearAll(){
-        this.clearNode();
-        this.clearData();
-    }
+    /**
+     * 请求数据成功
+     * @param obj 
+     */
+    TaskSuccess(obj) {
+        this.UiManager.CloseLoading();
+        this.UiManager.ShowLoading("正在加载任务数据");
 
-    clearNode() {
-        while(this.Group.children.length>0){
-            TaskForm.taskPool.put(this.Group.children[0]);
-        }
-        
-        // for (let i = 0; i < this.Group.children.length; i++) {
-        //     cc.log(this.Group.children.length);
-        //     TaskForm.taskPool.put(this.Group.children[i]);
-        // }
-    }
-
-    clearData() {
-        //this.taskdata = new Array();
-    }
-
-    LoadTask(count = 20, startid = 0) {
-        if (!this._isFree) {
-            cc.log("已经开始加载，请等待结果返回");
+        if (!obj) {
+            this.UiManager.CloseLoading();
+            cc.log("对象不存在");
             return;
         }
-        const action = new ActionNet(this, this.onsuccess, this.onerror);
-        const data = WebRequest.DefaultData();
-        data.Add("count", count);
-        data.Add("startid", startid);
-        WebRequest.userinfo.gettasklist(action, data);
-        this._isFree = false;
-    }
 
-    onsuccess(msg: TaskMessage) {
-        //this.taskdata = this.taskdata.concat(msg.data);
+        this.dataList = obj.data;
 
-        for (let i = 0; i < msg.data.length; i++) {
-            let node = TaskForm.taskPool.get();
-            if (!cc.isValid(node)) {
-                node = cc.instantiate(this.itemPrefab);
-            }
-            const item = node.getComponent<TaskItem>(TaskItem);
-            if (cc.isValid(item)) {
-                item.showData = msg.data[i];
-                item.initShow();
-                node.parent = this.Group;
+        let task: TaskInfo = null;
+        let data = null;
+
+        let TaskInfoArray = new Array<TaskInfo>();
+
+        for (var i = 0; i < this.dataList.length; i++) {
+            task = new TaskInfo;
+            data = this.dataList[i];
+
+            if (task && data) {
+                task.taskId = data[0];
+                task.taskName = data[1];
+                task.taskaward = data[2];
+                task.awardtype = data[3];
+                task.tasktype = data[4];
+                task.addtime = data[5];
+                task.taskremark = data[6];
+                task.status = data[7];
+                task.taskcond = data[8];
+                task.getlimit = data[9];
+                task.isget = data[10];
+                task.realnum = data[11];
+                task.taskStatus = data[12];
+                task.target = data[13];
+                TaskInfoArray.push(task);
+            } else {
+                this.UiManager.CloseLoading();
+                this.UiManager.ShowTip("初始化任务异常");
+                cc.log("任务赋值出现异常");
+                return;
             }
         }
-        this._isFree = true;
+
+        if (TaskInfoArray != null && TaskInfoArray.length > 0) {
+            this.InitTaskItem(TaskInfoArray);
+        } else {
+            this.UiManager.CloseLoading();
+            cc.log("获取到的数据为空");
+        }
     }
-    onerror() {
-        this._isFree = true;
+
+    TaskError() {
+        this.UiManager.CloseLoading();
+        this.UiManager.ShowTip("获取任务列表失败");
+        cc.log("获取任务列表失败, 请检查接口或成功操作");
     }
 
+    /**
+     * 实例化每一个任务项
+     * @param TaskList 
+     */
+    InitTaskItem(TaskList) {
+        this.Group.removeAllChildren();
 
+        let task : TaskInfo = null;
+        for (let index = 0; index < TaskList.length; index++) {
+            let task_item = cc.instantiate(this.itemPrefab);
+            if (cc.isValid(task_item)) {
+                let taskitem: TaskItem = task_item.getComponent("TaskItem");
+                if (taskitem && TaskList[index]) {
+                    task = TaskList[index];
+                    taskitem.InitData(task, this);
+                    this.Group.addChild(task_item);
+                }
+            }
+        }
 
+        this.UiManager.CloseLoading();
+    }
 
-}
+    /**
+     * 是否在关闭时显示活动面板
+     */
+    IsShowActivity() {
+        if (this.isActivity) {
+            this.isActivity = false;
+            this.UiManager.ShowUi(UIName.Activity);
+        }
 
-class TaskMessage {
-    status: string;
-    msg: string;
-    data: Array<Array<any>>;
+    }
+
+    CloseClick() {
+        super.CloseClick();
+
+        this.ScrollView.scrollToTop(0.1);
+
+        this.IsShowActivity(); 
+    }
 }

@@ -8527,7 +8527,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "HQMJ_FenXiang",
+    "component": "JZMJ_FenXiang",
     "handler": "copyScore",
     "customEventData": ""
   },
@@ -8844,7 +8844,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 151,
+      "x": 143,
       "y": 85
     },
     "_skewX": 0,
@@ -8931,7 +8931,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 10,
+      "x": 29,
       "y": 23
     },
     "_skewX": 0,

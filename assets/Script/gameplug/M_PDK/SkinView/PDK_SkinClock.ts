@@ -1,5 +1,6 @@
 import { TimeFlag, TimerValue } from "../GameHelp/PDK_GameHelp";
 import { PDK } from "../GameHelp/PDK_IClass";
+import VoicePlayer from "../GameHelp/PDK_VoicePlayer";
 
 const { ccclass, property } = cc._decorator;
 
@@ -40,6 +41,7 @@ export default class SkinClock extends cc.Component {
      * 当前是否有计时器真正运行
      */
     private isRuning: boolean;
+    private _cChair:number = 0;
 
     onLoad() {
         this.node.y = -20;
@@ -61,6 +63,7 @@ export default class SkinClock extends cc.Component {
      * timeflag:计时器标识，onlyShow是否单单显示，value:倒计时时间,msg：显示的文本内容
      */
     public RegTimer(timeflag: TimeFlag, onlyShow: boolean = false, value: number = 0, msg: string = "",cChair:number) {
+        this._cChair = cChair;
         this.node.stopAllActions();
         this.node.rotation = 0;
         console.log("RegTimer:" + Date.now());
@@ -90,13 +93,13 @@ export default class SkinClock extends cc.Component {
         this.SetLabelValue("", this.timerCount);
         this.schedule(this.TimerHandle, 1 * PDK.ins.iclass.GetSpeed());
         if(cChair == 0){
-            this.node.setPosition(-90,-20);
+            this.node.setPosition(-90,-50);
         }else if(cChair == 1){
-            this.node.setPosition(450,80);
+            this.node.setPosition(420,80);
         }else if(cChair == 2){
-            this.node.setPosition(0,155);
+            this.node.setPosition(0,180);
         }else if(cChair == 3){
-            this.node.setPosition(-450,80);
+            this.node.setPosition(-420,80);
         }
     }
     /**
@@ -115,15 +118,23 @@ export default class SkinClock extends cc.Component {
     private TimerHandle() {
         this.timerCount--;
         if (this.timerCount < 0) {
-            this.node.active = false;
             this.node.stopAllActions();
             this.TimerOver();
+            this.node.rotation = 0;
+            VoicePlayer.PlaySysSound("clock_warning");
         }
         else {
             this.SetLabelValue(this.label_title, this.timerCount);
-            if(this.timerCount == 5){
+            if(this.timerCount == 3){
                 let action = cc.sequence(cc.rotateBy(0.05,20),cc.rotateBy(0.1,-40),cc.rotateBy(0.05,20));
                 this.node.runAction(cc.repeatForever(action));
+            }
+            if(this._cChair == 0){
+                if(this.timerCount > 3){
+                    VoicePlayer.PlaySysSound("clock_myself");
+                }else{
+                    VoicePlayer.PlaySysSound("clock_myself2");
+                }
             }
         }
     }

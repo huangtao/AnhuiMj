@@ -31,7 +31,10 @@ export default class JZMJ_GameStatusUserInfo extends cc.Component {
         // init logic
         // console.log("gameUserInfo玩家信息初始化");
         //this.init();
-        
+        for(let i=0;i<JZMJMahjongDef.gPlayerNum;i++)
+        {
+            this.userAry[i].node.on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
+        }
     }
 
     public init():void{
@@ -41,12 +44,7 @@ export default class JZMJ_GameStatusUserInfo extends cc.Component {
             this.group_voice[i].active=false;
             let tempvoice:MJ_PlayVoiceStaus=this.group_voice[i].getComponent<MJ_PlayVoiceStaus>(MJ_PlayVoiceStaus);
             this.voiceAry.push(tempvoice);
-        }
-        for(let i=0;i<JZMJMahjongDef.gPlayerNum;i++)
-        {
-            this.userAry[i].node.on(cc.Node.EventType.TOUCH_END,()=>{this.onSelUserFace(i);},this);
-        }
-        
+        }              
         for(let i=0;i<this.userAry.length;i++)
         {
             this.userAry[i].init();
@@ -266,6 +264,29 @@ export default class JZMJ_GameStatusUserInfo extends cc.Component {
             for(var i: number = 0;i < JZMJMahjongDef.gPlayerNum;i++) {
                 var logicChair: number = this.JZMJClass.physical2logicChair(i);
                 this.userAry[logicChair].SetPao(pao[i]);
+            }
+        }
+        //隐藏 跑嘴中 标识
+        public hidePlayerPaoStatus(paoChair:number){
+            var logicChair: number = this.JZMJClass.physical2logicChair(paoChair);
+            this.userAry[logicChair].hidePao();
+        }
+
+        public showPlayerpaoStatus(isPao:Array<boolean> = null){
+            if(null == isPao){
+                for(let i=0;i<JZMJMahjongDef.gPlayerNum;i++){
+                    this.userAry[i].showPao();
+                }
+            }else{
+                for(let i=0;i<isPao.length;i++){
+                    if(!isPao[i]){
+                        var logicChair: number = this.JZMJClass.physical2logicChair(i);
+                        this.userAry[logicChair].showPao();
+                    }else{
+                        var logicChair: number = this.JZMJClass.physical2logicChair(i);
+                        this.userAry[logicChair].hidePao();
+                    }
+                }
             }
         }
         

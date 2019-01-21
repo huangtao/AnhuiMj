@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "1a32ebf3-48b7-4e25-b3d3-dadc7ad23bb1",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "ico_dianchijindu@2x": {
+      "ver": "1.0.3",
+      "uuid": "29a06d2e-bc5a-4568-8389-4dd9a4a1ec74",
+      "rawTextureUuid": "1a32ebf3-48b7-4e25-b3d3-dadc7ad23bb1",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 21,
+      "height": 8,
+      "rawWidth": 21,
+      "rawHeight": 8,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

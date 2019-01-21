@@ -35,11 +35,11 @@ export default class MGMJ_OppoSingleActive extends MGMJ_SingleActiveBase {
         let url="";
         let url1="";
         if(MGMJ.ins.iclass.is2D()){
-            this.bmp_liecardback.node.width=39;
-            this.bmp_liecardback.node.height=56;
+            this.bmp_liecardback.node.width=43;
+            this.bmp_liecardback.node.height=60;
             this.bmp_liecardback.node.scaleX=1;
-            this.bmp_cardback.node.width=39;
-            this.bmp_cardback.node.height=56;
+            this.bmp_cardback.node.width=42;
+            this.bmp_cardback.node.height=64;
 
             this.bmp_cardcolor.node.x=0;
             this.bmp_cardcolor.node.y=5;
@@ -49,45 +49,23 @@ export default class MGMJ_OppoSingleActive extends MGMJ_SingleActiveBase {
 
             if(isLie) {
                 if(MGMJMahjongDef.gBackMahjongValue != card){
-                    // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_oppo_1280`;
-                    // SetTextureRes(url,this.bmp_cardback);
-                    // url=MGMJ.ins.iclass.getMahjongResName(card);
-                    // SetTextureRes(url,this.bmp_cardcolor);
-                    
                     url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_oppo_1280`;
-                    //url1=MGMJ.ins.iclass.getMahjongResName(card);
-                    this.bmp_liecardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcard_oppo_1280");
+                    this.bmp_liecardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("shangdp_back@2x");
                     this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(card);
-                    //SetTextureResAry([url,url1],[this.bmp_liecardback,this.bmp_cardcolor]);
-
-                    // this.bmp_cardcolor.node.x = 0;
-                    // this.bmp_cardcolor.node.y = 5;
-                    // this.bmp_cardcolor.node.scaleX = 0.45;
-                    // this.bmp_cardcolor.node.scaleY = 0.45;
                 }else{
                     url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcardback_oppo_self_1280`;
-                    this.bmp_liecardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcardback_oppo_self_1280");
-                    //SetTextureRes(url,this.bmp_liecardback);
+                    this.bmp_liecardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("shangdp_fan@2x");
                 } 
-
                 this.bmp_liecardback.node.active=true;
                 this.bmp_cardcolor.node.active = MGMJMahjongDef.gBackMahjongValue != card;
 
             } else {
                 url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_oppo_1280`;
-                this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("pb3_active_oppo_1280");
-                //SetTextureRes(url,this.bmp_cardback);
+                this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("shang_back@2x");
                 this.bmp_cardback.node.active=true;
-
-                //this.bmp_cardcolor.node.active = false;
             }
         }else{
-
-            // this.bmp_liecardback.node.width=45;
-            // this.bmp_liecardback.node.height=64;
             this.bmp_liecardback.node.scaleX=1;
-            //this.bmp_cardback.node.width=46;
-            //this.bmp_cardback.node.height=54;
             
             this.bmp_cardcolor.node.x=0;
             this.bmp_cardcolor.node.y=5;
@@ -96,42 +74,14 @@ export default class MGMJ_OppoSingleActive extends MGMJ_SingleActiveBase {
             this.bmp_cardcolor.node.skewX=0.2;
 
             if(isLie) {
-                if(MGMJMahjongDef.gBackMahjongValue != card){
-                    // // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_oppo_1280`;
-                    // // SetTextureRes(url,this.bmp_cardback);
-                    // // url=MGMJ.ins.iclass.getMahjongResName(card);
-                    // // SetTextureRes(url,this.bmp_cardcolor);
-                    
-                    // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_oppo_1280`;
-                    // //url1=MGMJ.ins.iclass.getMahjongResName(card);
-                    // this.bmp_liecardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcard_oppo_1280");
-                    // this.bmp_cardcolor.spriteFrame=MGMJ.ins.iclass.getMahjongPaiHuaRes(card);
-                    // //SetTextureResAry([url,url1],[this.bmp_liecardback,this.bmp_cardcolor]);
-
-                    // // this.bmp_cardcolor.node.x = 0;
-                    // // this.bmp_cardcolor.node.y = 5;
-                    // // this.bmp_cardcolor.node.scaleX = 0.45;
-                    // // this.bmp_cardcolor.node.scaleY = 0.45;
-                    this.showDaoPai();
-                }else{
-                    // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcardback_oppo_self_1280`;
-                    // this.bmp_liecardback.spriteFrame=MGMJ.ins.iclass.getMahjongPaiBeiRes("pb3_showcardback_oppo_self_1280");
-                    // //SetTextureRes(url,this.bmp_liecardback);
-                    this.showDaoPai();
-                } 
-
+                this.showDaoPai();
                 this.bmp_liecardback.node.active=true;
                 this.bmp_cardcolor.node.active = MGMJMahjongDef.gBackMahjongValue != card;
-
             } else {
-                //url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_oppo_1280`;
                 this.showShuPai();
-                //this.bmp_cardback.spriteFrame=MGMJ.ins.iclass.getMahjong3DPaiBeiRes("hand_oppo_3_1");
-                //SetTextureRes(url,this.bmp_cardback);
                 this.bmp_cardback.node.active=true;
             }
         }
-        
         this.node.active=true;
     }
     

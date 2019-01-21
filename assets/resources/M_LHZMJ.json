@@ -4,7 +4,7 @@
         {
             "attrIcon": "cjfj_76.png",
             "desc": "人数",
-            "enabled": false,
+            "enabled": true,
             "itemList": [
                 {
                     "nodeType": "TOGGLE_SINGLE",
@@ -12,14 +12,14 @@
                         {
                             "attr": "PeopleNum",
                             "value": 0,
-                            "desc": "四人",
+                            "desc": "4人",
                             "enabled": true,
                             "defaultSelected": true
                         },
                         {
                             "attr": "PeopleNum",
                             "value": 1,
-                            "desc": "三人",
+                            "desc": "3人",
                             "enabled": true,
                             "defaultSelected": false
                         }
@@ -154,6 +154,7 @@
                     "nodeType": "CHECKBOX_LEFTRIGHT",
                     "defaultSelected": true,
                     "defaultValue": 2,
+                    "defaultShowIdx": 2,
                     "attr": "OutCardTime",
                     "enabled": true,
                     "list": [
@@ -167,7 +168,7 @@
                         },
                         {
                             "value": 2,
-                            "desc": "无限制出牌"
+                            "desc": "无限制"
                         }
                     ]
                 }
@@ -257,11 +258,6 @@
         {
             "attrName": "isGangJiuYou",
             "value": true,
-            "desc": "是否杠了就有"
-        },
-        {
-            "attrName": "IfCanSameIp",
-            "value": false,
             "desc": "是否杠了就有"
         }
     ]

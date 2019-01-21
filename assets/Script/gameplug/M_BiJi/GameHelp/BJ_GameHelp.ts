@@ -824,6 +824,12 @@ export class GameInfo {
     public GetAllGameCount() {
         return this.gameCount[1];
     }
+        /**
+     * 获取当前局数
+     */
+    public GetCurGameCount() {
+        return this.gameCount[0];
+    }
     /**
      * 是否局数打完或者解散房间
      */

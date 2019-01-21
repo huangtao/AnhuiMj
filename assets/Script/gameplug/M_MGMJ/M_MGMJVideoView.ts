@@ -13,6 +13,7 @@ import MGMJ_Ani from "./SkinView/MGMJ_Ani";
 import { MGMJ, enMGMJAniType, MGMJMahjongDef } from "./ConstDef/MGMJMahjongDef";
 import MGMJEvent from "./MGMJEvent";
 import MGMJ_VideoCtl from "./SkinView/MGMJ_VideoCtl";
+import MGMJ_BaoPai from "../MJCommon/MJ_BaoPai";
 
 const { ccclass, property } = cc._decorator;
 
@@ -27,8 +28,15 @@ export default class M_MGMJVideoView extends cc.Component {
     @property(cc.Node)
     group_gameNum: cc.Node=null;
 
+    @property(cc.Prefab)
+    GameInfoView: cc.Prefab=null;
+
     @property(cc.Node)
     MGMJ_Card_View: cc.Node=null;
+
+    @property(cc.Node)
+    MGMJ_GameInfo: cc.Node=null;
+
     //牌阵视图
     private _cardView: MGMJ_CardView;//me
     /**
@@ -37,9 +45,6 @@ export default class M_MGMJVideoView extends cc.Component {
     public get CardView(): MGMJ_CardView {
         return this._cardView;
     }
-
-    @property(cc.Prefab)
-    GameInfoView: cc.Prefab=null;
 
     //游戏信息
     private _gameInfo: MGMJ_GameInfo;//me
@@ -148,6 +153,20 @@ export default class M_MGMJVideoView extends cc.Component {
             return this._videoCtl;
     }
 
+    //outpai
+    @property(cc.Prefab)
+    MGMJ_Bao:cc.Prefab=null;
+
+    private _BaoPai:MGMJ_BaoPai;
+
+    public get mg_baopai():MGMJ_BaoPai{
+        return this._BaoPai;
+    }
+
+    //宝牌显示框
+    @property(cc.Sprite)
+    img_baokuang:cc.Sprite=null;
+
 
     onLoad() {
         // init logic
@@ -156,8 +175,8 @@ export default class M_MGMJVideoView extends cc.Component {
             
         let ginode=cc.instantiate(this.GameInfoView);
         this._gameInfo=ginode.getComponent<MGMJ_GameInfo>(MGMJ_GameInfo);
-        this.node.addChild(ginode);
-
+        this.MGMJ_GameInfo.addChild(ginode);
+        // this._gameInfo.node.setLocalZOrder(-1);
         let timenode=cc.instantiate(this.Time_View);
         this._timerView=timenode.getComponent<MGMJ_TimerView>(MGMJ_TimerView);
         this.node.addChild(timenode);
@@ -167,7 +186,7 @@ export default class M_MGMJVideoView extends cc.Component {
         this.node.addChild(sznode);
 
         this._cardView=this.MGMJ_Card_View.getComponent<MGMJ_CardView>(MGMJ_CardView);
-
+        // this.MGMJ_Card_View.setLocalZOrder(1);
         let gsunode=cc.instantiate(this.GameStatus_userInfo_View);
         this._gameStatus_userInfo=gsunode.getComponent<MGMJ_GameStatusUserInfo>(MGMJ_GameStatusUserInfo);
         this.node.addChild(gsunode);
@@ -201,6 +220,10 @@ export default class M_MGMJVideoView extends cc.Component {
         this._setting=setnode.getComponent<MGMJ_SettingView>(MGMJ_SettingView);
         this.node.addChild(setnode);
 
+        let mjbaopai=cc.instantiate(this.MGMJ_Bao);
+        this._BaoPai=mjbaopai.getComponent<MGMJ_BaoPai>(MGMJ_BaoPai);
+        this.node.addChild(mjbaopai);
+
         this.node.on(MGMJEvent.MGMJ_EVENT_TYPE,this.onGameEvent,this);
     }
 
@@ -209,14 +232,14 @@ export default class M_MGMJVideoView extends cc.Component {
         this.TimerView.init();
         this.SZAni.init();
         this.GameStatusUserInfo.init();
-        this.CardView.init();
         this._aniPanel.init();
         this.VideoCtl.init();
         // this.OperatorView.init();
         // this.SelGangView.init();
         // this.QiangGangView.init();
         this._setting.init();
-        this.TipMsgView.Init()
+        this.TipMsgView.Init();
+        this.CardView.init();
     }
     /**
      * 清理
@@ -259,9 +282,12 @@ export default class M_MGMJVideoView extends cc.Component {
         this._gameStatus_userInfo.HideLaPao();
         this._gameStatus_userInfo.tableOwener = MGMJ.ins.iclass.getTableConfig().tableCreatorChair;
         this._timerView.timerNum = 0;
+        this._timerView.showArrow = M_MGMJVideoClass.ins.getSelfChair();
+        this._timerView.showArr(255,M_MGMJVideoClass.ins.getSelfChair(),true);
         this._timerView.showArrow = MGMJMahjongDef.gInvalidChar;
         this._timerView.node.active=false;
         this._cardView.node.active = true;
+        
     }
 
     public StartSendCard():void{
@@ -277,6 +303,11 @@ export default class M_MGMJVideoView extends cc.Component {
      */
     public OnButtonShare() {
         //this.gameClass.ShowShare(0, this.gameClass.TableID, this.gameClass.WebConfigName + "淮北麻将分享",MGMJ.ins.iclass.getTableConfig().shareContext);
+    }
+
+    //设置宝牌的框
+    public getBaoPaiKuang():cc.Sprite{
+        return this.img_baokuang;
     }
 
     /**
@@ -303,6 +334,7 @@ export default class M_MGMJVideoView extends cc.Component {
             }
             //继续游戏
             case MGMJEvent.msg_goongame: {
+                console.log("---- MGMJVIdeoView msg_goongame ----- ");
                 this.clear();     
                 break;
             }

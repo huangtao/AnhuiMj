@@ -31,21 +31,35 @@ export class LocalStorage {
 
 
 
-    public static get LocalHotVersion():any{
-       let version = parseInt(LocalStorage.GetItem("LocalHotVersion"));
-       if(!cc.isValid(version)){
-           version = 0;
-       }
-       return version;
+    public static get LocalHotVersion(): any {
+        let version = parseInt(LocalStorage.GetItem("LocalHotVersion"));
+        if (!cc.isValid(version)) {
+            version = 0;
+        }
+        return version;
     }
-    public static set LocalHotVersion(version:any){
-        LocalStorage.SetItem("LocalHotVersion",version+'');
-        let userdata:BuglyUserData = new BuglyUserData();
+    public static set LocalHotVersion(version: any) {
+        LocalStorage.SetItem("LocalHotVersion", version + '');
+        let userdata: BuglyUserData = new BuglyUserData();
         userdata.Key = "LocalHotVersion";
         userdata.Value = version;
         NativeCtrl.SetBuglyUserData(userdata);
     }
 
+    public static get LastUserLoginCache(): any {
+        let version = LocalStorage.GetItem("LastUserLoginCache");
+        if (!cc.isValid(version)) {
+            version = 0;
+        }
+        return version;
+    }
+    public static set LastUserLoginCache(cacheToken: any) {
+        LocalStorage.SetItem("LastUserLoginCache", cacheToken + '');
+        let userdata: BuglyUserData = new BuglyUserData();
+        //  userdata.Key = "LastUserLoginCache";
+        //  userdata.Value = cacheToken;
+        //  NativeCtrl.SetBuglyUserData(userdata);
+    }
 
 
 

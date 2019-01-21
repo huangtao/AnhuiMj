@@ -226,7 +226,7 @@ export default class HQMJ_SelfSingleActive extends HQMJ_SingleActiveBase {
     public down():void{
 
         this.node.stopAllActions();
-        this.node.y=-304;
+        this.node.y=-295;
         this._isUp = false;
     }
     /**
@@ -236,8 +236,8 @@ export default class HQMJ_SelfSingleActive extends HQMJ_SingleActiveBase {
          
         if(!this._isUp){ 
             this.node.stopAllActions();
-            this.node.y=-304;
-            let tempY=this.node.y+20;
+            // this.node.y=-304; 去掉刚摸到的牌 下移动作
+            let tempY=this.node.y+25;
             //this.y-=20;
             //egret.Tween.get(this).to({y:tempY},200).call(()=>{},this);
             let action=cc.moveTo(0.2,this.node.x,tempY);
@@ -347,105 +347,76 @@ export default class HQMJ_SelfSingleActive extends HQMJ_SingleActiveBase {
         if(_hqmj.is2D()){
             this.node.width=79;
             this.node.height=119;
-            this.bmp_cardback.node.width=79;
-            this.bmp_cardback.node.height=113;
+            this.bmp_cardback.node.width=92;
+            this.bmp_cardback.node.height=132;
             this.bmp_cardback.node.scaleX=1;
-            this.bmp_cardcolor.node.width=68;
-            this.bmp_cardcolor.node.height=97;
+            this.bmp_cardcolor.node.width=88;//68;
+            this.bmp_cardcolor.node.height=92//;97;
             this.bmp_enable.node.width=73;
             this.bmp_enable.node.height=107;
-
-            if(true){
+            if(isLie){
                 this.bmp_enable.node.active=false;
+                
                 if(HQMJMahjongDef.gBackMahjongValue != card){
-                    // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_self_1280`;
-                    // SetTextureRes(url,this.bmp_cardback);
-                    
-                    // url=_hqmj.getMahjongResName(card);
-                    // SetTextureRes(url,this.bmp_cardcolor);
-
                     url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_showcard_self_1280`;
-                    //url1=_hqmj.getMahjongResName(card);
-                    this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("pb3_showcard_self_1280");
+                    this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("shoupaipg@2x");
                     this.bmp_cardcolor.spriteFrame=_hqmj.getMahjongPaiHuaRes(card);
-                    //SetTextureResAry([url,url1],[this.bmp_cardback,this.bmp_cardcolor]);
-                    //this.bmp_cardcolor.node.x = 0;//9;
-                    this.bmp_cardcolor.node.y = 10;//3;
-
+                    this.bmp_cardback.node.width=92; 
+                    this.bmp_cardback.node.height=132;
+                    this.bmp_cardcolor.node.y = 20;//3;
                     this.bmp_cardcolor.node.scaleX = 1;
-                    this.bmp_cardcolor.node.scaleY = 1;
+                    this.bmp_cardcolor.node.scaleY = 0.8;
                     this.bmp_cardcolor.node.skewX = 0;
                     this.bmp_cardcolor.node.skewY = 0;
-                    
-
                     this.bmp_cardcolor.node.active = true;
                     this.bmp_cardback.node.active = true;
                 }else{
                     url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_backcard_self_1280`;
-                    this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("pb3_backcard_self_1280");
-                    //SetTextureRes(url,this.bmp_cardback);
-                    //this._bmp_cardback.texture = <egret.Texture>RES.getRes(switchResName("xzmj_backcard_self_png"));
+                    this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("shoupaipg_back@2x");
                     this.bmp_cardback.node.active = true;
                     this.bmp_cardcolor.node.active=false;
                 }
-
-                
             }else{
-                // url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_self_1280`;
-                // SetTextureRes(url,this.bmp_cardback);
-            
-                // url=_hqmj.getMahjongResName(card);
-                // SetTextureRes(url,this.bmp_cardcolor);
-                //url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_self_1280`;
-                //url1=_hqmj.getMahjongResName(card);
-                //this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("pb3_active_self_1280");
-               // this.bmp_cardcolor.spriteFrame=_hqmj.getMahjongPaiHuaRes(card);
-                //SetTextureResAry([url,url1],[this.bmp_cardback,this.bmp_cardcolor]);
-
-                //this.bmp_cardcolor.node.x=0;//6;
-                //this.bmp_cardcolor.node.y=-9;//15;
-
-                // this.bmp_cardcolor.node.scaleX = 1;
-                // this.bmp_cardcolor.node.scaleY = 1;
-                // this.bmp_cardcolor.node.skewX = 0;
-                // this.bmp_cardcolor.node.skewY = 0;
-                // this.bmp_cardcolor.node.active = true;
-                // this.bmp_cardback.node.active = true;
-            }
-        }else{
-            
-            if(isLie){
-                this.bmp_enable.node.active=false;
-                if(HQMJMahjongDef.gBackMahjongValue != card){
-                    
-                    this.showSelfDaoPai(_hqmj);                                 
-
-                    this.bmp_cardcolor.node.active = true;
-                    this.bmp_cardback.node.active = true;
-                }else{
-                    //url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_backcard_self_1280`;
-                    // this.bmp_cardback.spriteFrame=_hqmj.getMahjong3DPaiBeiRes("hand_self_1");
-                    //SetTextureRes(url,this.bmp_cardback);
-                    //this._bmp_cardback.texture = <egret.Texture>RES.getRes(switchResName("xzmj_backcard_self_png"));
-                    this.bmp_enable.node.active=false;
-                    this.showSelfDaoPai(_hqmj);
-                    this.bmp_cardback.node.active = true;
-                    this.bmp_cardcolor.node.active=false;
-                }               
-            }else{
-                this.bmp_cardback.spriteFrame=_hqmj.getMahjong3DPaiBeiRes("hand_self_1");
+                url=`gameres/gameCommonRes/Texture/Mahjong/PaiBei3/pb3_active_self_1280`;
+                this.bmp_cardback.spriteFrame=_hqmj.getMahjongPaiBeiRes("shoupai2@2x");
                 this.bmp_cardcolor.spriteFrame=_hqmj.getMahjongPaiHuaRes(card);
-            
-                // this.bmp_cardcolor.node.y=-11.5;//15;
-
-                // this.bmp_cardcolor.node.skewX = 0;
-                // this.bmp_cardcolor.node.skewY = 0;
-
+                this.bmp_cardback.node.width=92;
+                this.bmp_cardback.node.height=132;
+                this.bmp_cardback.node.scaleX=1;
+                this.bmp_cardback.node.scaleY=1;
+                this.bmp_cardcolor.node.y=-9;//15;
+                this.bmp_cardcolor.node.scaleX = 1;
+                this.bmp_cardcolor.node.scaleY = 1;
+                this.bmp_cardcolor.node.skewX = 0;
+                this.bmp_cardcolor.node.skewY = 0;
                 this.bmp_cardcolor.node.active = true;
                 this.bmp_cardback.node.active = true;
             }
+        }else{//3D
+            // if(isLie){
+            //     this.bmp_cardback.spriteFrame=_hqmj.getMahjong3DPaiBeiRes("hand_self_1");
+            //     this.bmp_cardback.node.scaleX=1.2;
+            //     this.bmp_cardback.node.scaleY=1.2;
+            //     this.bmp_cardcolor.node.x=0;
+            //     this.bmp_cardcolor.node.y=-3.5;
+            //     this.bmp_cardcolor.node.scaleX=0.6;
+            //     this.bmp_cardcolor.node.scaleY=0.6;
+            //     this.bmp_cardcolor.spriteFrame=_hqmj.getMahjongPaiHuaRes(card);
+            //     this.bmp_cardcolor.node.active = true;
+            //     this.bmp_cardback.node.active = true;
+            // }else{
+                this.bmp_cardback.spriteFrame=_hqmj.getMahjong3DPaiBeiRes("hand_self_1");
+                this.bmp_cardback.node.scaleX=1.2;
+                this.bmp_cardback.node.scaleY=1.2;
+                this.bmp_cardcolor.node.x=0.5;
+                this.bmp_cardcolor.node.y=-4;
+                this.bmp_cardcolor.node.scaleX=0.6;
+                this.bmp_cardcolor.node.scaleY=0.6;
+                this.bmp_cardcolor.spriteFrame=_hqmj.getMahjongPaiHuaRes(card);
+                this.bmp_cardcolor.node.active = true;
+                this.bmp_cardback.node.active = true;
+            // }
         }
-        
         this.node.active=true;
     }
 

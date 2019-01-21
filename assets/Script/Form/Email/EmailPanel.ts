@@ -20,23 +20,21 @@ export default class EmailPanel extends UIBase<any> {
     @property(cc.Node)
     private EmailItemContent : cc.Node = null;
 
+    private EmailList = null;
+
     /**
      * 没有邮件提示文字
      */
     @property(cc.Label)
     lab_tip: cc.Label = null;
 
-    onLoad () {
-        this.UiManager.ShowLoading("正在获取邮件列表");
-        const data = WebRequest.DefaultData();
-        data.Add("count", 10);
-        const action = new ActionNet(this, this.success, this.error);
-        WebRequest.email.EmailList(action, data);
-    }
-
-    public InitShow() {
-        if (cc.isValid(this.lab_tip)) {
-            this.lab_tip.node.active = false;
+    InitShow() {
+        if(this.EmailList == null){
+            this.UiManager.ShowLoading("正在获取邮件列表");
+            const data = WebRequest.DefaultData();
+            data.Add("count", 10);
+            const action = new ActionNet(this, this.success, this.error);
+            WebRequest.email.EmailList(action, data);
         }
     }
 
@@ -46,15 +44,20 @@ export default class EmailPanel extends UIBase<any> {
     private success(json){
         this.UiManager.CloseLoading();
 
-        if (0 == json.data.length && cc.isValid(this.lab_tip)) {
+        if (json.data.length == 0 || json == null || json.data == null) {
             this.lab_tip.node.active = true;
+            return;
+        }else{
+            this.lab_tip.node.active = false;
         }
         
-        for (let index = 0; index < json.data.length; index++) {
+        this.EmailList = json.data;
+
+        for (let index = 0; index < this.EmailList.length; index++) {
             let email_item = cc.instantiate(this.EmailItemPer);
             let EmailItemPanel:EmailItemPanel = email_item.getComponent("EmailItemPanel");
             if(cc.isValid(EmailItemPanel)){
-                EmailItemPanel.InitData(json.data[index]);
+                EmailItemPanel.InitData(this.EmailList[index]);
             }
 
             this.EmailItemContent.addChild(email_item);
